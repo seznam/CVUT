@@ -1,6 +1,7 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu+Mono:400,700&subset=latin,latin-ext);
 
 body {
+	margin: 0;
 	font-size: 150%;
 	font-family: ubuntu, sans-serif;
 }
@@ -10,6 +11,8 @@ footer:after {
 	content: url("cvut.png");
 	position: absolute;
 	right: 20px;
+	padding-left:10px;
+	padding-right:10px;
 }
 footer {
 	background-color: #0063A8;
