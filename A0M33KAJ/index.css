@@ -35,6 +35,6 @@ body section:first-of-type h1:first-of-type {
 }
 
 section > * {
-	padding: 1em
+	padding-left: 1em;
 }
 
