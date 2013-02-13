@@ -1,0 +1,138 @@
+html, body {
+	counter-reset: slide;
+}
+
+thead td {
+	font-weight: bold;
+}
+
+table {
+	border-collapse: collapse;
+}
+
+h1 {
+	display: none;
+}
+
+.slide {
+	counter-increment: slide;
+}
+
+.slide:first-of-type {
+	counter-increment: none;
+}
+
+@media screen {
+	html, body {
+		margin: 0px;
+		height: 100%;
+		width: 100%;
+		overflow: hidden;
+	}
+	
+	.slide {
+		position: absolute;
+		width: 100%;
+		height: 100%;
+		overflow: hidden;
+
+		transform: translate(0, 0);
+		-o-transform: translate(0, 0);
+		-ms-transform: translate(0, 0);
+		-moz-transform: translate(0, 0);
+		-webkit-transform: translate(0, 0);
+
+		transition: transform 500ms;
+		-o-transition: -o-transform 500ms;
+		-ms-transition: -ms-transform 500ms;
+		-moz-transition: -moz-transform 500ms;
+		-webkit-transition: -webkit-transform 500ms;
+	}
+
+	.slide.before {
+		transform: translate(-100%, 0);
+		-o-transform: translate(-100%, 0);
+		-ms-transform: translate(-100%, 0);
+		-moz-transform: translate(-100%, 0);
+		-webkit-transform: translate(-100%, 0);
+	}
+
+	.slide.after {
+		transform: translate(100%, 0);
+		-o-transform: translate(100%, 0);
+		-ms-transform: translate(100%, 0);
+		-moz-transform: translate(100%, 0);
+		-webkit-transform: translate(100%, 0);
+	}
+
+	.overview footer {
+		display: none;
+	}
+
+	.overview .slide {
+		cursor: pointer;
+	}
+	
+	#help {
+		left: 50%;
+		top: 50%;
+		position: fixed;
+		transform: translate(-50%, -50%);
+		-o-transform: translate(-50%, -50%);
+		-ms-transform: translate(-50%, -50%);
+		-moz-transform: translate(-50%, -50%);
+		-webkit-transform: translate(-50%, -50%);
+		color: white;
+		text-shadow: 0px 1px 1px black;
+		background-color: rgba(100, 100, 100, 0.9);
+		border-radius: 20px;
+		padding: 1em;
+	}
+	
+	#help h2 {
+		font-size: 120%;
+		text-align: center;
+	}
+
+	#help p {
+		text-align: center;
+	}
+	
+	#help a {
+		color: white;
+	}
+	
+	#help table {
+		margin: 0 auto;
+	}
+	
+	#help td {
+		padding: 0.3em 1em;
+	}
+	
+	#help td:last-child {
+		text-align: right;
+		font-weight: bold;
+	}
+
+	#progress {
+		position: fixed;
+		left: 0px;
+		bottom: 0px;
+		-webkit-transition: width 500ms;
+		-moz-transition: width 500ms;
+		-ms-transition: width 500ms;
+		-o-transition: width 500ms;
+		transition: width 500ms;
+	}
+}
+
+@media print {
+	.slide {
+		page-break-after: always;
+	}
+	
+	footer, #progress {
+		display: none;
+	}
+}

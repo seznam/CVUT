@@ -1,0 +1,281 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../common/css/skin/cvut/skin.css" />
+		<script src="../common/js/oz.js" type="text/javascript"></script>
+		<script src="../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../common/syntax/syntax.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>Tvorba klientských aplikací v JavaScriptu</title>
+	<body>
+
+<h1>Tvorba klientských aplikací v JavaScriptu</h1>
+
+<section class="slide">
+	<h2>Tvorba klientských aplikací v JavaScriptu - cvičení</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>O cvičení</li>
+		<li>Opáčko HTML</li>
+		<li>Vytvoření dokumentu s použitím "standardních" HTML značek</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>Představení cvičení</h2>
+	<ul class="sections">
+		<li><a href="http://www.fel.cvut.cz/education/bk/predmety/25/99/p2599006.html">Moderní" webové technologie na klientu</a></li>
+		<li>HTML5, CSS3, Javascript</li>
+		<li>Klasifikovaný zápočet</li>
+		<li>Semestrální práce</li>
+		<li>Pracovní prostředí</li>
+		<li>Přednášky: RNDr. Ondřej Žára, Seznam.cz</li>
+		<li>Cvičení: Bc. Zdeněk Vlach, Seznam.cz</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Klasifikovaný zápočet</h2>
+	<ul class="sections">
+		<li>Docházka - povinná</li>
+		<li>Test  - 2 x max 10b.; min. 5b.</li>
+		<li>Semestrální práce - max 30b.; min. 15b.</li>
+		<li>Zápočet - min. 26b.; max. 2 neomluvené absence</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Semestrální práce</h2>
+	<ul class="sections">
+		<li>Semestrální práce - max 30b.; min. 15b.</li>
+		<li><a href="https://docs.google.com/spreadsheet/ccc?key=0AhqsjMGVS260dHV5VDZQWEo1QldyNmF6bHd2OW5ZZlE&usp=sharing" target="_blank">Hodnotící tabulka</a></li>
+		<li>Webová klientská aplikace využívající moderní technologie a postupy</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Pracovní prostředí</h2>
+	<ul class="sections">
+		<li>Moderní prohlížeč s ladícími nástroji:</li>
+		<li>Firefox, Google Chrome, Opera, IE 10</li>
+		<li>Firebug, intergrované nástroje prohlížečů</li>
+		<li>Textový editor:</li>
+		<li>jEdit, Eclipse, Sublime, PSPAD, notepad? :)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>XHTML dokument - cíl</h2>
+	<ul class="sections">
+		<li>Vytvořit statickou stránku - námět: článek zpravodajského serveru</li>
+		<li>Součásti:
+			<ul>
+				<li>Hlavička s logem</li>
+				<li>Menu s kategoriemi</li>
+				<li>Tělo článku</li>
+				<li>Informace o autorovi</li>
+				<li>Formulář pro zaslání příspěvku do diskuze k článku</li>
+				<li>Patička s informacemi o webu a copyright</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>XHTML dokument - základní struktura</h2>
+	<ul class="sections">
+		<li>
+			Kostra XHTML dokumentu:
+		</li>
+		<li>
+<pre data-syntax="xml">
+&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
+ &quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
+
+ &lt;html&gt;
+ 	&lt;head&gt;
+ 	&lt;/head&gt;
+
+ 	&lt;body&gt;
+ 	&lt;/body&gt;
+ &lt;/html&gt;
+</pre>
+	</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>XHTML dokument - hlavička</h2>
+	<ul class="sections">
+		<li>Co musí obsahovat tag HEAD?</li>
+		<li>
+<pre data-syntax="xml">
+&lt;head&gt;
+	&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+	&lt;title&gt;
+		Začal se vyučovat nový skvělý předmět o
+		moderních klientských aplikacích - Moje zprávy
+	&lt;/title&gt;
+&lt;/head&gt;
+</pre>
+		</li>
+		<li>Připojení kaskádových stylů</li>
+		<li>Připojení externích javascriptů</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>XHTML dokument - tělo</h2>
+	<ul class="sections">
+		<li>Co obsahuje tag BODY?</li>
+<li>
+<pre data-syntax="xml">
+&lt;body&gt;
+	moje výtvory, které uvidí celý svět :)&hellip;
+&lt;/body&gt;
+</pre>
+</li>
+</ul>
+</section>
+
+<section class="slide">
+	<h2>XHTML dokument - Struktura, která je viditelná</h2>
+	<ul class="sections">
+		<li>Hmm, jak by mohla vypadat struktura stránky?</li>
+<li>
+<pre data-syntax="xml">
+&lt;div id="header"&gt;&hellip;&lt;/div&gt;
+&lt;div id="menu"&gt;&hellip;&lt;/div&gt;
+&lt;div id="content"&gt;&hellip;&lt;/div&gt;
+&lt;div id="author"&gt;&hellip;&lt;/div&gt;
+&lt;div id="discForm"&gt;&hellip;&lt;/div&gt;
+&lt;div id="footer"&gt;&hellip;&lt;/div&gt;
+</li>
+</ul>
+</pre>
+</section>
+
+<section class="slide">
+	<h2>XHTML dokument - hlavička</h2>
+<ul class="sections">
+		<li>Obsahuje logo + název našeho serveru</li>
+<li>
+<pre data-syntax="xml">
+&lt;div id="header"&gt;
+	&lt;h2 id="service"&gt;
+		&lt;img src=&quot;/logo.jpg&quot; alt=&quot;&quot; /&gt;
+		Moje zprávy
+	&lt;/h2&gt;
+&lt;/div&gt;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>XHTML dokument - menu</h2>
+<ul class="sections">
+	<li>Obsahuje katerogie první úrovně a kategorie aktuálně otevřené kategorie</li>
+<li>
+<pre data-syntax="xml">
+&lt;div id="menu"&gt;
+	&lt;ul&gt;&lt;li&gt;Domácí&lt;/li&gt;
+		&lt;li&gt;Věda a technika
+			&lt;ul&gt;&lt;li class=&quot;active&quot;&gt;Školy&lt;/li&gt;
+			&lt;/ul&gt;
+		&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/div&gt;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>XHTML dokument - tělo článku</h2>
+<ul class="sections">
+		<li>Nadpis, perex, text, obrázky, ostatní, &hellip;</li>
+<li>
+<pre data-syntax="xml">
+&lt;h1&gt;Začal se vyučovat&hellip;&lt;/h1&gt;
+&lt;p class=&quot;perex&quot;&gt;Bylo nebylo, ale spíš bylo&hellip;&lt;/p&gt;
+&lt;div class=&quot;text&quot;&gt;
+	&lt;p&gt;
+		&lt;img src=&quot;/podpora.jpg&quot;  alt=&quot;Podpora v UA&quot;/&gt;
+		Tak určitě, Javascript je parádní&hellip;
+	&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>XHTML dokument - o autorovi</h2>
+<ul class="sections">
+		<li>Jméno, o autorovi, adresa</li>
+<li>
+<pre data-syntax="xml">
+&lt;div id="author"&gt;
+	&lt;p class=&quot;author&quot;&gt;Kaskadin Javascriptovič&lt;/p&gt;
+	&lt;p class=&quot;about&quot;&gt;Narodil se ve městě&hellip;&lt;/p&gt;
+	&lt;p class=&quot;address&quot;&gt;Někde 321, 123 02 Městov&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>XHTML dokument - formulář</h2>
+<ul class="sections">
+		<li>Jméno, datum, email, text, tlačítka</li>
+<li>
+<pre data-syntax="xml">
+&lt;div id="discForm"&gt;
+	&lt;form action=&quot;/send&quot; method=&quot;post&quot;&gt;
+		&lt;label&gt;Jméno: &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;&lt;/label&gt;
+		&lt;label&gt;Datum: &lt;input type=&quot;text&quot; name=&quot;date&quot; /&gt;&lt;/label&gt;
+		&lt;label&gt;E-mail: &lt;input type=&quot;text&quot; name=&quot;email&quot; /&gt;&lt;/label&gt;
+		&lt;label&gt;Text: &lt;textarea name=&quot;text&quot;&gt; &lt;/textarea&gt;&lt;/label&gt;
+		&lt;input type=&quot;submit&quot; value=&quot;Přidat příspěvek&quot; /&gt;
+	&lt;/form&gt;
+&lt;/div&gt;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>XHTML dokument - patička</h2>
+<ul class="sections">
+		<li>Údaje o serveru, odkazy, &hellip;</li>
+<li>
+<pre data-syntax="xml">
+&lt;div id="footer"&gt;
+	&lt;p&gt;
+		&amp; copy; 2013 Můj desing
+		&lt;a href=&quot;/about.html&quot;&gt;O firmě&lt;/a&gt;
+		&lt;a href=&quot;/contact.html&quot;&gt;Kontakt&lt;/a&gt;
+	&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Prostor pro otázky</h2>
+</section>
+
+<footer>
+	<a href="mailto:ondrej.zara@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>
