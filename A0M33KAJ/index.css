@@ -34,7 +34,11 @@ body section:first-of-type h1:first-of-type {
 	padding: 0.3em 1.25em;
 }
 
+section h2 {
+	font-size:130%;
+}
+
 section > * {
-	padding-left: 1em;
+	margin-left: 1em;
 }
 
