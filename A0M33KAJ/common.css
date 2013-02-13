@@ -1,0 +1,32 @@
+@import url(http://fonts.googleapis.com/css?family=Ubuntu:400,700|Ubuntu+Mono:400,700&subset=latin,latin-ext);
+
+body {
+	font-size: 150%;
+	font-family: ubuntu, sans-serif;
+}
+
+footer:after {
+	bottom: 45px;
+	content: url("cvut.png");
+	position: absolute;
+	right: 20px;
+}
+footer {
+	background-color: #0063A8;
+	bottom: 0;
+	color: white;
+	font-size: 80%;
+	left: 0;
+	line-height: 45px;
+	position: fixed;
+	width: 100%;
+}
+
+
+body section:first-of-type h1:first-of-type {
+	background-color: #231F20;
+	color: #FFFFFF;
+	font-size: 160%;
+	margin: 0 0 0.65em;
+	padding: 0.3em 1.25em;
+}
