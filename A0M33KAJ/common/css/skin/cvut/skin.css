@@ -39,6 +39,10 @@ td, th {
 	padding: 0.2em 0.4em;
 }
 
+#help td {
+	border: none;
+}
+
 @media screen {
 	pre {
 		background-color: #e0e0e0;
