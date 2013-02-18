@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+ <html>
+ 	<head>
+ 		<meta charset="utf-8" />
+		<title>
+			Začal se vyučovat nový skvělý předmět o
+			moderních klientských aplikacích - Moje zprávy
+		</title>
+ 	</head>
+
+ 	<body>
+
+ 	<header>
+	<h2 id="service">
+		<img src="/logo.jpg" alt="" />
+		Moje zprávy
+	</h2>
+</header>
+<nav>
+	<h2>Menu</h2>
+	<ul><li>Domácí</li>
+		<li>Věda a technika
+			<ul><li class="active">Školy</li>
+			</ul>
+		</li>
+	</ul>
+</nav>
+
+
+	<div role="main">
+
+		<article>
+			<h1>Začal se vyučovat&hellip;</h1>
+			<p class="perex">Bylo nebylo, ale spíš bylo&hellip;</p>
+			<div class="text">
+				<p>
+					<figure>
+						<img src="/podpora.jpg"  alt="Podpora v UA"/>
+					</figure>
+					Tak určitě, Javascript je parádní&hellip;
+
+					<audio id="zvuk" controls>
+						<source src="sound.ogg" type="audio/ogg" />
+						<source ="sound.mp3" type="audio/mpeg" />
+						Ani jedno neumíš? Tak to máš smůlu :) ...
+					</audio>
+
+					<script type="text/javascript">
+						var v = document.createElement('video');
+						v.setAttribute('controls','controls');
+						document.body.insertBefore(v, document.body.firstChild);
+						if (v.canPlayType('video/webm'))
+							v.src = 'http://r2---sn-2gb7ln7s.c.youtube.com/videoplayback?key=yt1&id=a356cc00ee96810b&cp=U0hVRlJLTl9FT0NONV9KRVJCOlIzLVc0ZndLM3Fk&ipbits=48&upn=jLpiU6qh9mY&itag=43&ms=au&fexp=930901%2C920704%2C912806%2C902000%2C922403%2C922405%2C929901%2C913605%2C925006%2C931202%2C908529%2C920201%2C911116%2C910221%2C901451%2C919114&mv=m&source=youtube&ratebypass=yes&mt=1361176991&ip=2a02%3A598%3A7000%3A102%3Addb6%3A728c%3Aa5f1%3A4984&newshard=yes&expire=1361200105&sver=3&sparams=cp%2Cid%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&cpn=hAv76DxuMaQtv7P3&signature=1169D928A412C50142ED83B78746AC129EBC5C33.967D374E9543CD3E6510FAAAE823A305183AF626';
+						var playButton = document.createElement('div');
+						document.body.insertBefore(playButton, document.body.firstChild);
+						playButton.innerHTML = 'play';
+						playButton.addEventListener('click', playpause, false);
+
+						function playpause (e) {
+							if (v.paused)
+								v.play();
+							else
+								v.pause();
+}
+					</script>
+					<aside>
+						<h4>Info k JS</h4>
+						<p>JS je skriptovací jazyk</p>
+					</aside>
+				</p>
+			</div>
+		</article>
+	</div>
+
+	<div role="complementary">
+		<h3>Autor</h3>
+		<div id="author">
+			<p class="author">Kaskadin Javascriptovič</p>
+			<p class="about">Narodil se ve městě...</p>
+			<p class="address">Někde 321, 123 02 Městov</p>
+		</div>
+		<div role="form">
+			<form action="/send" method="post">
+				<label>Jméno: <input type="text" name="name" placeholder="Zde napiš své jméno" required="required" /></label>
+				 <label>Datum: <input type="date" name="date" /></label>
+				<label>E-mail: <input type="email" name="email" required="required"  /></label>
+				<label>E-mail: <input type="text" name="email" required="required" pattern="^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$"  /></label>
+				<label>Text: <textarea name="text"> </textarea></label>
+				<input type="submit" value="Přidat příspěvek" />
+			</form>
+		</div>
+	</div>
+	<footer>
+
+	</footer>
+
+
+
+ 	</body>
+ </html>

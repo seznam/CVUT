@@ -1,0 +1,365 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="../../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>Tvorba klientských aplikací v JavaScriptu</title>
+	<body>
+
+<h1>Tvorba klientských aplikací v JavaScriptu</h1>
+
+<section class="slide">
+	<h2>Cross-browser, nové HTML značky, Audio a Video - cvičení</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>Informace o podkladech k cvičení</li>
+		<li>Crossbrowser</li>
+		<li>Převod XHTML na HTML 5</li>
+		<li>Audio - tagy, formáty</li>
+		<li>Video - JS API</li>
+		<li>Ladění chyb - Firebug, Chrome debugging tool</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>Informace</h2>
+	<ul class="sections">
+		<li><a href="http://cvut.seznam.cz/A0M33KAJ/">http://cvut.seznam.cz/A0M33KAJ/</a></li>
+		<li>Po každém cvičení se zde objeví prezentace</li>
+		<li>A nebo další informace</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Crossbrowser</h2>
+	<ul class="sections">
+		<li>Zajištění funkčnosti na všech platformách</li>
+		<li>Nebo zajištění správného "selhání" aplikace</li>
+		<li><a href="http://http://caniuse.com/">http://http://caniuse.com/</a></li>
+		<li><a href="https://developer.mozilla.org">https://developer.mozilla.org</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Crossbrowser - detekce vlastností</h2>
+	<ul class="sections">
+		<li><em>Úkol I:</em> Detekujte podporu geolokace v prohlížeči a případně vypište souřadnice</li>
+		<li><em>Úkol II:</em> Detekujte podporu INPUT type data v prohlížeči</li>
+		<li>
+<pre data-syntax="js">
+function showPosition(position) { alert("[" + position.coords.latitude + " ; " + position.coords.longitude + "]"); }
+
+if ("geolocation" in navigator) { navigator.geolocation.getCurrentPosition(showPosition); }
+else { alert("Váš browser nepodporuje geolokaci"); }
+</pre>
+</li>
+<li>
+<pre data-syntax="js">
+function supportType(value) {
+	var i = document.createElement("input");
+	i.setAttribute("type", value);
+	return i.type !== "text";
+}
+</pre>
+</li>
+<li><a href="http://diveintohtml5.info/detect.html">http://diveintohtml5.info/detect.html</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Crossbrowser - doplnění chybějící funkcionality</h2>
+	<ul class="sections">
+		<li>Nelze vždy na 100%</li>
+		<li><em>Úkol:</em> Doplňte do objektu Date funkci <strong>now ()</strong> vracející aktuální timestamp</li>
+		<li>
+<pre data-syntax="js">
+if (!Date.now) {
+/**
+ * aktuální timestamp dle ES5 - http://dailyjs.com/2010/01/07/ecmascript5-date/
+ */
+Date.now = function() { return +(new Date); }
+}
+</pre>
+</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>HTML5 dokument - značky</h2>
+	<ul class="sections">
+		<li>Využijeme tagy:
+		SECTION, HEADER, FOOTER, ASIDE, NAV, FIGURE
+		</li>
+		<li>
+		Využijeme atribut:
+		role
+		</li>
+
+</section>
+
+<section class="slide">
+	<h2>HTML5 dokument - základní struktura</h2>
+	<ul class="sections">
+		<li>
+			Kostra HTML5 dokumentu:
+		</li>
+		<li><a href="http://www.zdrojak.cz/clanky/pristupnost-html5-strukturovani-obsahu/">HTML5 a přístupnost</a></li>
+		<li><a href="http://www.zdrojak.cz/clanky/vyhnete-se-nejobvyklejsim-chybam-v-html5/">HTML5 vyhněte se chybám</a></li>
+		<li>
+<pre data-syntax="xml">
+&lt;!DOCTYPE html&gt;
+ &lt;html&gt;
+ 	&lt;head&gt;
+ 	&lt;/head&gt;
+
+ 	&lt;body&gt;
+ 	&lt;/body&gt;
+ &lt;/html&gt;
+</pre>
+	</li>
+	</ul>
+</section>
+
+
+<section class="slide">
+	<h2>HTML5 dokument - hlavička</h2>
+	<ul class="sections">
+		<li>Co musí obsahovat tag HEAD?</li>
+		<li>
+<pre data-syntax="xml">
+&lt;head&gt;
+	&lt;meta charset="utf-8" /&gt;
+	&lt;title&gt;
+		Začal se vyučovat nový skvělý předmět o
+		moderních klientských aplikacích - Moje zprávy
+	&lt;/title&gt;
+&lt;/head&gt;
+</pre>
+		</li>
+		<li>Připojení kaskádových stylů</li>
+		<li>Připojení externích javascriptů</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>XHTML dokument - Struktura, která je viditelná</h2>
+	<ul class="sections">
+		<li>Hmm, jak by mohla vypadat struktura stránky?</li>
+<li>
+<pre data-syntax="xml">
+&lt;header&gt;&hellip;&lt;/header&gt;
+&lt;nav&gt;&hellip;&lt;/nav&gt;
+&lt;div role=&quot;main&quot;&gt;
+	&lt;article&gt;&hellip;&lt;/article&gt;
+	&lt;div role=&quot;complementary&quot;&gt;
+		&lt;!-- Autor --&gt;
+		&lt;div role="form"&gt;&hellip;&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+&lt;footer&gt;&hellip;&lt;/footer&gt;
+</li>
+<li>Nepoužívejte zbytečně SECTION (označuje sémanticky samostatný celek)</li>
+</ul>
+</pre>
+</section>
+
+<section class="slide">
+	<h2>HTML5 dokument - hlavička</h2>
+<ul class="sections">
+		<li>Obsahuje logo + název našeho serveru</li>
+<li>
+<pre data-syntax="xml">
+&lt;header&gt;
+	&lt;h2 id="service"&gt;
+		&lt;img src=&quot;/logo.jpg&quot; alt=&quot;&quot; /&gt;
+		Moje zprávy
+	&lt;/h2&gt;
+&lt;/header&gt;
+</pre>
+</li>
+<li>Pozor nepoužívat zbytečně HGROUP a HEADER společně!</li>
+</ul>
+</section>
+
+<section class="slide">
+	<h2>HTML5 dokument - menu</h2>
+<ul class="sections">
+	<li>Obsahuje katerogie první úrovně a kategorie aktuálně otevřené kategorie</li>
+<li>
+<pre data-syntax="xml">
+&lt;nav&gt;
+	&lt;h3&gt;Menu&lt;/h3&gt;
+	&lt;ul&gt;&lt;li&gt;Domácí&lt;/li&gt;
+		&lt;li&gt;Věda a technika
+			&lt;ul&gt;&lt;li class=&quot;active&quot;&gt;Školy&lt;/li&gt;
+			&lt;/ul&gt;
+		&lt;/li&gt;
+	&lt;/ul&gt;
+&lt;/nav&gt;
+</pre>
+</li>
+<li>Pozor nepoužívat pro všechna menu, ale jen pro hlavní!</li>
+</ul>
+</section>
+
+<section class="slide">
+	<h2>HTML5 dokument - tělo článku</h2>
+<ul class="sections">
+		<li>Nadpis, perex, text, obrázky, ostatní, &hellip;</li>
+<li>
+<pre data-syntax="xml">
+&lt;article&gt;
+&lt;h1&gt;Začal se vyučovat&hellip;&lt;/h1&gt;
+&lt;p class=&quot;perex&quot;&gt;Bylo nebylo, ale spíš bylo&hellip;&lt;/p&gt;
+&lt;div class=&quot;text&quot;&gt;
+	&lt;p&gt;
+		&lt;figure&gt;
+			&lt;img src=&quot;/podpora.jpg&quot;  alt=&quot;Podpora v UA&quot;/&gt;
+		&lt;/figure&gt;
+		Tak určitě, Javascript je parádní&hellip;
+	&lt;/p&gt;
+	&lt;aside&gt;
+		&lt;h4&gt;Info k JS&lt;/h4&gt;
+		&lt;p&gt;JS je skriptovací jazyk&lt;/p&gt;
+	&lt;/aside&gt;
+&lt;/div&gt;
+&lt;/article&gt;
+</pre>
+</li>
+</ul>
+</section>
+
+<section class="slide">
+	<h2>HTML5 dokument - o autorovi</h2>
+<ul class="sections">
+		<li>Jméno, o autorovi, adresa</li>
+<li>
+<pre data-syntax="xml">
+&lt;div id="author"&gt;
+	&lt;p class=&quot;author&quot;&gt;Kaskadin Javascriptovič&lt;/p&gt;
+	&lt;p class=&quot;about&quot;&gt;Narodil se ve městě...&lt;/p&gt;
+	&lt;p class=&quot;address&quot;&gt;Někde 321, 123 02 Městov&lt;/p&gt;
+&lt;/div&gt;
+</pre>
+</li>
+</ul>
+</section>
+
+<section class="slide">
+	<h2>HTML5 dokument - formulář - nové formulářové prvky</h2>
+<ul class="sections">
+		<li>Jméno, datum, email, text, tlačítka</li>
+		<li>Obohaťte formulář o prvky: range (věk), datum, výběr barvy, předdefinovaný seznam jmen, email validaci</li>
+<li>
+<pre data-syntax="xml">
+&lt;div role=&quot;form&quot;&gt;
+	&lt;form action=&quot;/send&quot; method=&quot;post&quot;&gt;
+		&lt;label&gt;Jméno: &lt;input type=&quot;text&quot; name=&quot;name&quot; placeholder=&quot;Zde napiš své jméno&quot;  /&gt;&lt;/label&gt;
+		&lt;label&gt;Datum: &lt;input type=&quot;date&quot; name=&quot;date&quot; /&gt;&lt;/label&gt;
+		&lt;label&gt;E-mail: &lt;input type=&quot;text&quot; name=&quot;email&quot; required pattern=&quot;^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$&quot; /&gt;&lt;/label&gt;
+		&lt;label&gt;E-mail: &lt;input type=&quot;email&quot; name=&quot;email&quot; required /&gt;&lt;/label&gt;
+
+		&lt;label&gt;Text: &lt;textarea name=&quot;text&quot;&gt; &lt;/textarea&gt;&lt;/label&gt;
+		&lt;input type=&quot;submit&quot; value=&quot;Přidat příspěvek&quot; /&gt;
+	&lt;/form&gt;
+&lt;/div&gt;
+</pre>
+</li>
+</ul>
+</section>
+
+<section class="slide">
+	<h2>HTML5 dokument - patička</h2>
+<ul class="sections">
+		<li>Údaje o serveru, odkazy, &hellip;</li>
+<li>
+<pre data-syntax="xml">
+&lt;footer&gt;
+	&lt;p&gt;
+		&amp; copy; 2013 Můj desing
+		&lt;a href=&quot;/about.html&quot;&gt;O firmě&lt;/&gt;
+		&lt;a href=&quot;/contact.html&quot;&gt;Kontakt&lt;/&gt;
+	&lt;/p&gt;
+&lt;/footer&gt;
+</pre>
+</li>
+</ul>
+</section>
+
+
+<section class="slide">
+	<h2>HTML5 Audio a Video</h2>
+<ul class="sections">
+		<li>Vyzkoušejte si implementaci Audio a Video prvku do stránky</li>
+		<li>Co budete muset řešit?</li>
+<li>
+<pre data-syntax="xml">
+&lt;audio id=&quot;zvuk&quot; controls&gt;
+	&lt;source src="sound.ogg" type="audio/ogg" /&gt;
+	&lt;source src="sound.mp3" type="audio/mpeg" /&gt;
+	Ani jedno neumíš? Tak to máš smůlu :) ...
+&lt;/audio&gt;
+</pre>
+</li>
+<li>Pro zvuk: Ogg, Mp3</li>
+<li>Pro video: H.264, WebM</li>
+</ul>
+</section>
+
+<section class="slide">
+	<h2>HTML5 Audio a Video - JS API</h2>
+<ul class="sections">
+<li>Napište vlastní ovládací prvek pro spuštění a zastavení zvuku/filmu, video vytvořte pomocí JS</li>
+<li>
+<pre data-syntax="js">
+var v = document.createElement('video');
+document.body.insertBefore(v, document.body.firstChild);
+if (v.canPlayType('video/webm'))
+	v.src = 'video.webm';
+var playButton = document.createElement('div');
+playButton.innerHTML = 'play';
+document.body.insertBefore(playButton, document.body.firstChild);
+playButton.addEventListener('click', playpause, false);
+
+function playpause (e) {
+	if (v.paused)
+		v.play();
+	else
+		v.pause();
+}
+</pre>
+</li>
+</ul>
+</section>
+
+
+<section class="slide">
+	<h2>Prostor pro otázky</h2>
+</section>
+
+<footer>
+	<a href="mailto:ondrej.zara@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>
