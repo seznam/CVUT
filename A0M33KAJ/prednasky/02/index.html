@@ -1,0 +1,326 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="../../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>Cross-browser, nové HTML značky</title>
+	<body>
+		
+<h1>Cross-browser, nové HTML značky</h1>
+
+<section class="slide">
+	<h2>Cross-browser, nové HTML značky</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Good news, everyone!</h2>
+	<p>
+		<img src="img/Farnsworth.png" style="float:right" />
+		Stránky předmětu na <a href="http://cvut.seznam.cz/">cvut.seznam.cz</a>
+	</p>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>Webové prohlížeče: každý pes, jiná ves</li>
+		<li>HTML5 audio a video</li>
+		<li>Sémantické značky</li>
+		<li>Formulářové prvky</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>Webové prohlížeče</h2>
+	<table>
+		<thead>
+			<tr>
+				<td>Jméno</td><td>Verze</td><td>Renderer</td><td>JavaScript</td><td>Poznámka</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Mozilla Firefox</td><td>18</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
+			</tr>
+			<tr>
+				<td>Google Chrome</td><td>25</td><td>WebKit</td><td>V8</td><td></td>
+			</tr>
+			<tr>
+				<td>Apple Safari</td><td>6</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
+			</tr>
+			<tr>
+				<td>Microsoft Internet Explorer</td><td>10</td><td>Trident</td><td>Chakra</td><td>Zajímavý až od verze 9</td>
+			</tr>
+			<tr>
+				<td>Opera</td><td>12</td><td>Presto</td><td>Carakan</td><td>Nově bude WebKit + V8</td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<section class="slide">
+	<h2>Webové prohlížeče: mobilní</h2>
+	<ul class="sections">
+		<li>Apple Mobile Safari (iOS)</li>
+		<li>Android Browser (Android)</li>
+		<li>Opera Mobile (Android, Symbian, Windows Mobile)</li>
+		<li>Firefox for Android (Android)</li>
+		<li>Chrome for Android (Android, trošičku iOS)</li>
+		<li>Internet Explorer Mobile (Windows Mobile)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Webové prohlížeče: zpětná kompatibilita</h2>
+	<ul class="sections">
+		<li>Nutnost definovat podporovaný <em>feature set</em></li>
+		<li>Oříznout starý prohlížeč znamená připravit se o uživatele</li>
+		<li>Oříznout starý prohlížeč znamená motivovat k upgrade</li>
+		<li>Časté aktualizace = snazší rozhodování</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Webové prohlížeče: co kdo umí</h2>
+	<ul class="sections">
+		<li><a href="http://caniuse.com/">http://caniuse.com/</a>
+			<ul>
+				<li>Srovnávací tabulky</li>
+				<li>Odkazy na testy</li>
+			</ul>
+		</li>
+		<li><a href="https://developer.mozilla.org/cs/">Mozilla Developer Network</a>
+			<ul>
+				<li>Dokumentace</li>
+				<li>Ukázky</li>
+			</ul>
+		</li>
+		<li><a href="http://diveintohtml5.info/detect.html">Feature detection</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Volitelné nabízení pokročilých technologií</h2>
+	<ul class="sections">
+		<li><strong>Progressive enhancement:</strong> nabízet základní funkcionalitu a volitelně přidávat</li>
+		<li><strong>Graceful degradation:</strong> nabízet pokročilou funkcionalitu a v případě nouze couvnout</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Polyfill</h2>
+	<ul class="sections">
+		<li><strong>Polyfill:</strong> JavaScriptový kód, který je schopen doplnit chybějící funkcionalitu při zachování kompatibilního API</li>
+		<li><pre data-syntax="js">
+if (!("onhashchange" in window)) {
+	var oldHash = window.hash;
+	setTimeout(function() {
+		if (window.hash == oldHash) return;
+		oldHash = window.hash;
+		if (window.onhashchange) window.onhashchange();
+	}, 100);
+}
+</pre></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>HTML5 Audio</h2>
+	<ul class="sections">
+		<li>Vložení zvukového souboru do stránky</li>
+		<li>Ovládací prvky vyrábí prohlížeč (jsou-li požadovány)</li>
+		<li>Různé prohlížeče rozumí různým formátům zvukových souborů</li>
+		<li>Možnost specifikovat více formátů</li>
+		<li>Možnost zadat alternativní obsah pro nekompatibilní prohlížeče</li>
+	</ul>
+	<p class="section">
+		<audio controls>
+			<source src="sound.ogg" type="audio/ogg" />
+			<source src="sound.mp3" type="audio/mpeg" />
+			<source src="sound.wav" type="audio/wave" />
+			Smůla :-(
+		</audio>
+	</p>
+	<pre data-syntax="xml" class="section">&lt;audio controls&gt;
+	&lt;source src="sound.ogg" type="audio/ogg" /&gt;
+	&lt;source src="sound.mp3" type="audio/mpeg" /&gt;
+	&lt;source src="sound.wav" type="audio/wave" /&gt;
+	Smůla :-(
+&lt;/audio&gt;</pre>
+</section>
+
+<section class="slide">
+	<h2>HTML5 Audio: JavaScriptové API</h2>
+	<pre data-syntax="js" class="section">new Audio("song.mp3").play();</pre>
+	<pre data-syntax="js" class="section">var a = new Audio();
+a.canPlayType("audio/mpeg"); /* "", "maybe", "probably" */
+a.src = "song.mp3";
+a.addEventListener("timeupdate", function() { console.log(a.currentTime); }, false);
+a.play();</pre>
+	<div class="section">
+		<h3>Budoucí rozšíření</h3>
+		<ul>
+			<li>přístup k právě přehrávaným datům (vizualizace)</li>
+			<li>generování zvukového signálu</li>
+		</ul>
+	</div>
+</section>
+
+<section class="slide">
+	<h2>HTML5 Video</h2>
+	<ul class="sections">
+		<li>Vložení videa do stránky</li>
+		<li>Alternativa pro Flashové přehrávače</li>
+		<li>Syntaxe téměř shodná s audiem</li>
+		<li>Ještě výraznější problematika formátů</li>
+		<li>S výhodou použití <code class="syntax-xml">&lt;source media="..." /&gt;</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>HTML5 Video: ukázka</h2>
+	<pre data-syntax="xml">&lt;video controls poster="image.png"&gt;
+	&lt;source src="video-small.mp4" 
+		type="video/mp4; codecs='avc1.42E01E, mp4a.40.2'" 
+		media="screen and (max-width:500px)" 
+	/&gt;
+	&lt;source src="video.mp4" type="video/mp4; codecs='avc1.42E01E, mp4a.40.2'" /&gt;
+	&lt;source src="video.ogv" type="video/ogg; codecs='theora, vorbis'"/&gt;
+	&lt;source src="video.webm" type="video/webm; codecs='vp8, vorbis'" /&gt;
+	&lt;!-- embed flash jako fallback --&gt;
+&lt;/video&gt;</pre>
+</section>
+
+<section class="slide">
+	<h2>&lt;audio&gt; &lt;video&gt; formáty</h2>
+	<table>
+		<tr><th>Klient<th>WAVE<th>MP3<th>WebM<th>Ogg Vorbis / Theora<th>H264<th>AAC<th>Opus
+		<tr><td>Firefox 3.5+<td>&#10003;<td><td>&#10003;<td>&#10003;<td><td><td>
+		<tr><td>Firefox 15+<td>&#10003;<td><td>&#10003;<td>&#10003;<td><td><td>&#10003;
+		<tr><td>Chrome 9+<td><td>&#10003;<td>&#10003;<td>&#10003;<td>&#10003;<td><td>
+		<tr><td>Safari 3+<td><td>&#10003;<td><td><td>&#10003;<td>&#10003;<td>
+		<tr><td>Opera 10+<td><td><td>&#10003;<td>&#10003;<td><td><td>
+		<tr><td>IE 9<td>&#10003;<td>&#10003;<td>&#10003;<td><td>&#10003;<td>&#10003;<td>
+		<tr><td>iPhone / iPad<td><td>&#10003;<td><td><td>&#10003;<td>&#10003;<td>
+		<tr><td>Android<td><td>&#10003;<td>&#10003;<td><td>&#10003;<td><td>
+		<tr><td>Flash<td><td>&#10003;<td>&#10003;<td><td>&#10003;<td>&#10003;<td>
+	</table>
+</section>
+
+
+<section class="slide">
+	<h2>Nové sémantické HTML značky #1</h2>
+	<table><tbody>
+	<tr>
+		<td><code>&lt;section&gt;</code>, <code>&lt;article&gt;</code></td><td>sémantické označení částí stránky</td>
+	</tr>
+	<tr>
+		<td><code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code></td><td>hlavička a patička (stránky)</td>
+	</tr>
+	<tr>
+		<td><code>&lt;hgroup&gt;</code></td><td>sloučení navazujících nadpisů</td>
+	</tr>
+	<tr>
+		<td><code>&lt;nav&gt;</code></td><td>označení oblasti s navigací</td>
+	</tr>
+	<tr>
+		<td><code>&lt;aside&gt;</code></td><td>doplňkové informace (slovníček, reklama, &hellip;)</td>
+	</tr>
+	<tr>
+		<td><code>&lt;figure&gt;</code>, <code>&lt;figcaption&gt;</code></td><td>sloučení popisku s obrázkem (či obrázky)</td>
+	</tr>
+	<tr>
+		<td><code>&lt;time datetime="15:00"&gt;</code></td><td>označení časového údaje</td>
+	</tr>
+	</tbody></table>
+</section>
+
+<section class="slide">
+	<h2>Nové sémantické HTML značky #2</h2>
+	<pre data-syntax="xml">&lt;input type="text" list="browsers" /&gt; &lt;!-- "našeptávání" --&gt;
+&lt;datalist id="browsers"&gt;
+	&lt;option value="Internet Explorer" /&gt;
+	&lt;option value="Firefox" /&gt;
+	&lt;option value="Chrome" /&gt;
+&lt;/datalist&gt;</pre>
+	<p><img src="img/datalist.png" alt="datalist" /></p>
+
+	<pre data-syntax="xml">&lt;!-- hodnocení --&gt;
+&lt;meter min="0" max="100" low="50" high="90" optimum="100" value="70"&gt;dobře&lt;/meter&gt;</pre>
+	<p><img src="img/meter.png" alt="meter" /></p>
+</section>
+
+<section class="slide">
+	<h2>Nové sémantické HTML značky #3</h2>
+	<pre data-syntax="xml">&lt;progress&gt;...operace probíhá...&lt;/progress&gt; &lt;!-- ukazatele postupu --&gt;
+&lt;progress value="75" max="100"&gt;...skoro hotovo...&lt;/progress&gt;</pre>
+	<p><img src="img/progress.png" alt="progress" /></p>
+
+	<pre data-syntax="xml">&lt;menu type="toolbar"&gt; &lt;!-- lišta nástrojů --&gt;
+	&lt;li&gt;&lt;menu label="File" /&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;menu label="Edit"&gt;
+		&lt;button type="button"&gt;Copy&lt;/button&gt;
+		&lt;button type="button"&gt;Cut&lt;/button&gt;
+		&lt;button type="button"&gt;Paste&lt;/button&gt;
+	&lt;/menu&gt;&lt;/li&gt;
+	&lt;li&gt;&lt;menu label="Help" /&gt;&lt;/li&gt;
+&lt;/menu&gt;</pre>
+	<p><img src="img/toolbar.png" alt="menu" /></p>
+</section>
+
+<section class="slide">
+	<h2>Nové formulářové prvky</h2>
+	<p class="section"><a href="http://www.miketaylr.com/code/input-type-attr.html">Podpora v prohlížečích</a></p>
+	<pre class="section" data-syntax="xml">&lt;input type="text" autofocus /&gt;
+&lt;input type="date" min="2011-03-01" max="2011-03-31" value="2011-03-01" /&gt;
+&lt;input type="range" min="0" max="50" value="25" /&gt;
+&lt;input type="search" results="10" placeholder="Hledat..." /&gt;
+&lt;input type="text" pattern="[a-z]+" required /&gt;</pre>
+	<p class="section"><img src="img/inputs.png" alt="inputs" /></p>
+</section>
+
+<section class="slide">
+	<h2>Validace</h2>
+	<pre data-syntax="xml">&lt;input type="text" pattern="[a-z]{3,}" required title="Uživatelské jméno" /&gt;</pre>
+	<pre data-syntax="css">:required { border: 1px solid red; }</pre>
+	<p class="section">
+		<form><input type="text" pattern="[a-z]{3,}" required title="Uživatelské jméno" /><input type="submit" /></form>
+		<style>:required { border: 1px solid red; font-size:inherit; }</style>
+	</p>
+	<ul class="sections">
+		<li>Atribut <code>pattern</code> má smysl jen při atributu <code>required</code></li>
+		<li>Regulárnímu výrazu musí odpovídat obsah celého pole</li>
+		<li>Titulek se použije jako nápověda při nevyplnění</li>
+		<li>UI je <a href="img/required.jpg" target="_blank">v režii prohlížeče</a></li>
+		<li>CSS pseudotřídy <code>:required</code> a <code>:optional</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Prostor pro otázky</h2>
+</section>
+
+<footer>
+	<a href="http://twitter.com/0ndras">twitter.com/0ndras</a>
+	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>
