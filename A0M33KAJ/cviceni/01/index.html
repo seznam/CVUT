@@ -156,12 +156,13 @@
 		<li>Hmm, jak by mohla vypadat struktura stránky?</li>
 <li>
 <pre data-syntax="xml">
-&lt;div id="header"&gt;&hellip;&lt;/div&gt;
-&lt;div id="menu"&gt;&hellip;&lt;/div&gt;
-&lt;div id="content"&gt;&hellip;&lt;/div&gt;
-&lt;div id="author"&gt;&hellip;&lt;/div&gt;
-&lt;div id="discForm"&gt;&hellip;&lt;/div&gt;
-&lt;div id="footer"&gt;&hellip;&lt;/div&gt;
+&lt;div id="header"&gt;...&lt;/div&gt;
+&lt;div id="menu"&gt;...&lt;/div&gt;
+&lt;div id="content"&gt;
+	&lt;div id="author"&gt;...&lt;/div&gt;
+	&lt;div id="discForm"&gt;...&lt;/div&gt;
+&lt;/div&gt;
+&lt;div id="footer"&gt;...&lt;/div&gt;
 </li>
 </ul>
 </pre>
@@ -205,12 +206,12 @@
 		<li>Nadpis, perex, text, obrázky, ostatní, &hellip;</li>
 <li>
 <pre data-syntax="xml">
-&lt;h1&gt;Začal se vyučovat&hellip;&lt;/h1&gt;
-&lt;p class=&quot;perex&quot;&gt;Bylo nebylo, ale spíš bylo&hellip;&lt;/p&gt;
+&lt;h1&gt;Začal se vyučovat...&lt;/h1&gt;
+&lt;p class=&quot;perex&quot;&gt;Bylo nebylo, ale spíš bylo...&lt;/p&gt;
 &lt;div class=&quot;text&quot;&gt;
 	&lt;p&gt;
 		&lt;img src=&quot;/podpora.jpg&quot;  alt=&quot;Podpora v UA&quot;/&gt;
-		Tak určitě, Javascript je parádní&hellip;
+		Tak určitě, Javascript je parádní...
 	&lt;/p&gt;
 &lt;/div&gt;
 </pre>
@@ -224,7 +225,7 @@
 <pre data-syntax="xml">
 &lt;div id="author"&gt;
 	&lt;p class=&quot;author&quot;&gt;Kaskadin Javascriptovič&lt;/p&gt;
-	&lt;p class=&quot;about&quot;&gt;Narodil se ve městě&hellip;&lt;/p&gt;
+	&lt;p class=&quot;about&quot;&gt;Narodil se ve městě...&lt;/p&gt;
 	&lt;p class=&quot;address&quot;&gt;Někde 321, 123 02 Městov&lt;/p&gt;
 &lt;/div&gt;
 </pre>
@@ -236,7 +237,7 @@
 		<li>Jméno, datum, email, text, tlačítka</li>
 <li>
 <pre data-syntax="xml">
-&lt;div id="discForm"&gt;
+&lt;div id=&quot;discForm&quot;&gt;
 	&lt;form action=&quot;/send&quot; method=&quot;post&quot;&gt;
 		&lt;label&gt;Jméno: &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;&lt;/label&gt;
 		&lt;label&gt;Datum: &lt;input type=&quot;text&quot; name=&quot;date&quot; /&gt;&lt;/label&gt;
