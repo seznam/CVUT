@@ -1,0 +1,332 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="../../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>Microdata, SVG, AppCache</title>
+	<body>
+		
+<h1>Microdata, SVG, AppCache</h1>
+
+<section class="slide">
+	<h2>Microdata, SVG, AppCache</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Domácí úkol z minula</h2>
+	<pre data-syntax="xml">
+&lt;input required title="Uživatelské jméno" x-moz-errormessage="Smůla" /&gt;
+</pre>
+	<pre data-syntax="js">
+var input = document.querySelector("input");
+input.setCustomValidity("Chyba");
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>Microdata, microformáty, RDFa</li>
+		<li>Scalable Vector Graphics</li>
+		<li>AppCache + Offline</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>Sémantika &ndash; RDFa, mikroformáty, mikrodata</h2>
+	<p class="section">Různé techniky pro označování sémantických dat v HTML</p>
+	<pre class="section" data-syntax="xml">&lt;p&gt;
+	&lt;span&gt;Ondřej Žára&lt;/span&gt; 
+	&lt;span&gt;Seznam.cz&lt;/span&gt;
+	&lt;span&gt;Webmaster&lt;/span&gt;
+&lt;/p&gt;</pre>
+	<p class="section"><img src="img/snippet.png" alt="google snippet" /></p>
+</section>
+
+<section class="slide">
+	<h2>Sémantika &ndash; RDFa, mikroformáty, mikrodata</h2>
+	<pre data-syntax="xml">&lt;!-- RDFa --&gt;
+&lt;p xmlns:v="http://rdf.data-vocabulary.org/#" typeof="v:Person"&gt; 
+	&lt;span property="v:name"&gt;Ondřej Žára&lt;/span&gt; 
+	&lt;span property="v:affiliation"&gt;Seznam.cz&lt;/span&gt; 
+	&lt;span property="v:title"&gt;Webmaster&lt;/span&gt; 
+&lt;/p&gt;
+
+&lt;!-- Microformats --&gt;
+&lt;p class="vcard"&gt; 
+	&lt;span class="fn"&gt;Ondřej Žára&lt;/span&gt; 
+	&lt;span class="org"&gt;Seznam.cz&lt;/span&gt; 
+	&lt;span class="title"&gt;Webmaster&lt;/span&gt; 
+&lt;/p&gt;
+
+&lt;!-- Microdata --&gt;
+&lt;p itemscope itemtype="http://data-vocabulary.org/Person"&gt; 
+	&lt;span itemprop="name"&gt;Ondřej Žára&lt;/span&gt; 
+	&lt;span itemprop="affiliation"&gt;Seznam.cz&lt;/span&gt; 
+	&lt;span itemprop="role"&gt;Webmaster&lt;/span&gt; 
+&lt;/p&gt;</pre>
+</section>
+
+<section class="slide">
+	<h2>Microdata podrobněji</h2>
+	<ul class="sections">
+		<li>Atributy <code>item*</code> (zpravidla <code>itemscope</code>, <code>itemtype</code>, <code>itemprop</code>)</li>
+		<li>Validní v HTML5</li>
+		<li><a href="http://schema.org/">http://schema.org/</a> &ndash; kolekce <em>schémat</em> (sémantických typů)</li>
+		<li><a href="http://www.google.com/webmasters/tools/richsnippets">Rich Snippet Testing Tool</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Microdata &ndash; komplexní ukázka</h2>
+	<pre data-syntax="xml">
+&lt;section itemscope itemtype="http://schema.org/Person"&gt; 
+	Jmenuji se &lt;span itemprop="name"&gt;Josef K. Šmoula&lt;/span&gt;, 
+	a pracuji jako &lt;span itemprop="jobTitle"&gt;pomocný personál&lt;/span&gt; 
+	na &lt;span itemprop="affiliation"&gt;Univerzitě středního věku&lt;/span&gt;. 
+
+	Známí mne oslovují přezdívkou &lt;span itemprop="additionalName"&gt;Taťka Šmoula&lt;/span&gt;. 
+
+	Moje webová stránka je na adrese
+	&lt;a href="http://www.josefsmoula.com" itemprop="url"&gt;www.josefsmoula.com&lt;/a&gt;. 
+
+	&lt;section itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"&gt;
+		Moje adresa:
+		&lt;span itemprop="streetAddress"&gt;Radlická 10&lt;/span&gt;,
+		&lt;span itemprop="addressLocality"&gt;Praha&lt;/span&gt;,
+		&lt;span itemprop="addressCountry"&gt;Česká republika&lt;/span&gt;.
+	&lt;/section&gt;
+&lt;/section&gt;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>SVG</h2>
+	<ul class="sections">
+		<li><a target="_blank" href="clock/">Ukázka</a></li>
+		<li>Všechny prohlížeče krom IE&le;8</li>
+		<li>Prehistorický standard z roku 2001</li>
+		<li>VML pro IE&le;8</li>
+		<li>Rozšířený pro vektorovou grafiku</li>
+		<li>DOM, události, stylování</li>
+		<li>Horší výkon v porovnání s <code>&lt;canvas&gt;</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>SVG je dialekt XML</h2>
+	<pre data-syntax="xml">
+&lt;svg width="500" height="300" viewBox="0 0 100 100"&gt;
+	&lt;circle cx="20" cy="50" r="20" /&gt;
+	&lt;g transform="rotate(45) translate(30, -30)"&gt;
+		&lt;rect x="0" y="-10" width="30" height="30"/&gt;
+		&lt;text x="30" y="10"&gt;SVG&lt;/text&gt;
+	&lt;/g&gt;
+&lt;/svg&gt;
+	</pre>
+	<svg width="500" height="300" viewBox="0 0 100 100">
+		<circle cx="20" cy="50" r="20" />
+		<g transform="rotate(45) translate(30, -30)">
+			<rect x="0" y="-10" width="30" height="30"/>
+			<text x="30" y="10">SVG</text>
+		</g>
+	</svg>
+</section>
+
+<section class="slide">
+	<h2>Míchání HTML a SVG</h2>
+	<table><tbody>
+		<tr>
+			<td>HTML4</td>
+			<td><code class="syntax-xml">&lt;embed&gt;</code>, <code class="syntax-xml">&lt;object&gt;</code>, <code class="syntax-xml">&lt;iframe&gt;</code></td>
+		</tr>
+		<tr>
+			<td>XHTML (text/xml)</td>
+			<td><code class="syntax-xml">&lt;svg xmlns="http://www.w3.org/2000/svg"&gt;</code></td>
+		</tr>
+		<tr>
+			<td>HTML5</td>
+			<td>Dedikovaná značka <code class="syntax-xml">&lt;svg&gt;</code></td>
+		</tr>
+		<tr>
+			<td>JS</td>
+			<td><code class="syntax-js">document.createElementNS()</code></td>
+		</tr>
+	</tbody></table>
+</section>
+
+<section class="slide">
+	<h2>Stavební kameny SVG</h2>
+	<ul class="sections">
+		<li><code>&lt;svg&gt;</code>, <code>&lt;g&gt;</code> (group)</li>
+		<li><code>&lt;rect&gt;</code>, <code>&lt;circle&gt;</code>, <code>&lt;ellipse&gt;</code>, <code>&lt;line&gt;</code>, <code>&lt;polyline&gt;</code>, <code>&lt;polygon&gt;</code></li>
+		<li><code>&lt;path d="M100,200 C100,100 250,100 250,200"&gt;</code></li>
+		<li>Barevné přechody (gradient), vzory (pattern)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>SVG &lt;path&gt; detailněji</h2>
+	<ul class="sections">
+		<li><code>M x y</code> &ndash; posun na absolutní pozici</li>
+		<li><code>m dx dy</code> &ndash; posun o relativní pozici</li>
+		<li><code>L x y (l dx dy)</code> &ndash; rovná čára</li>
+		<li><code>Q x1 y1, x y</code> &ndash; kvadratická Bézierova křivka</li>
+		<li><code>C x1 y1, x2 y2, x y</code> &ndash; kubická Bézierova křivka</li>
+		<li><code>A rx ry x-axis-rotation <a href="img/arc.png" target="_blank">large-arc-flag sweep-flag</a> x y</code> &ndash; eliptická křivka</li>
+		<li><code>Z</code> &ndash; spojit se začátkem</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>SVG barevné přechody</h2>
+	<svg width="300" height="200" style="float:right">
+		<defs>
+			<linearGradient id="gradient">
+				<stop offset="0%" stop-color="red"/>
+				<stop offset="50%" stop-color="black"/>
+				<stop offset="100%" stop-color="blue"/>
+			</linearGradient>
+		</defs>
+		<rect fill="url(#gradient)" x="0" y="0" width="100%" height="100%" />
+	</svg>
+	<pre data-syntax="xml">
+&lt;defs&gt;
+	&lt;linearGradient id="gradient"&gt;
+		&lt;stop offset="0%" stop-color="red" /&gt;
+		&lt;stop offset="50%" stop-color="black" /&gt;
+		&lt;stop offset="100%" stop-color="blue" /&gt;
+	&lt;/linearGradient&gt;
+&lt;/defs&gt;
+&lt;rect fill="url(#gradient)" x="0" y="0" width="100%" height="100%" /&gt;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>SVG &lt;pattern&gt;</h2>
+	<svg width="300" height="200" style="float:right">
+		<defs>
+			<pattern id="pattern" width="0.25" height="0.333">
+				<circle cx="25" cy="25" r="20" fill="#00f">
+			</pattern>
+		</defs>
+		<rect fill="url(#pattern)" x="0" y="0" width="100%" height="100%" />
+	</svg>
+	<pre data-syntax="xml">
+&lt;defs&gt;
+	&lt;pattern id="pattern" width="0.25" height="0.333"&gt;
+		&lt;circle cx="25" cy="25" r="20" fill="#00f" /&gt;
+	&lt;/pattern&gt;
+&lt;/defs&gt;
+&lt;rect fill="url(#pattern)" x="0" y="0" width="100%" height="100%" /&gt;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Stylování SVG</h2>
+	<ul class="sections">
+		<li>Pomocí atributů (<code>stroke</code>, <code>color</code>, <code>opacity</code>, &hellip;)</li>
+		<li>Pomocí CSS</li>
+	</ul>
+	<pre data-syntax="css" class="section">circle {
+	fill: yellow; stroke: red;
+}
+rect {
+	fill: none; stroke: black;
+	stroke-width: 2;
+}
+text {
+	text-anchor: middle; font-size: 10px;
+}</section>
+
+<section class="slide">
+	<h2>SVG a JavaScript</h2>
+	<ul class="sections">
+		<li>Práce stejně jako s DOM stránky</li>
+		<li>Tvorba prvků přes <code data-syntax="js">document.createElementNS("http://www.w3.org/2000/svg", "...")</code></li>
+		<li>Změna hodnot pomocí <code>setAttribute</code></li>
+		<li>Běžná práce s událostmi pomocí <code>addEventListener</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>App Cache</h2>
+	<ul class="sections">
+		<li>Webová aplikace poskytuje tzv. <em>offline manifest</em>, výčet souborů pro použití offline
+			<pre data-syntax="xml">&lt;html manifest="mysite.manifest"&gt;</pre>
+		</li>
+		<li>Pokud je uživatel offline a pokusí se přistoupit na adresu webové aplikace, prohlížeč mu poskytne soubory definované v manifestu</li>
+		<li>Pokud je uživatel online a nezměnil se čas modifikace manifestu, opět se použije cachovaná verze</li>
+		<li>Při změně souborů (a manifestu) jsou data jen stažena a připravena na použití příště</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>App Cache Manifest</h2>
+	<pre data-syntax="shell">CACHE MANIFEST
+	
+# soubory určené k použití offline
+offline/index.html
+offline/style.css
+offline/code.js
+
+# tyto soubory se nikdy nesmí cachovat
+NETWORK
+remote.cgi
+
+# tyto soubory, pokud nedostupné, budou nahrazeny jinými
+FALLBACK
+images/large offline/sorry.jpg</pre>
+</section>
+
+
+<section class="slide">
+	<h2>Offline API</h2>
+	<p>Webová aplikace má k dispozici JS API, které informuje o stavu připojení.</p>
+	<ul class="sections">
+		<li><code data-syntax="js">navigator.onLine</code></li>
+		<li><code data-syntax="js">window.addEventListener("online", ...)</code></li>
+		<li><code data-syntax="js">window.addEventListener("offline", ...)</code></li>
+		<li><code data-syntax="js">applicationCache</code> &ndash; objekt popisující stav offline cache, též možnost explicitně cache obnovit</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>applicationCache API</h2>
+	<p>JS API pro práci s offline cache.</p>
+	<ul class="sections">
+		<li><code data-syntax="js">window.applicationCache</code> &ndash; objekt popisující stav offline cache, též možnost explicitně cache obnovit</li>
+		<li><code data-syntax="js">if (applicationCache.status == applicationCache.UPDATEREADY) { ... }</code></li>
+		<li><code data-syntax="js">applicationCache.update()</code> &ndash; pokyn ke kontrole novější verze (jako při reloadu)</li>
+		<li><code data-syntax="js">applicationCache.swapCache()</code> &ndash; přepnutí na aktuální verzi souborů (nutný reload)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Prostor pro otázky</h2>
+</section>
+
+<footer>
+	<a href="http://twitter.com/0ndras">twitter.com/0ndras</a>
+	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>

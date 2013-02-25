@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>SVG demo</title>
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="examples.js" type="text/javascript"></script>
+		<style type="text/css">
+@font-face {
+	font-family: slackey;
+	font-style: normal;
+	font-weight: normal;
+	src: url(Slackey.ttf);
+}
+
+body {
+	text-align: center;
+}
+
+#clock #button {
+	opacity: 0.5;
+	stroke-width: 0.2;
+	stroke: black;
+	cursor: pointer;
+}
+
+#clock #background {
+	fill: #aaa;
+	stroke: black;
+	stroke-width: 1;
+}
+
+#clock #button:hover { 
+	opacity: 1; 
+}
+
+#clock text {
+	font-family: slackey;
+	font-size: 3px;
+	text-anchor: middle;
+	stroke-width: 0.1;
+	stroke: black;
+}
+
+#clock .on {
+	fill: #f00;
+}
+
+#clock .off {
+	fill: #0f0;
+}
+
+#clock .active {
+	stroke: yellow;
+}
+
+#clock .line {
+	stroke: black;
+	stroke-linecap: round;
+}
+
+#clock #line1 {
+	stroke-width: 0.8;
+}
+
+#clock #line2 {
+	stroke-width: 0.5;
+}
+
+		</style>
+	</head>
+	<body>
+
+<script type="text/javascript">
+	Examples.clock.show(document.body);
+</script>
+
+</body>
+</html>
