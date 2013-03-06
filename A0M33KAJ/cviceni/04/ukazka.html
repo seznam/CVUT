@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+	<style type="text/css">
+		.article > div { border:1px solid red; }
+		img + p { background: gray; }
+		p.withShadow ~ p  { color:pink; }
+		form {display:none; }
+		form:target { display:block; }
+		#contentArticleBox p:last-child { color:blue; border:1px solid red; background:red; }
+		table tr:nth-child(2n+0) td {background: gray; }
+		table tr:first-child td { font-size:30px; color:green; }
+		#articleBody p:nth-of-type(2n+0) { color:red;}
+
+		#contentArticleBox {
+		  counter-reset: para;
+		}
+		#contentArticleBox p:before {
+		  counter-increment: para;
+		  content: "Odstavec " counter(para) ": ";
+		  font-weight:bold;
+		}
+
+		ol {
+		  counter-reset: sectionOL;
+		  list-style-type: none;
+		}
+		li:before {
+		  counter-increment: sectionOL;
+		  content: counters(sectionOL, ".") " ";
+		}
+	</style>
+</head>
+<body>
+<div class="article">
+    <div class="articleHeader">
+	<a id="over-menu" name="over-menu"></a>
+	<h1>Na světě je 1453 dolarových miliardářů</h1>
+	<p class="perex">Populace dolarových miliardářů na světě čítá 1453 lidí. Tvrdí to alespoň nový přehled The Hurun Report vydaný v Číně. Jejich majetky představují úhrnné bohatství v astronomické výši 5,5 biliónu dolarů (108 biliónů Kč), což je přibližně HDP Japonska, čtvrté nejsilnější ekonomiky za EU, USA a Čínou.</p>
+	<div class="topMediaBox">
+		<div id="multimediaBox">
+			<div class="pictureBox">
+                <img width="600" height="338" title="Dva nejbohatší muži světa: mexický magnát Carlos Slim Helú (vpravo) a zakladatel Microsoftu Bill Gates" alt="Dva nejbohatší muži světa: mexický magnát Carlos Slim Helú (vpravo) a zakladatel Microsoftu Bill Gates" src="http://media.novinky.cz/154/361549-top_foto1-5haol.jpg?1362322805" id="gallPicture" />
+                <p class="photoDesc"> Dva nejbohatší muži světa: mexický magnát Carlos Slim Helú (vpravo) a zakladatel Microsoftu Bill Gates </p>
+				<p class="photoAuthor"> FOTO: <a href="http://www.profimedia.cz">Profimedia.cz</a>
+			</div>
+			</div>
+		</div>
+	</div>
+	<div id="articleColumnInfo">
+		<div class="topBordered" id="info">
+			<div id="inquiries">
+				<div id="inquiry11935" class="inquiry">
+					<div>
+						<div class="inqHead">
+							<h5>Anketa</h5>
+							<p>Chtěli byste mít miliardu dolarů?</p>
+						</div>
+						<div class="inqBody">
+							<div class="inqItem">
+								<div class="inqPhrase">
+									<a href="#" id="inq_44778_11935_cd312722977539d062ee229cb6ec0262">Ano</a>
+								</div>
+								<span class="voteItem ln_0">
+									<a href="#" id="inq_44778_11935_cd312722977539d062ee229cb6ec0262">
+										<em>78.6%</em>
+									</a>
+								</span>
+							</div>
+							<div class="inqItem">
+								<div class="inqPhrase">
+									<a href="#" id="inq_44779_11935_cd312722977539d062ee229cb6ec0262">Ne</a>
+								</div>
+								<span class="voteItem ln_1">
+									<a href="#" id="inq_44779_11935_cd312722977539d062ee229cb6ec0262">
+										<em>21.4%</em>
+									</a>
+								</span>
+							</div>
+						</div>
+						<div class="inqFoot">
+							<p>Celkem hlasovalo 13489 čtenářů.</p>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<div id="contentArticleBox">
+		<p class="publicDate" id="articleDate">  Dnes 15:44  </p>
+		<div id="articleBody" class="articleBody">
+			<p>Zpráva také uvádí, že průměrný věk u miliardářů je 63 let a výrazně v této vybrané skupině převažují muži. Žena je jen jedna v deseti.</p>
+			<p>I mezi miliardáři je určitý rozdíl a klub „Deseti nul“, tedy těch, kteří vlastní deset a více miliard <a href="http://tema.novinky.cz/americky-dolar" title="http://tema.novinky.cz/americky-dolar">dolarů</a>, představuje pouze 108 lidí.</p>
+			<p class="orange withShadow">Na špici žebříčku se drží mexický magnát Carlos Slim (69 miliard USD), následovaný zakladatelem <a href="http://tema.novinky.cz/microsoft" title="http://tema.novinky.cz/microsoft">Microsoftu</a> Billem Gatesem (61 miliard USD), americkým finančníkem Warrenem Buffettem (44 miliard USD), nejbohatším Evropanem Bernardem Arnaultem (41 miliard USD - Forbes jej přezdívá Papež módy) a španělským módním magnátem Amanciem Ortegou (37,5 miliardy USD).</p>
+			<p>Podle stanice NBC rostlo loni bohatství první desítky rychlostí o 250 miliónů dolarů denně.</p>
+			<p class="withShadow gray">Nejvíce dolarových miliardářů pochází z&nbsp;USA, a to 408, druhá Čína jich má 317. V případě Číny jde o zdvojnásobení počtu oproti roku 2011.</p>
+			<h4>Ne všichni touží po publicitě </h4>
+				<p>Nicméně předseda a hlavní analytik The Hurun Report Rupert Hoogewerf&nbsp; tvrdí, že počet miliardářů je nejspíš vyšší až trojnásobně. Protože ti, které zpráva jmenuje, jsou oficiálními miliardáři. Zbytek boháčů svůj majetek tají nebo nezveřejňuje.</p>
+				<p class="withShadow gray">„Hlavním důvodem je skutečnost, že jejich bohatství má ilegální původ.&nbsp; Ale samozřejmě jsou i tací, kteří na sebe netouží příliš upozorňovat,“ doplnil&nbsp; Hoogewerf. Těžce se také odhaduje majetek různých autoritativních vládců.</p>
+
+            <ol>
+                <li></li>
+                <li></li>
+                <li></li>
+                <li>
+                    <ol>
+                        <li></li>
+                        <li></li>
+                        <li>
+                            <ol>
+                                <li></li>
+                                <li></li>
+                                <li></li>
+                            </ol>
+                        </li>
+                        <li></li>
+                        <li></li>
+                    </ol>
+                </li>
+                <li></li>
+                <li></li>
+            </ol>
+
+			<table>
+				<tbody>
+					<tr class="table_headline">
+						<td>Světový pohár v biatlonu v Oslu:</td>
+					</tr>
+					<tr class="highlight">
+						<td>
+							<strong>Muži - závod s hromadným startem (15 km):</strong>
+						</td>
+					</tr>
+					<tr>
+						<td>1. <em><strong>Moravec</strong>
+							</em> (ČR) 39:48,7 (1 tr. okruh)</td>
+					</tr>
+					<tr>
+						<td>2. M. Fourcade (Fr.) -13,7 (3)</td>
+					</tr>
+					<tr>
+						<td>3. Lesser (Něm.) -16,8 (1)</td>
+					</tr>
+					<tr>
+						<td>4. Burke (USA) -19,1 (2)</td>
+					</tr>
+					<tr>
+						<td>5. Makovějev (Rus.) -23,2 (1)</td>
+					</tr>
+					<tr>
+						<td>6. Deryzemlja (Ukr.) -26,0 (1)</td>
+					</tr>
+					<tr>
+						<td>7. Bö (Nor.) -31,0 (2)</td>
+					</tr>
+					<tr>
+						<td>8. Beatrix (Fr.) -35,1 (2)</td>
+					</tr>
+					<tr>
+						<td>9. Lindström (Švéd.) -38,6 (2)</td>
+					</tr>
+					<tr>
+						<td>10. Eder (Rak.) -44,4 (1)</td>
+					</tr>
+					<tr>
+						<td>...19. <em><strong>Šlesingr</strong>
+							</em> (ČR) 1:52,7 (3).</td>
+					</tr>
+					<tr class="highlight">
+						<td>Průběžné pořadí SP (po 21 z 26 závodů):</td>
+					</tr>
+					<tr>
+						<td>1. M. Fourcade 1012 b.</td>
+					</tr>
+					<tr>
+						<td>2. Svendsen (Nor.) 751</td>
+					</tr>
+					<tr>
+						<td>3. Fak (Slovin.) 650</td>
+					</tr>
+					<tr>
+						<td>4. Lindström 592</td>
+					</tr>
+					<tr>
+						<td>5. Malyško 570</td>
+					</tr>
+					<tr>
+						<td>6. Usťugov (oba Rus.) 557</td>
+					</tr>
+					<tr>
+						<td>...14. <em><strong>Moravec</strong>
+							</em> 472</td>
+					</tr>
+					<tr>
+						<td>25. <em><strong>Šlesingr</strong>
+							</em> 319</td>
+					</tr>
+					<tr>
+						<td>50. <em><strong>Vítek</strong>
+							</em> 97</td>
+					</tr>
+					<tr>
+						<td>54. <em><strong>Soukup</strong>
+							</em> (oba ČR) 84.</td>
+					</tr>
+				</tbody>
+			</table>
+				<h4>Čeští dolaroví miliardáři</h4>
+                <p>Podle různých seznamů nejbohatších Čechů se mezi dolarové miliardáře nepochybně řadí trojice: finančník <a href="http://tema.novinky.cz/petr-kellner" title="http://tema.novinky.cz/petr-kellner">Petr Kellner</a> (<span data-currency="CKZ">75 až 125 miliard Kč</span>), potravinářský magnát <a href="http://tema.novinky.cz/andrej-babis" title="http://tema.novinky.cz/andrej-babis">Andrej Babiš</a> (50 až 90 miliard Kč) a finančník <a href="http://tema.novinky.cz/pavel-tykac" title="http://tema.novinky.cz/pavel-tykac">Pavel Tykač</a> (<span data-currency="CKZ">28 až 33 miliard Kč</span>).</p>
+                <p>Na hranici při kursu <span data-currency="CKZ">19,7 Kč za dolar</span> se pohybuje majetek <a href="http://tema.novinky.cz/karel-komarek" title="http://tema.novinky.cz/karel-komarek">Karla Komárka</a> ml. (<span data-currency="CKZ">17 až 25 miliard</span>) a podle některých odhadů i majitele dolů a finančníka <a href="http://tema.novinky.cz/zdenek-bakala" title="http://tema.novinky.cz/zdenek-bakala">Zdeňka Bakaly</a> (11 až 22 miliard).</p>
+				<p>Na pomyslném prahu pak ještě stojí finančníci Radovan Vítek (14,5 až 19,5 miliardy) a dvojice ze skupiny Penta Marek Dospiva (12,5 až 18,5 miliardy) a Jaroslav Haščák (12,5 až 18,5 miliardy).</p>
+
+			<p class="articleAuthors" id="movedArticleAuthors"> pst<span>, </span>
+				<a href="http://www.novinky.cz">Novinky</a>
+                <a href="#sendEmailForm" id="formLink">Odkaz na formulář</a>
+			</p>
+		</div>
+      </div>
+	</div>
+	<form action="/email" name="sendEmailForm" id="sendEmailForm" method="post">
+		<h4>nebo pošlete odkaz na článek e-mailem:</h4>
+		<div id="sendEmailDataBox">
+			<p>
+				<label for="f_name">Od</label>
+				<input type="text" id="f_name" value="" name="f_name" />
+			</p>
+			<p>
+				<label for="f_fmail">Můj e-mail</label>
+				<input type="text" id="f_fmail" value="" name="f_from" />
+			</p>
+			<p>
+				<label for="f_adm">E-mail příjemce</label>
+				<input type="text" id="f_adm" name="f_to" />
+			</p>
+			<p>
+				<label for="f_text" class="tarea">Zpráva pro příjemce</label>
+				<textarea rows="5" cols="15" id="f_text" name="f_description"></textarea>
+			</p>
+			<input type="hidden" id="f_id" value="294894" name="f_id" />
+		</div>
+		<p class="submit">
+			<input type="button" value="Odeslat" id="f_send" name="f_send" style="left: -14px;" />
+		</p>
+	</form>
+</body>
+</html>

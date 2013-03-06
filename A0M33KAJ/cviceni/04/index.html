@@ -1,0 +1,136 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="../../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>Tvorba klientských aplikací v JavaScriptu</title>
+	<body>
+
+<h1>Tvorba klientských aplikací v JavaScriptu</h1>
+
+<section class="slide">
+	<h2>CSS selektory - cvičení</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>Selektorový jazyk – rekapitulace</li>
+		<li>Selektorový jazyk – atributy</li>
+		<li>Selektorový jazyk – kombinátory</li>
+		<li>Selektorový jazyk – pseudotřídy</li>
+		<li>Generovaný obsah</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>Opakování</h2>
+	<ul class="sections">
+		<li>K čemu slouží CSS?</li>
+		<li>Jak připojíte CSS do stránky?</li>
+		<li>Jak vypadá struktura jednoho CSS pravidla?</li>
+		<li>Jaké znáte selektory?</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>HTML dokument</h2>
+	<ul class="sections">
+		<li>Budeme pracovat s daty, která jsou uložena v HTML stránce</li>
+		<li><a href="http://jsfiddle.net/koko/7WR9A/6/">http://jsfiddle.net/koko/7WR9A/6/</a></li>
+		<li><a href="http://caniuse.com/">http://caniuse.com/</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Základní selektory</h2>
+	<ul class="sections">
+		<li>jméno tagu</li>
+		<li>. = class</li>
+		<li># = id</li>
+		<li>* = všechny elementy</li>
+		<li>, = sjednocení</li>
+		<li>mezera = hiearchie</li>
+	</ul>
+</section>
+
+
+<section class="slide">
+	<h2>Atributové selektory</h2>
+	<ul class="sections">
+		<li><em>Úkol: </em>Vyberte na stránce všechny inputy typu text a nastylujte jejich vzhled (kulaté rohy, barva pozadí)</li>
+		<li><em>ÚkolII: </em>Vyberte na stránce všechny odstavce obsahující v atributu class na prvním místě withShadow a nastylujte je</li>
+		<li><em>ÚkolIII: </em> Nastylujte ty prvky ve stránce, které mají atribut data-currency tak, že při najetí budou tučné a orámované</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Kombinátory</h2>
+	<ul class="sections">
+		<li><em>Úkol: </em>Nastylujte všechny divy, které jsou přímým potomkem div #article (border)</li>
+		<li><em>ÚkolII: </em> Nastylujte odstavec za obrázkem (background)</li>
+		<li><em>ÚkolIII: </em> Po prvním výskytu p.withShadow budou další sourozenecké p modrou barvou (color)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Pseudotřídy</h2>
+	<ul class="sections">
+		<li><em>Úkol: </em>Při nadjetí myši nad odstavec v článku se text stane tučným</li>
+		<li><em>ÚkolII: </em>Pokud budu psát do libovolného formulářového políčka, bude políčko červeně orámované a text tučný</li>
+		<li><em>ÚkolIII: </em> Ve stránce udělejte odkaz (kotvu) na formulář a pokud bude kotva aktivní, formulář půjde vidět, jinak ne</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Pseudotřídy II</h2>
+	<ul class="sections">
+		<li><em>Úkol: </em>Obarvěte každý druhý řádek tabulky šedou barvou</li>
+		<li><em>ÚkolIII: </em>První řádek tabulky bude vykreslen zvětšeným fontem a zelenou barvou</li>
+		<li><em>ÚkolII: </em>Poslední odstavec v divu #contentArticleBox bude zvýrazněný (color, background)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Generovaný obsah</h2>
+	<ul class="sections">
+		<li><em>Úkol: </em>Před každý odstavec vypište jeho pořadí v dokumentu / v elementu</li>
+		<li><em>ÚkolII: </em>Vyrobte více úrovňový seznam a na něm vyrobte vnořené číslování (1., 1.1, 2, 2.1, 2.2, ...)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Záverečný úkol</h2>
+	<ul class="sections">
+		<li>Vymyslete zajímavou "blbůstku", za použití CSS3 (only) - čas 15 minut</li>
+	</ul>
+</section>
+
+
+<section class="slide">
+	<h2>Prostor pro otázky</h2>
+</section>
+
+<footer>
+	<a href="mailto:zdenek.vlach@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>
