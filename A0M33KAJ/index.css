@@ -42,3 +42,6 @@ section > * {
 	margin-left: 1em;
 }
 
+body section:last-of-type {
+    padding-bottom:2em;
+}
