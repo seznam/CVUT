@@ -1,0 +1,325 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="../../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>CSS 3</title>
+	<body>
+		
+<h1>CSS 3</h1>
+
+<section class="slide">
+	<h2>CSS 3</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>Vývoj CSS</li>
+		<li>Selektorový jazyk &ndash; rekapitulace</li>
+		<li>Selektorový jazyk &ndash; atributy</li>
+		<li>Selektorový jazyk &ndash; kombinátory</li>
+		<li>Selektorový jazyk &ndash; pseudotřídy</li>
+		<li>Bonus: generovaný obsah</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>Vývoj CSS</h2>
+	<ul class="sections">
+		<li>CSS 1 v roce 1994</li>
+		<li>CSS 2 v roce 1998 &ndash; příliš ambiciózní (stíny, průhlednost, &hellip;)</li>
+		<li>CSS 2.1 (2004&ndash;2011) reviduje nepodporované vlastnosti; celkem 115 definovaných vlastností</li>
+		<li>CSS 3 &ndash; modularizace (přes padesát modulů), přes 243 vlastností</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Podpora CSS 3</h2>
+	<ul class="sections">
+		<li>Velmi výrazně odlišná napříč prohlížeči</li>
+		<li><a href="http://caniuse.com/">caniuse.com</a></li>
+		<li>Důvod pro používání <em>bleeding edge</em> verzí</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Vendor prefix #1</h2>
+	<ul class="sections">
+		<li>Problém: výrobce chce podporovat technologii, která není plně standardizovaná</li>
+		<li>Implementací riskuje stížnosti při změně API</li>
+		<li>Řešení: vlastní prefix před názvem vlastnosti</li>
+	</ul>
+	<pre class="section" data-syntax="css">
+div {
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+}</pre>
+</section>
+
+<section class="slide">
+	<h2>Vendor prefix #2</h2>
+	<ul class="sections">
+		<li>Psaní prefixů je opruz</li>
+		<li>Poslední dobou snahy o odprefixování</li>
+		<li>Preprocessing na straně serveru (generuje všechny)</li>
+		<li>Preprocessing na straně prohlížeče (generuje jen potřebné)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; rekapitulace</h2>
+	<ul class="sections">
+		<li>Selektor = řetězec, kterému může vyhovovat libovolné množství prvků v HTML stránce</li>
+		<li>Při změně stránky (DOM) se mění množina prvků, vyhovujících selektorům &rArr; nutnost znovuvyhodnocení</li>
+		<li>Stavební kameny selektorového jazyka: názvy značek, kombinační znaky, atributové filtry</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; základy</h2>
+	<ul>
+		<li>Název značky = všechny uzly tohoto typu</li>
+		<li>Čárka = sjednocení</li>
+		<li>Hvězdička = všechny uzly</li>
+	</ul>
+	<pre data-syntax="css">
+div   { ... }
+a, em { ... }
+*     { ... }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; základy</h2>
+	<ul>
+		<li>Mezera = hierarchický vztah, čteno zprava</li>
+	</ul>
+	<pre data-syntax="css">
+p a          { /* odkazy v odstavci */ }
+ul a         { /* odkazy v položkách seznamu */ }
+p *          { /* vše pod všemi odstavci */ }
+header li em { /* ? */ }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; atributy</h2>
+	<ul>
+		<li>Hranaté závorky = atributový filtr</li>
+		<li>Test na rovnost, začátek, konec, podmnožinu</li>
+	</ul>
+	<pre data-syntax="css">
+input[placeholder] { /* ty vstupní prvky, které mají atribut placeholder */ }
+input[type="text"] { /* test rovnosti hodnoty */ }
+div[class~="test"] { /* div, jehož atribut class obsahuje mezerou oddělený řetězec test */ }
+div[id^="article"] { /* atribut začíná na */ }
+div[id$="article"] { /* atribut končí na */ }
+div[id*="article"] { /* atribut obsahuje */ }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; zkratky pro <code>class</code> a <code>id</code></h2>
+	<ul>
+		<li>Mřížka: <code>[id=]</code></li>
+		<li>Tečka: <code>[class~=]</code></li>
+	</ul>
+	<pre data-syntax="css">
+div#id          { ... }
+#id             { ... }
+div.test        { ... }
+div.test1.test2 { ... }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; kombinátory</h2>
+	<ul>
+		<li>Větší než = přímý potomek</li>
+		<li>Plus = přímý následný sourozenec</li>
+		<li>Tilda = libovolný následný sourozenec</li>
+	</ul>
+	<pre data-syntax="css">
+body > * { /* značky přímo v body */ }
+img + p  { /* odstavec za obrázkem */ }
+h1 ~ img { /* obrázky, kterým předchází nadpis */ }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
+	<ul>
+		<li>Zápis pomocí dvojtečky</li>
+		<li>Slouží k popsání podmínek, které nemusí být ze stromu stránky patrny</li>
+		<li><code>:hover</code> = při nadjetí myší</li>
+		<li><code>:focus</code> = pokud má <em>focus</em></li>
+	</ul>
+	<pre data-syntax="css">
+a:hover     { font-weight: bold; }
+input:focus { border: 1px solid red; }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
+	<ul>
+		<li><code>:target</code> = právě aktivní kotva stránky</li>
+	</ul>
+	<pre data-syntax="css">
+p        { opacity: 0.5; }
+p:target { opacity: 1; }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
+	<ul>
+		<li><code>:enabled</code>, <code>:disabled</code>, <code>:checked</code>, <code>:required</code> = stav vstupního prvku</li>
+		<li><a href="http://jsfiddle.net/ondras/GyzKG/">Ukázka na jsfiddle.net</a></li>
+	</ul>
+	<pre data-syntax="css">
+input:checked + label { font-weight: bold; }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
+	<ul>
+		<li><code>:nth-child()</code>, <code>:first-child</code>, <code>:last-child</code> = pořadí v rámci sourozenců</li>
+	</ul>
+	<pre data-syntax="css">
+a:first-child     { /* odkaz, pokud je prvním potomkem svého rodiče */ }
+p:nth-child(2n+1) { /* liché odstavce */ }
+p:nth-child(odd)  { /* liché odstavce */ }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
+	<ul>
+		<li><code>:nth-of-type()</code> = pořadí v rámci sourozenců stejného typu</li>
+	</ul>
+	<pre data-syntax="css">
+img:nth-of-type(2n+1) { float: left; }
+img:nth-of-type(2n+0) { float: right; }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
+	<ul>
+		<li><code>:empty</code> = nemá-li potomky</li>
+	</ul>
+	<pre data-syntax="css">
+li:empty { display: none; }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
+	<ul>
+		<li><code>:empty</code> = nemá-li potomky</li>
+		<li><code>:only-child</code> = je-li jediný potomek</li>
+		<li><code>:not()</code> = negace</li>
+	</ul>
+	<pre data-syntax="css">
+p:not(:target)        { opacity: 0.5; }
+input:not([required]) { color: blue; }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Bonus: generovaný obsah</h2>
+	<p><code>:before</code>, <code>:after</code> = falešný první a poslední potomek</p>
+	<pre data-syntax="css">
+li.good:before {
+	content: "✔ ";
+	color: green;
+}
+li.bad:before {
+	content: "✘ ";
+	color: red;
+}
+</pre>
+	<ul>
+		<li class="good"><code>&lt;li class="good"&gt;</code></li>
+		<li class="bad"><code>&lt;li class="bad"&gt;</code></li>
+	</ul>
+	<style>
+		li.good, li.bad { list-style-type: none; }
+		li.good:before {
+			content: "✔ ";
+			color: green;
+		}
+		li.bad:before {
+			content: "✘ ";
+			color: red;
+		}
+	</style>
+</section>
+
+<section class="slide">
+	<h2>Bonus: generovaný obsah</h2>
+	<p>Generovat lze i obrázky a hodnoty atributů</p>
+	<pre data-syntax="css">
+a[href^="http"]:before {
+	content: url(externi.png);
+}
+a[data-id]:after {
+	content: attr(data-id);
+	color: gray;
+}
+</pre>
+	<p><a href="http://jsfiddle.net/ondras/dhjpe/">Ukázka na jsfiddle.net</a></p>
+</section>
+
+<section class="slide">
+	<h2>Bonus: generovaný obsah</h2>
+	<p>Podpora pro čítače: reset, změna hodnoty, výpis hodnoty</p>
+	<pre data-syntax="css">
+body {
+	counter-reset: kapitola;
+}
+
+h2 {
+	counter-increment: kapitola;
+}
+
+h2:before {
+	content: counter(kapitola);
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Prostor pro otázky</h2>
+</section>
+
+<footer>
+	<a href="http://twitter.com/0ndras">twitter.com/0ndras</a>
+	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>
