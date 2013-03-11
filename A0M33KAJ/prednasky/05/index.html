@@ -1,0 +1,319 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="../../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>Media queries, responsive design, CSS transformace</title>
+	<body>
+		
+<h1>Media queries, responsive design, CSS transformace</h1>
+
+<section class="slide">
+	<h2>Media queries a responsive design, CSS transformace</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>Media queries</li>
+		<li>2D transformace</li>
+		<li>3D transformace</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>CSS a zobrazovací média</h2>
+	<ul class="sections">
+		<li>CSS 2 podporuje tzv. <em>typy médií</em>: možnost aplikovat stylopisy jen pro předdefinovaná zařízení</li>
+		<li><code>&lt;link rel="stylesheet" media="print" /&gt;</code></li>
+		<li><code>@media screen { ... }</code></li>
+		<li><code>@import url(...) projection;</code></li>
+		<li>Neúplná podpora (9 typů médií, podporovány zpravidla jen <code>screen</code> a <code>print</code>)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Media queries</h2>
+	<ul class="sections">
+		<li>Princip i syntaxe zůstává</li>
+		<li>Rozšíření typů i na parametry a logické operace</li>
+	</ul>
+	<pre data-syntax="css" class="section">
+@media (min-width:700px) and (orientation:landscape) { ... }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Media queries: obecná syntaxe</h2>
+	<ul class="sections">
+		<li>Volitelně typ média</li>
+		<li>Následuje libovolné množství parametrizace v kulatých závorkách</li>
+	</ul>
+	<pre data-syntax="css" class="section">
+@media [screen and] (max-device-width:640px) [and (...)] { ... }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Media queries: logické operace</h2>
+	<ul class="sections">
+		<li><code>and</code> je průnik</li>
+		<li><code>,</code> je sjednocení</li>
+		<li><code>not</code> je negace</li>
+	</ul>
+	<pre data-syntax="css" class="section">
+@media not screen and (color), print and (color) { ... }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Media queries: dostupné parametry</h2>
+	<ul class="sections">
+		<li><code>width</code>, <code>height</code>, <code>device-width</code>, <code>device-height</code></li>
+		<li><code>aspect-ratio</code>, <code>device-aspect-ratio</code></li>
+		<li><code>color</code>, <code>color-index</code></li>
+		<li><code>resolution</code>, <code>monochrome</code></li>
+		<li><code>min-</code> a <code>max-</code> varianty předchozích</li>
+		<li><code>scan</code>, <code>grid</code>, <code>orientation</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Responsive design</h2>
+	<ul class="sections">
+		<li>Snaha navrhnout design/layout tak, aby nebyl <em>příliš</em> závislý na použitém zařízení</li>
+		<li>Používání relativních jednotek</li>
+		<li>Rozložení prvků na stránce dle dostupného místa</li>
+		<li>Sada pravidel/stylopisů pro různé média queries</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Responsive design: viewport</h2>
+	<ul class="sections">
+		<li>Mobilní zařízení používají trik pro zpětně kompatibilní zobrazení</li>
+		<li>Stránce se hlásí s falešnou pixelovou šířkou (typicky 960px)</li>
+		<li>Výsledek: uživatel vidí celou stránku (zmenšenou)</li>
+		<li>Mapování logických pixelů na fyzické lze nastavit</li>
+	</ul>
+<pre data-syntax="xml" class="section">
+&lt;meta name="viewport" content="width=640" /&gt;
+&lt;meta name="viewport" content="width=device-width" /&gt;
+maximum-scale, minimum-scale, user-scalable 
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Responsive design: nové jednotky</h2>
+	<ul class="sections">
+		<li>CSS jednotky <code>vw</code>, <code>vh</code>, <code>vmin</code>, <code>vmax</code></li>
+		<li>Procenta rozměrů průhledu</li>
+		<li><a href="http://caniuse.com/#feat=viewport-units" target="_blank">Slabá podpora</a></li>
+		<li>Ideální tam, kde by bylo nutno dopočítávat skriptem</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS transformace</h2>
+	<ul class="sections">
+		<li>CSS vlastnosti pro afinní geometrické transformace HTML prvků</li>
+		<li>Aplikují se po vykreslení, tj. neovlivňují layout ostatních prvků</li>
+		<li>Mohou být akcelerované (a proto např. rychlejší než absolutní pozicování)</li>
+		<li>Nutnost použití vendor prefixů</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS transformace: dostupné funkce</h2>
+	<p><a href="https://developer.mozilla.org/en-US/docs/CSS/transform" target="_blank">Dokumentace na MDN</a></p>
+<pre data-syntax="css" class="hover">
+div {
+	transform: translate(100%, 50px);
+	transform: rotate(45deg);
+	transform: scale(0.2);
+	transform: skewX(30deg);
+	transform: matrix(a, b, c, d, tx, ty);
+}
+</pre>
+<style>
+	pre.hover:hover {
+		transform: scale(0.8) rotate(10deg);
+		-webkit-transform: scale(0.8) rotate(10deg);
+	}
+</style>
+</section>
+
+<section class="slide">
+	<h2>CSS transformace: ostatní</h2>
+	<ul class="sections">
+		<li>Vlastnost <code>transform-origin</code> určuje počátek souřadného systému (výchozí: 50% 50%)</li>
+		<li><pre data-syntax="css">
+div {
+	transform-origin: 0 0;
+	transform: rotate(45deg);
+}
+</pre></li>
+		<li>Transformace lze kombinovat</li>
+		<li><pre data-syntax="css">
+div {
+	transform: rotate(45deg) translate(50px, 50px);
+}
+</pre></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS transformace: pořadí</h2>
+	<div id="order1">
+		<div></div>
+		<div></div>
+		<pre data-syntax="css">transform: translate(100%, 0) rotate(45deg)</pre>
+	</div>
+	<div id="order2">
+		<div></div>
+		<div></div>
+		<pre data-syntax="css">transform: rotate(45deg) translate(100%, 0)</pre>
+	</div>
+	<style>
+		#order1, #order2 {
+			height: 9em;
+		}
+		#order1 div, #order2 div {
+			position: absolute;
+			left: 50%;
+			width: 200px;
+			height: 200px;
+			opacity: 0.5;
+		}
+		#order1 div:first-child, #order2 div:first-child {
+			background-color: red;
+		}
+		#order1 div:nth-child(2), #order2 div:nth-child(2) {
+			background-color: blue;
+		}
+		#order1 div:nth-child(2) {
+			transform: translate(100%, 0) rotate(45deg);
+			-webkit-transform: translate(100%, 0) rotate(45deg);
+		}
+		#order2 div:nth-child(2) {
+			transform: rotate(45deg) translate(100%, 0);
+			-webkit-transform: rotate(45deg) translate(100%, 0);
+		}
+	</style>
+
+</section>
+
+<section class="slide">
+	<h2>3D CSS transformace</h2>
+	<ul class="sections">
+		<li>Rozšíření transformačních funkcí</li>
+		<li><code>translateZ</code>, <code>translate3d</code>, <code>scaleZ</code>, <code>scale3d</code></li>
+		<li><code>rotate3d</code>, <code>rotateX</code>, <code>rotateY</code>, <code>rotateZ</code></li>
+		<li>Nejistá podpora prohlížečů (závisí i na hardware)</li>
+	</ul>
+
+	<div id="rotate"><div></div></div>
+	<style>
+		#rotate {
+			transform-style: preserve-3d;
+			-webkit-transform-style: preserve-3d;
+			perspective: 500px;
+			-webkit-perspective: 500px;
+			position: absolute;
+			right: 10px;
+			top: 100px;
+		}
+
+		#rotate div {
+			width: 190px;
+			height: 145px;
+			background-image: url(img/cvut.png);
+			border-radius: 20%;
+			box-shadow: 0 0 3px 3px #000;
+		}
+	</style>
+	<script>
+		var angle = 0;
+		var node = document.querySelector("#rotate div");
+		setInterval(function() {
+			angle += 4;
+			node.style.transform = "rotateY(" + angle + "deg)";
+			node.style.webkitTransform = "rotateY(" + angle + "deg)";
+		}, 30)
+	</script>
+</section>
+
+<section class="slide">
+	<h2>3D CSS transformace</h2>
+	<ul class="sections">
+		<li>Aby docházelo k prespektivnímu zkreslení, je nutno definovat parametry 3D prostoru</li>
+		<li>Vlastnost <code>perspective</code> na rodičovském prvku určuje míru zkreslení</li>
+		<li>Vlastnost <code>transform-style</code> na rodičovském prvku určuje hloubku potomků (<a href="http://www.webkit.org/blog-files/3d-transforms/transform-style.html" target="_blank">ukázka</a>)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>3D CSS transformace</h2>
+	<div id="parent"><div></div></div>
+	<style>
+		#parent {
+			-webkit-perspective: 500px;
+			perspective: 500px;
+		}
+
+		#parent div {
+			transform: rotateY(45deg);
+			-webkit-transform: rotateY(45deg);
+			width: 40%;
+			height: 150px;
+			background-color: red;
+			margin: auto;
+		}
+	</style>
+	<pre data-syntax="css">
+#parent {
+	perspective: 500px;
+}
+
+#parent div {
+	transform: rotateY(45deg);
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>3D CSS transformace</h2>
+	<ul class="sections">
+		<li><a href="http://ondras.zarovi.cz/games/blockout/" target="blank">CSS Blockout</a></li>
+		<li><a href="http://ondras.zarovi.cz/demos/rubik/" target="blank">Rubikova kostka</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Prostor pro otázky</h2>
+</section>
+
+<footer>
+	<a href="http://twitter.com/0ndras">twitter.com/0ndras</a>
+	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>
