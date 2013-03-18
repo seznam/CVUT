@@ -1,0 +1,439 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="../../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
+		<link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css' />
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>CSS transitions, animations, písma a efekty</title>
+	<body>
+		
+<h1>CSS transitions, animations, písma a efekty</h1>
+
+<section class="slide">
+	<h2>CSS transitions, animations, písma a efekty</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>Transitions</li>
+		<li>Animations</li>
+		<li>@font-face</li>
+		<li>Ostatní efekty</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions</h2>
+	<ul class="sections">
+		<li>V rámci životního cyklu stránky často dochází ke změnám CSS hodnot</li>
+		<li>Změny hodnot jsou okamžité a skokové</li>
+		<li>Pomocí transition lze tyto změny provádět plynule (animovaně)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions: ukázka</h2>
+<pre data-syntax="css">
+div {
+	background-color: blue;
+	width: 200px;
+	height: 200px;
+	transition: all 3s;
+}
+div:hover {
+	width: 600px;
+	background-color: red;
+}
+</pre>
+	<div id="example1"></div>
+	<style>
+		#example1 {
+			background-color: blue;
+			width: 200px;
+			height: 200px;
+			transition: all 3s;
+			-moz-transition: all 3s;
+			-webkit-transition: all 3s;
+			position: absolute;
+			right: 0;
+			top: 3em;
+		}
+		#example1:hover {
+			width: 600px;
+			background-color: red;
+		}
+	</style>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions: vlastnosti</h2>
+	<ul class="sections">
+		<li>Meta-vlastnost <code>transition</code></li>
+		<li>Individuálně lze upřesnit <code>transition-property</code>, <code>transition-duration</code>, <code>transition-timing-function</code>, <code>transition-delay</code></li>
+		<li>Častno nutnost prefixování</li>
+		<li>Žádný JavaScript</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions: transition-property</h2>
+	<ul class="sections">
+		<li>Plynule lze měnit řadu vlastností, ne však všechny</li>
+		<li>Je nutné dbát na kompatibilní hodnoty (<code>px</code> vs. <code>%</code> vs. <code>auto</code>)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions: transition-duration</h2>
+	<ul class="sections">
+		<li>Jak dlouho plynulá změna trvá</li>
+		<li>Povolené jednotky <code>s</code> a <code>ms</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions: transition-timing-function</h2>
+	<ul class="sections">
+		<li>Jak interpolovat hodnoty v závislosti na čase</li>
+		<li>Interpolační funkci možno zadat klíčovým slovem nebo předpisem</li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/CSS/timing-function" target="_blank">Přehled na MDN</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions: transition-delay</h2>
+	<ul class="sections">
+		<li>Zpoždění animace po změně vlastnosti</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions: pozor na implementaci vykreslování!</h2>
+	<pre data-syntax="js">
+var div = document.createElement("div");
+div.style.transition = "all 3s";
+div.style.color = "red";
+document.body.appendChild(div);
+
+div.style.color = "blue";
+/* ??? */
+</pre>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions: pozor na implementaci vykreslování!</h2>
+	<pre data-syntax="js">
+div.style.color = "red";
+div.offsetWidth;
+div.style.color = "blue";
+</pre>
+
+	<pre data-syntax="js">
+div.style.color = "red";
+setTimeout(function() {
+	div.style.color = "blue";
+}, 0);
+</pre>
+</section>
+
+<section class="slide">
+	<h2>CSS animations</h2>
+	<ul class="sections">
+		<li>Vylepšení techniky transitions</li>
+		<li>Navazování změn</li>
+		<li>Možnost vykonávání ve smyčce</li>
+		<li>Řádově složitější syntaxe</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS animations: syntaxe</h2>
+	<ul class="sections">
+		<li>Definice rozdělena na dvě komponenty</li>
+		<li>V první části popis metadat animace (jak rychle, opakování, směr, časování, &hellip;)</li>
+		<li>V druhé části popis jednotlivých vizuálních vlastností v průběhu animace</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS animations: ukázka</h2>
+	<div id="example2"></div>
+<pre data-syntax="css">
+div {
+	animation: posun 4s linear infinite;
+}
+
+@keyframes posun {
+	0%, 100% { right: 0px;   top: 100px; }
+	25%      { right: 200px; top: 100px; }
+	50%      { right: 200px; top: 300px; }
+	75%      { right: 0px;   top: 300px; }
+}</pre>
+	<style>
+		#example2 {
+			animation: posun 4s linear infinite;
+			-moz-animation: posun 4s linear infinite;
+			-webkit-animation: posun 4s linear infinite;
+			background-color: blue;
+			width: 200px;
+			height: 200px;
+			position: absolute;
+		}
+
+		@keyframes posun {
+			0%, 100% { right: 0px; top: 100px;}
+			25% { right: 200px; top: 100px;}
+			50% { right: 200px; top: 300px;}
+			75% { right: 0px; top: 300px;}
+		}
+
+		@-moz-keyframes posun {
+			0%, 100% { right: 0px; top: 100px;}
+			25% { right: 200px; top: 100px;}
+			50% { right: 200px; top: 300px;}
+			75% { right: 0px; top: 300px;}
+		}
+
+		@-webkit-keyframes posun {
+			0%, 100% { right: 0px; top: 100px;}
+			25% { right: 200px; top: 100px;}
+			50% { right: 200px; top: 300px;}
+			75% { right: 0px; top: 300px;}
+		}
+	</style>
+</section>
+
+<section class="slide">
+	<h2>CSS animations: definice animace</h2>
+	<ul class="sections">
+		<li>Meta-vlastnost <code>animation</code></li>
+		<li>Individuálně lze upřesnit:
+			<ul>
+				<li><code>animation-name</code></li>
+				<li><code>animation-duration</code></li>
+				<li><code>animation-timing-function</code></li>
+				<li><code>animation-delay</code></li>
+				<li><code>animation-iteration-count</code></li>
+				<li><code>animation-direction</code></li>
+				<li><code>animation-fill-mode</code></li>
+				<li><code>animation-play-state</code></li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS animation: animation-iteration-count</h2>
+	<ul class="sections">
+		<li>Počet iterací</li>
+		<li>Hodnota <code>infinite</code> značí nekonečnou smyčku</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS animation: animation-direction</h2>
+	<ul class="sections">
+		<li>Směr vykonávání jednotlivých iterací</li>
+		<li><code>normal</code>, <code>reverse</code>, <code>alternate</code>, <code>alternate-reverse</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS animation: animation-fill-mode</h2>
+	<ul class="sections">
+		<li>Jak aplikovat styly pokud animace neběží</li>
+		<li>Povolené hodnoty:
+			<ul>
+				<li><code>none</code></li>
+				<li><code>forwards</code> &ndash; styly z posledního aplikovaného keyframe</li>
+				<li><code>backwards</code> &ndash; styly z prvního aplikovaného keyframe</li>
+				<li><code>both</code> &ndash; obojí</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS animation: animation-play-state</h2>
+	<ul class="sections">
+		<li>running/paused &ndash; možnost pozastavit animaci</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS animation: @keyframes</h2>
+	<ul class="sections">
+		<li>Definice vzhledu v jednotlivých krocích animace</li>
+		<li>
+			<pre data-syntax="css">
+@keyframes test {
+	from, 33% { /* ... */ }
+	to        { /* ... */ }
+}
+@-moz-keyframes {}
+@-webkit-keyframes {}</pre>
+		</li>
+	</ul>
+</section>
+
+<section class="slide" style="font-family:the girl next door; font-weight: bold">
+	<h2>CSS @font-face</h2>
+	<ul class="sections">
+		<li>Definice vlastního písma</li>
+		<li>Podporováno od IE 4 (!)</li>
+		<li>Nutnost dodat soubor(y) s definicí písma</li>
+		<li>Vhodné pro typografii i <a target="_blank" href="http://www.justbenicestudio.com/studio/websymbolsliga/">ideogramy</a> (GitHub, Seznam E-mail)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS @font-face &ndash; ukázka</h2>
+	<pre data-syntax="css">
+@font-face {
+	font-family: MujFont;
+	src: local("Muj Font"), url(MujFont.ttf);
+}
+
+body {
+	font-family: MujFont;
+}
+</section>
+
+<section class="slide">
+	<h2>CSS @font-face &ndash; formáty</h2>
+	<ul class="sections">
+		<li>EOT proprietární od Microsoftu</li>
+		<li>TTF, OTF</li>
+		<li>WOFF: Web Open Font Format</li>
+		<li>Více info viz caniuse.com</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS @font-face &ndash; poznámky</h2>
+	<ul class="sections">
+		<li>Odlišné renderování v různých prohlížečích a operačních systémech</li>
+		<li><a target="_blank" href="http://www.google.com/webfonts">Google Web Fonts</a></li>
+		<li>Problematika <a href="http://paulirish.com/2009/fighting-the-font-face-fout/" title="Flash Of Unstyled Text">FOUT</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS efekty: průhlednost</h2>
+<pre data-syntax="css">
+div {
+	background-color: white;
+	opacity: 0.5;
+}
+
+div {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>CSS efekty: zaoblené rohy</h2>
+<pre data-syntax="css">
+div {
+	border-radius: 5px;
+	border-radius: 50% 0 0 0;
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>CSS efekty: stín písma</h2>
+<pre data-syntax="css">
+div {
+	text-shadow: 2px 1px 5px red;
+}
+</pre>
+	<ul>
+		<li>Možno zadat více stínů naráz</li>
+		<li>Nulové rozostření = kopie textu</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS efekty: stín HTML uzlu</h2>
+<pre data-syntax="css">
+div {
+	box-shadow: 2px 1px 5px red;
+	box-shadow: 2px 1px 5px 10px red;  /* spread */
+	box-shadow: inset 2px 1px 5px red; /* dovnitř */
+}
+</pre>
+	<ul>
+		<li>Možno zadat více stínů naráz</li>
+		<li>Respektuje zaoblené rohy</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS efekty: barevné přechody</h2>
+	<ul>
+		<li>Linární (opakující se) barevné přechody</li>
+		<li>Kruhové (opakující se) barevné přechody</li>
+		<li>Možno zadat více přechodů naráz</li>
+		<li>Respektuje zaoblené rohy</li>
+		<li>Pouze jako forma obrázku na pozadí</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS efekty: barevné přechody</h2>
+	<pre id="example3">background-image: linear-gradient(45deg, red, yellow, green, blue, violet);</pre>
+	<pre id="example4">background-image: radial-gradient(red, yellow, rgb(30, 144, 255));</pre>
+	<pre id="example5">repeating-linear-gradient(to right, #f88, #f88 5px, #fff 5px, #fff 10px);</pre>
+	<style>
+		#example3 {
+			background-image: linear-gradient(45deg, red, yellow, green, blue, violet);
+		}
+		#example4 {
+			background-image: radial-gradient(red, yellow, rgb(30, 144, 255));
+		}
+		#example5 {
+			background-image: repeating-linear-gradient(to right, #f88, #f88 5px, white 5px, white 10px);
+		}
+		#example3, #example4, #example5 {
+			line-height: 80px;
+			text-align: center;
+		}
+	</style>
+</section>
+
+<section class="slide">
+	<h2>CSS efekty: prezentace bez JS</h2>
+	<p><a href="http://ondras.zarovi.cz/demos/nojs/" target="_blank">http://ondras.zarovi.cz/demos/nojs/</a></p>
+</section>
+
+<section class="slide">
+	<h2>Prostor pro otázky</h2>
+</section>
+
+<footer>
+	<a href="http://twitter.com/0ndras">twitter.com/0ndras</a>
+	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>
