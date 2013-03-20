@@ -1,0 +1,73 @@
+/* fonty */
+@font-face {
+  font-family: 'Princess Sofia';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Princess Sofia'), local('PrincessSofia'), url(http://themes.googleusercontent.com/static/fonts/princesssofia/v1/8g5l8r9BM0t1QsXLTajDe5X6VkmL3h9uMYskRVF95d8.woff) format('woff');
+}
+
+@font-face {
+    font-family: "MAXIMUMSECURITY";
+    src: url("http://themes.googleusercontent.com/static/fonts/princesssofia/v1/8g5l8r9BM0t1QsXLTajDe5X6VkmL3h9uMYskRVF95d8.eot?#iefix") format("embedded-opentype"), 
+         url('http://themes.googleusercontent.com/static/fonts/princesssofia/v1/8g5l8r9BM0t1QsXLTajDe5X6VkmL3h9uMYskRVF95d8.woff') format('woff');
+         url("http://themes.googleusercontent.com/static/fonts/princesssofia/v1/8g5l8r9BM0t1QsXLTajDe5X6VkmL3h9uMYskRVF95d8.ttf") format("truetype"), 
+         url("http://themes.googleusercontent.com/static/fonts/princesssofia/v1/8g5l8r9BM0t1QsXLTajDe5X6VkmL3h9uMYskRVF95d8.svg") format("svg");
+}
+
+#fonts {
+    font-family:'Princess Sofia'; font-size:30px;
+}
+
+/* transitions */
+* { margin:0; padding:0; }
+
+form input[name=jmeno] { 
+    padding:2px;
+    border:1px solid #a0a0a0; 
+    background:#efefef;
+    color:#dedede;
+    font-size:12px;
+    transition-property: color, font-size, border-width, background-color;
+    transition-duration: 1s;
+    transition-timing-function:ease;
+}
+
+form input[name=jmeno]:focus {
+    color:#000;
+    background-color:#fff;
+    border-width: 5px;
+    font-size:20px;
+}
+
+/* menu */
+ul { 
+    position:relative;
+    list-style-type:none;
+    overflow:hidden;
+    color:#fff; 
+}
+ul ul {
+    position:static;
+    height:0;
+    opacity:0;
+    transition-property: height,opacity;
+    transition: 0.5s ease-in-out;
+}
+
+ul li:hover > ul {
+    height:60px;
+    opacity:1;
+}
+ul li { 
+    display:inline-block; 
+    background:#000;
+    padding:4px;
+   
+}
+
+ul li li { 
+    position:static;
+    display:block;
+    border-top:none;
+}
+

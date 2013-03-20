@@ -1,0 +1,323 @@
+<html>
+<head>
+<title>
+</title>
+<style>
+/* fonty */
+@font-face {
+  font-family: 'Princess Sofia';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Princess Sofia'), local('PrincessSofia'), url(http://themes.googleusercontent.com/static/fonts/princesssofia/v1/8g5l8r9BM0t1QsXLTajDe5X6VkmL3h9uMYskRVF95d8.woff) format('woff');
+}
+
+@font-face {
+  font-family: 'Arrows';
+  font-style: normal;
+  font-weight: 400;
+  src: local('Arrows'), url(./Arrows.woff) format('woff');
+}
+
+@font-face {
+    font-family: "MAXIMUMSECURITY";
+    src: url("http://themes.googleusercontent.com/static/fonts/princesssofia/v1/8g5l8r9BM0t1QsXLTajDe5X6VkmL3h9uMYskRVF95d8.eot?#iefix") format("embedded-opentype"), 
+         url('http://themes.googleusercontent.com/static/fonts/princesssofia/v1/8g5l8r9BM0t1QsXLTajDe5X6VkmL3h9uMYskRVF95d8.woff') format('woff');
+         url("http://themes.googleusercontent.com/static/fonts/princesssofia/v1/8g5l8r9BM0t1QsXLTajDe5X6VkmL3h9uMYskRVF95d8.ttf") format("truetype"), 
+         url("http://themes.googleusercontent.com/static/fonts/princesssofia/v1/8g5l8r9BM0t1QsXLTajDe5X6VkmL3h9uMYskRVF95d8.svg") format("svg");
+}
+
+#fonts {
+    font-family:'Princess Sofia'; font-size:100px;
+}
+
+/* transitions */
+* { margin:0; padding:0; }
+
+form input[name=jmeno] { 
+    padding:2px;
+    border:1px solid #a0a0a0; 
+    background:#efefef;
+    color:#dedede;
+    font-size:12px;
+    transition-property: color, font-size, border-width, background-color;
+    transition-duration: 1s;
+    transition-timing-function:ease;
+}
+
+form input[name=jmeno]:focus {
+    color:#000;
+    background-color:#fff;
+    border-width: 5px;
+    font-size:20px;
+}
+
+/* menu */
+ul { 
+    position:relative;
+    list-style-type:none;
+    overflow:hidden;
+    color:#fff; 
+}
+ul ul {
+    position:static;
+    height:0;
+    transition: 0.5s ease-in-out height;
+}
+
+ul li:hover > ul {
+    height:60px;
+}
+ul li { 
+    display:inline-block; 
+    background:#000;
+    padding:4px;
+   
+}
+
+ul li li { 
+    position:static;
+    display:block;
+    border-top:none;
+}
+
+/* animation */
+#playground { width:300px; height:300px; position:relative; overflow:hidden; background:#00cccc; line-height:0; }
+#playground input {
+	font-family:Arrows;
+	font-size:20px;
+	width:40px;height:40px;
+}
+
+#drak { 
+		position:absolute; top:140px; left:100px; width:75px; height:70px; 
+		background:url(drak.gif) no-repeat 0 0; 
+}
+
+input[name=right]:focus ~ #drak {
+	animation: right 1s steps(1,start) infinite;
+}
+@keyframes right {
+    0%,100%		 { background-position: 0px 0; }
+    10%      { background-position: -75px 0; }
+    20%      { background-position: -150px 0; }
+    30%      { background-position: -225px 0; }
+    40%      { background-position: -300px 0; }
+    50%      { background-position: -375px 0; }
+    60%      { background-position: -450px 0; }
+    70%      { background-position: -525px 0; }
+    80%      { background-position: -600px 0; }
+    90%      { background-position: -675px 0; }
+
+}
+
+/*input[name=left]:focus ~ #drak {
+	animation: left 1s steps(1,end) infinite;
+}
+@keyframes left {
+    0%,100%		 { background-position: 0px -280px; }
+    10%      { background-position: -75px -280px; }
+    20%      { background-position: -150px -280px; }
+    30%      { background-position: -225px -280px; }
+    40%      { background-position: -300px -280px; }
+    50%      { background-position: -375px -280px; }
+    60%      { background-position: -450px -280px; }
+    70%      { background-position: -525px -280px; }
+    80%      { background-position: -600px -280px; }
+    90%      { background-position: -675px -280px; }
+
+}*/
+
+input[name=down]:focus ~ #drak {
+	animation: down 1s steps(1,end) infinite;
+}
+@keyframes down {
+    0%,100%		 { background-position: 0px -140px; }
+    10%      { background-position: -75px -140px; }
+    20%      { background-position: -150px -140px; }
+    30%      { background-position: -225px -140px; }
+    40%      { background-position: -300px -140px; }
+    50%      { background-position: -375px -140px; }
+    60%      { background-position: -450px -140px; }
+    70%      { background-position: -525px -140px; }
+    80%      { background-position: -600px -140px; }
+    90%      { background-position: -675px -140px; }
+
+}
+
+input[name=up]:focus ~ #drak {
+	animation: up 1s steps(1,end) infinite;
+}
+@keyframes up {
+    0%,100%		 { background-position: 0px -420px; }
+    10%      { background-position: -75px -420px; }
+    20%      { background-position: -150px -420px; }
+    30%      { background-position: -225px -420px; }
+    40%      { background-position: -300px -420px; }
+    50%      { background-position: -375px -420px; }
+    60%      { background-position: -450px -420px; }
+    70%      { background-position: -525px -420px; }
+    80%      { background-position: -600px -420px; }
+    90%      { background-position: -675px -420px; }
+
+}
+
+input[name=leftup]:focus ~ #drak {
+	animation: leftup 1s steps(1,end) infinite;
+}
+@keyframes leftup {
+    0%,100%		 { background-position: 0px -350px; }
+    10%      { background-position: -75px -350px; }
+    20%      { background-position: -150px -350px; }
+    30%      { background-position: -225px -350px; }
+    40%      { background-position: -300px -350px; }
+    50%      { background-position: -375px -350px; }
+    60%      { background-position: -450px -350px; }
+    70%      { background-position: -525px -350px; }
+    80%      { background-position: -600px -350px; }
+    90%      { background-position: -675px -350px; }
+
+}
+
+input[name=rightup]:focus ~ #drak {
+	animation: rightup 1s steps(1,end) infinite;
+}
+@keyframes rightup {
+    0%,100%		 { background-position: 0px -490px; }
+    10%      { background-position: -75px -490px; }
+    20%      { background-position: -150px -490px; }
+    30%      { background-position: -225px -490px; }
+    40%      { background-position: -300px -490px; }
+    50%      { background-position: -375px -490px; }
+    60%      { background-position: -450px -490px; }
+    70%      { background-position: -525px -490px; }
+    80%      { background-position: -600px -490px; }
+    90%      { background-position: -675px -490px; }
+
+}
+
+input[name=leftdown]:focus ~ #drak {
+	animation: leftdown 1s steps(1,end) infinite;
+}
+@keyframes leftdown {
+    0%,100%		 { background-position: 0px -210px; }
+    10%      { background-position: -75px -210px; }
+    20%      { background-position: -150px -210px; }
+    30%      { background-position: -225px -210px; }
+    40%      { background-position: -300px -210px; }
+    50%      { background-position: -375px -210px; }
+    60%      { background-position: -450px -210px; }
+    70%      { background-position: -525px -210px; }
+    80%      { background-position: -600px -210px; }
+    90%      { background-position: -675px -210px; }
+
+}
+
+input[name=rightdown]:focus ~ #drak {
+	animation: rightdown 1s steps(1,end) infinite;
+}
+@keyframes rightdown	 {
+    0%,100%		 { background-position: 0px -70px; }
+    10%      { background-position: -75px -70px; }
+    20%      { background-position: -150px -70px; }
+    30%      { background-position: -225px -70px; }
+    40%      { background-position: -300px -70px; }
+    50%      { background-position: -375px -70px; }
+    60%      { background-position: -450px -70px; }
+    70%      { background-position: -525px -70px; }
+    80%      { background-position: -600px -70px; }
+    90%      { background-position: -675px -70px; }
+
+}
+
+</style>
+</head>
+<body>
+
+<div id="controler">
+    <form action="" method="get">
+        <input type="text" name="jmeno" value="Tonda" />
+    </form>
+    
+    <ul>
+        <li>prvni polozka
+            <ul>
+                <li>prvni polozka</li>
+                <li>druha polozka</li>
+                <li>treti polozka</li>
+                <li>ctvrta polozka</li>
+            </ul>
+        </li>
+        <li>druha polozka
+            <ul>
+                <li>prvni polozka</li>
+                <li>druha polozka</li>
+                <li>treti polozka</li>
+                <li>ctvrta polozka</li>
+            </ul>
+        </li>
+        <li>treti polozka
+            <ul>
+                <li>prvni polozka</li>
+                <li>druha polozka</li>
+                <li>treti polozka</li>
+                <li>ctvrta polozka</li>
+            </ul>
+        </li>
+        <li>ctvrta polozka
+            <ul>
+                <li>prvni polozka</li>
+                <li>druha polozka</li>
+                <li>treti polozka</li>
+                <li>ctvrta polozka</li>
+            </ul>
+        </li>
+    </ul>
+</div>
+
+<div id="fonts">
+My Custom Web Font
+</div>
+
+<style>
+	#drak   { 
+		width:75px; height:70px; background:url(drak.gif) no-repeat 0 0; 
+	}
+	
+input[name=right]:focus ~ #drak {
+	animation: newRight .8s steps(9) infinite;
+}
+@keyframes newRight {
+	from { background-position: 0 0; }
+	to { background-position:-675px 0;}
+}
+
+input[name=left]:focus ~ #drak {
+	animation: left .8s steps(9) infinite;
+}
+@keyframes left {
+	from { background-position: 0 -280px; }
+	to { background-position:-675px -280px;}
+}
+	
+	
+</style>
+
+<div id="playground">
+	<input type="button" name="leftup" value="E" />
+	<input type="button" name="up" value="C" />
+	<input type="button" name="rightup" value="G" />
+	<br />
+	<input type="button" name="left" value="B" />
+	<input type="button" name="stop" value=" " />
+	<input type="button" name="right" value="A" />
+	<br />
+	<input type="button" name="leftdown" value="F" />
+	<input type="button" name="down" value="D" />
+	<input type="button" name="rightdown" value="H" />
+
+	<div id="drak">
+	</div>
+</div>
+
+</body>
+</html>

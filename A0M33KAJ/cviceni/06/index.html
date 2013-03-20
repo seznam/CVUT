@@ -1,0 +1,176 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="../../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>Tvorba klientských aplikací v JavaScriptu</title>
+	<body>
+
+<h1>Tvorba klientských aplikací v JavaScriptu</h1>
+
+<section class="slide">
+	<h2>Transitions, Animations, Fonts, Eye candy properties</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>Transitions - opakování</li>
+		<li>Transitions - příklad</li>
+		<li>Animations - opakování</li>
+		<li>Animations - příklad</li>
+		<li>Fonts - opakování</li>
+		<li>Fonts - příklad použití</li>
+		<li>Eye candy properties - příklad</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>Užitečné odkazy</h2>
+	<ul class="sections">
+		<li><a href="http://jsfiddle.net/koko/DFAgq/">http://jsfiddle.net/koko/DFAgq/</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Transitions - opakování</h2>
+	<ul class="sections">
+		<li>K čemu slouží?</li>
+		<li>Jak je zapíšete?</li>
+		<li>Z jakých částí se skládají?</li>
+		<li>
+		<pre data-syntax="css">
+div {
+    background-color: blue;
+    width: 200px;
+    height: 200px;
+    transition: all 3s;
+}
+div:hover {
+    width: 600px;
+    background-color: red;
+}		
+		</pre>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Transitions - úkoly</h2>
+	<ul class="sections">
+		<li><em>Úkol: </em>Při kliknutí na textové políčko, se políčko plynule po dobu 3s zvětší a background bude z šedé přecházet do bílé.</li>
+		<li><em>ÚkolII: </em>Při najetí na menu první úrovně se rozbalí další položky (vysunou se plynule a z nulové opacity se nastaví na plnou neprůhlednost)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Animations - opakování</h2>
+	<ul class="sections">
+		<li>K čemu slouží?</li>
+		<li>Jak je zapíšete?</li>
+		<li>Z jakých částí se skládají?</li>
+		<li>
+			<pre data-synntax="css">
+div {
+    animation: posun 4s linear infinite;
+}
+
+@keyframes posun {
+    0%, 100% { right: 0px;   top: 100px; }
+    25%      { right: 200px; top: 100px; }
+    50%      { right: 200px; top: 300px; }
+    75%      { right: 0px;   top: 300px; }
+}			
+			</pre>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Animace - úkoly</h2>
+	<ul class="sections">
+		<li><em>Úkol: </em>Vyrobte animovaného potvora, který při kliknutí na ovládací prvek, začne pochodovat určeným směrem</li>
+		<li><a href="https://www.google.cz/search?hl=cs&safe=off&q=sprite+dragon&bav=on.2,or.r_cp.r_qf.&bvm=bv.43828540,d.Yms&biw=1920&bih=1098&um=1&ie=UTF-8&tbm=isch&source=og&sa=N&tab=wi&ei=3dFGUfi1AoiytAayjYGABA">sprite dragon</a></li>
+	</ul>
+</section>
+
+
+<section class="slide">
+	<h2>Fonts - opakování</h2>
+	<ul class="sections">
+		<li>Jak je zapíšete?</li>
+		<li>Na co si dát pozor?</li>
+		<li>
+			<pre data-synntax="css">
+@font-face {
+    font-family: MujFont;
+    src: local("Muj Font"), url(MujFont.ttf);
+}
+
+body {
+    font-family: MujFont;
+}
+			</pre>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Fonts - úkoly</h2>
+	<ul class="sections">
+		<li><em>Úkol: </em>Zkuste do stránky  vložit font tak, aby byl použitelný ve všech prohlížečích</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Eye candy CSS - opakování</h2>
+	<ul class="sections">
+		<li>Jaké znáte?</li>
+		<li>
+			kulaté rohy, průhlednost, gradienty, stíny
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Fonts - úkoly</h2>
+	<ul class="sections">
+		<li><em>Úkol: </em>Doplňte do vyjížděcího menu, kulatost, stíny a font</li>
+	</ul>
+</section>
+
+
+<section class="slide">
+	<h2>Dokumenty</h2>
+	<ul class="sections">
+		<li><a href="ukazka.html">ukazka.html</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Prostor pro otázky</h2>
+</section>
+
+<footer>
+	<a href="mailto:zdenek.vlach@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>
