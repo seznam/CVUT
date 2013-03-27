@@ -1,0 +1,175 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="../../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>Tvorba klientských aplikací v JavaScriptu</title>
+	<body>
+
+<h1>Tvorba klientských aplikací v JavaScriptu</h1>
+
+<section class="slide">
+	<h2>Práce s objekty v JavaScriptu, dědičnost, prototype</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>Obor platnosti proměných</li>
+		<li>Organizace kódu - souborová struktura, jmenné prostory, struktura aplikace</li>
+		<li>Koncept this</li>
+		<li>Prototypy - modulo, random, string capitalize</li>
+		<li>Inspekční middleware - apply</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>Obor platnosti proměných</h2>
+	<ul class="sections">
+		<li>Jaký je rozdíl, když definujete proměnou s a bez klíčového slova <em>var</em></li>
+		<li><em>Úkol</em>: Vyzkoušejte si definovat proměnnou s i bez var</li>
+		<li>Jak funguje obor platnosti proměnné v JS</li>
+		<li><em>ÚkolII:</em> Vyzkoušejte si různé definice proměnných v kódu</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Organizace kódu - souborová struktura, jmenné prostory, struktura aplikace</h2>
+	<ul class="sections">
+		<li>Co "třída" to soubor</li>
+		<li>Dodobnou funkcionalitu sdružovat a zapouzdřovat</li>
+		<li>Promyslet si strukturu aplikace - rozdělit vizualizaci a výkonný kód</li>
+		<li><em>Úkol:</em> Navrhněte strukturu aplikace - první třída bude implementovat různé mat. fce, druhá třída je pak bude vizualizovat</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Koncept this</h2>
+	<ul class="sections">
+		<li>Kdy this nabývá své hodnoty?</li>
+		<li><em>Úkol:</em> Vyrobte třídu, jejíž konstruktor vyrobí div a na něj navěsí na click fci, která vypíše hodnotu promněné this.message</li>
+		<li><a href="http://jsfiddle.net/koko/tjm4U/">http://jsfiddle.net/koko/tjm4U/</a></li>
+		<li>
+		<pre data-syntax="js">
+var Visual = function () {
+	this._message = 'ahoj svete!';
+    this._dom = document.createElement('div');
+    this._dom.style.height = "50px";
+    this._dom.style.backgroundColor = "gray";
+    document.body.appendChild(this._dom);
+    this._dom.addEventListener('click', this._show,true);
+}
+Visual.prototype._show = function () {
+	alert(this._message)
+}
+
+var v = new Visual();
+		</pre>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Prototypy - modulo záporného čísla</h2>
+	<ul class="sections">
+		<li><em>Úkol:</em> Upravte celočíselné dělení, tak aby vracelo kladné hodnoty zbytku i pro záporné hodnoty vstupu</li>
+		<li><a href="http://jsfiddle.net/koko/tjm4U/">http://jsfiddle.net/koko/tjm4U/</a></li>
+		<li>
+		<pre data-syntax="js">
+Number.prototype.mod = function (divisor) {
+	return ((this % divisor) + divisor) % divisor
+}
+		</pre>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Prototypy - náhodný výběr prvku z pole</h2>
+	<ul class="sections">
+		<li><em>Úkol:</em> Upravte objekt Array, tak aby měl metodu rnd, ktré vrátí náhodný prvek z pole.</li>
+		<li><a href="http://jsfiddle.net/koko/tjm4U/">http://jsfiddle.net/koko/tjm4U/</a></li>
+		<li>
+		<pre data-syntax="js">
+Array.prototype.rnd = function () {
+	var rIndex = Math.floor((this.length)*Math.random());
+	return this[rIndex];
+}
+		</pre>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Prototypy - capitalize</h2>
+	<ul class="sections">
+		<li><em>Úkol:</em> Naprogramujte funkci capitalize pro řetezce (první písmeno bude velké)</li>
+		<li><a href="http://jsfiddle.net/koko/tjm4U/">http://jsfiddle.net/koko/tjm4U/</a></li>
+		<li>
+		<pre data-syntax="js">
+String.prototype.capitalize = function () {
+    return this.charAt(0).toUpperCase() + this.slice(1);
+    //return this.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase()+ txt.substr(1).toLowerCase();});
+}
+		</pre>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Apply - Inspekční middleware</h2>
+	<ul class="sections">
+		<li><em>Úkol:</em>Napište fci, která modifikuje fce ostatní a to tak, že budou vypisovat do console, info o tom, že jsou volány</li>
+		<li><a href="http://jsfiddle.net/koko/tjm4U/">http://jsfiddle.net/koko/tjm4U/</a></li>
+		<li>
+		<pre data-syntax="js">
+function log (name,owner) {
+    var owner = owner || window;
+    var f = owner[name];
+    owner[name] = function () {
+        console.log('Running function > ' + name);
+        return f.apply(this, arguments);
+    }
+}
+		</pre>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Apply - Inspekční middleware</h2>
+	<ul class="sections">
+		<li>
+		<a href="app.html">ukazka.html</a></li>
+	</ul>
+</section>
+
+
+
+<section class="slide">
+	<h2>Prostor pro otázky</h2>
+</section>
+
+<footer>
+	<a href="mailto:zdenek.vlach@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>
