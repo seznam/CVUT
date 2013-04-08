@@ -1,0 +1,318 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="../../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>AJAX, XHR, HTTP a jejich kamarádi</title>
+	<body>
+		
+<h1>AJAX, XHR, HTTP a jejich kamarádi</h1>
+
+<section class="slide">
+	<h2>AJAX, XHR, HTTP a jejich kamarádi</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>XHR a HTTP</li>
+		<li>CORS</li>
+		<li>Transportní formáty</li>
+		<li>Relevantní drobnosti</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>AJAX &ndash; motivace</h2>
+	<p style="text-align: center; height:70%">
+		<img style="height:100%; margin-right:1em" src="img/ajax1.jpg" alt="AJAX" />
+		<img style="height:100%" src="img/ajax2.jpg" alt="AJAX" />
+	</p>
+</section>
+
+<section class="slide">
+	<h2>AJAX</h2>
+	<ul class="sections">
+		<li>Asynchronous Javascript And Xml</li>
+		<li>Zkratka zpravidla používána chybně</li>
+		<li>Požadavky nemusí být asynchronní</li>
+		<li>Přenášet se dá cokoliv (nejen XML)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>XMLHttpRequest</h2>
+	<ul class="sections">
+		<li>XMLHttpRequest je alfou a omegou pro bohaté webové aplikace</li>
+		<li>Možnost provést HTTP požadavek</li>
+		<li>Dočítání dat, odesílání informací</li>
+		<li>V moderních prohlížečích není nutná žádná abstrakce</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>XMLHttpRequest API</h2>
+	<pre data-syntax="js">
+var xhr = new XMLHttpRequest();
+
+xhr.onreadystatechange = /* ... */;
+xhr.addEventListener("readystatechange", /* ... */);
+
+xhr.open(metoda, url, async);
+xhr.send(data);
+</pre>
+</section>
+
+<section class="slide">
+	<h2>XMLHttpRequest API</h2>
+	<ul class="sections">
+		<li>Lze použít jakoukoliv HTTP metodu</li>
+		<li>Synchronní požadavek blokuje vykreslovací vlákno</li>
+		<li>URL požadavku podstupuje kontrolu <em>originu</em> (viz dále)</li>
+		<li>Použití <code>onreadystatechange</code> vs. <code>addEventListener</code> jako u běžných DOM událostí</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>XMLHttpRequest API: doplňková funkcionalita</h2>
+	<ul class="sections">
+		<li><code>setRequestHeader(name, value)</code></li>
+		<li><code>getResponseHeader(name)</code>, <code>getAllResponseHeaders()</code></li>
+		<li><code>abort()</code></li>
+		<li><code>overrideMimeType()</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>XMLHttpRequest API: vlastnosti a data odpovědi</h2>
+	<ul class="sections">
+		<li><code>xhr.readyState</code> je stav požadavku (4 = hotovo)</li>
+		<li><code>xhr.status</code> je HTTP kód odpovědi (200 = OK)</li>
+		<li><code>xhr.responseText</code> jsou data odpovědi</li>
+		<li><code>xhr.responseXML</code> jsou data odpovědi ve formátu XML, jsou-li k dispozici</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>XMLHttpRequest 2</h2>
+	<ul class="sections">
+		<li>Rozšíření se zpětně kompatibilním API</li>
+		<li>Události <em>progress</em>, <em>load</em>, <em>error</em>, <em>abort</em></li>
+		<li>To samé na objektu <code>xhr.upload</code></li>
+		<li><code>xhr.responseType</code> = "arraybuffer", "blob", "document", "json", "text"</li>
+		<li><code>xhr.response</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Nuda!</h2>
+	<p class="sections" style="text-align: center;"><span></span><img src="img/unicorn.png" alt="" /></p>
+</section>
+
+<section class="slide">
+	<h2>Origin a CORS</h2>
+	<ul class="sections">
+		<li>XHR nelze poslat na jakékoliv URL</li>
+		<li>Proč?</li>
+		<li>Kvůli bezpečnosti!</li>
+		<li>Proč?</li>
+		<li>Protože součastí požadavku jsou cookies, HTTP autorizace, certifikáty&hellip;</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Origin a CORS: potenciální riziko</h2>
+	<pre data-syntax="js">
+var xhr = new XMLHttpRequest();
+xhr.open("get", "http://gmail.com/", true);
+xhr.send();
+
+xhr.onreadystatechange = function() {
+	alert(this.responseText);
+}</pre>
+</section>
+
+<section class="slide">
+	<h2>Origin a CORS: omezení originem</h2>
+	<ul class="sections">
+		<li>XHR jsou v základu omezeny jen na URL se stejným <em>originem</em></li>
+		<li>origin = schema + host + port</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Cross-origin bez XHR?</h2>
+	<ul class="sections">
+		<li>Odbočka pro zvídavé</li>
+		<li><code data-syntax="xml">&lt;img src="http://gmail.com/" /&gt;</code></li>
+		<li><code data-syntax="xml">&lt;form method="post" action="http://gmail.com/sendEmail" /&gt;</code></li>
+		<li>Nelze získat data odpovědi</li>
+		<li>Formulářový útok je CSRF</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CORS: technika pro cross-origin XHR</h2>
+	<ul class="sections">
+		<li>Cross Origin Resource Sharing</li>
+		<li>Skvělá podpora prohlížečů</li>
+		<li>Myšlenka: zeptat se backendu, jestli je ochoten takovýto požadavek přijmout</li>
+		<li>Pokud ne (default), odpověď se zahodí</li>
+		<li>Pokud ano, odpověď se vrátí</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CORS: implementace</h2>
+	<ul class="sections">
+		<li>HTTP hlavička požadavku <code>Origin</code></li>
+		<li>Podpora inzerovaná v hlavičce odpovědi <code>Access-Control-Allow-Origin</code></li>
+		<li>Požadavek se <strong>vždy</strong> provede</li>
+		<li>U složitějších požadavků (file upload, DELETE, &hellip;) je realizace podstatně složitější (<em>preflight</em>)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CORS: poznámky</h2>
+	<ul class="sections">
+		<li>Autor veřejného API by měl posílat <code>Access-Control-Allow-Origin</code></li>
+		<li>Nouzové řešení je server-side proxy (stejný origin)</li>
+		<li>Kompletní čtení na <a href="http://enable-cors.org/">http://enable-cors.org/</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Nuda!</h2>
+	<p class="sections" style="text-align: center;"><span></span><img src="img/monkey.png"  alt="" /></p>
+</section>
+
+<section class="slide">
+	<h2>Transportní formáty</h2>
+	<ul class="sections">
+		<li>Data lze posílat v mnoha formátech</li>
+		<li>Žádný není nejlepší</li>
+		<li>Upload zpravidla neřešíme</li>
+		<li>Download podle potřeby</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Transportní formáty: plain text</h2>
+	<p>(to není žádný formát)</p>
+</section>
+
+<section class="slide">
+	<h2>Transportní formáty: XML</h2>
+	<ul class="sections">
+		<li>Odpověď musí být validní XML</li>
+		<li>Odpověď musí mít platný XML mime type (nebo overrideMimeType)</li>
+		<li><code>xhr.responseXML instanceof DOMDocument</code></li>
+		<li>Dotazování přes DOM nebo XPath</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Transportní formáty: JSON</h2>
+	<ul class="sections">
+		<li>Populární textový formát (<a href="http://json.org/">http://json.org/</a>)</li>
+		<li>Podmnožina JavaScriptu</li>
+		<li>Řetězce, čísla, bool, pole, struktury, null</li>
+		<li>Absence speciálních číselných hodnot, undefined, Date, RegExp</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Transportní formáty: JSON</h2>
+	<pre data-syntax="js">{
+	"name": "jan",
+	"data": [3, 4, true]
+}</pre>
+	<ul class="sections">
+		<li>Klíče musí být ohraničeny úvozovkami</li>
+		<li><code>JSON.parse</code> a <code>JSON.stringify</code></li>
+		<li><code>eval</code> jako zpětná kompatibilita</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Transportní formáty: binárně</h2>
+	<ul class="sections">
+		<li>Lze, ale je problematické (cross-browser)</li>
+		<li>Odesílání ještě horší</li>
+		<li>U XMLHttpRequest 2 lze přes <code>responseType</code> a <code>send(binaryData)</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>JSONP</h2>
+	<ul class="sections">
+		<li>NENÍ transportní formát</li>
+		<li>Úplně jiná technika přenosu dat</li>
+		<li>Způsob obcházení cross-origin restriction</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>JSONP: ukázka</h2>
+	<pre data-syntax="xml">
+&lt;!-- vložit do dokumentu --&gt;
+&lt;script src="http://api.com/service?callback=mojeFunkce"&gt;&lt;/script&gt;
+</pre>
+
+	<pre data-syntax="js">
+/* opdpověď serveru */
+mojeFunkce({name: "jan", data: [3, 4, true]});
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Doplňkové informace #1</h2>
+	<ul class="sections">
+		<li>Prohlížeče omezují počet současných XHR na stránku (zpravidla 4)</li>
+		<li>HTTP požadavek musí být iniciován klientem</li>
+		<li>Technika <em>long poll</em>/<em>comet</em>: pošlu HTTP požadavek; server odpoví, až bude mít data</li>
+		<li>Server takto může notifikovat, ale musí držet mnoho otevřených spojení</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Doplňkové informace #2</h2>
+	<ul class="sections">
+		<li>Velikost přenášených dat (a jejich formát a následné zpracování) může razantně ovlivňovat výkon aplikace</li>
+		<li>Ladění XHR vždy ve spolupráci s vyvojářskými nástroji prohlížeče</li>
+		<li>V případě nouze wireshark/tcpdump</li>
+	</ul>
+</section>
+
+<section class="slide" id="noimage">
+	<style>
+		#noimage:after { display: none; }
+	</style>
+	<h2>Prostor pro otázky</h2>
+	<p style="height:70%; text-align:center"><img style="height:100%" src="img/ajax3.jpg" alt="AJAX" /></p>
+</section>
+
+<footer>
+	<a href="http://twitter.com/0ndras">twitter.com/0ndras</a>
+	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>
