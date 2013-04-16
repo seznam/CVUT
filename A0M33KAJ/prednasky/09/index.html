@@ -1,0 +1,274 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="../../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>Události a asynchronní zpracování</title>
+	<body>
+		
+<h1>Události a asynchronní zpracování</h1>
+
+<section class="slide">
+	<h2>Události a asynchronní zpracování</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>Události: opáčko</li>
+		<li>Události: objekt události</li>
+		<li>Události: capture a bubble</li>
+		<li>Události: posluchače</li>
+		<li>Asynchronní zpracování</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>Události: opáčko</h2>
+	<ul class="sections">
+		<li>Alternativní způsob řízení toku programu</li>
+		<li><em>Event-based programming</em></li>
+		<li><code>Až nastane X, udělej Y</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Události: opáčko</h2>
+	<pre data-syntax="js">
+var func = function(e) {
+	alert("...");
+}
+document.body.addEventListener("click", func, false);
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Události: opáčko</h2>
+	<p>Co je na událostech zajimavého?</p>
+	<ul class="sections">
+		<li>Na jakých vznikají prvcích?</li>
+		<li>Jaké existují?</li>
+		<li>Co obsahuje (jediný) parametr posluchače?</li>
+		<li>Jaký význam má třetí parametr <code>addEventListener</code>?</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Události: objekt události</h2>
+	<ul class="sections">
+		<li>Liší se podle typu události</li>
+		<li>Vždy obsahuje <code>target</code>, <code>currentTarget</code>, <code>timeStamp</code>, <code>type</code></li>
+		<li>Vždy obsahuje <code>stopPropagation</code> a <code>preventDefault</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Události klávesnice</h2>
+	<ul class="sections">
+		<li><code>keydown</code>, <code>keypress</code>, <code>keyup</code></li>
+		<li>Modifikátory <code>ctrlKey</code>, <code>altKey</code>, <code>shiftKey</code>, <code>metaKey</code></li>
+		<li>Stisk a uvolnění obsahuje <code>keyCode</code>
+			<ul>
+				<li>Identifikátor klávesy na klávesnici</li>
+				<li>Seznam na <a href="https://developer.mozilla.org/en-US/docs/DOM/KeyboardEvent">https://developer.mozilla.org/en-US/docs/DOM/KeyboardEvent</a></li>
+			</ul>
+		</li>
+		<li>Tištitelný keypress obsahuje <code>charCode</code>
+			<ul>
+				<li>Unicode code point znaku</li>
+				<li><code>String.fromCharCode</code> převede na znak</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Události myši</h2>
+	<ul class="sections">
+		<li><code>mousedown</code>, <code>mouseup</code>, <code>click</code>, <code>mouseover</code>, <code>mouseout</code>, <code>mousemove</code></li>
+		<li><code>clientX</code> a <code>clientY</code> &ndash; souřadnice kurzoru vůči průhledu</li>
+		<li><code>button</code> je tlačítko (0 = levé, 1 = prostřední, 2 = pravé)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Události dotykové</h2>
+	<ul class="sections">
+		<li><code>touchstart</code>, <code>touchmove</code>, <code>touchend</code>, (<code>gesturechange</code>)</li>
+		<li><code>touches</code> &ndash; pole všech dotyků</li>
+		<li><code>changedTouches</code> &ndash; pole změněných dotyků</li>
+		<li><code>targetTouches</code> &ndash; pole dotyků na cílovém prvku</li>
+		<li>Dotyk je mini-událost, obsahující pozici a doplňkové údaje (sílu stisku, velikost prstu a natočení)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Události ostatní</h2>
+	<ul class="sections">
+		<li><code>focus</code>, <code>blur</code></li>
+		<li><code>select</code>, <code>change</code>, <code>submit</code></li>
+		<li><code>scroll</code>, <code>resize</code></li>
+		<li><code>DOMContentLoaded</code></li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/DOM/Mozilla_event_reference">Kompletní soupis</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Capture a bubble #1</h2>
+	<ul class="sections">
+		<li>Třetí parametr pro <code>addEventListener</code> je <em>useCapture</em></li>
+		<li>Posluchače události jsou volány nejprve ve fázi capture, poté ve fázi bubble</li>
+		<li>Pořadí fází a volání viz <a href="img/event.gif">diagram</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Capture a bubble #2</h2>
+	<ul class="sections">
+		<li>Více posluchačů na stejném uzlu (ve stejné fázi) je voláno v nedefinovaném pořadí</li>
+		<li>Zpracovávání události lze zastavit voláním <code>stopPropagation()</code></li>
+		<li>Metoda <code>preventDefault()</code> s tím nijak nesouvisí</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Capture a bubble #3</h2>
+	<ul class="sections">
+		<li>Některé události nebublají&hellip;</li>
+		<li>&hellip;ale i tyto procházejí capture</li>
+		<li><code>load</code>, <code>unload</code></li>
+		<li><code>focus</code>, <code>blur</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Posluchače událostí</h2>
+	<p>Varianta 1: posluchač je funkce</p>
+	<pre data-syntax="js">window.addEventListener("load", function(e) {
+	alert(e.target == this);
+});</pre>
+	<ul>
+		<li><code>this</code> je prvek, na kterém je posluchač zavěšen (nikoliv ten, kde událost vznikla)</li>
+		<li>Pokud chceme předat parametry nebo změnit this, použijeme <code>bind</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<p style="text-align: center"><img src="img/secret.jpg" /></p>
+</section>
+
+<section class="slide">
+	<h2>Posluchače událostí</h2>
+	<p>Varianta 2: posluchač je objekt</p>
+	<pre data-syntax="js">
+var obj = {
+	handleEvent: function(e) {
+		alert(this == obj);
+	}
+}
+window.addEventListener("load", obj);</pre>
+	<ul>
+		<li><code>obj</code> musí mít metodu <code>handleEvent</code></li>
+		<li><code>this</code> je posluchač</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Asynchronní zpracování</h2>
+	<ul class="sections">
+		<li>JavaScript je vykonáván v jednom vlákně</li>
+		<li>Není nutné řešit přerušení a synchronizaci vykonávání</li>
+		<li><em>Event loop</em></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Event loop</h2>
+	<pre data-syntax="js">
+var scheduledJS = "";
+var listeners = [];
+
+while (1) {
+	eval(scheduledJS); /* TADY se vykoná JS */
+
+	if (!listeners.length) break;
+
+	/* počkat, než bude čas na nejbližší posluchač */
+	var currentListener = waitFor(listeners); 
+
+	/* naplánovat jej */
+	scheduledJS = listeners[currentListener];
+	delete listeners[currentListener];
+}</pre>
+</section>
+
+<section class="slide">
+	<h2>Zpožděné vykonávání</h2>
+	<ul class="sections">
+		<li>Je řada způsobů, jak "naplánovat" zpožděné vykonání kódu</li>
+		<li>XMLHttpRequest, addEventListener</li>
+		<li><pre data-syntax="js">
+setTimeout(  function() { /* ... */ }, 1000);
+setInterval( function() { /* ... */ }, 100);
+</pre></li>
+		<li>Pořadí určuje <del>lékař</del> prohlížeč, ale vždy nejprve v příští iteraci event loopu</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Hádanka</h2>
+	<pre data-syntax="js">
+/* Víte, co a proč udělá tato funkce? */
+function s(a) {
+    while (a.length) {
+        var v = a.shift();
+        setTimeout(a.push.bind(a, v), v);
+    }
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Zpožděné vykonávání &ndash; requestAnimationFrame</h2>
+	<ul class="sections">
+		<li><code>setTimeout</code> zní jako rozumné řešení pro JS animace</li>
+		<li><code>requestAnimationFrame</code> je výrazně vhodnější alternativa</li>
+		<li><pre data-syntax="js">
+requestAnimationFrame(function() {
+	/* animujeme... */
+});
+</pre></li>
+		<li>Prohlížeč sám volí vhodnou délku časového kroku (zpravidla okolo 60 fps)</li>
+		<li>Pozor na prefixy</li>
+		<li>Více info viz <a href="https://developer.mozilla.org/en-US/docs/DOM/window.requestAnimationFrame">MDN</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Prostor pro otázky</h2>
+</section>
+
+<footer>
+	<a href="http://twitter.com/0ndras">twitter.com/0ndras</a>
+	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>
