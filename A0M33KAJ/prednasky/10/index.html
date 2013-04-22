@@ -1,0 +1,303 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="../../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>HTML5 Canvas</title>
+	<body>
+		
+<h1>HTML5 Canvas</h1>
+
+<section class="slide">
+	<h2>HTML5 Canvas</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>Co je to canvas</li>
+		<li>Malování</li>
+		<li>Transformace</li>
+		<li>Animace a časování</li>
+		<li>Komunikace s dalšími prvky</li>
+		<li>Tipy a triky</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>Co je to canvas</h2>
+	<ul class="sections">
+		<li>HTML značka</li>
+		<li>Rastrová kreslící plocha</li>
+		<li>Bohaté JS API</li>
+		<li><a href="http://caniuse.com/#feat=canvas">Rozumná podpora prohlížečů</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Co je to canvas: v HTML</h2>
+	<pre data-syntax="xml">
+&lt;canvas width="800" height="600"&gt;Smolíček pacholíček :-(&lt;/canvas&gt;
+</pre>
+	<ul>
+		<li>Fallback text</li>
+		<li>Pevné rozměry (změna = vymazání)</li>
+		<li>Průhledné pozadí</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Co je to canvas: v JS</h2>
+	<pre data-syntax="js">
+var canvas = document.querySelector("canvas");
+var context = canvas.getContext("2d");
+context.namalujNecoPekneho();
+</pre>
+	<ul>
+		<li>Malovací metody patří kontextu</li>
+		<li>Existuje též 3d kontext (WebGL) mimo rozsah předmětu</li>
+		<li><a href="http://www.nihilogic.dk/labs/canvas_sheet/HTML5_Canvas_Cheat_Sheet.png">Canvas cheatsheet</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Malování: obdélníky</h2>
+	<ul class="sections">
+		<li><code data-syntax="js">clearRect(x, y, w, h)</code>: vymazat</li>
+		<li><code data-syntax="js">fillRect(x, y, w, h)</code>: vyplnit (aktuálně nastavenou vyplňovací barvou)</li>
+		<li><code data-syntax="js">strokeRect(x, y, w, h)</code>: orámovat (aktuálně nastavenou kreslící barvou)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Malování: tah štětcem</h2>
+	<p><a href="http://ondras.zarovi.cz/slides/html5/3.html#7">Ukázka</a></p>
+	<pre data-syntax="js">
+ctx.beginPath();
+ctx.moveTo(100, 200);
+ctx.lineTo(200, 300);
+ctx.arc(300, 300, 50, 0, Math.PI, true);
+ctx.stroke();
+ctx.fill();
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Malování: vzhledové vlastnosti</h2>
+	<ul class="sections">
+		<li><code data-syntax="js">ctx.strokeStyle = "red"</code></li>
+		<li><code data-syntax="js">ctx.fillStyle = "#000"</code></li>
+		<li>CSS barva NEBO barevný přechod NEBO vzor (viz dále)</li>
+		<li><code data-syntax="js">ctx.globalAlpha = 0.5</code></li>
+		<li><code data-syntax="js">ctx.globalCompositeOperation = "lighter"</code></li>
+		<li><code data-syntax="js">ctx.shadow{Blur,Color,OffsetX,OffsetY} = ...</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Malování: vlastnosti čar</h2>
+	<ul class="sections">
+		<li><code data-syntax="js">ctx.lineWidth = 3</code></li>
+		<li><code data-syntax="js">ctx.lineCap = "round"</code></li>
+		<li><code data-syntax="js">ctx.lineJoin = "round"</code></li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/HTML/Canvas/Tutorial/Applying_styles_and_colors#Line_styles">Ukázka</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Malování: text</h2>
+<pre data-syntax="js">
+ctx.font = "bold 20px arial";
+ctx.textAlign = "middle";
+ctx.textBaseline = "bottom";
+
+ctx.fillText(x, y, "Ahoj");
+ctx.strokeText(x, y, "Ahoj");
+var w = ctx.measureText("A").width;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Malování: po pixelech</h2>
+<pre data-syntax="js">
+var data = ctx.getImageData(x, y, w, h);
+/* data.data.length == w*h*4 */
+
+data.data[0] = 100; /* R */
+data.data[1] = 200; /* G */
+data.data[2] =  50; /* B */
+data.data[3] = 255; /* A */
+
+ctx.putImageData(data, 0, 0);
+</pre>
+	<p class="section"><a href="http://ondras.zarovi.cz/demos/coral/">Ukázka 1</a>, <a href="http://ondras.zarovi.cz/demos/fractal/">Ukázka 2</a></p>
+</section>
+
+<section class="slide">
+	<h2>Malování: barevné přechody a vzory</h2>
+<pre data-syntax="js">
+var g = ctx.createLinearGradient(0, 0, 100, 100);
+g.addColorStop(0, "red");
+g.addColorStop(1, "blue");
+ctx.fillStyle = g;
+
+var p = ctx.createPattern(image);
+var p = ctx.createPattern(canvas);
+ctx.fillStyle = p;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Transformace</h2>
+	<ul class="sections">
+		<li>Podobné jako u SVG</li>
+		<li>Sada afinních transformací, která upravuje souřadný systém</li>
+		<li><code data-syntax="js">ctx.scale(0.5, 0.5)</code></li>
+		<li><code data-syntax="js">ctx.rotate(Math.PI/2)</code></li>
+		<li><code data-syntax="js">ctx.translate(dx, dy)</code></li>
+	</ul>
+	<p class="section"><a href="http://ondras.zarovi.cz/demos/space-filling/">Ukázka</a></p>
+</section>
+
+<section class="slide">
+	<h2>Animace a časování</h2>
+	<ul class="sections">
+		<li>Canvas je ideální technologie pro animace a hry</li>
+		<li>Správná práce s canvasem je rychlá</li>
+		<li>Podstatné je dobré časování a množství překreslování</li>
+		<li><a href="http://ondras.zarovi.cz/games/drago/">Ukázka</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Animace a časování: varianta 1</h2>
+<pre data-syntax="js">
+var x = 0;
+while (true) {
+	ctx.clearRect();
+	x += 3;
+	ctx.drawRect(x, 0, 10, 10);
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Animace a časování: varianta 2</h2>
+<pre data-syntax="js">
+var x = 0;
+var draw = function() {
+	ctx.clearRect();
+	x += 3;
+	ctx.drawRect(x, 0, 10, 10);
+}
+
+setInterval(draw, 1000/30);
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Animace a časování: varianta 3</h2>
+<pre data-syntax="js">
+var x = 0;
+var draw = function() {
+	ctx.clearRect();
+	x += 3;
+	ctx.drawRect(x, 0, 10, 10);
+	requestAnimationFrame(draw);
+}
+
+draw();
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Animace a časování: varianta 4</h2>
+<pre data-syntax="js">
+var T = Date.now();
+var speed = 0.1;
+
+var draw = function() {
+	var t = Date.now();
+	x += (T - t) * speed;
+	T = t;
+	/* ... */
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Komunikace s dalšími prvky: export</h2>
+	<ul class="sections">
+		<li><code data-syntax="js">var data = canvas.toDataURL("image/png")</code></li>
+		<li>Technika <em>data URI</em> představuje reprezentaci dat přímo v řetězci URI</li>
+		<li>Možno nastavit např. jako src obrázku</li>
+		<li><a href="http://ondras.zarovi.cz/demos/photo/">Ukázka</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Komunikace s dalšími prvky: import</h2>
+	<ul class="sections">
+		<li><code data-syntax="js">ctx.drawImage(image, dx, dy, [dw, dh])</code></li>
+		<li><code data-syntax="js">ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh)</code></li>
+		<li>"image" může být obrázek, canvas či video</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Tipy a triky: ostré hrany</h2>
+	<ul class="sections">
+		<li>Canvas používá antialiasing, nelze vypnout</li>
+		<li>Souřadný systém má celočíselné hodnoty mezi pixely</li>
+		<li>Svislé / vodorovné čáry o liché tloušťce posuňme o půl pixelu</li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/HTML/Canvas/Tutorial/Applying_styles_and_colors#Line_styles">Ukázka</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Tipy a triky: FOUT</h2>
+	<ul>
+		<li>Kreslení textu při použití @font-face</li>
+		<li>Dokud není písmo načteno, použije se výchozí</li>
+		<li>Soubor s písmem lze specifikovat pomocí data-URI</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Tipy a triky: animace</h2>
+	<ul>
+		<li>Překreslení (mazání) celého canvasu je drahé</li>
+		<li>Pokud se vyplatí, je lepší mazat jen změněné části</li>
+		<li>Různé kreslící operace jsou různě drahé; nejlepší je <code>drawImage</code></li>
+		<li><a href="http://ondras.zarovi.cz/misc/haf/benchmark.html">Ukázka</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Prostor pro otázky</h2>
+</section>
+
+<footer>
+	<a href="http://twitter.com/0ndras">twitter.com/0ndras</a>
+	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>
