@@ -1,0 +1,239 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="../../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>Nová JavaScriptová API</title>
+	<body>
+		
+<h1>Nová JavaScriptová API</h1>
+
+<section class="slide">
+	<h2>Nová JavaScriptová API</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>Geolocation</li>
+		<li>Web Storage</li>
+		<li>File API</li>
+		<li>Drag'n'Drop</li>
+		<li>History API</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>Geolocation</h2>
+	<ul class="sections">
+		<li>Zjištění polohy uživatele</li>
+		<li>Asynchronní</li>
+		<li>Polohu zjišťuje prohlížeč nedefinovanými mechanismy</li>
+		<li>GPS, IP, Názvy wifi AP, &hellip;</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Geolocation: API</h2>
+	<pre data-syntax="js">
+var ok = function(position) {
+	alert([position.coords.latitude, position.coords.longitude]);
+}
+
+var error = function(e) {
+	alert(e.message);
+}
+
+navigator.geolocation.getCurrentPosition(ok, error);
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Geolocation: další API</h2>
+	<ul class="sections">
+		<li><code>watchPosition</code> pro opakované sledování</li>
+		<li><code>clearPosition</code> pro přerušení</li>
+		<li>Nalezená pozice obsahuje také rychlost, směr, výšku, přesnost</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Storage</h2>
+	<ul class="sections">
+		<li>Úložiště dat v prohlížeči</li>
+		<li>Alespoň 5MB pro doménu</li>
+		<li>Data se nikam neodesílají</li>
+		<li>Triviální <a href="http://www.webdirections.org/blog/localstorage-perhaps-not-so-harmful/">synchronní</a> JS API</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Storage: ukázka</h2>
+	<pre data-syntax="js">
+localStorage.setItem("a", "b");
+
+localStorage.length == 1;
+localStorage.key(0) == "a";
+localStorage.getItem("a") == "b";
+
+localStorage.removeItem("a");
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Web Storage: další info</h2>
+	<ul class="sections">
+		<li>Ukládají se dvojice řetězců (klíč-hodnota)</li>
+		<li>Storage je sdílena všemi skripty na doméně</li>
+		<li>Slabé API s ohledem na kapacitu</li>
+		<li><code>sessionStorage</code> je oddělené úložiště, trvanlivé jen do zavření prohlížeče</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>File API</h2>
+	<ul class="sections">
+		<li>Přístup k souborům na disku uživatele</li>
+		<li>Uživatel musí soubor nejdříve "vybrat" (dragdrop, input)</li>
+		<li>Metadata, čtení, odesílání (XHR2)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>File API: objekt File</h2>
+	<ul class="sections">
+		<li><code>name</code></li>
+		<li><code>size</code> v bajtech</li>
+		<li><code>type</code> (MIME) &ndash; odhad prohlížeče / operačního systému</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>File API: objekt FileReader</h2>
+<pre data-syntax="js">
+var fr = new FileReader();
+fr.addEventListener("load", function(e) {
+	alert(e.result);
+});
+
+fr.readAsText(file);
+/* fr.readAsDataURL(file); */
+/* fr.readAsArrayBuffer(file); */
+/* fr.readAsBinaryString(file); */
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Drag'n'Drop</h2>
+	<ul class="sections">
+		<li>Přetahování věcí ve stránce a do stránky</li>
+		<li>Překvapivě složité</li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/DragDrop/Drag_Operations">Dokumentace na MDN</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Drag'n'Drop: zahájení tažení</h2>
+	<ul class="sections">
+		<li>Soubor do okna prohlížeče</li>
+		<li>HTML prvek s atributem <code>draggable</code></li>
+		<li>Událost <code>dragstart</code></li>
+		<li>Vlastnost <code>dataTransfer</code> v události obsahuje relevantní metadata</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Drag'n'Drop: práce s dataTransfer</h2>
+<pre data-syntax="js">
+div.addEventListener("dragstart", function(e) {
+	e.dataTransfer.setData("text/plain", "http://www.seznam.cz");
+	e.dataTransfer.setDragImage(image, offsetX, offsetY);
+	e.dataTransfer.effectAllowed = "copyMove";
+	e.dataTransfer.dropEffect = "copy";
+});
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Drag'n'Drop: tažení</h2>
+	<ul class="sections">
+		<li>Události <code>dragenter</code>, <code>dragover</code>, <code>dragleave</code></li>
+		<li>Pokud má být nad prvkem tažení ukončitelné, je nutné událost "preventovat" (<code>preventDefault()</code>)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Drag'n'Drop: puštění</h2>
+	<ul class="sections">
+		<li>Událost <code>drop</code></li>
+		<li>Pokud událost zpracujeme, voláme <code>preventDefault</code></li>
+		<li>Vlastnost <code>e.dataTransfer.files</code> je pole souborů, jsou-li jaké</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>History API</h2>
+	<ul class="sections">
+		<li>Práce s URL stránky</li>
+		<li>Pro stavové jednostránkové aplikace</li>
+		<li>Podpora pro zpět/vpřed, záložky a permalinky</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>History API: hash</h2>
+	<ul class="sections">
+		<li>Práce s tzv. <em>fragment identifikátorem</em>, zkráceně též <em>hashem</em></li>
+		<li><code>location.hash = "ahoj"</code></li>
+		<li>Událost <code>hashchange</code> na objektu <code>window</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>HTML5 History API</h2>
+	<ul class="sections">
+		<li>Možnost změny celého URL (bez načení stránky)</li>
+		<li>Funkce <code>history.pushState()</code> a <code>history.replaceState()</code></li>
+		<li><code data-syntax="js">history.pushState(data, title, "/nove/URL")</code></li>
+		<li>Událost <code>popstate</code> na objektu <code>window</code> vzniká při uživatelově interakci s historií</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Page Visibility API</h2>
+	<ul class="sections">
+		<li>Je stránka vidět?</li>
+		<li>Událost <code>visibilitychange</code> na objektu <code>document</code></li>
+		<li><code>document.hidden</code></li>
+		<li><code>document.visibilityState</code> &ndash; <code data-syntax="js">"visible", "hidden", "prerender"</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Prostor pro otázky</h2>
+</section>
+
+<footer>
+	<a href="http://twitter.com/0ndras">twitter.com/0ndras</a>
+	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>
