@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
+		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
+		<script src="../../common/js/oz.js" type="text/javascript"></script>
+		<script src="../../common/js/slides2.js" type="text/javascript"></script>
+		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
+		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<title>Tvorba klientských aplikací v JavaScriptu</title>
+	<body>
+
+<h1>Tvorba klientských aplikací v JavaScriptu</h1>
+
+<section class="slide">
+	<h2>Nová API</h2>
+	<ul>
+		<li>Webová interaktivní prezentace</li>
+		<li>"?" zobrazí krátkou nápovědu</li>
+		<li>Tisk jako obvykle</li>
+		<li>Pro pokračování stiskněte mezerník</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Obsah</h2>
+	<ol>
+		<li>Test - 25 minut</li>
+		<li>Informace - semestrálka + příští cvičení</li>
+		<li>Malá Aplikace</li>
+	</ol>
+</section>
+
+<section class="slide">
+	<h2>Test</h2>
+	<ul class="sections">
+		<li>
+			TEST is the BEST! 
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Informace - Semestrálka</h2>
+	<ul class="sections">
+		<li>Termín odevzdání: <b>2. 6. 2013</b></li>
+		<li>Penalizace: <b>za každý den po termínu odevzdání 2 body srážka</b></li>
+		<li>Jak odevzdat semestrální práci? <b>Pošlu e-mail na: zdenek.vlach@firma.seznam.cz</b></li>
+		<li>Co bude email obsahovat?
+			<ul>
+				<li><b>Odkaz nebo archiv s funkční verzí sem. projektu. </b></li>
+				<li><b>Průvodní dokument &ndash; specifikaci.</b></li>
+				<li><b>Ideálně: předvyplněnou hodnotící tabulku.</b></li>
+			</ul>
+		</li>
+		<li>Jak odevzdat semestrální práci? <b>Vyplním formulář <a href="https://docs.google.com/forms/d/1WdMJcp4iWrBqGCSRuqVUL3ZGfNb0lsaIrZIwULzr4RQ/viewform">https://docs.google.com/forms/d/1WdMJcp4iWrBqGCSRuqVUL3ZGfNb0lsaIrZIwULzr4RQ/viewform</a></b></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Informace - Příští cvičení</h2>
+	<ul class="sections">
+		<li>Bude na téma Přístupnost a použitelnost</li>
+		<li>Takže něco úplně jiného!!</li>
+		<li>A případně oprava testu v zkouškovém - po domluvě</li>
+	</ul>
+</section>
+
+
+<section class="slide">
+	<h2>Aplikace</h2>
+	<ul class="sections">
+		<li>
+			Bude zaznamenávat na uživatelovo přání polohu a případně vypisovat uložené souřadnice
+		</li>
+		<li>
+			Dvě "stránky"
+		</li>
+		<li>
+			Použijeme GEO API a History API
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>GEO API</h2>
+	<ul class="sections">
+		<li>
+			Jak se dostanu k aktulání poloze zařízení?
+		</li>
+		<li>
+			navigator.geolocation
+		</li>
+		<li>
+			navigator.geolocation.getCurrentPosition(callback, error)
+		</li>
+		<li>
+			Callback funkce má jako parametr objekt s vlastností coords
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Local Storage API</h2>
+	<ul class="sections">
+		<li>
+			Jak,co a kolik MB dat můžu uložit do LS?
+		</li>
+		<li>
+			5MB
+		</li>
+		<li>
+			window.localStorage: key, getItem, setItem, removeItem, length
+		</li>
+		<li>
+			ukládám dvojci klíč - hodnota (řetězce)
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>History API</h2>
+	<ul class="sections">
+		<li>
+			Jakmůžu zapisovat do historie prohlížeče?
+		</li>
+		
+		<li>
+			window.history.pushState(stateObj,title,url)<br>
+			window.history.replaceState(stateObj,title,url)
+			
+		</li>
+		
+		<li>
+			Jak můžu reagovat na kliknutí na šipky zpět a dopředu v browseru?
+		</li>
+		
+		<li>
+			window.onpopstate = function(event) { /** něco vykonej **/ }
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Podklady</h2>
+	<ul class="sections">
+		<li>	
+			<a href="aplikace.zip">aplikace.html</a>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Prostor pro otázky</h2>
+</section>
+
+
+
+<footer>
+	<a href="mailto:zdenek.vlach@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
+</footer>
+
+<script type="text/javascript">
+	Syntax.all();
+	new Presentation();
+</script>
+
+</body>
+</html>
