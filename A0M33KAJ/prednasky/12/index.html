@@ -9,13 +9,13 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>Nová JavaScriptová API</title>
+		<title>Bleeding edge</title>
 	<body>
 		
-<h1>Nová JavaScriptová API</h1>
+<h1>Bleeding edge</h1>
 
 <section class="slide">
-	<h2>Nová JavaScriptová API</h2>
+	<h2>Bleeding edge</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -27,199 +27,258 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>Geolocation</li>
-		<li>Web Storage</li>
-		<li>File API</li>
-		<li>Drag'n'Drop</li>
-		<li>History API</li>
+		<li>Web Sockets</li>
+		<li>Web Workers</li>
+		<li>WebGL</li>
+		<li>WebRTC</li>
+		<li>FlexBox</li>
 	</ol>
 </section>
 
 <section class="slide">
-	<h2>Geolocation</h2>
+	<h2>Web Sockets</h2>
 	<ul class="sections">
-		<li>Zjištění polohy uživatele</li>
-		<li>Asynchronní</li>
-		<li>Polohu zjišťuje prohlížeč nedefinovanými mechanismy</li>
-		<li>GPS, IP, Názvy wifi AP, &hellip;</li>
+		<li>Snaha o zpřístupnění duplexní komunikace v prohlížeči</li>
+		<li>Notifikace ze strany serveru</li>
+		<li>Persistentní spojení</li>
+		<li>Léta draftů</li>
+		<li><a href="http://ondras.zarovi.cz/games/just-spaceships/">Ukázka</a></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Geolocation: API</h2>
+	<h2>Web Sockets: princip</h2>
+	<ul class="sections">
+		<li>Trvale otevřené spojení na server</li>
+		<li>Možnost oboustranného posílání dat</li>
+		<li>Vlastní protokol postavený nad HTTP Upgrade</li>
+		<li>Žádná spojitost s BSD sockety</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Sockets: klientská část</h2>
 	<pre data-syntax="js">
-var ok = function(position) {
-	alert([position.coords.latitude, position.coords.longitude]);
+var socket = new WebSocket("ws://server.tld:1234/");
+
+socket.onopen = function(e) {
+	socket.send("data");
+}
+
+socket.onmessage = function(e) {
+	alert(e.data);
+	socket.close();
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Web Sockets: serverová část</h2>
+	<ul class="sections">
+		<li>Ta nás nezajímá!</li>
+		<li>Nutný specializovaný software</li>
+		<li>Knihovny pro řadu jazyků (PHP, Python, TeaJS, node.js, &hellip;)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Sockets: protokol</h2>
+	<ul class="sections">
+		<li>Vlastní binární protokol</li>
+		<li>Komunikace začíná HTTP požadavkem s hlavičkou Upgrade</li>
+		<li>Zpětná kompatibilita s existujícími webovými servery</li>
+		<li>CORS</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Workers</h2>
+	<ul class="sections">
+		<li>Snaha o zpřístupnění dalších vláken JavaScriptu</li>
+		<li>JS vykonáván vždy jen v jednom vlákně!</li>
+		<li>Možnost spuštění kódu v izolovaných boxech</li>
+		<li>Problematika komunikace a předávání dat</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Workers</h2>
+<pre data-syntax="js">
+var worker = new Worker("script.js");
+
+/* obsah souboru je nyní vykonáván v odděleném vlákně */
+
+worker.terminate();
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Web Workers: komunikace s workerem</h2>
+<pre data-syntax="js">
+var worker = new Worker("script.js");
+
+worker.postMessage({nejaka:"data"});
+
+worker.onmessage = function(e) {
+	alert(e.data);
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Web Workers: komunikace z workeru</h2>
+<pre data-syntax="js">
+onmessage = function(e) {
+	/* přišla data zvenčí */
+
+	postMessage(/* ... */); /* posílám data ven */
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Web Workers: izolace</h2>
+	<ul class="sections">
+		<li>Žádné window, žádný document</li>
+		<li>importScripts, XMLHttpRequest, Worker</li>
+		<li>setTimeout, setInterval</li>
+		<li>To je vše!</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Workers: závěr</h2>
+	<ul class="sections">
+		<li>Výpočet ve workeru může trvat libovolně dlouho</li>
+		<li>Data jsou při předávání klonována (netřeba řešit synchronizaci)</li>
+		<li>Vhodné tam, kde jsou třeba náročné výpočty</li>
+		<li>Ideálně málo vstupních i výstupních dat</li>
+		<li><a href="https://developer.mozilla.org/en-US/demos/devderby#tab-submissions">Ukázky</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>WebGL</h2>
+	<ul class="sections">
+		<li>Akcelerovaná 3D grafika</li>
+		<li>Nové API HTML5 Canvasu</li>
+		<li>Kompatibilita API s OpenGL ES 2.0</li>
+		<li><a href="https://developer.mozilla.org/en-US/demos/detail/bananabread">Ukázka</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>WebGL: koncepty</h2>
+	<ul class="sections">
+		<li><code data-syntax="js">canvas.getContext("webgl") || canvas.getContext("experimental-webgl")</code></li>
+		<li>Veliké API (<a href="http://www.nihilogic.dk/labs/webgl_cheat_sheet/WebGL_Cheat_Sheet.htm">zastaralý cheatsheet</a>)</li>
+		<li>Nové datové typy (<em>typovaná pole</em>)</li>
+		<li>Kompatibilní shadery (GLSL)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>WebGL: obtíže</h2>
+	<ul class="sections">
+		<li>Nejistá podpora</li>
+		<li>Práce s maticemi</li>
+		<li>Silně ukecané (stejně jako OpenGL)</li>
+		<li><a href="webgl.html">Ukázka</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>WebGL: závěr</h2>
+	<ul class="sections">
+		<li>Budoucnost grafiky na webu</li>
+		<li>Použít knihovnu pro matice (<a href="http://glmatrix.net/">glMatrix</a>)</li>
+		<li>Použít knihovnu pro WebGL (<a href="http://threejs.org/">three.js</a>)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>WebRTC</h2>
+	<ul class="sections">
+		<li>RTC = Real Time Communications</li>
+		<li>Technologie pro komunikaci mezi klienty (bez serveru)</li>
+		<li>Primárně přenos zvuku a obrazu, sekundárně JS dat</li>
+		<li>Obtížné navázání spojení (tzv. <em>signalling</em> &ndash; nutný server pro iniciální sestavení)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>WebRTC: getUserMedia</h2>
+	<ul class="sections">
+		<li><code>navigator.getUserMedia()</code></li>
+		<li>Nejlépe podporovaná komponenta WebRTC</li>
+		<li>Přístup ke kameře a mikrofonu</li>
+		<li>Prefixované varianty</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>WebRTC: getUserMedia</h2>
+	<pre data-syntax="js">
+var ok = function(stream) {
+	var url = window.URL.createObjectURL(stream);
+	video.src = url;
+	video.play();
 }
 
 var error = function(e) {
-	alert(e.message);
+	alert(e);
 }
 
-navigator.geolocation.getCurrentPosition(ok, error);
+navigator.getUserMedia({audio:true, video:true}, ok, error);
 </pre>
 </section>
 
 <section class="slide">
-	<h2>Geolocation: další API</h2>
+	<h2>CSS3 Flexible Box</h2>
 	<ul class="sections">
-		<li><code>watchPosition</code> pro opakované sledování</li>
-		<li><code>clearPosition</code> pro přerušení</li>
-		<li>Nalezená pozice obsahuje také rychlost, směr, výšku, přesnost</li>
+		<li>Nový pozicovací algoritmus do CSS</li>
+		<li>Pro polohování boxů vedle sebe / pod sebe</li>
+		<li>Náhrada za (slabý) float</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Web Storage</h2>
-	<ul class="sections">
-		<li>Úložiště dat v prohlížeči</li>
-		<li>Alespoň 5MB pro doménu</li>
-		<li>Data se nikam neodesílají</li>
-		<li>Triviální <a href="http://www.webdirections.org/blog/localstorage-perhaps-not-so-harmful/">synchronní</a> JS API</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Web Storage: ukázka</h2>
-	<pre data-syntax="js">
-localStorage.setItem("a", "b");
-
-localStorage.length == 1;
-localStorage.key(0) == "a";
-localStorage.getItem("a") == "b";
-
-localStorage.removeItem("a");
+	<h2>CSS3 Flexible Box: základ</h2>
+<pre data-syntax="xml">
+&lt;div id="parent"&gt;
+	&lt;div id="child1"&gt;&lt;/div&gt;
+	&lt;div id="child2"&gt;&lt;/div&gt;
+	&lt;div id="child3"&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<pre data-syntax="css">
+#parent {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
 </pre>
 </section>
 
 <section class="slide">
-	<h2>Web Storage: další info</h2>
+	<h2>CSS3 Flexible Box: relativní rozměry boxů</h2>
 	<ul class="sections">
-		<li>Ukládají se dvojice řetězců (klíč-hodnota)</li>
-		<li>Storage je sdílena všemi skripty na doméně</li>
-		<li>Slabé API s ohledem na kapacitu</li>
-		<li><code>sessionStorage</code> je oddělené úložiště, trvanlivé jen do zavření prohlížeče</li>
+		<li><code>flex-grow</code> je relativní <em>síla růstu</em></li>
+		<li><code>flex-shrink</code> je relativní <em>síla zmenšení</em></li>
+		<li><code>flex-base</code> je základní rozměr (výška/šířka)</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>File API</h2>
+	<h2>CSS3 Flexible Box: další vlastnosti</h2>
 	<ul class="sections">
-		<li>Přístup k souborům na disku uživatele</li>
-		<li>Uživatel musí soubor nejdříve "vybrat" (dragdrop, input)</li>
-		<li>Metadata, čtení, odesílání (XHR2)</li>
+		<li><code>align-items</code> a <code>align-self</code> pro zarovnání v kolmé ose (<em>cross axis</em>)</li>
+		<li><code>order</code> pro změnu pořadí v prvků</li>
+		<li><code>flex-wrap</code> pro povolení/zakázání zalamování</li>
+		<li><a href="http://jsfiddle.net/ondras/tGK7p/">Ukázka</a></li>
 	</ul>
 </section>
 
-<section class="slide">
-	<h2>File API: objekt File</h2>
-	<ul class="sections">
-		<li><code>name</code></li>
-		<li><code>size</code> v bajtech</li>
-		<li><code>type</code> (MIME) &ndash; odhad prohlížeče / operačního systému</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>File API: objekt FileReader</h2>
-<pre data-syntax="js">
-var fr = new FileReader();
-fr.addEventListener("load", function(e) {
-	alert(e.result);
-});
-
-fr.readAsText(file);
-/* fr.readAsDataURL(file); */
-/* fr.readAsArrayBuffer(file); */
-/* fr.readAsBinaryString(file); */
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop</h2>
-	<ul class="sections">
-		<li>Přetahování věcí ve stránce a do stránky</li>
-		<li>Překvapivě složité</li>
-		<li><a href="https://developer.mozilla.org/en-US/docs/DragDrop/Drag_Operations">Dokumentace na MDN</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop: zahájení tažení</h2>
-	<ul class="sections">
-		<li>Soubor do okna prohlížeče</li>
-		<li>HTML prvek s atributem <code>draggable</code></li>
-		<li>Událost <code>dragstart</code></li>
-		<li>Vlastnost <code>dataTransfer</code> v události obsahuje relevantní metadata</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop: práce s dataTransfer</h2>
-<pre data-syntax="js">
-div.addEventListener("dragstart", function(e) {
-	e.dataTransfer.setData("text/plain", "http://www.seznam.cz");
-	e.dataTransfer.setDragImage(image, offsetX, offsetY);
-	e.dataTransfer.effectAllowed = "copyMove";
-	e.dataTransfer.dropEffect = "copy";
-});
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop: tažení</h2>
-	<ul class="sections">
-		<li>Události <code>dragenter</code>, <code>dragover</code>, <code>dragleave</code></li>
-		<li>Pokud má být nad prvkem tažení ukončitelné, je nutné událost "preventovat" (<code>preventDefault()</code>)</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop: puštění</h2>
-	<ul class="sections">
-		<li>Událost <code>drop</code></li>
-		<li>Pokud událost zpracujeme, voláme <code>preventDefault</code></li>
-		<li>Vlastnost <code>e.dataTransfer.files</code> je pole souborů, jsou-li jaké</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>History API</h2>
-	<ul class="sections">
-		<li>Práce s URL stránky</li>
-		<li>Pro stavové jednostránkové aplikace</li>
-		<li>Podpora pro zpět/vpřed, záložky a permalinky</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>History API: hash</h2>
-	<ul class="sections">
-		<li>Práce s tzv. <em>fragment identifikátorem</em>, zkráceně též <em>hashem</em></li>
-		<li><code>location.hash = "ahoj"</code></li>
-		<li>Událost <code>hashchange</code> na objektu <code>window</code></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>HTML5 History API</h2>
-	<ul class="sections">
-		<li>Možnost změny celého URL (bez načení stránky)</li>
-		<li>Funkce <code>history.pushState()</code> a <code>history.replaceState()</code></li>
-		<li><code data-syntax="js">history.pushState(data, title, "/nove/URL")</code></li>
-		<li>Událost <code>popstate</code> na objektu <code>window</code> vzniká při uživatelově interakci s historií</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Page Visibility API</h2>
-	<ul class="sections">
-		<li>Je stránka vidět?</li>
-		<li>Událost <code>visibilitychange</code> na objektu <code>document</code></li>
-		<li><code>document.hidden</code></li>
-		<li><code>document.visibilityState</code> &ndash; <code data-syntax="js">"visible", "hidden", "prerender"</code></li>
-	</ul>
-</section>
 
 <section class="slide">
 	<h2>Prostor pro otázky</h2>
