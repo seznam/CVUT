@@ -161,13 +161,17 @@ a.canPlayType("audio/mpeg"); /* "", "maybe", "probably" */
 a.src = "song.mp3";
 a.addEventListener("timeupdate", function() { console.log(a.currentTime); }, false);
 a.play();</pre>
-	<div class="section">
-		<h3>Budoucí rozšíření</h3>
-		<ul>
-			<li>přístup k právě přehrávaným datům (vizualizace)</li>
-			<li>generování zvukového signálu</li>
-		</ul>
-	</div>
+</section>
+
+<section class="slide">
+	<h2>Web Audio API</h2>
+	<ul>
+		<li>Experimentální JS API</li>
+		<li>Konstrukce <a href="img/WebAudioBasics.png" target="_blank">zvukového grafu</a></li>
+		<li>Uzly = transformace zvuku</li>
+		<li>Přístup k právě přehrávaným datům (vizualizace)</li>
+		<li>Generování zvukového signálu</li>
+	</ul>
 </section>
 
 <section class="slide">
@@ -197,18 +201,7 @@ a.play();</pre>
 
 <section class="slide">
 	<h2>&lt;audio&gt; &lt;video&gt; formáty</h2>
-	<table>
-		<tr><th>Klient<th>WAVE<th>MP3<th>WebM<th>Ogg Vorbis / Theora<th>H264<th>AAC<th>Opus
-		<tr><td>Firefox 3.5+<td>&#10003;<td><td>&#10003;<td>&#10003;<td><td><td>
-		<tr><td>Firefox 15+<td>&#10003;<td><td>&#10003;<td>&#10003;<td><td><td>&#10003;
-		<tr><td>Chrome 9+<td><td>&#10003;<td>&#10003;<td>&#10003;<td>&#10003;<td><td>
-		<tr><td>Safari 3+<td><td>&#10003;<td><td><td>&#10003;<td>&#10003;<td>
-		<tr><td>Opera 10+<td><td><td>&#10003;<td>&#10003;<td><td><td>
-		<tr><td>IE 9<td>&#10003;<td>&#10003;<td>&#10003;<td><td>&#10003;<td>&#10003;<td>
-		<tr><td>iPhone / iPad<td><td>&#10003;<td><td><td>&#10003;<td>&#10003;<td>
-		<tr><td>Android<td><td>&#10003;<td>&#10003;<td><td>&#10003;<td><td>
-		<tr><td>Flash<td><td>&#10003;<td>&#10003;<td><td>&#10003;<td>&#10003;<td>
-	</table>
+	<p><a href="https://developer.mozilla.org/en-US/docs/HTML/Supported_media_formats">Tabulka</a></p>
 </section>
 
 
@@ -298,6 +291,17 @@ a.play();</pre>
 		<li>UI je <a href="img/required.jpg" target="_blank">v režii prohlížeče</a></li>
 		<li>CSS pseudotřídy <code>:required</code> a <code>:optional</code></li>
 	</ul>
+</section>
+
+<section class="slide">
+	<h2>Validace &ndash; lokalizace</h2>
+	<pre data-syntax="xml">
+&lt;input required title="Uživatelské jméno" x-moz-errormessage="Smůla" /&gt;
+</pre>
+	<pre data-syntax="js">
+var input = document.querySelector("input");
+input.setCustomValidity("Chyba");
+</pre>
 </section>
 
 <section class="slide">

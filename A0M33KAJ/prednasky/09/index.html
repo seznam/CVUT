@@ -137,8 +137,9 @@ document.body.addEventListener("click", func, false);
 <section class="slide">
 	<h2>Capture a bubble #2</h2>
 	<ul class="sections">
-		<li>Více posluchačů na stejném uzlu (ve stejné fázi) je voláno v nedefinovaném pořadí</li>
-		<li>Zpracovávání události lze zastavit voláním <code>stopPropagation()</code></li>
+		<li>Více posluchačů na stejném uzlu (ve stejné fázi) je voláno v definovaném pořadí</li>
+		<li>Zpracovávání události (mezi uzly) lze zastavit voláním <code>stopPropagation()</code></li>
+		<li>Zpracovávání události (v rámci uzlu) lze zastavit voláním <code>stopImmediatePropagation()</code></li>
 		<li>Metoda <code>preventDefault()</code> s tím nijak nesouvisí</li>
 	</ul>
 </section>
