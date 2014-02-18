@@ -30,6 +30,7 @@
 		<li>Webové prohlížeče: každý pes, jiná ves</li>
 		<li>HTML5 audio a video</li>
 		<li>Sémantické značky</li>
+		<li>Nové atributy</li>
 		<li>Formulářové prvky</li>
 	</ol>
 </section>
@@ -64,7 +65,7 @@
 
 <section class="slide">
 	<h2>Webové prohlížeče: mobilní</h2>
-	<ul class="sections">
+	<ul>
 		<li>Apple Mobile Safari (iOS)</li>
 		<li>Android Browser (Android)</li>
 		<li>Opera Mobile (Android, Symbian, Windows Mobile)</li>
@@ -76,7 +77,7 @@
 
 <section class="slide">
 	<h2>Webové prohlížeče: zpětná kompatibilita</h2>
-	<ul class="sections">
+	<ul>
 		<li>Nutnost definovat podporovaný <em>feature set</em></li>
 		<li>Oříznout starý prohlížeč znamená připravit se o uživatele</li>
 		<li>Oříznout starý prohlížeč znamená motivovat k upgrade</li>
@@ -86,7 +87,7 @@
 
 <section class="slide">
 	<h2>Webové prohlížeče: co kdo umí</h2>
-	<ul class="sections">
+	<ul>
 		<li><a href="http://caniuse.com/">http://caniuse.com/</a>
 			<ul>
 				<li>Srovnávací tabulky</li>
@@ -105,7 +106,7 @@
 
 <section class="slide">
 	<h2>Volitelné nabízení pokročilých technologií</h2>
-	<ul class="sections">
+	<ul>
 		<li><strong>Progressive enhancement:</strong> nabízet základní funkcionalitu a volitelně přidávat</li>
 		<li><strong>Graceful degradation:</strong> nabízet pokročilou funkcionalitu a v případě nouze couvnout</li>
 	</ul>
@@ -113,7 +114,7 @@
 
 <section class="slide">
 	<h2>Polyfill</h2>
-	<ul class="sections">
+	<ul>
 		<li><strong>Polyfill:</strong> JavaScriptový kód, který je schopen doplnit chybějící funkcionalitu při zachování kompatibilního API</li>
 		<li><pre data-syntax="js">
 if (!("onhashchange" in window)) {
@@ -130,7 +131,7 @@ if (!("onhashchange" in window)) {
 
 <section class="slide">
 	<h2>HTML5 Audio</h2>
-	<ul class="sections">
+	<ul class="section">
 		<li>Vložení zvukového souboru do stránky</li>
 		<li>Ovládací prvky vyrábí prohlížeč (jsou-li požadovány)</li>
 		<li>Různé prohlížeče rozumí různým formátům zvukových souborů</li>
@@ -176,7 +177,7 @@ a.play();</pre>
 
 <section class="slide">
 	<h2>HTML5 Video</h2>
-	<ul class="sections">
+	<ul>
 		<li>Vložení videa do stránky</li>
 		<li>Alternativa pro Flashové přehrávače</li>
 		<li>Syntaxe téměř shodná s audiem</li>
@@ -266,14 +267,46 @@ a.play();</pre>
 </section>
 
 <section class="slide">
+	<h2>Nové atributy</h2>
+	<ul>
+		<li>
+			<code data-syntax="xml">&lt;input type="text" placeholder="Hledat" /&gt;</code>
+			<ul>
+				<li>Zástupný text</li>
+				<li>Někdy lze použít polyfill</li>
+			</ul>
+		</li>
+		<li>
+			<code data-syntax="xml">&lt;a href="#" data-record-id="123"&gt;</code>
+			<ul>
+				<li>Atributy začínající na <code>data-</code> lze použít pro vlastní potřebu</li>
+				<li>Alternativa k držení dat v paměti JS interpretu</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Nové atributy &ndash; contenteditable</h2>
+	<p><code data-syntax="xml">&lt;div contenteditable&gt;ahoj&lt;/div&gt;</code></p>
+	<ul>
+		<li>Obsah prvku lze po kliknutí upravovat</li>
+		<li>Základní stavební prvek WYSIWYG editorů (nikoliv GDrive)</li>
+		<li>Manipulace pomocí DOM + Range</li>
+		<li>Bonus: v takovém prvku lze použít <code>document.execCommand()</code></li>
+		<li>Implementace execCommand nekonzistentní, <a href="https://developer.mozilla.org/en/docs/Rich-Text_Editing_in_Mozilla">dokumentace</a></li>
+	</ul>
+</section>
+
+<section class="slide">
 	<h2>Nové formulářové prvky</h2>
-	<p class="section"><a href="http://www.miketaylr.com/code/input-type-attr.html">Podpora v prohlížečích</a></p>
 	<pre class="section" data-syntax="xml">&lt;input type="text" autofocus /&gt;
 &lt;input type="date" min="2011-03-01" max="2011-03-31" value="2011-03-01" /&gt;
 &lt;input type="range" min="0" max="50" value="25" /&gt;
 &lt;input type="search" results="10" placeholder="Hledat..." /&gt;
 &lt;input type="text" pattern="[a-z]+" required /&gt;</pre>
 	<p class="section"><img src="img/inputs.png" alt="inputs" /></p>
+	<p class="section"><a href="http://www.miketaylr.com/code/input-type-attr.html">Podpora v prohlížečích</a></p>
 </section>
 
 <section class="slide">
@@ -284,7 +317,7 @@ a.play();</pre>
 		<form><input type="text" pattern="[a-z]{3,}" required title="Uživatelské jméno" /><input type="submit" /></form>
 		<style>:required { border: 1px solid red; font-size:inherit; }</style>
 	</p>
-	<ul class="sections">
+	<ul class="section">
 		<li>Atribut <code>pattern</code> má smysl jen při atributu <code>required</code></li>
 		<li>Regulárnímu výrazu musí odpovídat obsah celého pole</li>
 		<li>Titulek se použije jako nápověda při nevyplnění</li>
