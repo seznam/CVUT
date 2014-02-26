@@ -65,7 +65,7 @@ Examples.clock = {
 	},
 	
 	_sync: function() { /* sync size and position? */
-		var avail = OZ.DOM.win()[1];
+		var avail = window.innerHeight;
 		
 		this._svg.setAttribute("width", avail*0.9);
 		this._svg.setAttribute("height", avail*0.9);
@@ -104,8 +104,8 @@ Examples.clock = {
 
 		this._elm("circle", {cx:0, cy:0, r:0.2, fill:"white"}, this._svg);
 
-		OZ.Event.add(this._button, "click", this._click.bind(this));
-		OZ.Event.add(window, "resize", this._resize.bind(this));
+		this._button.addEventListener("click", this._click.bind(this));
+		window.addEventListener("resize", this._resize.bind(this));
 	},
 	
 	_click: function(e) {

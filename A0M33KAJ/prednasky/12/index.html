@@ -27,68 +27,12 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>Web Sockets</li>
 		<li>Web Workers</li>
 		<li>WebGL</li>
 		<li>WebRTC</li>
 		<li>FlexBox</li>
+		<li>Web Components</li>
 	</ol>
-</section>
-
-<section class="slide">
-	<h2>Web Sockets</h2>
-	<ul class="sections">
-		<li>Snaha o zpřístupnění duplexní komunikace v prohlížeči</li>
-		<li>Notifikace ze strany serveru</li>
-		<li>Persistentní spojení</li>
-		<li>Léta draftů</li>
-		<li><a href="http://ondras.zarovi.cz/games/just-spaceships/">Ukázka</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Web Sockets: princip</h2>
-	<ul class="sections">
-		<li>Trvale otevřené spojení na server</li>
-		<li>Možnost oboustranného posílání dat</li>
-		<li>Vlastní protokol postavený nad HTTP Upgrade</li>
-		<li>Žádná spojitost s BSD sockety</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Web Sockets: klientská část</h2>
-	<pre data-syntax="js">
-var socket = new WebSocket("ws://server.tld:1234/");
-
-socket.onopen = function(e) {
-	socket.send("data");
-}
-
-socket.onmessage = function(e) {
-	alert(e.data);
-	socket.close();
-}
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Web Sockets: serverová část</h2>
-	<ul class="sections">
-		<li>Ta nás nezajímá!</li>
-		<li>Nutný specializovaný software</li>
-		<li>Knihovny pro řadu jazyků (PHP, Python, TeaJS, node.js, &hellip;)</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Web Sockets: protokol</h2>
-	<ul class="sections">
-		<li>Vlastní binární protokol</li>
-		<li>Komunikace začíná HTTP požadavkem s hlavičkou Upgrade</li>
-		<li>Zpětná kompatibilita s existujícími webovými servery</li>
-		<li>CORS</li>
-	</ul>
 </section>
 
 <section class="slide">
