@@ -35,13 +35,13 @@
 
 <section class="slide">
 	<h2>Sémantika &ndash; RDFa, mikroformáty, mikrodata</h2>
-	<p class="section">Různé techniky pro označování sémantických dat v HTML</p>
-	<pre class="section" data-syntax="xml">&lt;p&gt;
+	<p>Různé techniky pro označování sémantických dat v HTML</p>
+	<pre data-syntax="xml">&lt;p&gt;
 	&lt;span&gt;Ondřej Žára&lt;/span&gt; 
 	&lt;span&gt;Seznam.cz&lt;/span&gt;
-	&lt;span&gt;Webmaster&lt;/span&gt;
+	&lt;span&gt;JavaScript developer&lt;/span&gt;
 &lt;/p&gt;</pre>
-	<p class="section"><img src="img/snippet.png" alt="google snippet" /></p>
+	<p><img src="img/snippet.png" alt="google snippet" /></p>
 </section>
 
 <section class="slide">
@@ -50,27 +50,27 @@
 &lt;p xmlns:v="http://rdf.data-vocabulary.org/#" typeof="v:Person"&gt; 
 	&lt;span property="v:name"&gt;Ondřej Žára&lt;/span&gt; 
 	&lt;span property="v:affiliation"&gt;Seznam.cz&lt;/span&gt; 
-	&lt;span property="v:title"&gt;Webmaster&lt;/span&gt; 
+	&lt;span property="v:title"&gt;JavaScript developer&lt;/span&gt; 
 &lt;/p&gt;
 
 &lt;!-- Microformats --&gt;
 &lt;p class="vcard"&gt; 
 	&lt;span class="fn"&gt;Ondřej Žára&lt;/span&gt; 
 	&lt;span class="org"&gt;Seznam.cz&lt;/span&gt; 
-	&lt;span class="title"&gt;Webmaster&lt;/span&gt; 
+	&lt;span class="title"&gt;JavaScript developer&lt;/span&gt; 
 &lt;/p&gt;
 
 &lt;!-- Microdata --&gt;
 &lt;p itemscope itemtype="http://data-vocabulary.org/Person"&gt; 
 	&lt;span itemprop="name"&gt;Ondřej Žára&lt;/span&gt; 
 	&lt;span itemprop="affiliation"&gt;Seznam.cz&lt;/span&gt; 
-	&lt;span itemprop="role"&gt;Webmaster&lt;/span&gt; 
+	&lt;span itemprop="role"&gt;JavaScript developer&lt;/span&gt; 
 &lt;/p&gt;</pre>
 </section>
 
 <section class="slide">
 	<h2>Microdata podrobněji</h2>
-	<ul class="sections">
+	<ul>
 		<li>Atributy <code>item*</code> (zpravidla <code>itemscope</code>, <code>itemtype</code>, <code>itemprop</code>)</li>
 		<li>Validní v HTML5</li>
 		<li><a href="http://schema.org/">http://schema.org/</a> &ndash; kolekce <em>schémat</em> (sémantických typů)</li>
@@ -103,7 +103,7 @@
 
 <section class="slide">
 	<h2>SVG</h2>
-	<ul class="sections">
+	<ul>
 		<li><a target="_blank" href="clock/">Ukázka</a></li>
 		<li>Všechny prohlížeče krom IE&le;8</li>
 		<li>Prehistorický standard z roku 2001</li>
@@ -158,7 +158,7 @@
 
 <section class="slide">
 	<h2>Stavební kameny SVG</h2>
-	<ul class="sections">
+	<ul>
 		<li><code>&lt;svg&gt;</code>, <code>&lt;g&gt;</code> (group)</li>
 		<li><code>&lt;rect&gt;</code>, <code>&lt;circle&gt;</code>, <code>&lt;ellipse&gt;</code>, <code>&lt;line&gt;</code>, <code>&lt;polyline&gt;</code>, <code>&lt;polygon&gt;</code></li>
 		<li><code>&lt;path d="M100,200 C100,100 250,100 250,200"&gt;</code></li>
@@ -168,7 +168,7 @@
 
 <section class="slide">
 	<h2>SVG &lt;path&gt; detailněji</h2>
-	<ul class="sections">
+	<ul>
 		<li><code>M x y</code> &ndash; posun na absolutní pozici</li>
 		<li><code>m dx dy</code> &ndash; posun o relativní pozici</li>
 		<li><code>L x y (l dx dy)</code> &ndash; rovná čára</li>
@@ -225,7 +225,7 @@
 
 <section class="slide">
 	<h2>Stylování SVG</h2>
-	<ul class="sections">
+	<ul>
 		<li>Pomocí atributů (<code>stroke</code>, <code>color</code>, <code>opacity</code>, &hellip;)</li>
 		<li>Pomocí CSS</li>
 	</ul>
@@ -242,7 +242,7 @@ text {
 
 <section class="slide">
 	<h2>SVG a JavaScript</h2>
-	<ul class="sections">
+	<ul>
 		<li>Práce stejně jako s DOM stránky</li>
 		<li>Tvorba prvků přes <code data-syntax="js">document.createElementNS("http://www.w3.org/2000/svg", "...")</code></li>
 		<li>Změna hodnot pomocí <code>setAttribute</code></li>
@@ -252,7 +252,7 @@ text {
 
 <section class="slide">
 	<h2>App Cache</h2>
-	<ul class="sections">
+	<ul>
 		<li>Webová aplikace poskytuje tzv. <em>offline manifest</em>, výčet souborů pro použití offline
 			<pre data-syntax="xml">&lt;html manifest="mysite.manifest"&gt;</pre>
 		</li>
@@ -280,11 +280,15 @@ FALLBACK
 images/large offline/sorry.jpg</pre>
 </section>
 
+<section class="slide">
+	<h2>App Cache</h2>
+	<p>lehce obskurní <a href="http://ondras.zarovi.cz/demos/morgan/">ukázka</a>, její <a href="http://ondras.zarovi.cz/demos/morgan/morgan.manifest">manifest</a></p>
+</section>
 
 <section class="slide">
 	<h2>Offline API</h2>
 	<p>Webová aplikace má k dispozici JS API, které informuje o stavu připojení.</p>
-	<ul class="sections">
+	<ul>
 		<li><code data-syntax="js">navigator.onLine</code></li>
 		<li><code data-syntax="js">window.addEventListener("online", ...)</code></li>
 		<li><code data-syntax="js">window.addEventListener("offline", ...)</code></li>
@@ -295,7 +299,7 @@ images/large offline/sorry.jpg</pre>
 <section class="slide">
 	<h2>applicationCache API</h2>
 	<p>JS API pro práci s offline cache.</p>
-	<ul class="sections">
+	<ul>
 		<li><code data-syntax="js">window.applicationCache</code> &ndash; objekt popisující stav offline cache, též možnost explicitně cache obnovit</li>
 		<li><code data-syntax="js">if (applicationCache.status == applicationCache.UPDATEREADY) { ... }</code></li>
 		<li><code data-syntax="js">applicationCache.update()</code> &ndash; pokyn ke kontrole novější verze (jako při reloadu)</li>
