@@ -30,8 +30,8 @@
 		<li>Geolocation</li>
 		<li>Web Storage</li>
 		<li>File API</li>
-		<li>Drag'n'Drop</li>
 		<li>History API</li>
+		<li>FIXME js modules</li>
 	</ol>
 </section>
 
@@ -133,54 +133,6 @@ fr.readAsText(file);
 /* fr.readAsArrayBuffer(file); */
 /* fr.readAsBinaryString(file); */
 </pre>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop</h2>
-	<ul class="sections">
-		<li>Přetahování věcí ve stránce a do stránky</li>
-		<li>Překvapivě složité</li>
-		<li><a href="https://developer.mozilla.org/en-US/docs/DragDrop/Drag_Operations">Dokumentace na MDN</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop: zahájení tažení</h2>
-	<ul class="sections">
-		<li>Soubor do okna prohlížeče</li>
-		<li>HTML prvek s atributem <code>draggable</code></li>
-		<li>Událost <code>dragstart</code></li>
-		<li>Vlastnost <code>dataTransfer</code> v události obsahuje relevantní metadata</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop: práce s dataTransfer</h2>
-<pre data-syntax="js">
-div.addEventListener("dragstart", function(e) {
-	e.dataTransfer.setData("text/plain", "http://www.seznam.cz");
-	e.dataTransfer.setDragImage(image, offsetX, offsetY);
-	e.dataTransfer.effectAllowed = "copyMove";
-	e.dataTransfer.dropEffect = "copy";
-});
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop: tažení</h2>
-	<ul class="sections">
-		<li>Události <code>dragenter</code>, <code>dragover</code>, <code>dragleave</code></li>
-		<li>Pokud má být nad prvkem tažení ukončitelné, je nutné událost "preventovat" (<code>preventDefault()</code>)</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop: puštění</h2>
-	<ul class="sections">
-		<li>Událost <code>drop</code></li>
-		<li>Pokud událost zpracujeme, voláme <code>preventDefault</code></li>
-		<li>Vlastnost <code>e.dataTransfer.files</code> je pole souborů, jsou-li jaké</li>
-	</ul>
 </section>
 
 <section class="slide">

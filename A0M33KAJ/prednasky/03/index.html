@@ -30,6 +30,7 @@
 		<li>Microdata, microformáty, RDFa</li>
 		<li>Scalable Vector Graphics</li>
 		<li>AppCache + Offline</li>
+		<li>Drag'n'Drop</li>
 	</ol>
 </section>
 
@@ -304,6 +305,54 @@ images/large offline/sorry.jpg</pre>
 		<li><code data-syntax="js">if (applicationCache.status == applicationCache.UPDATEREADY) { ... }</code></li>
 		<li><code data-syntax="js">applicationCache.update()</code> &ndash; pokyn ke kontrole novější verze (jako při reloadu)</li>
 		<li><code data-syntax="js">applicationCache.swapCache()</code> &ndash; přepnutí na aktuální verzi souborů (nutný reload)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Drag'n'Drop</h2>
+	<ul class="sections">
+		<li>Přetahování věcí ve stránce a do stránky</li>
+		<li>Překvapivě složité</li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/DragDrop/Drag_Operations">Dokumentace na MDN</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Drag'n'Drop: zahájení tažení</h2>
+	<ul>
+		<li>Soubor do okna prohlížeče</li>
+		<li>HTML prvek s atributem <code>draggable</code></li>
+		<li>Událost <code>dragstart</code></li>
+		<li>Vlastnost <code>dataTransfer</code> v události obsahuje relevantní metadata</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Drag'n'Drop: práce s dataTransfer</h2>
+<pre data-syntax="js">
+div.addEventListener("dragstart", function(e) {
+	e.dataTransfer.setData("text/plain", "http://www.seznam.cz");
+	e.dataTransfer.setDragImage(image, offsetX, offsetY);
+	e.dataTransfer.effectAllowed = "copyMove";
+	e.dataTransfer.dropEffect = "copy";
+});
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Drag'n'Drop: tažení</h2>
+	<ul>
+		<li>Události <code>dragenter</code>, <code>dragover</code>, <code>dragleave</code></li>
+		<li>Pokud má být nad prvkem tažení ukončitelné, je nutné událost "preventovat" (<code>preventDefault()</code>)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Drag'n'Drop: puštění</h2>
+	<ul>
+		<li>Událost <code>drop</code></li>
+		<li>Pokud událost zpracujeme, voláme <code>preventDefault</code></li>
+		<li>Vlastnost <code>e.dataTransfer.files</code> je pole souborů, jsou-li jaké</li>
 	</ul>
 </section>
 
