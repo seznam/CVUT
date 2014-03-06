@@ -38,7 +38,7 @@
 
 <section class="slide">
 	<h2>Vývoj CSS</h2>
-	<ul class="sections">
+	<ul>
 		<li>CSS 1 v roce 1994</li>
 		<li>CSS 2 v roce 1998 &ndash; příliš ambiciózní (stíny, průhlednost, &hellip;)</li>
 		<li>CSS 2.1 (2004&ndash;2011) reviduje nepodporované vlastnosti; celkem 115 definovaných vlastností</li>
@@ -48,7 +48,7 @@
 
 <section class="slide">
 	<h2>Podpora CSS 3</h2>
-	<ul class="sections">
+	<ul>
 		<li>Velmi výrazně odlišná napříč prohlížeči</li>
 		<li><a href="http://caniuse.com/">caniuse.com</a></li>
 		<li>Důvod pro používání <em>bleeding edge</em> verzí</li>
@@ -57,7 +57,7 @@
 
 <section class="slide">
 	<h2>Vendor prefix #1</h2>
-	<ul class="sections">
+	<ul>
 		<li>Problém: výrobce chce podporovat technologii, která není plně standardizovaná</li>
 		<li>Implementací riskuje stížnosti při změně API</li>
 		<li>Řešení: vlastní prefix před názvem vlastnosti</li>
@@ -74,7 +74,7 @@ div {
 
 <section class="slide">
 	<h2>Vendor prefix #2</h2>
-	<ul class="sections">
+	<ul>
 		<li>Psaní prefixů je opruz</li>
 		<li>Poslední dobou snahy o odprefixování</li>
 		<li>Preprocessing na straně serveru (generuje všechny)</li>
@@ -84,7 +84,7 @@ div {
 
 <section class="slide">
 	<h2>Selektorový jazyk &ndash; rekapitulace</h2>
-	<ul class="sections">
+	<ul>
 		<li>Selektor = řetězec, kterému může vyhovovat libovolné množství prvků v HTML stránce</li>
 		<li>Při změně stránky (DOM) se mění množina prvků, vyhovujících selektorům &rArr; nutnost znovuvyhodnocení</li>
 		<li>Stavební kameny selektorového jazyka: názvy značek, kombinační znaky, atributové filtry</li>
@@ -237,6 +237,7 @@ li:empty { display: none; }
 		<li><code>:empty</code> = nemá-li potomky</li>
 		<li><code>:only-child</code> = je-li jediný potomek</li>
 		<li><code>:not()</code> = negace</li>
+		<li><a href="http://jsfiddle.net/ondras/7JAT8/">Ukázka na jsfiddle.net</a></li>
 	</ul>
 	<pre data-syntax="css">
 p:not(:target)        { opacity: 0.5; }
@@ -245,14 +246,26 @@ input:not([required]) { color: blue; }
 </section>
 
 <section class="slide">
-	<h2>Bonus: generovaný obsah</h2>
-	<p><code>:before</code>, <code>:after</code> = falešný první a poslední potomek</p>
+	<h2>Selektorový jazyk &ndash; pseudoprvky</h2>
+	<ul>
+		<li><code>::first-line</code> = první řádek textu</li>
+		<li><code>::first-letter</code> = první písmeno textu</li>
+		<li><a href="http://jsfiddle.net/ondras/A7S8f/">Ukázka na jsfiddle.net</a></li>
+	</ul>
 	<pre data-syntax="css">
-li.good:before {
+p::first-letter { font-size: 200%; }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Bonus: generovaný obsah</h2>
+	<p><code>::before</code>, <code>::after</code> = falešný první a poslední potomek</p>
+	<pre data-syntax="css">
+li.good::before {
 	content: "✔ ";
 	color: green;
 }
-li.bad:before {
+li.bad::before {
 	content: "✘ ";
 	color: red;
 }
@@ -263,11 +276,11 @@ li.bad:before {
 	</ul>
 	<style>
 		li.good, li.bad { list-style-type: none; }
-		li.good:before {
+		li.good::before {
 			content: "✔ ";
 			color: green;
 		}
-		li.bad:before {
+		li.bad::before {
 			content: "✘ ";
 			color: red;
 		}
@@ -278,10 +291,10 @@ li.bad:before {
 	<h2>Bonus: generovaný obsah</h2>
 	<p>Generovat lze i obrázky a hodnoty atributů</p>
 	<pre data-syntax="css">
-a[href^="http"]:before {
+a[href^="http"]::before {
 	content: url(externi.png);
 }
-a[data-id]:after {
+a[data-id]::after {
 	content: attr(data-id);
 	color: gray;
 }
@@ -291,8 +304,12 @@ a[data-id]:after {
 
 <section class="slide">
 	<h2>Bonus: generovaný obsah</h2>
-	<p>Podpora pro čítače: reset, změna hodnoty, výpis hodnoty</p>
-	<pre data-syntax="css">
+	<p>
+		Podpora pro čítače: reset, změna hodnoty, výpis hodnoty
+		<button onclick="document.querySelector('#test_1').innerHTML = document.querySelector('#test_2').textContent">aplikovat</button>
+	</p>
+	<style id="test_1"></style>
+	<pre data-syntax="css" id="test_2">
 body {
 	counter-reset: kapitola;
 }
@@ -301,8 +318,8 @@ h2 {
 	counter-increment: kapitola;
 }
 
-h2:before {
-	content: counter(kapitola);
+h2::before {
+	content: counter(kapitola) ". ";
 }
 </pre>
 </section>
