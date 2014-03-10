@@ -29,6 +29,7 @@
 	<ol>
 		<li>Microdata - zápis, typy, použití</li>
 		<li>SVG - vložení, stylování, změna rozměru</li>
+		<li>Drag&amp;drop</li>
 	</ol>
 </section>
 
@@ -74,9 +75,9 @@
 <pre data-syntax="xml">
 &lt;section itemscope itemtype=&quot;http://schema.org/EducationEvent&quot;&gt;
 	&lt;h1 itemprop=&quot;name&quot;&gt;Tvorba klientských aplikací v JavaScriptu - SVG a Microdata&lt;/h1&gt;
-	&lt;p item itemprop=&quot;description&quot;&gt;Toto cvičení vám poskytne znalosti o moderních technologiích SVG a Microdata&lt;/p&gt;
+	&lt;p itemprop=&quot;description&quot;&gt;Toto cvičení vám poskytne znalosti o moderních technologiích SVG a Microdata&lt;/p&gt;
 	&lt;p&gt;
-		Cviční se konná vždy od &lt;span itemprop=&quot;startDate&quot;&gt;02-25-2013&lt;/span&gt; do &lt;span itemprop=&quot;endDate&quot;&gt;02-25-2013&lt;/span&gt;
+		Cviční se konná vždy od &lt;span itemprop=&quot;startDate&quot;&gt;02-25-2014&lt;/span&gt; do &lt;span itemprop=&quot;endDate&quot;&gt;02-25-2014&lt;/span&gt;
 		a trvá &lt;span itemprop=&quot;duration&quot;&gt;90 minut&lt;/span&gt;, cvičící je &lt;span itemprop=&quot;performer&quot;&gt;Zdeněk Vlach&lt;/span&gt;.
 	&lt;/p&gt;
 	&lt;address itemprop=&quot;location&quot; itemscope itemtype=&quot;http://schema.org/PostalAddress&quot;&gt;
@@ -240,7 +241,7 @@
 			<style>
 				#face	{ stroke-width:1px; stroke:black; fill:yellow; }
 				.eye	{ fill:blue; }
-				.eye:hover	{ fill:none; }
+				.eye:hover	{ fill:transparent; }
 				.eye-close	{ fill:blue; }
 				#mouth	{ stroke:red; stroke-width:10px; fill:none; }
 				#mouth:hover	{ stroke-width:20px; }
@@ -256,7 +257,7 @@
 &lt;style&gt;
 	#face	{ stroke-width:1px; stroke:black; fill:yellow; }
 	.eye	{ fill:blue; }
-	.eye:hover	{ fill:none; }
+	.eye:hover	{ fill:transparent; }
 	.eye-close	{ fill:blue; }
 	#mouth	{ stroke:red; stroke-width:10px; fill:none; }
 	#mouth:hover	{ stroke-width:20px; }
@@ -268,7 +269,6 @@
 	&lt;circle cx=&quot;200&quot; cy=&quot;100&quot; r=&quot;30&quot; class=&quot;eye&quot;/&gt;
 	&lt;path d=&quot;M50,200 S150,350 250,200&quot; id=&quot;mouth&quot; /&gt;
 &lt;/svg&gt;
-&lt;pre data-syntax=&quot;xml&quot;&gt;
 			</pre>
 		</li>
 	</ul>
@@ -378,11 +378,25 @@
 </section>
 
 <section class="slide">
+	<h2>Drag&amp;Drop</h2>
+	
+	<ul class="sections">
+		<li>Umožňuje manipulovat s objekty ve stránce i přetahovat externí soubory do stránky</li>
+		<li>Přesunovatelný prvek - atribut <strong>draggable="draggable"</strong></li>
+		<li>Události: <strong>dragstart</strong>, <strong>dragover</strong>, <strong>drop</strong></li>
+		<li>Vlastnost <strong>dataTransfer</strong> - obsahuje metadata</li>
+		<li>Pokud má být nad prvkem tažení ukončitelné, je nutné událost "preventovat" - protože v defaultu není "dropnutí" dovoleno</li>
+		<li>Pokud událost zpracujeme, voláme preventDefault</li>
+		<li><em>Úkol:</em> Napište JS aplikaci, která umožní uživateli přetáhnout do stránky soubor a stránka vypíše meta informace o souboru (typ, velikost, umístění)</li>
+	</ul>
+</section>
+
+<section class="slide">
 	<h2>Prostor pro otázky</h2>
 </section>
 
 <footer>
-	<a href="mailto:ondrej.zara@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
+	<a href="mailto:zdenek.vlach@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
 </footer>
 
 <script type="text/javascript">
