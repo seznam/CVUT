@@ -9,13 +9,14 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>Media queries, responsive design, CSS transformace</title>
+		<link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css' />
+		<title>Media queries, responsive design, CSS transformace, písma</title>
 	<body>
 		
-<h1>Media queries, responsive design, CSS transformace</h1>
+<h1>Media queries, responsive design, CSS transformace, písma</h1>
 
 <section class="slide">
-	<h2>Media queries a responsive design, CSS transformace</h2>
+	<h2>Media queries a responsive design, CSS transformace, písma</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -30,12 +31,13 @@
 		<li>Media queries</li>
 		<li>2D transformace</li>
 		<li>3D transformace</li>
+		<li>Písma</li>
 	</ol>
 </section>
 
 <section class="slide">
 	<h2>CSS a zobrazovací média</h2>
-	<ul class="sections">
+	<ul>
 		<li>CSS 2 podporuje tzv. <em>typy médií</em>: možnost aplikovat stylopisy jen pro předdefinovaná zařízení</li>
 		<li><code>&lt;link rel="stylesheet" media="print" /&gt;</code></li>
 		<li><code>@media screen { ... }</code></li>
@@ -46,7 +48,7 @@
 
 <section class="slide">
 	<h2>Media queries</h2>
-	<ul class="sections">
+	<ul>
 		<li>Princip i syntaxe zůstává</li>
 		<li>Rozšíření typů i na parametry a logické operace</li>
 	</ul>
@@ -57,7 +59,7 @@
 
 <section class="slide">
 	<h2>Media queries: obecná syntaxe</h2>
-	<ul class="sections">
+	<ul>
 		<li>Volitelně typ média</li>
 		<li>Následuje libovolné množství parametrizace v kulatých závorkách</li>
 	</ul>
@@ -68,7 +70,7 @@
 
 <section class="slide">
 	<h2>Media queries: logické operace</h2>
-	<ul class="sections">
+	<ul>
 		<li><code>and</code> je průnik</li>
 		<li><code>,</code> je sjednocení</li>
 		<li><code>not</code> je negace</li>
@@ -80,7 +82,7 @@
 
 <section class="slide">
 	<h2>Media queries: dostupné parametry</h2>
-	<ul class="sections">
+	<ul>
 		<li><code>width</code>, <code>height</code>, <code>device-width</code>, <code>device-height</code></li>
 		<li><code>aspect-ratio</code>, <code>device-aspect-ratio</code></li>
 		<li><code>color</code>, <code>color-index</code></li>
@@ -92,7 +94,7 @@
 
 <section class="slide">
 	<h2>Responsive design</h2>
-	<ul class="sections">
+	<ul>
 		<li>Snaha navrhnout design/layout tak, aby nebyl <em>příliš</em> závislý na použitém zařízení</li>
 		<li>Používání relativních jednotek</li>
 		<li>Rozložení prvků na stránce dle dostupného místa</li>
@@ -102,7 +104,7 @@
 
 <section class="slide">
 	<h2>Responsive design: viewport</h2>
-	<ul class="sections">
+	<ul>
 		<li>Mobilní zařízení používají trik pro zpětně kompatibilní zobrazení</li>
 		<li>Stránce se hlásí s falešnou pixelovou šířkou (typicky 960px)</li>
 		<li>Výsledek: uživatel vidí celou stránku (zmenšenou)</li>
@@ -117,17 +119,17 @@ maximum-scale, minimum-scale, user-scalable
 
 <section class="slide">
 	<h2>Responsive design: nové jednotky</h2>
-	<ul class="sections">
+	<ul>
 		<li>CSS jednotky <code>vw</code>, <code>vh</code>, <code>vmin</code>, <code>vmax</code></li>
 		<li>Procenta rozměrů průhledu</li>
-		<li><a href="http://caniuse.com/#feat=viewport-units" target="_blank">Slabá podpora</a></li>
+		<li><a href="http://caniuse.com/#feat=viewport-units" target="_blank">Podpora</a></li>
 		<li>Ideální tam, kde by bylo nutno dopočítávat skriptem</li>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>CSS transformace</h2>
-	<ul class="sections">
+	<ul>
 		<li>CSS vlastnosti pro afinní geometrické transformace HTML prvků</li>
 		<li>Aplikují se po vykreslení, tj. neovlivňují layout ostatních prvků</li>
 		<li>Mohou být akcelerované (a proto např. rychlejší než absolutní pozicování)</li>
@@ -157,7 +159,7 @@ div {
 
 <section class="slide">
 	<h2>CSS transformace: ostatní</h2>
-	<ul class="sections">
+	<ul>
 		<li>Vlastnost <code>transform-origin</code> určuje počátek souřadného systému (výchozí: 50% 50%)</li>
 		<li><pre data-syntax="css">
 div {
@@ -217,7 +219,7 @@ div {
 
 <section class="slide">
 	<h2>3D CSS transformace</h2>
-	<ul class="sections">
+	<ul>
 		<li>Rozšíření transformačních funkcí</li>
 		<li><code>translateZ</code>, <code>translate3d</code>, <code>scaleZ</code>, <code>scale3d</code></li>
 		<li><code>rotate3d</code>, <code>rotateX</code>, <code>rotateY</code>, <code>rotateZ</code></li>
@@ -257,7 +259,7 @@ div {
 
 <section class="slide">
 	<h2>3D CSS transformace</h2>
-	<ul class="sections">
+	<ul>
 		<li>Aby docházelo k prespektivnímu zkreslení, je nutno definovat parametry 3D prostoru</li>
 		<li>Vlastnost <code>perspective</code> na rodičovském prvku určuje míru zkreslení</li>
 		<li>Vlastnost <code>transform-style</code> na rodičovském prvku určuje hloubku potomků (<a href="http://www.webkit.org/blog-files/3d-transforms/transform-style.html" target="_blank">ukázka</a>)</li>
@@ -295,9 +297,62 @@ div {
 
 <section class="slide">
 	<h2>3D CSS transformace</h2>
-	<ul class="sections">
+	<ul>
 		<li><a href="http://ondras.zarovi.cz/games/blockout/" target="blank">CSS Blockout</a></li>
 		<li><a href="http://ondras.zarovi.cz/demos/rubik/" target="blank">Rubikova kostka</a></li>
+	</ul>
+</section>
+
+<section class="slide" style="font-family:the girl next door; font-weight: bold">
+	<h2>CSS @font-face</h2>
+	<ul>
+		<li>Definice vlastního písma</li>
+		<li>Podporováno od IE 4 (!)</li>
+		<li>Nutnost dodat soubor(y) s definicí písma</li>
+		<li>Vhodné pro typografii i <a target="_blank" href="http://www.justbenicestudio.com/studio/websymbolsliga/">ideogramy</a> (GitHub, Seznam E-mail)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS @font-face &ndash; ukázka</h2>
+	<pre data-syntax="css">
+@font-face {
+	font-family: MujFont;
+	src: local("Muj Font"), url(MujFont.ttf);
+}
+
+body {
+	font-family: MujFont;
+}
+</section>
+
+<section class="slide">
+	<h2>CSS @font-face &ndash; formáty</h2>
+	<ul>
+		<li>EOT proprietární od Microsoftu</li>
+		<li>TTF, OTF</li>
+		<li>WOFF: Web Open Font Format</li>
+		<li>Více info viz caniuse.com</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS @font-face &ndash; Data URI</h2>
+	<pre data-syntax="css">
+@font-face {
+    font-family: "MujFont";
+    src: url(data:application/x-font-woff;charset=utf-8;base64,d09......AAA==) format("woff"),
+         url("MujFont.ttf") format("truetype");
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>CSS @font-face &ndash; poznámky</h2>
+	<ul>
+		<li>Odlišné renderování v různých prohlížečích a operačních systémech</li>
+		<li><a target="_blank" href="http://www.google.com/webfonts">Google Web Fonts</a></li>
+		<li>Problematika <a href="http://paulirish.com/2009/fighting-the-font-face-fout/" title="Flash Of Unstyled Text">FOUT</a></li>
 	</ul>
 </section>
 
