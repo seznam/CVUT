@@ -35,7 +35,7 @@
 
 <section class="slide">
 	<h2>CSS transitions</h2>
-	<ul class="sections">
+	<ul>
 		<li>V rámci životního cyklu stránky často dochází ke změnám CSS hodnot</li>
 		<li>Změny hodnot jsou okamžité a skokové</li>
 		<li>Pomocí transition lze tyto změny provádět plynule (animovaně)</li>
@@ -78,7 +78,7 @@ div:hover {
 
 <section class="slide">
 	<h2>CSS transitions: vlastnosti</h2>
-	<ul class="sections">
+	<ul>
 		<li>Meta-vlastnost <code>transition</code></li>
 		<li>Individuálně lze upřesnit <code>transition-property</code>, <code>transition-duration</code>, <code>transition-timing-function</code>, <code>transition-delay</code></li>
 		<li>Častno nutnost prefixování</li>
@@ -88,7 +88,7 @@ div:hover {
 
 <section class="slide">
 	<h2>CSS transitions: transition-property</h2>
-	<ul class="sections">
+	<ul>
 		<li>Plynule lze měnit řadu vlastností, ne však všechny</li>
 		<li>Je nutné dbát na kompatibilní hodnoty (<code>px</code> vs. <code>%</code> vs. <code>auto</code>)</li>
 	</ul>
@@ -96,7 +96,7 @@ div:hover {
 
 <section class="slide">
 	<h2>CSS transitions: transition-duration</h2>
-	<ul class="sections">
+	<ul>
 		<li>Jak dlouho plynulá změna trvá</li>
 		<li>Povolené jednotky <code>s</code> a <code>ms</code></li>
 	</ul>
@@ -104,7 +104,7 @@ div:hover {
 
 <section class="slide">
 	<h2>CSS transitions: transition-timing-function</h2>
-	<ul class="sections">
+	<ul>
 		<li>Jak interpolovat hodnoty v závislosti na čase</li>
 		<li>Interpolační funkci možno zadat klíčovým slovem nebo předpisem</li>
 		<li><a href="https://developer.mozilla.org/en-US/docs/CSS/timing-function" target="_blank">Přehled na MDN</a></li>
@@ -140,7 +140,7 @@ div:hover {
 
 <section class="slide">
 	<h2>CSS transitions: transition-delay</h2>
-	<ul class="sections">
+	<ul>
 		<li>Zpoždění animace po změně vlastnosti</li>
 	</ul>
 </section>
@@ -176,7 +176,7 @@ setTimeout(function() {
 
 <section class="slide">
 	<h2>CSS animations</h2>
-	<ul class="sections">
+	<ul>
 		<li>Vylepšení techniky transitions</li>
 		<li>Navazování změn</li>
 		<li>Možnost vykonávání ve smyčce</li>
@@ -186,7 +186,7 @@ setTimeout(function() {
 
 <section class="slide">
 	<h2>CSS animations: syntaxe</h2>
-	<ul class="sections">
+	<ul>
 		<li>Definice rozdělena na dvě komponenty</li>
 		<li>V první části popis metadat animace (jak rychle, opakování, směr, časování, &hellip;)</li>
 		<li>V druhé části popis jednotlivých vizuálních vlastností v průběhu animace</li>
@@ -243,7 +243,7 @@ div {
 
 <section class="slide">
 	<h2>CSS animations: definice animace</h2>
-	<ul class="sections">
+	<ul>
 		<li>Meta-vlastnost <code>animation</code></li>
 		<li>Individuálně lze upřesnit:
 			<ul>
@@ -262,7 +262,7 @@ div {
 
 <section class="slide">
 	<h2>CSS animation: animation-iteration-count</h2>
-	<ul class="sections">
+	<ul>
 		<li>Počet iterací</li>
 		<li>Hodnota <code>infinite</code> značí nekonečnou smyčku</li>
 	</ul>
@@ -270,7 +270,7 @@ div {
 
 <section class="slide">
 	<h2>CSS animation: animation-direction</h2>
-	<ul class="sections">
+	<ul>
 		<li>Směr vykonávání jednotlivých iterací</li>
 		<li><code>normal</code>, <code>reverse</code>, <code>alternate</code>, <code>alternate-reverse</code></li>
 	</ul>
@@ -278,7 +278,7 @@ div {
 
 <section class="slide">
 	<h2>CSS animation: animation-fill-mode</h2>
-	<ul class="sections">
+	<ul>
 		<li>Jak aplikovat styly pokud animace neběží</li>
 		<li>Povolené hodnoty:
 			<ul>
@@ -293,14 +293,14 @@ div {
 
 <section class="slide">
 	<h2>CSS animation: animation-play-state</h2>
-	<ul class="sections">
+	<ul>
 		<li>running/paused &ndash; možnost pozastavit animaci</li>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>CSS animation: @keyframes</h2>
-	<ul class="sections">
+	<ul>
 		<li>Definice vzhledu v jednotlivých krocích animace</li>
 		<li>
 			<pre data-syntax="css">
@@ -363,6 +363,7 @@ div {
 	<ul>
 		<li>Možno zadat více stínů naráz</li>
 		<li>Respektuje zaoblené rohy</li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow">Ukázka</a></li>
 	</ul>
 </section>
 
