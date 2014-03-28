@@ -38,21 +38,21 @@
 
 <section class="slide">
 	<h2>Opáčko</h2>
-	<ul class="sections">
+	<ul>
 		<li>Interpret v každém prohlížeči</li>
 		<li>Pro nováčka obtížný: jazyk samotný vs. DOM</li>
-		<li>Jazyk stále vyvíjen, vznikají nové verze</li>
+		<li>Jazyk stále vyvíjen (aktuálne ES5/ES6), vznikají nové verze</li>
 		<li>Neexistuje koncept tříd (obtížné porovnání s C++, Java, &hellip;)</li>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>Opáčko: primitivní datové typy</h2>
-	<ul class="sections">
+	<ul>
 		<li>Číslo, bool, řetězec, null, undefined</li>
 		<li>Předávané hodnotou</li>
 	</ul>
-	<pre class="section" data-syntax="js">
+	<pre data-syntax="js">
 var a = 3;
 var b = 0.1 + 0.2;
 var c = "ahoj" + 'ahoj';
@@ -63,12 +63,12 @@ var f = undefined;
 
 <section class="slide">
 	<h2>Opáčko: komplexní datové typy</h2>
-	<ul class="sections">
+	<ul>
 		<li>Objekt = neuspořádaná množina dvojic (klíč, hodnota)</li>
 		<li>Podobjekty: Array, Function, Date, RegExp</li>
 		<li>Předávané odkazem</li>
 	</ul>
-	<pre class="section" data-syntax="js">
+	<pre data-syntax="js">
 var a = {};               /* prázdný objekt */
 var b = {c:3, "d":"hi"}; 
 var e = [a, b];           /* pole o dvou položkách */
@@ -79,7 +79,7 @@ var g = /^.*/;            /* regulární výraz */
 
 <section class="slide">
 	<h2>Opáčko: základní syntaktické prvky</h2>
-	<ul class="sections">
+	<ul>
 		<li>Volitelný středník</li>
 		<li>if, for, while, switch</li>
 		<li><em>Type coercion</em></li>
@@ -95,13 +95,13 @@ if (undefined === null) { /* ... */ }
 
 <section class="slide">
 	<h2>Objekty, funkce a pole</h2>
-	<ul class="sections">
+	<ul>
 		<li>Objekt = neuspořádaná množina dvojic</li>
 		<li>Klíč je řetězec</li>
 		<li>Hodnota je cokoliv</li>
 		<li>Pole je též objekt</li>
 	</ul>
-	<pre class="section" data-syntax="js">
+	<pre data-syntax="js">
 var pole1 = [3, 2, 1];
 var pole2 = [];
 
@@ -115,10 +115,10 @@ pole2.push(pole1);
 
 <section class="slide">
 	<h2>Objekty, funkce a pole</h2>
-	<ul class="sections">
+	<ul>
 		<li>Funkce je též objekt</li>
 	</ul>
-	<pre class="section" data-syntax="js">
+	<pre data-syntax="js">
 var add = function(a, b) { return a+b; }
 add.c = 123;
 add(add.c, add["c"]);
@@ -127,12 +127,12 @@ add(add.c, add["c"]);
 
 <section class="slide">
 	<h2>Pilíř 1: Uzávěry</h2>
-	<ul class="sections">
+	<ul>
 		<li>Jaký je obor platnosti proměnných?</li>
 		<li>Funkci lze definovat uvnitř jiné funkce</li>
 		<li>Proměnná existuje v rámci své funkce a všech jejích podfunkcí</li>
 	</ul>
-	<pre class="section" data-syntax="js">
+	<pre data-syntax="js">
 var outer = function(a, b) {
 	var inner = function(x) { return 2*x; }
 	return a + inner(b);
@@ -142,11 +142,11 @@ var outer = function(a, b) {
 
 <section class="slide">
 	<h2>Pilíř 1: Uzávěry</h2>
-	<ul class="sections">
+	<ul>
 		<li>Co když použijeme proměnnou ve vnitřní funkci?</li>
 		<li>Vznikne <em>uzávěra</em></li>
 	</ul>
-	<pre class="section" data-syntax="js">
+	<pre data-syntax="js">
 var outer = function(a, b) {
 	var inner = function() { return 2*b; }
 	return a + inner();
@@ -161,11 +161,11 @@ var outer = function(a, b) {
 
 <section class="slide">
 	<h2>Pilíř 2: Klíčové slovo <em>this</em></h2>
-	<ul class="sections">
+	<ul>
 		<li>Jeden z nejkomplikovanějších konceptů jazyka</li>
 		<li>Zásadní rozdíl oproti jiným: hodnota je určena při volání</li>
 	</ul>
-	<pre class="section" data-syntax="js">
+	<pre data-syntax="js">
 var fun = function() { alert(this); }
 fun(); /* ? */
 
@@ -181,12 +181,12 @@ fun == obj1.fun == obj2.fun
 
 <section class="slide">
 	<h2>Pilíř 2: Klíčové slovo <em>this</em></h2>
-	<ul class="sections">
+	<ul>
 		<li>Pokud je při volání před názvem funkce tečka, hodnota this je objekt vlevo</li>
 		<li>Jinak je this globální jmenný prostor</li>
 		<li>This lze explicitně určit</li>
 	</ul>
-	<pre class="section" data-syntax="js">
+	<pre data-syntax="js">
 var fun = function() { alert(this); }
 
 var obj1 = {};
@@ -199,7 +199,7 @@ fun.apply(obj2, [arg1, ...]); /* this == obj2 */
 
 <section class="slide">
 	<h2>Pilíř 3: Prototype chain</h2>
-	<ul class="sections">
+	<ul>
 		<li>Dva objekty je možno provázat</li>
 		<li><pre data-syntax="js">
 var obj1 = { klic:"hodnota" }; var obj2 = {};
@@ -222,12 +222,12 @@ obj2.__proto__ == obj1;
 
 <section class="slide">
 	<h2>Pilíř 3: Prototype chain</h2>
-	<ul class="sections">
+	<ul>
 		<li>Říkáme, že jeden objekt je prototypem druhého</li>
 		<li>Druhý nabízí vše, co první (+ možná něco navíc)</li>
 		<li>Více prototype linků = prototype chain</li>
 	</ul>
-	<pre class="section" data-syntax="js">
+	<pre data-syntax="js">
 var obj1 = { klic:"hodnota" }; 
 var obj2 = Object.create(obj1);
 var obj3 = Object.create(obj2);
@@ -255,7 +255,7 @@ alert(obj3.jinyKlic); /* "jeste jina hodnota" */
 
 <section class="slide">
 	<h2>Pilíř 3: Prototype chain</h2>
-	<ul class="sections">
+	<ul>
 		<li>Neexistuje koncept tříd</li>
 		<li>OOP lze realizovat pomocí prototypů</li>
 		<li>Vzor (třída) = rodičovský objekt</li>
@@ -265,7 +265,7 @@ alert(obj3.jinyKlic); /* "jeste jina hodnota" */
 
 <section class="slide">
 	<h2>Operátor new</h2>
-	<ul class="sections">
+	<ul>
 		<li>Prototype link nelze vytvářet přímo (<code>x.__proto__</code>)</li>
 		<li>Varianta 1: <code>Object.create</code></li>
 		<li>Varianta 2: <code>new</code></li>
@@ -290,7 +290,7 @@ f.c = 3;
 
 <section class="slide">
 	<h2>Operátor new</h2>
-	<ul class="sections">
+	<ul>
 		<li>Terminologický guláš: vlastnost <code>.prototype</code> vs. <code>__proto__</code></li>
 		<li>Objekt ("instance") nemá příliš souvislost se svojí vytvořující funkcí</li>
 		<li>Operátor <code>new</code> patří k nejsložitějším partiím jazyka</li>
@@ -334,7 +334,7 @@ f2() /* "bar" */
 
 <section class="slide">
 	<h2>bind</h2>
-	<ul class="sections">
+	<ul>
 		<li>Funkce/metoda <code>bind</code> vrací novou funkci</li>
 		<li>V nové funkci je <code>this</code> napevno definováno ve chvíli volání <code>bind</code></li>
 		<li><code>bind</code> umí ještě další věci, ale toto je nejdůležitější</li>
@@ -353,6 +353,23 @@ Function.prototype.bind = function(newThis) {
 }
 </pre>
 </section>
+
+<section class="slide">
+	<h2>bind &ndash; využití</h2>
+	<pre data-syntax="js">
+var Obj = function() {}
+Obj.prototype.foo = function() {}
+
+var bar = new Obj();
+setTimeout(bar.foo, 100);
+
+setTimeout(bar.foo.bind(bar), 100);
+
+/* dtto addEventListener atp. */
+</pre>
+</section>
+
+
 <section class="slide">
 	<h2>Prostor pro otázky</h2>
 </section>
