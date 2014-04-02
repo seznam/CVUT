@@ -45,9 +45,9 @@
 
 <section class="slide">
 	<h2>Ajax</h2>
-	<ul class="sections">
+	<ul>
 		<li>Asynchronous JavaScript and XML</li>
-		<li>Zkratka zpravidla používána chybně</li>
+		<li>Označení zpravidla používána chybně</li>
 		<li>Požadavky nemusí být asynchronní</li>
 		<li>Přenášet se dá cokoliv (nejen XML)</li>
 	</ul>
@@ -55,7 +55,7 @@
 
 <section class="slide">
 	<h2>XMLHttpRequest</h2>
-	<ul class="sections">
+	<ul>
 		<li>XMLHttpRequest je alfou a omegou pro bohaté webové aplikace</li>
 		<li>Možnost provést HTTP požadavek</li>
 		<li>Dočítání dat, odesílání informací</li>
@@ -78,7 +78,7 @@ xhr.send(data);
 
 <section class="slide">
 	<h2>XMLHttpRequest API</h2>
-	<ul class="sections">
+	<ul>
 		<li>Lze použít jakoukoliv HTTP metodu</li>
 		<li>Synchronní požadavek blokuje vykreslovací vlákno</li>
 		<li>URL požadavku podstupuje kontrolu <em>originu</em> (viz dále)</li>
@@ -88,7 +88,7 @@ xhr.send(data);
 
 <section class="slide">
 	<h2>XMLHttpRequest API: doplňková funkcionalita</h2>
-	<ul class="sections">
+	<ul>
 		<li><code>setRequestHeader(name, value)</code></li>
 		<li><code>getResponseHeader(name)</code>, <code>getAllResponseHeaders()</code></li>
 		<li><code>abort()</code></li>
@@ -98,7 +98,7 @@ xhr.send(data);
 
 <section class="slide">
 	<h2>XMLHttpRequest API: vlastnosti a data odpovědi</h2>
-	<ul class="sections">
+	<ul>
 		<li><code>xhr.readyState</code> je stav požadavku (4 = hotovo)</li>
 		<li><code>xhr.status</code> je HTTP kód odpovědi (200 = OK)</li>
 		<li><code>xhr.responseText</code> jsou data odpovědi</li>
@@ -108,7 +108,7 @@ xhr.send(data);
 
 <section class="slide">
 	<h2>XMLHttpRequest 2</h2>
-	<ul class="sections">
+	<ul>
 		<li>Rozšíření se zpětně kompatibilním API</li>
 		<li>Události <em>progress</em>, <em>load</em>, <em>error</em>, <em>abort</em></li>
 		<li>To samé na objektu <code>xhr.upload</code></li>
@@ -119,16 +119,14 @@ xhr.send(data);
 
 <section class="slide">
 	<h2>Nuda!</h2>
-	<p class="sections" style="text-align: center;"><span></span><img src="img/unicorn.png" alt="" /></p>
+	<p style="text-align: center;"><span></span><img src="img/unicorn.png" alt="" /></p>
 </section>
 
 <section class="slide">
 	<h2>Origin a CORS</h2>
-	<ul class="sections">
+	<ul>
 		<li>XHR nelze poslat na jakékoliv URL</li>
-		<li>Proč?</li>
 		<li>Kvůli bezpečnosti!</li>
-		<li>Proč?</li>
 		<li>Protože součastí požadavku jsou cookies, HTTP autorizace, certifikáty&hellip;</li>
 	</ul>
 </section>
@@ -147,7 +145,7 @@ xhr.onreadystatechange = function() {
 
 <section class="slide">
 	<h2>Origin a CORS: omezení originem</h2>
-	<ul class="sections">
+	<ul>
 		<li>XHR jsou v základu omezeny jen na URL se stejným <em>originem</em></li>
 		<li>origin = schema + host + port</li>
 	</ul>
@@ -155,7 +153,7 @@ xhr.onreadystatechange = function() {
 
 <section class="slide">
 	<h2>Cross-origin bez XHR?</h2>
-	<ul class="sections">
+	<ul>
 		<li>Odbočka pro zvídavé</li>
 		<li><code data-syntax="xml">&lt;img src="http://gmail.com/" /&gt;</code></li>
 		<li><code data-syntax="xml">&lt;form method="post" action="http://gmail.com/sendEmail" /&gt;</code></li>
@@ -166,7 +164,7 @@ xhr.onreadystatechange = function() {
 
 <section class="slide">
 	<h2>CORS: technika pro cross-origin XHR</h2>
-	<ul class="sections">
+	<ul>
 		<li>Cross Origin Resource Sharing</li>
 		<li>Skvělá podpora prohlížečů</li>
 		<li>Myšlenka: zeptat se backendu, jestli je ochoten takovýto požadavek přijmout</li>
@@ -177,7 +175,7 @@ xhr.onreadystatechange = function() {
 
 <section class="slide">
 	<h2>CORS: implementace</h2>
-	<ul class="sections">
+	<ul>
 		<li>HTTP hlavička požadavku <code>Origin</code></li>
 		<li>Podpora inzerovaná v hlavičce odpovědi <code>Access-Control-Allow-Origin</code></li>
 		<li>Požadavek se <strong>vždy</strong> provede</li>
@@ -187,7 +185,7 @@ xhr.onreadystatechange = function() {
 
 <section class="slide">
 	<h2>CORS: poznámky</h2>
-	<ul class="sections">
+	<ul>
 		<li>Autor veřejného API by měl posílat <code>Access-Control-Allow-Origin</code></li>
 		<li>Nouzové řešení je server-side proxy (stejný origin)</li>
 		<li>Kompletní čtení na <a href="http://enable-cors.org/">http://enable-cors.org/</a></li>
@@ -196,12 +194,12 @@ xhr.onreadystatechange = function() {
 
 <section class="slide">
 	<h2>Nuda!</h2>
-	<p class="sections" style="text-align: center;"><span></span><img src="img/monkey.png"  alt="" /></p>
+	<p style="text-align: center;"><span></span><img src="img/monkey.png"  alt="" /></p>
 </section>
 
 <section class="slide">
 	<h2>Transportní formáty</h2>
-	<ul class="sections">
+	<ul>
 		<li>Data lze posílat v mnoha formátech</li>
 		<li>Žádný není nejlepší</li>
 		<li>Upload zpravidla neřešíme</li>
@@ -216,17 +214,17 @@ xhr.onreadystatechange = function() {
 
 <section class="slide">
 	<h2>Transportní formáty: XML</h2>
-	<ul class="sections">
+	<ul>
 		<li>Odpověď musí být validní XML</li>
 		<li>Odpověď musí mít platný XML mime type (nebo overrideMimeType)</li>
-		<li><code>xhr.responseXML instanceof DOMDocument</code></li>
+		<li><code data-syntax="js">xhr.responseXML instanceof DOMDocument</code></li>
 		<li>Dotazování přes DOM nebo XPath</li>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>Transportní formáty: JSON</h2>
-	<ul class="sections">
+	<ul>
 		<li>Populární textový formát (<a href="http://json.org/">http://json.org/</a>)</li>
 		<li>Podmnožina JavaScriptu</li>
 		<li>Řetězce, čísla, bool, pole, struktury, null</li>
@@ -240,7 +238,7 @@ xhr.onreadystatechange = function() {
 	"name": "jan",
 	"data": [3, 4, true]
 }</pre>
-	<ul class="sections">
+	<ul>
 		<li>Klíče musí být ohraničeny úvozovkami</li>
 		<li><code>JSON.parse</code> a <code>JSON.stringify</code></li>
 		<li><code>eval</code> jako zpětná kompatibilita</li>
@@ -249,7 +247,7 @@ xhr.onreadystatechange = function() {
 
 <section class="slide">
 	<h2>Transportní formáty: binárně</h2>
-	<ul class="sections">
+	<ul>
 		<li>Lze, ale je problematické (cross-browser)</li>
 		<li>Odesílání ještě horší</li>
 		<li>U XMLHttpRequest 2 lze přes <code>responseType</code> a <code>send(binaryData)</code></li>
@@ -258,7 +256,7 @@ xhr.onreadystatechange = function() {
 
 <section class="slide">
 	<h2>JSONP</h2>
-	<ul class="sections">
+	<ul>
 		<li>NENÍ transportní formát</li>
 		<li>Úplně jiná technika přenosu dat</li>
 		<li>Způsob obcházení cross-origin restriction</li>
@@ -280,7 +278,7 @@ mojeFunkce({name: "jan", data: [3, 4, true]});
 
 <section class="slide">
 	<h2>Doplňkové informace #1</h2>
-	<ul class="sections">
+	<ul>
 		<li>Prohlížeče omezují počet současných XHR na stránku (zpravidla 4)</li>
 		<li>HTTP požadavek musí být iniciován klientem</li>
 		<li>Technika <em>long poll</em>/<em>comet</em>: pošlu HTTP požadavek; server odpoví, až bude mít data</li>
@@ -290,7 +288,7 @@ mojeFunkce({name: "jan", data: [3, 4, true]});
 
 <section class="slide">
 	<h2>Doplňkové informace #2</h2>
-	<ul class="sections">
+	<ul>
 		<li>Velikost přenášených dat (a jejich formát a následné zpracování) může razantně ovlivňovat výkon aplikace</li>
 		<li>Ladění XHR vždy ve spolupráci s vyvojářskými nástroji prohlížeče</li>
 		<li>V případě nouze wireshark/tcpdump</li>
@@ -299,18 +297,21 @@ mojeFunkce({name: "jan", data: [3, 4, true]});
 
 <section class="slide">
 	<h2>Web Sockets</h2>
-	<ul class="sections">
+	<ul>
 		<li>Snaha o zpřístupnění duplexní komunikace v prohlížeči</li>
 		<li>Notifikace ze strany serveru</li>
 		<li>Persistentní spojení</li>
 		<li>Léta draftů</li>
-		<li><a href="http://ondras.zarovi.cz/games/just-spaceships/">Ukázka</a></li>
+		<li><a id="demo" href="http://bit.ly/1lBDw4W">bit.ly/1lBDw4W</a></li>
 	</ul>
+	<style>
+		#demo { font-size: 200%; }
+	</style>
 </section>
 
 <section class="slide">
 	<h2>Web Sockets: princip</h2>
-	<ul class="sections">
+	<ul>
 		<li>Trvale otevřené spojení na server</li>
 		<li>Možnost oboustranného posílání dat</li>
 		<li>Vlastní protokol postavený nad HTTP Upgrade</li>
@@ -336,7 +337,7 @@ socket.onmessage = function(e) {
 
 <section class="slide">
 	<h2>Web Sockets: serverová část</h2>
-	<ul class="sections">
+	<ul>
 		<li>Ta nás nezajímá!</li>
 		<li>Nutný specializovaný software</li>
 		<li>Knihovny pro řadu jazyků (PHP, Python, TeaJS, node.js, &hellip;)</li>
@@ -345,7 +346,7 @@ socket.onmessage = function(e) {
 
 <section class="slide">
 	<h2>Web Sockets: protokol</h2>
-	<ul class="sections">
+	<ul>
 		<li>Vlastní binární protokol</li>
 		<li>Komunikace začíná HTTP požadavkem s hlavičkou Upgrade</li>
 		<li>Zpětná kompatibilita s existujícími webovými servery</li>
