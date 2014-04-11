@@ -32,12 +32,13 @@
 		<li>Události: capture a bubble</li>
 		<li>Události: posluchače</li>
 		<li>Asynchronní zpracování</li>
+		<li>Promises</li>
 	</ol>
 </section>
 
 <section class="slide">
 	<h2>Události: opáčko</h2>
-	<ul class="sections">
+	<ul>
 		<li>Alternativní způsob řízení toku programu</li>
 		<li><em>Event-based programming</em></li>
 		<li><code>Až nastane X, udělej Y</code></li>
@@ -57,7 +58,7 @@ document.body.addEventListener("click", func, false);
 <section class="slide">
 	<h2>Události: opáčko</h2>
 	<p>Co je na událostech zajimavého?</p>
-	<ul class="sections">
+	<ul>
 		<li>Na jakých vznikají prvcích?</li>
 		<li>Jaké existují?</li>
 		<li>Co obsahuje (jediný) parametr posluchače?</li>
@@ -67,7 +68,7 @@ document.body.addEventListener("click", func, false);
 
 <section class="slide">
 	<h2>Události: objekt události</h2>
-	<ul class="sections">
+	<ul>
 		<li>Liší se podle typu události</li>
 		<li>Vždy obsahuje <code>target</code>, <code>currentTarget</code>, <code>timeStamp</code>, <code>type</code></li>
 		<li>Vždy obsahuje <code>stopPropagation</code> a <code>preventDefault</code></li>
@@ -76,7 +77,7 @@ document.body.addEventListener("click", func, false);
 
 <section class="slide">
 	<h2>Události klávesnice</h2>
-	<ul class="sections">
+	<ul>
 		<li><code>keydown</code>, <code>keypress</code>, <code>keyup</code></li>
 		<li>Modifikátory <code>ctrlKey</code>, <code>altKey</code>, <code>shiftKey</code>, <code>metaKey</code></li>
 		<li>Stisk a uvolnění obsahuje <code>keyCode</code>
@@ -96,7 +97,7 @@ document.body.addEventListener("click", func, false);
 
 <section class="slide">
 	<h2>Události myši</h2>
-	<ul class="sections">
+	<ul>
 		<li><code>mousedown</code>, <code>mouseup</code>, <code>click</code>, <code>mouseover</code>, <code>mouseout</code>, <code>mousemove</code></li>
 		<li><code>clientX</code> a <code>clientY</code> &ndash; souřadnice kurzoru vůči průhledu</li>
 		<li><code>button</code> je tlačítko (0 = levé, 1 = prostřední, 2 = pravé)</li>
@@ -105,7 +106,7 @@ document.body.addEventListener("click", func, false);
 
 <section class="slide">
 	<h2>Události dotykové</h2>
-	<ul class="sections">
+	<ul>
 		<li><code>touchstart</code>, <code>touchmove</code>, <code>touchend</code>, (<code>gesturechange</code>)</li>
 		<li><code>touches</code> &ndash; pole všech dotyků</li>
 		<li><code>changedTouches</code> &ndash; pole změněných dotyků</li>
@@ -116,7 +117,7 @@ document.body.addEventListener("click", func, false);
 
 <section class="slide">
 	<h2>Události ostatní</h2>
-	<ul class="sections">
+	<ul>
 		<li><code>focus</code>, <code>blur</code></li>
 		<li><code>select</code>, <code>change</code>, <code>submit</code></li>
 		<li><code>scroll</code>, <code>resize</code></li>
@@ -127,7 +128,7 @@ document.body.addEventListener("click", func, false);
 
 <section class="slide">
 	<h2>Capture a bubble #1</h2>
-	<ul class="sections">
+	<ul>
 		<li>Třetí parametr pro <code>addEventListener</code> je <em>useCapture</em></li>
 		<li>Posluchače události jsou volány nejprve ve fázi capture, poté ve fázi bubble</li>
 		<li>Pořadí fází a volání viz <a href="img/event.gif">diagram</a></li>
@@ -136,7 +137,7 @@ document.body.addEventListener("click", func, false);
 
 <section class="slide">
 	<h2>Capture a bubble #2</h2>
-	<ul class="sections">
+	<ul>
 		<li>Více posluchačů na stejném uzlu (ve stejné fázi) je voláno v definovaném pořadí</li>
 		<li>Zpracovávání události (mezi uzly) lze zastavit voláním <code>stopPropagation()</code></li>
 		<li>Zpracovávání události (v rámci uzlu) lze zastavit voláním <code>stopImmediatePropagation()</code></li>
@@ -146,7 +147,7 @@ document.body.addEventListener("click", func, false);
 
 <section class="slide">
 	<h2>Capture a bubble #3</h2>
-	<ul class="sections">
+	<ul>
 		<li>Některé události nebublají&hellip;</li>
 		<li>&hellip;ale i tyto procházejí capture</li>
 		<li><code>load</code>, <code>unload</code></li>
@@ -188,7 +189,7 @@ window.addEventListener("load", obj);</pre>
 
 <section class="slide">
 	<h2>Asynchronní zpracování</h2>
-	<ul class="sections">
+	<ul>
 		<li>JavaScript je vykonáván v jednom vlákně</li>
 		<li>Není nutné řešit přerušení a synchronizaci vykonávání</li>
 		<li><em>Event loop</em></li>
@@ -217,7 +218,7 @@ while (1) {
 
 <section class="slide">
 	<h2>Zpožděné vykonávání</h2>
-	<ul class="sections">
+	<ul>
 		<li>Je řada způsobů, jak "naplánovat" zpožděné vykonání kódu</li>
 		<li>XMLHttpRequest, addEventListener</li>
 		<li><pre data-syntax="js">
@@ -225,6 +226,38 @@ setTimeout(  function() { /* ... */ }, 1000);
 setInterval( function() { /* ... */ }, 100);
 </pre></li>
 		<li>Pořadí určuje <del>lékař</del> prohlížeč, ale vždy nejprve v příští iteraci event loopu</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Zpožděné vykonávání: this v callbacku</h2>
+	<ul>
+		<li>Pokud někam předávám funkci, s jakým <code>this</code> bude volána?</li>
+		<li><pre data-syntax="js">
+var Animal = function() {
+	setTimeout(this.eat, 3000);
+}
+
+Animal.prototype.eat = function() {
+	this.food += 3;
+}
+</pre></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Zpožděné vykonávání: this v callbacku</h2>
+	<ul>
+		<li><code>bind</code> pomůže</li>
+		<li><pre data-syntax="js">
+var Animal = function() {
+	setTimeout(this.eat.bind(this), 3000);
+}
+
+Animal.prototype.eat = function() {
+	this.food += 3;
+}
+</pre></li>
 	</ul>
 </section>
 
@@ -242,8 +275,8 @@ function s(a) {
 </section>
 
 <section class="slide">
-	<h2>Zpožděné vykonávání &ndash; requestAnimationFrame</h2>
-	<ul class="sections">
+	<h2>Zpožděné vykonávání: requestAnimationFrame</h2>
+	<ul>
 		<li><code>setTimeout</code> zní jako rozumné řešení pro JS animace</li>
 		<li><code>requestAnimationFrame</code> je výrazně vhodnější alternativa</li>
 		<li><pre data-syntax="js">
@@ -254,6 +287,53 @@ requestAnimationFrame(function() {
 		<li>Prohlížeč sám volí vhodnou délku časového kroku (zpravidla okolo 60 fps)</li>
 		<li>Pozor na prefixy</li>
 		<li>Více info viz <a href="https://developer.mozilla.org/en-US/docs/DOM/window.requestAnimationFrame">MDN</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Promises</h2>
+	<ul>
+		<li>Při návrhu vlastního API narážíme na asynchronní funkce</li>
+		<li>Takové funkce vyžadují <code>callback</code></li>
+		<li>Kolikátý parametr? Co návratová hodnota? Co výjimky?</li>
+		<li>Co podmíněně asynchronní funkce?</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Promises</h2>
+	<ul>
+		<li>Návrhový vzor <code>Promise</code> nabízí výrazně přehlednější řízení asynchronního kódu</li>
+		<li>Promise je "krabička na časem získanou hodnotu"</li>
+		<li>(podmíněně) asynchronní funkce <strong>vrací</strong> Promise</li>
+		<li>Zájemce může na promise navěsit posluchače (dva různé)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Promises: ukázka</h2>
+	<pre data-syntax="js">
+var getData = function() {
+	var promise = new Promise();
+	/* ... */
+	return promise;
+}
+
+getData().then(
+    function(data) { alert(data); },
+    function(error) { alert(error); }
+);
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Promises: doplnění</h2>
+	<ul>
+		<li>Promise se může nacházet ve stavech "pending", "fulfilled", "rejected"</li>
+		<li>Tvůrce promise ji mění, konzument jen poslouchá (<code>then</code>)</li>
+		<li>Vrátit lze již naplněnou promise</li>
+		<li>Volání <code>then()</code> vrací novou promise (?!) &rArr; řetězení</li>
+		<li>Některé prohlížeče Promise nabízejí, pro jiné existují knihovny</li>
 	</ul>
 </section>
 
