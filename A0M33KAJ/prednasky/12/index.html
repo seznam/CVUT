@@ -28,10 +28,9 @@
 	<h2>Obsah</h2>
 	<ol>
 		<li>Web Workers</li>
-		<li>WebGL</li>
 		<li>WebRTC</li>
-		<li>FlexBox</li>
 		<li>Web Components</li>
+		Notifications
 	</ol>
 </section>
 
@@ -102,35 +101,6 @@ onmessage = function(e) {
 </section>
 
 <section class="slide">
-	<h2>WebGL: koncepty</h2>
-	<ul class="sections">
-		<li><code data-syntax="js">canvas.getContext("webgl") || canvas.getContext("experimental-webgl")</code></li>
-		<li>Veliké API (<a href="http://www.nihilogic.dk/labs/webgl_cheat_sheet/WebGL_Cheat_Sheet.htm">zastaralý cheatsheet</a>)</li>
-		<li>Nové datové typy (<em>typovaná pole</em>)</li>
-		<li>Kompatibilní shadery (GLSL)</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>WebGL: obtíže</h2>
-	<ul class="sections">
-		<li>Nejistá podpora</li>
-		<li>Práce s maticemi</li>
-		<li>Silně ukecané (stejně jako OpenGL)</li>
-		<li><a href="webgl.html">Ukázka</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>WebGL: závěr</h2>
-	<ul class="sections">
-		<li>Budoucnost grafiky na webu</li>
-		<li>Použít knihovnu pro matice (<a href="http://glmatrix.net/">glMatrix</a>)</li>
-		<li>Použít knihovnu pro WebGL (<a href="http://threejs.org/">three.js</a>)</li>
-	</ul>
-</section>
-
-<section class="slide">
 	<h2>WebRTC</h2>
 	<ul class="sections">
 		<li>RTC = Real Time Communications</li>
@@ -165,52 +135,6 @@ var error = function(e) {
 
 navigator.getUserMedia({audio:true, video:true}, ok, error);
 </pre>
-</section>
-
-<section class="slide">
-	<h2>CSS3 Flexible Box</h2>
-	<ul class="sections">
-		<li>Nový pozicovací algoritmus do CSS</li>
-		<li>Pro polohování boxů vedle sebe / pod sebe</li>
-		<li>Náhrada za (slabý) float</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS3 Flexible Box: základ</h2>
-<pre data-syntax="xml">
-&lt;div id="parent"&gt;
-	&lt;div id="child1"&gt;&lt;/div&gt;
-	&lt;div id="child2"&gt;&lt;/div&gt;
-	&lt;div id="child3"&gt;&lt;/div&gt;
-&lt;/div&gt;
-</pre>
-<pre data-syntax="css">
-#parent {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
-</pre>
-</section>
-
-<section class="slide">
-	<h2>CSS3 Flexible Box: relativní rozměry boxů</h2>
-	<ul class="sections">
-		<li><code>flex-grow</code> je relativní <em>síla růstu</em></li>
-		<li><code>flex-shrink</code> je relativní <em>síla zmenšení</em></li>
-		<li><code>flex-base</code> je základní rozměr (výška/šířka)</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS3 Flexible Box: další vlastnosti</h2>
-	<ul class="sections">
-		<li><code>align-items</code> a <code>align-self</code> pro zarovnání v kolmé ose (<em>cross axis</em>)</li>
-		<li><code>order</code> pro změnu pořadí v prvků</li>
-		<li><code>flex-wrap</code> pro povolení/zakázání zalamování</li>
-		<li><a href="http://jsfiddle.net/ondras/tGK7p/">Ukázka</a></li>
-	</ul>
 </section>
 
 

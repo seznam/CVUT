@@ -31,13 +31,14 @@
 		<li>Web Storage</li>
 		<li>File API</li>
 		<li>History API</li>
-		<li>FIXME js modules</li>
+		<li>FlexBox</li>
+		<li>Ostatní</li>
 	</ol>
 </section>
 
 <section class="slide">
 	<h2>Geolocation</h2>
-	<ul class="sections">
+	<ul>
 		<li>Zjištění polohy uživatele</li>
 		<li>Asynchronní</li>
 		<li>Polohu zjišťuje prohlížeč nedefinovanými mechanismy</li>
@@ -62,7 +63,7 @@ navigator.geolocation.getCurrentPosition(ok, error);
 
 <section class="slide">
 	<h2>Geolocation: další API</h2>
-	<ul class="sections">
+	<ul>
 		<li><code>watchPosition</code> pro opakované sledování</li>
 		<li><code>clearPosition</code> pro přerušení</li>
 		<li>Nalezená pozice obsahuje také rychlost, směr, výšku, přesnost</li>
@@ -71,7 +72,7 @@ navigator.geolocation.getCurrentPosition(ok, error);
 
 <section class="slide">
 	<h2>Web Storage</h2>
-	<ul class="sections">
+	<ul>
 		<li>Úložiště dat v prohlížeči</li>
 		<li>Alespoň 5MB pro doménu</li>
 		<li>Data se nikam neodesílají</li>
@@ -94,7 +95,7 @@ localStorage.removeItem("a");
 
 <section class="slide">
 	<h2>Web Storage: další info</h2>
-	<ul class="sections">
+	<ul>
 		<li>Ukládají se dvojice řetězců (klíč-hodnota)</li>
 		<li>Storage je sdílena všemi skripty na doméně</li>
 		<li>Slabé API s ohledem na kapacitu</li>
@@ -104,7 +105,7 @@ localStorage.removeItem("a");
 
 <section class="slide">
 	<h2>File API</h2>
-	<ul class="sections">
+	<ul>
 		<li>Přístup k souborům na disku uživatele</li>
 		<li>Uživatel musí soubor nejdříve "vybrat" (dragdrop, input)</li>
 		<li>Metadata, čtení, odesílání (XHR2)</li>
@@ -113,7 +114,7 @@ localStorage.removeItem("a");
 
 <section class="slide">
 	<h2>File API: objekt File</h2>
-	<ul class="sections">
+	<ul>
 		<li><code>name</code></li>
 		<li><code>size</code> v bajtech</li>
 		<li><code>type</code> (MIME) &ndash; odhad prohlížeče / operačního systému</li>
@@ -137,7 +138,7 @@ fr.readAsText(file);
 
 <section class="slide">
 	<h2>History API</h2>
-	<ul class="sections">
+	<ul>
 		<li>Práce s URL stránky</li>
 		<li>Pro stavové jednostránkové aplikace</li>
 		<li>Podpora pro zpět/vpřed, záložky a permalinky</li>
@@ -146,7 +147,7 @@ fr.readAsText(file);
 
 <section class="slide">
 	<h2>History API: hash</h2>
-	<ul class="sections">
+	<ul>
 		<li>Práce s tzv. <em>fragment identifikátorem</em>, zkráceně též <em>hashem</em></li>
 		<li><code>location.hash = "ahoj"</code></li>
 		<li>Událost <code>hashchange</code> na objektu <code>window</code></li>
@@ -155,7 +156,7 @@ fr.readAsText(file);
 
 <section class="slide">
 	<h2>HTML5 History API</h2>
-	<ul class="sections">
+	<ul>
 		<li>Možnost změny celého URL (bez načení stránky)</li>
 		<li>Funkce <code>history.pushState()</code> a <code>history.replaceState()</code></li>
 		<li><code data-syntax="js">history.pushState(data, title, "/nove/URL")</code></li>
@@ -164,13 +165,167 @@ fr.readAsText(file);
 </section>
 
 <section class="slide">
+	<h2>CSS3 Flexible Box</h2>
+	<ul>
+		<li>Nový pozicovací algoritmus do CSS</li>
+		<li>Pro polohování boxů vedle sebe / pod sebe</li>
+		<li>Náhrada za (slabý) float</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS3 Flexible Box: základ</h2>
+<pre data-syntax="xml">
+&lt;div id="parent"&gt;
+	&lt;div id="child1"&gt;&lt;/div&gt;
+	&lt;div id="child2"&gt;&lt;/div&gt;
+	&lt;div id="child3"&gt;&lt;/div&gt;
+&lt;/div&gt;
+</pre>
+<pre data-syntax="css">
+#parent {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>CSS3 Flexible Box: relativní rozměry boxů</h2>
+	<ul>
+		<li><code>flex-grow</code> je relativní <em>síla růstu</em></li>
+		<li><code>flex-shrink</code> je relativní <em>síla zmenšení</em></li>
+		<li><code>flex-base</code> je základní rozměr (výška/šířka)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS3 Flexible Box: další vlastnosti</h2>
+	<ul>
+		<li><code>align-items</code> a <code>align-self</code> pro zarovnání v kolmé ose (<em>cross axis</em>)</li>
+		<li><code>order</code> pro změnu pořadí v prvků</li>
+		<li><code>flex-wrap</code> pro povolení/zakázání zalamování</li>
+		<li><a href="http://jsfiddle.net/ondras/tGK7p/">Ukázka</a></li>
+	</ul>
+</section>
+
+<section class="slide">
 	<h2>Page Visibility API</h2>
-	<ul class="sections">
+	<ul>
 		<li>Je stránka vidět?</li>
 		<li>Událost <code>visibilitychange</code> na objektu <code>document</code></li>
 		<li><code>document.hidden</code></li>
 		<li><code>document.visibilityState</code> &ndash; <code data-syntax="js">"visible", "hidden", "prerender"</code></li>
 	</ul>
+</section>
+
+<section class="slide">
+	<h2>Fullscreen API</h2>
+	<ul>
+		<li>Možnost zobrazit <em>konkrétní HTML prvek</em> přes celou obrazovku</li>
+		<li>Pouze z posluchače události</li>
+		<li>Podpora dobrá, ale s různými názvy/prefixy</li>
+		<li>Pseudotřída <code>:full-screen</code> či <code>:fullscreen</code> </li>
+		<li><code>document.fullscreenElement</code>, <code>document.fullscreenEnabled</code> </li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Fullscreen API</h2>
+	<pre data-syntax="js">
+var elem = document.querySelector("#myvideo");
+
+if (elem.requestFullscreen) {
+	elem.requestFullscreen();
+} else if (elem.msRequestFullscreen) {
+	elem.msRequestFullscreen();
+} else if (elem.mozRequestFullScreen) {
+	elem.mozRequestFullScreen();
+} else if (elem.webkitRequestFullscreen) {
+	elem.webkitRequestFullscreen();
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Fullscreen API</h2>
+	<pre data-syntax="js">
+if (document.exitFullscreen) {
+	document.exitFullscreen();
+} else if (document.msExitFullscreen) {
+	document.msExitFullscreen();
+} else if (document.mozCancelFullScreen) {
+	document.mozCancelFullScreen();
+} else if (document.webkitExitFullscreen) {
+	document.webkitExitFullscreen();
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>FormData</h2>
+	<ul>
+		<li>Automatická serializace key-value dat do x-www-form-urlencoded</li>
+		<li>Možno předat do <code>XMLHttpRequest::send()</code></li>
+		<li>Možno postavit nad existujícím formulářem</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>FormData</h2>
+	<pre data-syntax="js">
+var fd = new FormData( [form] );
+
+fd.append("key1", "value");
+fd.append("key2", file, "filename");
+
+var blob = new Blob([data...]);
+fd.append("key3", blob);
+</pre>
+</section>
+
+<section class="slide">
+	<h2>IndexedDB</h2>
+	<ul>
+		<li>Transakční key-value databáze v prohlížeči</li>
+		<li>Pro libovolné množství dat</li>
+		<li>Zcela asynchronní API</li>
+		<li>Databáze je persistentní per-origin</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>IndexedDB</h2>
+	<pre data-syntax="js">
+indexedDB.open("eshop").onsuccess = function(e) {
+	var db = e.target.result; 
+	db.createObjectStore("item");
+}
+
+indexedDB.open("eshop").onsuccess = function(e) { 
+	var store = e.result.objectStore("item"); 
+	var item = { name: "Sample", price: 100 };
+	store.add(item);
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>IndexedDB</h2>
+	<pre data-syntax="js">
+indexedDB.open("eshop").onsuccess = function(e) {
+	var store = e.result.objectStore("item"); 
+	var request = store.openCursor();
+
+	request.onsuccess = function(e) {
+		var cursor = e.result;
+		if (!cursor) { return; }
+		alert(JSON.stringify(cursor.value));
+		cursor.continue();
+	}
+}
+</pre>
 </section>
 
 <section class="slide">
