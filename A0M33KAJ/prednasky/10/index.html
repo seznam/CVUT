@@ -38,7 +38,7 @@
 
 <section class="slide">
 	<h2>Co je to canvas</h2>
-	<ul class="sections">
+	<ul>
 		<li>HTML značka</li>
 		<li>Rastrová kreslící plocha</li>
 		<li>Bohaté JS API</li>
@@ -74,7 +74,7 @@ context.namalujNecoPekneho();
 
 <section class="slide">
 	<h2>Malování: obdélníky</h2>
-	<ul class="sections">
+	<ul>
 		<li><code data-syntax="js">clearRect(x, y, w, h)</code>: vymazat</li>
 		<li><code data-syntax="js">fillRect(x, y, w, h)</code>: vyplnit (aktuálně nastavenou vyplňovací barvou)</li>
 		<li><code data-syntax="js">strokeRect(x, y, w, h)</code>: orámovat (aktuálně nastavenou kreslící barvou)</li>
@@ -96,7 +96,7 @@ ctx.fill();
 
 <section class="slide">
 	<h2>Malování: vzhledové vlastnosti</h2>
-	<ul class="sections">
+	<ul>
 		<li><code data-syntax="js">ctx.strokeStyle = "red"</code></li>
 		<li><code data-syntax="js">ctx.fillStyle = "#000"</code></li>
 		<li>CSS barva NEBO barevný přechod NEBO vzor (viz dále)</li>
@@ -108,7 +108,7 @@ ctx.fill();
 
 <section class="slide">
 	<h2>Malování: vlastnosti čar</h2>
-	<ul class="sections">
+	<ul>
 		<li><code data-syntax="js">ctx.lineWidth = 3</code></li>
 		<li><code data-syntax="js">ctx.lineCap = "round"</code></li>
 		<li><code data-syntax="js">ctx.lineJoin = "round"</code></li>
@@ -161,7 +161,7 @@ ctx.fillStyle = p;
 
 <section class="slide">
 	<h2>Transformace</h2>
-	<ul class="sections">
+	<ul>
 		<li>Podobné jako u SVG</li>
 		<li>Sada afinních transformací, která upravuje souřadný systém</li>
 		<li><code data-syntax="js">ctx.scale(0.5, 0.5)</code></li>
@@ -173,7 +173,7 @@ ctx.fillStyle = p;
 
 <section class="slide">
 	<h2>Animace a časování</h2>
-	<ul class="sections">
+	<ul>
 		<li>Canvas je ideální technologie pro animace a hry</li>
 		<li>Správná práce s canvasem je rychlá</li>
 		<li>Podstatné je dobré časování a množství překreslování</li>
@@ -239,7 +239,7 @@ var draw = function() {
 
 <section class="slide">
 	<h2>Komunikace s dalšími prvky: export</h2>
-	<ul class="sections">
+	<ul>
 		<li><code data-syntax="js">var data = canvas.toDataURL("image/png")</code></li>
 		<li>Technika <em>data URI</em> představuje reprezentaci dat přímo v řetězci URI</li>
 		<li>Možno nastavit např. jako src obrázku</li>
@@ -249,7 +249,7 @@ var draw = function() {
 
 <section class="slide">
 	<h2>Komunikace s dalšími prvky: import</h2>
-	<ul class="sections">
+	<ul>
 		<li><code data-syntax="js">ctx.drawImage(image, dx, dy, [dw, dh])</code></li>
 		<li><code data-syntax="js">ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh)</code></li>
 		<li>"image" může být obrázek, canvas či video</li>
@@ -258,7 +258,7 @@ var draw = function() {
 
 <section class="slide">
 	<h2>Tipy a triky: ostré hrany</h2>
-	<ul class="sections">
+	<ul>
 		<li>Canvas používá antialiasing, nelze vypnout</li>
 		<li>Souřadný systém má celočíselné hodnoty mezi pixely</li>
 		<li>Svislé / vodorovné čáry o liché tloušťce posuňme o půl pixelu</li>
