@@ -31,7 +31,7 @@
 		<li>Web Storage</li>
 		<li>File API</li>
 		<li>History API</li>
-		<li>FlexBox</li>
+		<li>Web Workers</li>
 		<li>Ostatní</li>
 	</ol>
 </section>
@@ -164,51 +164,73 @@ fr.readAsText(file);
 	</ul>
 </section>
 
+
 <section class="slide">
-	<h2>CSS3 Flexible Box</h2>
-	<ul>
-		<li>Nový pozicovací algoritmus do CSS</li>
-		<li>Pro polohování boxů vedle sebe / pod sebe</li>
-		<li>Náhrada za (slabý) float</li>
+	<h2>Web Workers</h2>
+	<ul class="sections">
+		<li>Snaha o zpřístupnění dalších vláken JavaScriptu</li>
+		<li>JS vykonáván vždy jen v jednom vlákně!</li>
+		<li>Možnost spuštění kódu v izolovaných boxech</li>
+		<li>Problematika komunikace a předávání dat</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>CSS3 Flexible Box: základ</h2>
-<pre data-syntax="xml">
-&lt;div id="parent"&gt;
-	&lt;div id="child1"&gt;&lt;/div&gt;
-	&lt;div id="child2"&gt;&lt;/div&gt;
-	&lt;div id="child3"&gt;&lt;/div&gt;
-&lt;/div&gt;
+	<h2>Web Workers</h2>
+<pre data-syntax="js">
+var worker = new Worker("script.js");
+
+/* obsah souboru je nyní vykonáván v odděleném vlákně */
+
+worker.terminate();
 </pre>
-<pre data-syntax="css">
-#parent {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
+</section>
+
+<section class="slide">
+	<h2>Web Workers: komunikace s workerem</h2>
+<pre data-syntax="js">
+var worker = new Worker("script.js");
+
+worker.postMessage({nejaka:"data"});
+
+worker.onmessage = function(e) {
+	alert(e.data);
 }
 </pre>
 </section>
 
 <section class="slide">
-	<h2>CSS3 Flexible Box: relativní rozměry boxů</h2>
-	<ul>
-		<li><code>flex-grow</code> je relativní <em>síla růstu</em></li>
-		<li><code>flex-shrink</code> je relativní <em>síla zmenšení</em></li>
-		<li><code>flex-base</code> je základní rozměr (výška/šířka)</li>
+	<h2>Web Workers: komunikace z workeru</h2>
+<pre data-syntax="js">
+onmessage = function(e) {
+	/* přišla data zvenčí */
+
+	postMessage(/* ... */); /* posílám data ven */
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Web Workers: izolace</h2>
+	<ul class="sections">
+		<li>Žádné window, žádný document</li>
+		<li>importScripts, XMLHttpRequest, Worker</li>
+		<li>setTimeout, setInterval</li>
+		<li>To je vše!</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>CSS3 Flexible Box: další vlastnosti</h2>
-	<ul>
-		<li><code>align-items</code> a <code>align-self</code> pro zarovnání v kolmé ose (<em>cross axis</em>)</li>
-		<li><code>order</code> pro změnu pořadí v prvků</li>
-		<li><code>flex-wrap</code> pro povolení/zakázání zalamování</li>
-		<li><a href="http://jsfiddle.net/ondras/tGK7p/">Ukázka</a></li>
+	<h2>Web Workers: závěr</h2>
+	<ul class="sections">
+		<li>Výpočet ve workeru může trvat libovolně dlouho</li>
+		<li>Data jsou při předávání klonována (netřeba řešit synchronizaci)</li>
+		<li>Vhodné tam, kde jsou třeba náročné výpočty</li>
+		<li>Ideálně málo vstupních i výstupních dat</li>
+		<li><a href="https://developer.mozilla.org/en-US/demos/devderby#tab-submissions">Ukázky</a></li>
 	</ul>
 </section>
+
 
 <section class="slide">
 	<h2>Page Visibility API</h2>
