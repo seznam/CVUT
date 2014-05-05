@@ -9,13 +9,13 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>Tvorba klientských aplikací v JavaScriptu</title>
+		<title>Bleeding edge :: cvičení</title>
 	<body>
-
-<h1>Tvorba klientských aplikací v JavaScriptu</h1>
+		
+<h1>Bleeding edge :: cvičení</h1>
 
 <section class="slide">
-	<h2>Nová API</h2>
+	<h2>Bleeding edge :: cvičení</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -28,8 +28,10 @@
 	<h2>Obsah</h2>
 	<ol>
 		<li>Test - 25 minut</li>
-		<li>Informace - semestrálka + příští cvičení</li>
-		<li>Malá Aplikace</li>
+		<li>Info - semestralka</li>
+		<li>Chat</li>
+		<li>WebRTC / Canvas</li>
+		<li>Výpočet čehokoliv ve Workeru</li>
 	</ol>
 </section>
 
@@ -68,87 +70,30 @@
 	</ul>
 </section>
 
-
 <section class="slide">
-	<h2>Aplikace</h2>
+	<h2>Chat</h2>
 	<ul class="sections">
-		<li>
-			Bude zaznamenávat na uživatelovo přání polohu a případně vypisovat uložené souřadnice
-		</li>
-		<li>
-			Dvě "stránky"
-		</li>
-		<li>
-			Použijeme GEO API a History API
-		</li>
+		<li><code>var socket = new WebSocket("ws://ws.zarovi.cz:15000/echo")</code></li>
+		<li><code>socket.onopen = ...</code></li>
+		<li><code>socket.send(...)</code></li>
+		<li><code>socket.onmessage = ...</code></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>GEO API</h2>
+	<h2>WebRTC / Canvas</h2>
 	<ul class="sections">
-		<li>
-			Jak se dostanu k aktulání poloze zařízení?
-		</li>
-		<li>
-			navigator.geolocation
-		</li>
-		<li>
-			navigator.geolocation.getCurrentPosition(callback, error)
-		</li>
-		<li>
-			Callback funkce má jako parametr objekt s vlastností coords
-		</li>
+		<li><code>getUserMedia</code> &rArr; <code>&lt;video&gt;</code></li>
+		<li><code>&lt;video&gt;</code> &rArr; <code>&lt;canvas&gt;</code></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Local Storage API</h2>
+	<h2>Výpočet čehokoliv ve Workeru</h2>
 	<ul class="sections">
-		<li>
-			Jak,co a kolik MB dat můžu uložit do LS?
-		</li>
-		<li>
-			5MB
-		</li>
-		<li>
-			window.localStorage: key, getItem, setItem, removeItem, length
-		</li>
-		<li>
-			ukládám dvojci klíč - hodnota (řetězce)
-		</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>History API</h2>
-	<ul class="sections">
-		<li>
-			Jakmůžu zapisovat do historie prohlížeče?
-		</li>
-		
-		<li>
-			window.history.pushState(stateObj,title,url)<br>
-			window.history.replaceState(stateObj,title,url)
-			
-		</li>
-		
-		<li>
-			Jak můžu reagovat na kliknutí na šipky zpět a dopředu v browseru?
-		</li>
-		
-		<li>
-			window.onpopstate = function(event) { /** něco vykonej **/ }
-		</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Podklady</h2>
-	<ul class="sections">
-		<li>	
-			<a href="aplikace.html">aplikace.html</a> 
-		</li>
+		<li><code>var w = new Worker("soubor.js")</code></li>
+		<li><code>w.postMessage(data)</code></li>
+		<li><code>w.onmessage = ...</code></li>
 	</ul>
 </section>
 
@@ -156,10 +101,9 @@
 	<h2>Prostor pro otázky</h2>
 </section>
 
-
-
 <footer>
-	<a href="mailto:zdenek.vlach@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
+	<a href="http://twitter.com/0ndras">twitter.com/0ndras</a>
+	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
 </footer>
 
 <script type="text/javascript">
