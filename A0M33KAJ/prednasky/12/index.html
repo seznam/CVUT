@@ -30,7 +30,7 @@
 		<li>FlexBox</li>
 		<li>WebRTC</li>
 		<li>Web Components</li>
-		Notifications
+		FIXME Notifications
 	</ol>
 </section>
 
@@ -83,7 +83,7 @@
 
 <section class="slide">
 	<h2>WebRTC</h2>
-	<ul class="sections">
+	<ul>
 		<li>RTC = Real Time Communications</li>
 		<li>Technologie pro komunikaci mezi klienty (bez serveru)</li>
 		<li>Primárně přenos zvuku a obrazu, sekundárně JS dat</li>
@@ -93,7 +93,7 @@
 
 <section class="slide">
 	<h2>WebRTC: getUserMedia</h2>
-	<ul class="sections">
+	<ul>
 		<li><code>navigator.getUserMedia()</code></li>
 		<li>Nejlépe podporovaná komponenta WebRTC</li>
 		<li>Přístup ke kameře a mikrofonu</li>
@@ -116,8 +116,148 @@ var error = function(e) {
 
 navigator.getUserMedia({audio:true, video:true}, ok, error);
 </pre>
+	<p><a target="_blank" href="http://jsfiddle.net/ondras/6fgu4/">Ukázka</a></p>
 </section>
 
+<section class="slide">
+	<h2>Web Components</h2>
+	<ul>
+		<li>Souhrnný termín pro čtveřici oddělených standardů</li>
+		<li>Fungují nezávisle, ale jsou cíleně navrhovány pro společné použití</li>
+		<li>Silně experimentální</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Components: &lt;template&gt;</h2>
+	<ul>
+		<li><pre data-syntax="xml">&lt;template&gt;
+	&lt;div class="person"&gt;&lt;img /&gt;&lt;/div&gt;
+	&lt;script&gt;new Person(...)&lt;/script&gt;
+&lt;/template&gt;
+</pre></li>
+		<li>Dle slov autorů <em>něco jako chytřejší &lt;script type="custom"&gt;</em></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Components: &lt;template&gt;</h2>
+	<ul>
+		<li>"Mrtvý" prvek; má DOM, ale nevykonávají se skripty a nestahují se externí média</li>
+		<li>DOM API: template má vlastnost <code>content</code>, což je DocumentFragment</li>
+		<li><pre data-syntax="js">var template = document.querySelector("template");
+var parent = document.body;
+
+parent.appendChild(template.content.cloneNode(true));</pre></li>
+		<li>Vnitřek template musí být parsovatelné HTML, ale jeho forma není předepsaná</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Components: HTML imports</h2>
+	<ul>
+		<li><pre data-syntax="xml">&lt;head&gt;
+	&lt;link rel="import" href="/path/to/stuff.html" /&gt;
+&lt;/head&gt;
+</pre></li>
+		<li>Paralela pro CSS <code>@import</code></li>
+		<li>Podléhá CORS</li>
+		<li>Prohlížeč inteligentně deduplikuje</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Components: HTML imports</h2>
+	<ul>
+		<li>Každý importovaný soubor tvoří samostatný DOM dokument</li>
+		<li>Na rozdíl od &lt;template&gt; je živý a skripty v něm se vykonávají</li>
+		<li>Importovaný obsah se nikam automaticky nepřipojuje</li>
+		<li>Rodič (ručně) připojuje importovaný obsahu (či naopak)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Components: využití HTML imports</h2>
+	<ul>
+		<li>Zapouzdření libovolně objemné fcionality</li>
+		<li>Widgety, komponenty aplikace, moduly, &hellip;</li>
+		<li>Vhodné i pro import čistě JS-based komponent</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Components: Custom Elements</h2>
+	<pre data-syntax="xml">&lt;szn-map x="..." y="..." controls="keyboard mouse zoom pan" /&gt;</pre>
+	<pre data-syntax="js">var map1 = new SznMap({x:..., y:..., control: ...});
+var map2 = document.createElement("szn-map");
+
+document.body.appendChild(map1);
+map1.appendChild(map2);
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Web Components: Custom Elements &ndash; registerElement</h2>
+	<ul>
+		<li>JS API tvořeno jedinou funkcí: <br/> <code data-syntax="js">var SznMap = document.registerElement("szn-map", descriptor);</code></li>
+		<li>Vlastní značky musí mít v názvu pomlčku (dopředná kompatibilita)</li>
+		<li>Značka s pomlčkou v názvu je tzv. <em>unresolved element</em> (<code>instanceof HTMLElement</code>), dokud nedojde k registraci</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Components: Custom Element descriptor</h2>
+	<ul>
+		<li>Deskriptor (druhý parametr <code>registerElement</code>) popisuje chování značky</li>
+		<li>Musí obsahovat klíč <em>prototype</em>, definující prototyp JS API nové značky</li>
+		<li>Může obsahovat klíč <em>extends</em>, string s názvem rozšiřované značky</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Components: Custom Element callbacky</h2>
+	<ul>
+		<li>V prototypu značky lze definovat callbacky životního cyklu značky</li>
+		<li><code>createdCallback</code> vykonán ve chvíli vzniku značky (či její registrace)</li>
+		<li><code>attachedCallback</code> vykonán po připnutí do stromu</li>
+		<li><code>detachedCallback</code> vykonán po odepnutí ze stromu</li>
+		<li><code>attributeChangedCallback</code> vykonán při změně (přidání, odebrání) atributu</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Components: Shadow DOM</h2>
+	<ul>
+		<li>Technika "odstínění" podstromu od zbytku stránky</li>
+		<li>Myšlenka: DOM widgetu nemá okolí co zajímat</li>
+		<li>Zamezení interference JS a CSS</li>
+		<li>Problém: má být widget listem stromu?</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Components: realizace Shadow DOM</h2>
+	<ul>
+		<li>Pro libovolný uzel DOMu lze vytvořit tzv. <em>shadow root</em> (potomek DocumentFragment)</li>
+		<li>Shadow root může obsahovat libovolně složitý podstrom</li>
+		<li>Zvenčí shadow root není vidět</li>
+		<li>Omezení CSS a JS událostí</li>
+		<li>Připínání potomků do uzlu se shadow rootem způsobí jejich <em>(re)distribuci</em></li>
+		<li><a href="http://w3c.github.io/webcomponents/spec/shadow/index.html">Speficikace</a></li>
+		<li><a href="example/1.html" target="_blank">Ukázka</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Components: &lt;content&gt;</h2>
+	<ul>
+		<li>Nová HTML značka užitečná jen pro Shadow DOM</li>
+		<li>Určuje místo, do kterého se připnou prvky zvenčí umístěné do Shadow host</li>
+		<li>Uživatel appenduje do Shadow host, renderer vykresluje do &lt;content&gt;</li>
+		<li>Jeden Shadow DOM může mít více značek &lt;content&gt;</li>
+		<li><a href="http://w3c.github.io/webcomponents/assets/images/distributions.svg" target="_blank">Obrázek</a></li>
+	</ul>
+</section>
 
 <section class="slide">
 	<h2>Prostor pro otázky</h2>
