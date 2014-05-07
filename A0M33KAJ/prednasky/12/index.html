@@ -30,7 +30,7 @@
 		<li>FlexBox</li>
 		<li>WebRTC</li>
 		<li>Web Components</li>
-		FIXME Notifications
+		<li>Web Notifications</li>
 	</ol>
 </section>
 
@@ -256,6 +256,26 @@ map1.appendChild(map2);
 		<li>Uživatel appenduje do Shadow host, renderer vykresluje do &lt;content&gt;</li>
 		<li>Jeden Shadow DOM může mít více značek &lt;content&gt;</li>
 		<li><a href="http://w3c.github.io/webcomponents/assets/images/distributions.svg" target="_blank">Obrázek</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Notifications</h2>
+	<ul>
+		<li>Zobrazení upozornění na úrovni OS</li>
+		<li>Spolupráce s notifikačním systémem OS</li>
+		<li>Agresivní; nutný souhlas uživatele</li>
+		<li><code data-syntax="js">var notification = new Notification(title, options)</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Notifications</h2>
+	<ul>
+		<li>Options: jazyk, tělíčko, ikona</li>
+		<li>Notifikace generuje události, lze ji programově zavřít</li>
+		<li>Souhlas uživatele lze získat asynchronním voláním <code>Notification.requestPermission</code></li>
+		<li><a target="_blank" href="https://developer.mozilla.org/en/docs/Web/API/notification">Ukázka na MDN</a></li>
 	</ul>
 </section>
 
