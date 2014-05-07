@@ -7,21 +7,18 @@
 	<body>
 		<h1>GEO - hlavní stránka</h1>
 		<script type="text/javascript">
-			
 			var Geo = function () {
 				this._loc = null;
 				this._build();
-			
-				this._canGeo = navigator.geolocation || false;
 				
+				this._canGeo = navigator.geolocation || false;
 				if (!this._canGeo) {
 					throw new Error('GEO not supported');
 				} else {
 					this._getLoc();
 				}
-				
 				this._canStore = window.localStorage || false;
-				if (!this._canGeo) {
+				if (!this._canStore) {
 					throw new Error('LocalStorage not supported');
 				}
 				
@@ -29,12 +26,20 @@
 				window.addEventListener('popstate', this._historyChange.bind(this));
 			}
 			
-			// vyrobi html
-			Geo.prototype._build = function () {
-				// historie
+			// posluchac udalosti zmena historie pres sipky
+			Geo.prototype._historyChange = function (e) {
+				var p = e.state.page;
+				if (p == 'List') {
+					this._goToList(e.state.title)
+				} else {
+					this._goToHome(e.state.title)
+				}
+			}
+			
+			Geo.prototype._build = function (){
 				this._linkHome = document.createElement('a');
 				this._linkHome.href = '/';
-				this._linkHome.innerHTML = 'Domu'
+				this._linkHome.innerHTML = 'Domu';
 				this._linkList = document.createElement('a');
 				this._linkList.href = '/list';
 				this._linkList.innerHTML = 'Vypis lokaci';
@@ -43,33 +48,23 @@
 				
 				this._linkHome.addEventListener('click', this._navigate.bind(this));
 				this._linkList.addEventListener('click', this._navigate.bind(this));
-			
-			
-			
+				
 				this._storeInput = document.createElement('input');
 				this._storeInput.type = 'button';
 				this._storeInput.value = 'Uloz';
-				
 				this._loadInput = document.createElement('input');
 				this._loadInput.type = 'button';
 				this._loadInput.value = 'Nacti posledni';
-				
 				this._textarea = document.createElement('textarea');
-				this._textarea.rows = 6;
-				this._textarea.cols = 80;
-				
+				this._textarea.rows = 10;
+				this._textarea.cols = 80;	
 				document.body.appendChild(this._textarea);
 				document.body.appendChild(this._storeInput);
 				document.body.appendChild(this._loadInput);
 				
 				this._storeInput.addEventListener('click', this._storeLoc.bind(this));
 				this._loadInput.addEventListener('click', this._getLastLoc.bind(this));
-
-				
 			}
-
-			
-			
 			// ziska lokaci pouzitim GEO Api
 			Geo.prototype._getLoc = function () {
 				if (this._canGeo) {
@@ -77,56 +72,15 @@
 				}
 			}
 			
-			// callback pri ziskani
-			Geo.prototype._getLocCallback = function (pos) {
-				this._loc = pos.coords;
-				this._write(this._loc);
-			}
-			
 			// callback pri chybe
 			Geo.prototype._getLocErrorCallback = function (e) {
 				alert(e.message)
 			}
 			
-			// posluchac na cudliku
-			Geo.prototype._getLastLoc = function () {
-				var ll = this._loadLastLoc();
-				if (ll != -1) {
-					this._write(ll);
-				}
-			}
-			
-			// ulozi aktualni zaznam
-			Geo.prototype._storeLoc = function () {
-				if(this._canStore) {
-					var nloc = this._textarea.value;
-					window.localStorage.setItem('previousLocation'+window.localStorage.length, nloc);
-				}
-			}
-			
-			// nacte posledni
-			Geo.prototype._loadLastLoc = function () {
-				if(this._canStore) {
-					if (window.localStorage.length > 0)
-						return window.localStorage.getItem('previousLocation'+(window.localStorage.length-1));
-					else
-						return -1;
-				}
-			}
-			
-			// nacte ulozene zaznamy
-			Geo.prototype._loadLocAll = function () {
-				if(this._canStore) {
-					if (window.localStorage.length > 0) {
-						var txt = '';
-						for(var i = 0; i < window.localStorage.length; i++) {
-							//txt += window.localStorage.getItem('previousLocation'+i) + '\n\------------------\n';
-							txt += window.localStorage.getItem(window.localStorage.key(i)) + '\n\------------------\n';
-						}
-						return txt
-					} else
-						return -1;
-				}
+			// callback pri ziskani
+			Geo.prototype._getLocCallback = function (pos) {
+				this._loc = pos.coords;
+				this._write(this._loc);
 			}
 			
 			// vypise do textarey informace
@@ -146,13 +100,29 @@
 				this._textarea.value = txt;
 			}
 			
-			// posluchac udalosti zmena historie pres sipky
-			Geo.prototype._historyChange = function (e) {
-				var p = e.state.page;
-				if (p == 'List') {
-					this._goToList(e.state.title)
-				} else {
-					this._goToHome(e.state.title)
+			// ulozi aktualni zaznam
+			Geo.prototype._storeLoc = function () {
+				if(this._canStore) {
+					var nloc = this._textarea.value;
+					window.localStorage.setItem('previousLocation'+window.localStorage.length, nloc);
+				}
+			}
+			
+			// posluchac na cudliku
+			Geo.prototype._getLastLoc = function () {
+				var ll = this._loadLastLoc();
+				if (ll != -1) {
+					this._write(ll);
+				}
+			}
+			
+			// nacte posledni
+			Geo.prototype._loadLastLoc = function () {
+				if(this._canStore) {
+					if (window.localStorage.length > 0)
+						return window.localStorage.getItem('previousLocation'+(window.localStorage.length-1));
+					else
+						return -1;
 				}
 			}
 			
@@ -169,7 +139,6 @@
 					this._goToHome(title);
 					window.history.pushState({page:'Home',title:title},title,url)
 				}
-				
 			}
 			
 			Geo.prototype._goToList = function (title) {
@@ -201,8 +170,22 @@
 				this._storeInput.style.display = this._loadInput.style.display = this._textarea.style.display = '';
 			}
 			
-			var geo = new Geo();
+			// nacte ulozene zaznamy
+			Geo.prototype._loadLocAll = function () {
+				if(this._canStore) {
+					if (window.localStorage.length > 0) {
+						var txt = '';
+						for(var i = 0; i < window.localStorage.length; i++) {
+							//txt += window.localStorage.getItem('previousLocation'+i) + '\n\------------------\n';
+							txt += window.localStorage.getItem(window.localStorage.key(i)) + '\n\------------------\n';
+						}
+						return txt
+					} else
+						return -1;
+				}
+			}
 			
+			var geo = new Geo();
 		</script>
 	</body>
 </html>
