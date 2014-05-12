@@ -29,9 +29,8 @@
 	<ol>
 		<li>Test - 25 minut</li>
 		<li>Info - semestralka</li>
-		<li>Chat</li>
+		<li>Notify</li>
 		<li>WebRTC / Canvas</li>
-		<li>Výpočet čehokoliv ve Workeru</li>
 	</ol>
 </section>
 
@@ -47,53 +46,49 @@
 <section class="slide">
 	<h2>Informace - Semestrálka</h2>
 	<ul class="sections">
-		<li>Termín odevzdání: <b>2. 6. 2013</b></li>
+		<li>Termín odevzdání: <b>2. 6. 2014</b></li>
 		<li>Penalizace: <b>za každý den po termínu odevzdání 2 body srážka</b></li>
-		<li>Jak odevzdat semestrální práci? <b>Pošlu e-mail na: zdenek.vlach@firma.seznam.cz</b></li>
+		<!--<li>Jak odevzdat semestrální práci? <b>Pošlu e-mail na: zdenek.vlach@firma.seznam.cz</b></li>
 		<li>Co bude email obsahovat?
 			<ul>
 				<li><b>Odkaz nebo archiv s funkční verzí sem. projektu. </b></li>
 				<li><b>Průvodní dokument &ndash; specifikaci.</b></li>
 				<li><b>Ideálně: předvyplněnou hodnotící tabulku.</b></li>
+				<li><a href="https://docs.google.com/spreadsheet/ccc?key=0AhqsjMGVS260dERMV2dnVXRxQ05DQnRNLUpYODNLZkE&usp=sharing">odkaz na tabulku</a>
 			</ul>
-		</li>
-		<li>Jak odevzdat semestrální práci? <b>Vyplním formulář <a href="https://docs.google.com/forms/d/1WdMJcp4iWrBqGCSRuqVUL3ZGfNb0lsaIrZIwULzr4RQ/viewform">https://docs.google.com/forms/d/1WdMJcp4iWrBqGCSRuqVUL3ZGfNb0lsaIrZIwULzr4RQ/viewform</a></b></li>
+		</li>-->
+		<li>Jak odevzdat semestrální práci? <b>Vyplním formulář <a href="https://docs.google.com/forms/d/1C5eeTOuTWJIqyrUUfeJI9B4sC7kqTXZLOTdKmHUIcRg/viewform?usp=send_form">https://docs.google.com/forms/d/1C5eeTOuTWJIqyrUUfeJI9B4sC7kqTXZLOTdKmHUIcRg/viewform?usp=send_form</a></b></li>
+		<li><a href="https://docs.google.com/spreadsheet/ccc?key=0AhqsjMGVS260dERMV2dnVXRxQ05DQnRNLUpYODNLZkE&usp=sharing">odkaz na tabulku hodnocení</a>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>Informace - Příští cvičení</h2>
 	<ul class="sections">
-		<li>Bude na téma Přístupnost a použitelnost</li>
-		<li>Takže něco úplně jiného!!</li>
-		<li>A případně oprava testu v zkouškovém - po domluvě</li>
+		<li>Bude na téma: JS Modules</li>
+		<li>A případně oprava testu</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Chat</h2>
+	<h2>Notification API</h2>
 	<ul class="sections">
-		<li><code>var socket = new WebSocket("ws://ws.zarovi.cz:15000/echo")</code></li>
-		<li><code>socket.onopen = ...</code></li>
-		<li><code>socket.send(...)</code></li>
-		<li><code>socket.onmessage = ...</code></li>
+		<li>Upozornění na úrovni OS</li>
+		<li>Uživatel musí dát povolení</li>
+		<li><b>new Notification()</b></li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/Web/API/Notification">MDN Notification</a></li>
+		<li><b>Úkol: </b>Napište aplikaci, která zjistí pozici zařízení a pomocí Upozornění dá vědět uživateli tuto informaci.</li>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>WebRTC / Canvas</h2>
 	<ul class="sections">
+		<li>Web Real-Time Communication</li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/WebRTC">https://developer.mozilla.org/en-US/docs/WebRTC</a></li>
 		<li><code>getUserMedia</code> &rArr; <code>&lt;video&gt;</code></li>
 		<li><code>&lt;video&gt;</code> &rArr; <code>&lt;canvas&gt;</code></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Výpočet čehokoliv ve Workeru</h2>
-	<ul class="sections">
-		<li><code>var w = new Worker("soubor.js")</code></li>
-		<li><code>w.postMessage(data)</code></li>
-		<li><code>w.onmessage = ...</code></li>
+		<li><b>Úkol: </b> Napište aplikaci, která zpřístupní kameru zařízení a stream bude posílat do canvasu (volitelně bude obraz modifikovat)</li>
 	</ul>
 </section>
 

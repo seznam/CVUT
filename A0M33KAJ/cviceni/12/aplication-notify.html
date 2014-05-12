@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			Notify me!
+		</title>
+		<meta charset="utf-8"> 
+	</head>
+	<body>
+		<script>
+			var Geo = function () {
+				this._loc = null;
+				this._getLoc();
+			}
+			
+			// ziska lokaci pouzitim GEO Api
+			Geo.prototype._getLoc = function () {
+				if ('geolocation' in navigator) {
+					navigator.geolocation.getCurrentPosition(this._getLocCallback.bind(this),this._getLocErrorCallback.bind(this));
+				}
+			}
+			
+			// callback pri chybe
+			Geo.prototype._getLocErrorCallback = function (e) {
+				alert(e.message)
+			}
+			
+			// callback pri ziskani
+			Geo.prototype._getLocCallback = function (pos) {
+				this._loc = pos.coords;
+				this._notify(this._loc);
+			}
+			
+			Geo.prototype._notify = function (loc) {
+				var txt = 'Pozice úspěšně získána!';
+			
+				if (!("Notification" in window)) {
+					alert("Nepodporovane API Notification!");
+				
+					} else if (Notification.permission === "granted") {
+					// mame povoleni - udelame notifikaci
+					var notification = new Notification(txt,{icon:'earth_location.png', lang:'cs'});
+					
+				} else if (Notification.permission !== 'denied') {
+					// nemame zeptame se o povoleni
+					Notification.requestPermission(function (permission) {
+						// ulozime si odpoved uzivatele!
+						if(!('permission' in Notification)) {
+							Notification.permission = permission;
+						}
+			
+						// a kdyz mame povoleni udelame notifikaci
+						if (permission === "granted") {
+							var notification = new Notification(txt);
+						}
+					});
+  				}
+			}
+			new Geo();
+		</script>
+	</body>
+</html>
