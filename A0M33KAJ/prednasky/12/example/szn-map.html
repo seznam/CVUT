@@ -22,7 +22,7 @@
 		this.style.width = this.getAttribute("width") + "px";
 		this.style.height = this.getAttribute("height") + "px";
 
-		var root = this.createShadowRoot();
+		var root = (this.createShadowRoot || this.webkitCreateShadowRoot).call(this);
 		root.appendChild(template.content.cloneNode(true));
 		var map = new SMap(root.querySelector("div"));
 		map.addDefaultLayer(SMap.DEF_BASE).enable();
