@@ -10,6 +10,10 @@
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
 		<title>Cross-browser, nové HTML značky</title>
+		<base target="_blank" />
+
+		<script src="//cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.5.2/webcomponents-lite.min.js"></script>
+		<link rel="import" href="instant-button/instant-button.html" />
 	<body>
 		
 <h1>Cross-browser, nové HTML značky</h1>
@@ -45,19 +49,19 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>Mozilla Firefox</td><td>27</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
+				<td>Mozilla Firefox</td><td>35</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
 			</tr>
 			<tr>
-				<td>Google Chrome</td><td>32</td><td>WebKit/Blink</td><td>V8</td><td></td>
+				<td>Google Chrome</td><td>40</td><td>WebKit/Blink</td><td>V8</td><td></td>
 			</tr>
 			<tr>
-				<td>Apple Safari</td><td>7</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
+				<td>Apple Safari</td><td>8</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
 			</tr>
 			<tr>
 				<td>Microsoft Internet Explorer</td><td>11</td><td>Trident</td><td>Chakra</td><td>Zajímavý až od verze 9</td>
 			</tr>
 			<tr>
-				<td>Opera</td><td>12/19</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
+				<td>Opera</td><td>12/27</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
 			</tr>
 		</tbody>
 	</table>
@@ -156,22 +160,28 @@ if (!("onhashchange" in window)) {
 
 <section class="slide">
 	<h2>HTML5 Audio: JavaScriptové API</h2>
-	<pre data-syntax="js" class="section">new Audio("song.mp3").play();</pre>
-	<pre data-syntax="js" class="section">var a = new Audio();
+	<pre data-syntax="js">new Audio("song.mp3").play();</pre>
+	<pre data-syntax="js">var a = new Audio();
 a.canPlayType("audio/mpeg"); /* "", "maybe", "probably" */
 a.src = "song.mp3";
 a.addEventListener("timeupdate", function() { console.log(a.currentTime); }, false);
 a.play();</pre>
+
+	<p>
+		<instant-button color="red" src="instant-button/buzzer.{ogg,mp3}"></instant-button>
+		<instant-button color="lime" src="instant-button/tada.{ogg,mp3}"></instant-button>
+	</p>
 </section>
 
 <section class="slide">
 	<h2>Web Audio API</h2>
 	<ul>
-		<li>Experimentální JS API</li>
+		<li>Velmi moderní a nestabilní JS API</li>
 		<li>Konstrukce <a href="img/WebAudioBasics.png" target="_blank">zvukového grafu</a></li>
 		<li>Uzly = transformace zvuku</li>
 		<li>Přístup k právě přehrávaným datům (vizualizace)</li>
 		<li>Generování zvukového signálu</li>
+		<li><a href="https://atoms.firebaseapp.com/">Ukázka generování</a>, <a href="https://atoms.firebaseapp.com/">ukázka analýzy</a></li>
 	</ul>
 </section>
 
@@ -293,31 +303,32 @@ a.play();</pre>
 		<li>Obsah prvku lze po kliknutí upravovat</li>
 		<li>Základní stavební prvek WYSIWYG editorů (nikoliv GDrive)</li>
 		<li>Manipulace pomocí DOM + Range</li>
-		<li>Bonus: v takovém prvku lze použít <code>document.execCommand()</code></li>
-		<li>Implementace execCommand nekonzistentní, <a href="https://developer.mozilla.org/en/docs/Rich-Text_Editing_in_Mozilla">dokumentace</a></li>
+		<li>Bonus: v takovém prvku lze použít <code>execCommand</code> API</li>
+		<li><code data-syntax="js">document.execCommand("bold")</code></li>
+		<li>Implementace execCommand nekonzistentní, <a href="https://developer.mozilla.org/en-US/docs/Web/API/document.execCommand">dokumentace</a></li>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>Nové formulářové prvky</h2>
-	<pre class="section" data-syntax="xml">&lt;input type="text" autofocus /&gt;
+	<pre data-syntax="xml">&lt;input type="text" autofocus /&gt;
 &lt;input type="date" min="2011-03-01" max="2011-03-31" value="2011-03-01" /&gt;
 &lt;input type="range" min="0" max="50" value="25" /&gt;
 &lt;input type="search" results="10" placeholder="Hledat..." /&gt;
 &lt;input type="text" pattern="[a-z]+" required /&gt;</pre>
-	<p class="section"><img src="img/inputs.png" alt="inputs" /></p>
-	<p class="section"><a href="http://www.miketaylr.com/code/input-type-attr.html">Podpora v prohlížečích</a></p>
+	<p><img src="img/inputs.png" alt="inputs" /></p>
+	<p><a href="http://www.miketaylr.com/code/input-type-attr.html">Podpora v prohlížečích</a></p>
 </section>
 
 <section class="slide">
 	<h2>Validace</h2>
 	<pre data-syntax="xml">&lt;input type="text" pattern="[a-z]{3,}" required title="Uživatelské jméno" /&gt;</pre>
 	<pre data-syntax="css">:required { border: 1px solid red; }</pre>
-	<p class="section">
+	<p>
 		<form><input type="text" pattern="[a-z]{3,}" required title="Uživatelské jméno" /><input type="submit" /></form>
 		<style>:required { border: 1px solid red; font-size:inherit; }</style>
 	</p>
-	<ul class="section">
+	<ul>
 		<li>Atribut <code>pattern</code> má smysl jen při atributu <code>required</code></li>
 		<li>Regulárnímu výrazu musí odpovídat obsah celého pole</li>
 		<li>Titulek se použije jako nápověda při nevyplnění</li>
