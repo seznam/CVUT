@@ -50,7 +50,9 @@
 						v.setAttribute('controls','controls');
 						document.body.insertBefore(v, document.body.firstChild);
 						if (v.canPlayType('video/webm'))
-							v.src = 'http://r10---sn-2gb7ln7s.googlevideo.com/videoplayback?mv=u&upn=GD0uJWjaL1E&source=youtube&sparams=id%2Cip%2Cipbits%2Citag%2Cratebypass%2Csource%2Cupn%2Cexpire&ms=au&expire=1393200308&fexp=906398%2C945008%2C916807%2C929203%2C916624%2C937417%2C937416%2C913434%2C936910%2C936913%2C902907&mt=1393176613&id=80b0d8b47d511fe5&sver=3&ratebypass=yes&ip=77.240.102.253&key=yt5&itag=18&ipbits=0&cpn=LO5spFMfnhyJ8UfD&signature=D076B414162A3ADA99A8AAC187CB8C69C0B10521.4A0C96B7617EECBEA8709722520B3A3BB3006D7F&ptk=youtube_none&pltype=contentugc';
+							v.src = 'http://techslides.com/demos/sample-videos/small.webm';
+						if (v.canPlayType('video/mpeg'))
+							v.src = 'http://techslides.com/demos/sample-videos/small.mp4';
 						var playButton = document.createElement('div');
 						document.body.insertBefore(playButton, document.body.firstChild);
 						playButton.innerHTML = 'play';
