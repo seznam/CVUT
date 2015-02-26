@@ -9,13 +9,14 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>Microdata, SVG, AppCache, Drag'n'Drop</title>
+		<title>Microdata, SVG, Offline, Drag'n'Drop</title>
+		<base target="_blank" />
 	<body>
 		
-<h1>Microdata, SVG, AppCache, Drag'n'Drop</h1>
+<h1>Microdata, SVG, Offline, Drag'n'Drop</h1>
 
 <section class="slide">
-	<h2>Microdata, SVG, AppCache, Drag'n'Drop</h2>
+	<h2>Microdata, SVG, Offline, Drag'n'Drop</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -29,7 +30,7 @@
 	<ol>
 		<li>Microdata, microformáty, RDFa</li>
 		<li>Scalable Vector Graphics</li>
-		<li>AppCache + Offline</li>
+		<li>Offline + AppCache + Service Worker</li>
 		<li>Drag'n'Drop</li>
 	</ol>
 </section>
@@ -105,13 +106,13 @@
 <section class="slide">
 	<h2>SVG</h2>
 	<ul>
-		<li><a target="_blank" href="clock/">Ukázka</a></li>
 		<li>Všechny prohlížeče krom IE&le;8</li>
 		<li>Prehistorický standard z roku 2001</li>
 		<li>VML pro IE&le;8</li>
 		<li>Rozšířený pro vektorovou grafiku</li>
 		<li>DOM, události, stylování</li>
 		<li>Horší výkon v porovnání s <code>&lt;canvas&gt;</code></li>
+		<li><a href="clock/">Ukázka hodiny</a>, <a href="http://ondras.zarovi.cz/demos/hex/?f=cr.emap">ukázka mapa</a></li>
 	</ul>
 </section>
 
@@ -252,6 +253,16 @@ text {
 </section>
 
 <section class="slide">
+	<h2>Offline API</h2>
+	<p>Webová aplikace má k dispozici JS API, které informuje o stavu připojení.</p>
+	<ul>
+		<li><code data-syntax="js">navigator.onLine</code></li>
+		<li><code data-syntax="js">window.addEventListener("online", ...)</code></li>
+		<li><code data-syntax="js">window.addEventListener("offline", ...)</code></li>
+	</ul>
+</section>
+
+<section class="slide">
 	<h2>App Cache</h2>
 	<ul>
 		<li>Webová aplikace poskytuje tzv. <em>offline manifest</em>, výčet souborů pro použití offline
@@ -287,17 +298,6 @@ images/large offline/sorry.jpg</pre>
 </section>
 
 <section class="slide">
-	<h2>Offline API</h2>
-	<p>Webová aplikace má k dispozici JS API, které informuje o stavu připojení.</p>
-	<ul>
-		<li><code data-syntax="js">navigator.onLine</code></li>
-		<li><code data-syntax="js">window.addEventListener("online", ...)</code></li>
-		<li><code data-syntax="js">window.addEventListener("offline", ...)</code></li>
-		<li><code data-syntax="js">applicationCache</code> &ndash; objekt popisující stav offline cache, též možnost explicitně cache obnovit</li>
-	</ul>
-</section>
-
-<section class="slide">
 	<h2>applicationCache API</h2>
 	<p>JS API pro práci s offline cache.</p>
 	<ul>
@@ -305,6 +305,69 @@ images/large offline/sorry.jpg</pre>
 		<li><code data-syntax="js">if (applicationCache.status == applicationCache.UPDATEREADY) { ... }</code></li>
 		<li><code data-syntax="js">applicationCache.update()</code> &ndash; pokyn ke kontrole novější verze (jako při reloadu)</li>
 		<li><code data-syntax="js">applicationCache.swapCache()</code> &ndash; přepnutí na aktuální verzi souborů (nutný reload)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Service Worker</h2>
+	<ul>
+		<li>Modernější alternativa k AppCache</li>
+		<li>Konfigurace (AppCache) vs. logika (Service Worker)</li>
+		<li><a href="http://caniuse.com/#feat=serviceworkers">Mizerná podpora</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Jak funguje Service Worker</h2>
+	<img src="img/serviceworker.jpg" style="width:90%" />
+</section>
+
+<section class="slide">
+	<h2>Jak funguje Service Worker</h2>
+	<ul>
+		<li>Service Worker je skript, dodaný autorem stránky</li>
+		<li>Je prohlížečem vykonáván bokem, asynchronně, nezávisle na stránce, pro kterou pracuje</li>
+		<li>Service Worker může manipulovat s HTTP požadavky stránky, kterou obsluhuje</li>
+		<li>Service Worker nemá k dispozici DOM</li>
+		<li>Lze použít jen na HTTPS stránkách</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Service Worker &ndash; ukázka</h2>
+	<pre data-syntax="js">
+navigator.serviceWorker.register("/worker.js").then(function(reg) {
+	console.log("Service worker ready");
+});</pre>
+	<p>Řízení asynchronního toku kódu je realizováno pomocí vzoru Promise.</p>
+</section>
+
+<section class="slide">
+	<h2>Service Worker &ndash; ukázka</h2>
+	<pre data-syntax="js">
+self.addEventListener("install", function(event) {
+	console.log("prvotní instalace");
+});
+
+self.addEventListener("activate", function(event) {
+	console.log("nová verze SW aktivována");
+});
+
+self.addEventListener("fetch", function(event) {
+	console.log("HTTP požadavek ze stránky");
+	event.respondWith(new Response("Hello world!"));
+});
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Service Worker &ndash; další využití</h2>
+	<ul>
+		<li>Synchronizace dat na pozadí</li>
+		<li>Cachování</li>
+		<li>Preprocessing zdrojů na klientu</li>
+		<li>Šablonování</li>
+		<li>Pre-fetch</li>
 	</ul>
 </section>
 
