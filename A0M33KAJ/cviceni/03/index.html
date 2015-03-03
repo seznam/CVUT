@@ -190,14 +190,14 @@
 		<li><em>Úkol II: </em>Nakreslete kruh a vyplňte jej trojúhelníky</li>
 		<li>
 <svg width="800" height="400" style="float:right">
-	<def>
+	<defs>
 		 <radialGradient id="grad" gradientUnits="userSpaceOnUse"
 		  cx="200" cy="200" r="150" fx="200" fy="200">
 		<stop offset="0%" stop-color="red" />
 		<stop offset="50%" stop-color="green" />
 		<stop offset="100%" stop-color="yellow" />
 	  </radialGradient>
-	</def>
+	</defs>
 	<circle cx="200" cy="200" r="150" stroke="black" fill="url(#grad)" stroke-width="2" />
 
 	<defs>
@@ -209,14 +209,14 @@
 </svg>
 <pre data-syntax=xml>
 &lt;svg width=&quot;800&quot; height=&quot;400&quot; style=&quot;float:right&quot;&gt;
-	&lt;def&gt;
+	&lt;defs&gt;
 		 &lt;radialGradient id=&quot;grad&quot; gradientUnits=&quot;userSpaceOnUse&quot;
 		  cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;150&quot; fx=&quot;200&quot; fy=&quot;200&quot;&gt;
 		&lt;stop offset=&quot;0%&quot; stop-color=&quot;red&quot; /&gt;
 		&lt;stop offset=&quot;50%&quot; stop-color=&quot;green&quot; /&gt;
 		&lt;stop offset=&quot;100%&quot; stop-color=&quot;yellow&quot; /&gt;
 	  &lt;/radialGradient&gt;
-	&lt;/def&gt;
+	&lt;/defs&gt;
 	&lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;150&quot; stroke=&quot;black&quot; fill=&quot;url(#grad)&quot;
 	stroke-width=&quot;2&quot; /&gt;
 
@@ -388,6 +388,7 @@
 		<li>Pokud má být nad prvkem tažení ukončitelné, je nutné událost "preventovat" - protože v defaultu není "dropnutí" dovoleno</li>
 		<li>Pokud událost zpracujeme, voláme preventDefault</li>
 		<li><em>Úkol:</em> Napište JS aplikaci, která umožní uživateli přetáhnout do stránky soubor a stránka vypíše meta informace o souboru (typ, velikost, umístění)</li>
+		<li>Řešení: <a href="fileinfo.html">fileinfo.html</a></li>
 	</ul>
 </section>
 
