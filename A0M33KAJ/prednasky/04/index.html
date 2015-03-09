@@ -306,6 +306,24 @@ a[data-id]::after {
 
 <section class="slide">
 	<h2>Bonus: generovaný obsah</h2>
+	<p>Generovat lze také úvozovky</p>
+	<pre data-syntax="css">
+q {
+	quotes: "«" "»";
+}
+q::before {
+	content: open-quote;
+}
+q::after {
+	content: close-quote;
+}
+</pre>
+	<p><a href="http://jsfiddle.net/egyuf0p2/">Ukázka na jsfiddle.net</a></p>
+</section>
+
+
+<section class="slide">
+	<h2>Bonus: generovaný obsah</h2>
 	<p>
 		Podpora pro čítače: reset, změna hodnoty, výpis hodnoty
 		<button onclick="document.querySelector('#test_1').innerHTML = document.querySelector('#test_2').textContent">aplikovat</button>
