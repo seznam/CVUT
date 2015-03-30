@@ -7,8 +7,8 @@ var Visual = function () {
     this._dom.addEventListener('click', this._show.bind(this),true);
 }
 
-Visual.prototype._show = function () {
-	alert(this._message);
+Visual.prototype._show = function (message) {
+	this._dom.innerHTML = message;
 }
 
 var v = new Visual();
