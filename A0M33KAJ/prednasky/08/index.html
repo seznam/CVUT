@@ -277,6 +277,37 @@ mojeFunkce({name: "jan", data: [3, 4, true]});
 </section>
 
 <section class="slide">
+	<h2>fetch()</h2>
+	<ul>
+		<li>Nové, právě standardizované rozhraní</li>
+		<li>Podobné jako XMLHttpRequest, ale jednodušší</li>
+		<li>Asynchronní řízení pomocí <em>Promises</em></li>
+		<li>K dispozici je <a href="https://github.com/github/fetch">polyfill</a></li>
+	</ul>
+</section>
+
+
+<section class="slide">
+	<h2>fetch()</h2>
+	<pre data-syntax="js">
+fetch("/nejaky/soubor.json")
+	.then(function(response) {
+		if (response.status != 200) {
+			console.log("HTTP status", response.status);
+			return;
+		}
+
+		response.json().then(function(data) {
+			console.log(data);
+		});
+	})
+	.catch(function(err) {
+		console.log("Error", err);
+	});
+</pre>
+</section>
+
+<section class="slide">
 	<h2>Doplňkové informace #1</h2>
 	<ul>
 		<li>Prohlížeče omezují počet současných XHR na stránku (zpravidla 4)</li>
