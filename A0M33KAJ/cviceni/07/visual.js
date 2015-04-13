@@ -7,7 +7,7 @@ var Visual = function () {
 }
 
 Visual.prototype._show = function (message) {
+	console.log(this);
 	this._dom.innerHTML = message;
 }
 
-var v = new Visual();

@@ -9,3 +9,6 @@ Pocitej.prototype.absolute = function (v) {
 	this._vx._show(vysledek);
 	return vysledek;
 }
+
+
+
