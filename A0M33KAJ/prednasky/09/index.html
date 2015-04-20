@@ -330,11 +330,28 @@ getData().then(
 	<h2>Promises: doplnění</h2>
 	<ul>
 		<li>Promise se může nacházet ve stavech "pending", "fulfilled", "rejected"</li>
+		<li>Fulfilled/rejected == "resolved"</li>
 		<li>Tvůrce promise ji mění, konzument jen poslouchá (<code>then</code>)</li>
 		<li>Vrátit lze již naplněnou promise</li>
 		<li>Volání <code>then()</code> vrací novou promise (?!) &rArr; řetězení</li>
 		<li>Některé prohlížeče Promise nabízejí, pro jiné existují knihovny</li>
 	</ul>
+</section>
+
+<section class="slide">
+	<h2>Promises: tvorba a změna stavu</h2>
+	<pre data-syntax="js">
+// je to složité!
+var promise = new Promise(function(resolve, reject) {
+    /* funkce dodaná tvůrcem Promise */
+    if (/* ... */) {
+    	resolve(value);
+    } else {
+    	reject(error);
+    }
+});
+return promise;
+</pre>
 </section>
 
 <section class="slide">
