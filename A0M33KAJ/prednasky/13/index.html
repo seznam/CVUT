@@ -174,7 +174,7 @@ f(...[1, 2, 3]); // 3
 	<pre data-syntax="js">
 class B extends A {
 	constructor(x) {
-		super() // v konstruktoru povinné; před ním neexistuje this
+		super(); // v konstruktoru dědící třídy povinné; před ním neexistuje this
 		this.x = x;
 	}
 
@@ -223,8 +223,8 @@ import myLocalName from "a"; // default
 	<pre data-syntax="js">
 var s = new Set();
 s.add("hello").add("goodbye").add("hello");
-s.size === 2;
-s.has("hello") === true;
+s.size == 2;
+s.has("hello") == true;
 
 var m = new Map();
 m.set("hello", 42);
@@ -269,7 +269,7 @@ m.get(s) == 34;
 	<ul>
 		<li>Programovatelná iterovatelnost</li>
 		<li>Cokoliv, co má metodu <code>next</code> je iterátor</li>
-		<li>Cokoliv, co má symbol <code>Symbol.iterable</code> je iterovatelné cyklem <code>for..of</code></li>
+		<li>Cokoliv, co má symbol <code>Symbol.iterator</code> je iterovatelné cyklem <code>for..of</code></li>
 	</ul>
 
 	<pre data-syntax="js">
@@ -311,7 +311,7 @@ var generator = function*() {
 }
 
 var iterator = generator();
-iterator.next().value; // 3
+iterator.next().value; // 3, next() vrací i done:true/false
 iterator.next().value; // 9
 iterator.next().value; // 27
 </pre>
