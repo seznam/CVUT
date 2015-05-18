@@ -17,6 +17,7 @@
 				} else {
 					this._getLoc();
 				}
+				
 				this._canStore = window.localStorage || false;
 				if (!this._canStore) {
 					throw new Error('LocalStorage not supported');
@@ -83,7 +84,7 @@
 				this._write(this._loc);
 			}
 			
-			// vypise do textarey informace
+			// vypise do textarea informace
 			Geo.prototype._write = function (data) {
 				if (typeof data == 'object') {
 					var txt = 
