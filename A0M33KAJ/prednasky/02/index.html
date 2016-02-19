@@ -33,9 +33,7 @@
 	<ol>
 		<li>Webové prohlížeče: každý pes, jiná ves</li>
 		<li>HTML5 audio a video</li>
-		<li>Sémantické značky</li>
-		<li>Nové atributy</li>
-		<li>Formulářové prvky</li>
+		<li>Conteneditable</li>
 	</ol>
 </section>
 
@@ -49,19 +47,19 @@
 		</thead>
 		<tbody>
 			<tr>
-				<td>Mozilla Firefox</td><td>35</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
+				<td>Mozilla Firefox</td><td>44</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
 			</tr>
 			<tr>
-				<td>Google Chrome</td><td>40</td><td>WebKit/Blink</td><td>V8</td><td></td>
+				<td>Google Chrome</td><td>48</td><td>Blink/WebKit</td><td>V8</td><td></td>
 			</tr>
 			<tr>
-				<td>Apple Safari</td><td>8</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
+				<td>Apple Safari</td><td>9</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
 			</tr>
 			<tr>
-				<td>Microsoft Internet Explorer</td><td>11</td><td>Trident</td><td>Chakra</td><td>Zajímavý až od verze 9</td>
+				<td>Microsoft Internet Explorer / Edge</td><td>11/12</td><td>Trident</td><td>Chakra</td><td>Zajímavý až od verze 9</td>
 			</tr>
 			<tr>
-				<td>Opera</td><td>12/27</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
+				<td>Opera</td><td>12/64</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
 			</tr>
 		</tbody>
 	</table>
@@ -174,18 +172,6 @@ a.play();</pre>
 </section>
 
 <section class="slide">
-	<h2>Web Audio API</h2>
-	<ul>
-		<li>Velmi moderní a nestabilní JS API</li>
-		<li>Konstrukce <a href="img/WebAudioBasics.png" target="_blank">zvukového grafu</a></li>
-		<li>Uzly = transformace zvuku</li>
-		<li>Přístup k právě přehrávaným datům (vizualizace)</li>
-		<li>Generování zvukového signálu</li>
-		<li><a href="https://atoms.firebaseapp.com/">Ukázka generování</a>, <a href="http://ondras.github.io/fireworks-webgl/">ukázka analýzy</a></li>
-	</ul>
-</section>
-
-<section class="slide">
 	<h2>HTML5 Video</h2>
 	<ul>
 		<li>Vložení videa do stránky</li>
@@ -215,89 +201,38 @@ a.play();</pre>
 	<p><a href="https://developer.mozilla.org/en-US/docs/HTML/Supported_media_formats">Tabulka</a></p>
 </section>
 
-
 <section class="slide">
-	<h2>Nové sémantické HTML značky #1</h2>
-	<table><tbody>
-	<tr>
-		<td><code>&lt;section&gt;</code>, <code>&lt;article&gt;</code></td><td>sémantické označení částí stránky</td>
-	</tr>
-	<tr>
-		<td><code>&lt;header&gt;</code>, <code>&lt;footer&gt;</code></td><td>hlavička a patička (stránky)</td>
-	</tr>
-	<tr>
-		<td><code>&lt;hgroup&gt;</code></td><td>sloučení navazujících nadpisů</td>
-	</tr>
-	<tr>
-		<td><code>&lt;nav&gt;</code></td><td>označení oblasti s navigací</td>
-	</tr>
-	<tr>
-		<td><code>&lt;aside&gt;</code></td><td>doplňkové informace (slovníček, reklama, &hellip;)</td>
-	</tr>
-	<tr>
-		<td><code>&lt;figure&gt;</code>, <code>&lt;figcaption&gt;</code></td><td>sloučení popisku s obrázkem (či obrázky)</td>
-	</tr>
-	<tr>
-		<td><code>&lt;time datetime="15:00"&gt;</code></td><td>označení časového údaje</td>
-	</tr>
-	</tbody></table>
-</section>
-
-<section class="slide">
-	<h2>Nové sémantické HTML značky #2</h2>
-	<pre data-syntax="xml">&lt;input type="text" list="browsers" /&gt; &lt;!-- "našeptávání" --&gt;
-&lt;datalist id="browsers"&gt;
-	&lt;option value="Internet Explorer" /&gt;
-	&lt;option value="Firefox" /&gt;
-	&lt;option value="Chrome" /&gt;
-&lt;/datalist&gt;</pre>
-	<p><img src="img/datalist.png" alt="datalist" /></p>
-
-	<pre data-syntax="xml">&lt;!-- hodnocení --&gt;
-&lt;meter min="0" max="100" low="50" high="90" optimum="100" value="70"&gt;dobře&lt;/meter&gt;</pre>
-	<p><meter min="0" max="100" low="50" high="90" optimum="100" value="70"></meter></p>
-</section>
-
-<section class="slide">
-	<h2>Nové sémantické HTML značky #3</h2>
-	<pre data-syntax="xml">&lt;progress&gt;...operace probíhá...&lt;/progress&gt; &lt;!-- ukazatele postupu --&gt;
-&lt;progress value="75" max="100"&gt;...skoro hotovo...&lt;/progress&gt;</pre>
-	<p><progress></progress> <progress value="75" max="100"></progress></p>
-
-	<pre data-syntax="xml">&lt;menu type="toolbar"&gt; &lt;!-- lišta nástrojů --&gt;
-	&lt;li&gt;&lt;menu label="File" /&gt;&lt;/li&gt;
-	&lt;li&gt;&lt;menu label="Edit"&gt;
-		&lt;button type="button"&gt;Copy&lt;/button&gt;
-		&lt;button type="button"&gt;Cut&lt;/button&gt;
-		&lt;button type="button"&gt;Paste&lt;/button&gt;
-	&lt;/menu&gt;&lt;/li&gt;
-	&lt;li&gt;&lt;menu label="Help" /&gt;&lt;/li&gt;
-&lt;/menu&gt;</pre>
-	<p><img src="img/toolbar.png" alt="menu" /></p>
-</section>
-
-<section class="slide">
-	<h2>Nové atributy</h2>
+	<h2>Web Audio API</h2>
 	<ul>
-		<li>
-			<code data-syntax="xml">&lt;input type="text" placeholder="Hledat" /&gt;</code>
-			<ul>
-				<li>Zástupný text</li>
-				<li>Někdy lze použít polyfill</li>
-			</ul>
-		</li>
-		<li>
-			<code data-syntax="xml">&lt;a href="#" data-record-id="123"&gt;</code>
-			<ul>
-				<li>Atributy začínající na <code>data-</code> lze použít pro vlastní potřebu</li>
-				<li>Alternativa k držení dat v paměti JS interpretu</li>
-			</ul>
-		</li>
+		<li>Poměrně moderní JS API</li>
+		<li>Konstrukce <a href="img/WebAudioBasics.png" target="_blank">zvukového grafu</a></li>
+		<li>Uzly = transformace zvuku</li>
+		<li>Přístup k právě přehrávaným datům (vizualizace)</li>
+		<li>Generování zvukového signálu</li>
+		<li><a href="http://ondras.github.io/fireworks-webgl/">Ohňostroj</a>, <a href="http://ondras.github.io/oscope/">osciloskop</a></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Nové atributy &ndash; contenteditable</h2>
+	<h2>Web Audio API: generování zvuku</h2>
+<pre data-syntax="js">
+var ctx = new AudioContext();
+
+var oscillator = ctx.createOscillator();
+
+oscillator.frequency.value = 440;
+oscillator.connect(ctx.destination);
+
+oscillator.start();
+</pre>
+	<ul>
+		<li>Tvar vlny možno určit vlastností <code>type</code></li>
+		<li>Jak zastavit běžící oscilátor?</li>
+	</ul>
+</section>
+
+<section class="slide" contenteditable onkeydown="event.stopPropagation()">
+	<h2>Atribut contenteditable</h2>
 	<p><code contenteditable="true" data-syntax="xml">&lt;div contenteditable="true"&gt;ahoj&lt;/div&gt;</code></p>
 	<ul>
 		<li>Obsah prvku lze po kliknutí upravovat</li>
@@ -310,42 +245,13 @@ a.play();</pre>
 </section>
 
 <section class="slide">
-	<h2>Nové formulářové prvky</h2>
-	<pre data-syntax="xml">&lt;input type="text" autofocus /&gt;
-&lt;input type="date" min="2011-03-01" max="2011-03-31" value="2011-03-01" /&gt;
-&lt;input type="range" min="0" max="50" value="25" /&gt;
-&lt;input type="search" results="10" placeholder="Hledat..." /&gt;
-&lt;input type="text" pattern="[a-z]+" required /&gt;</pre>
-	<p><img src="img/inputs.png" alt="inputs" /></p>
-	<p><a href="http://www.miketaylr.com/code/input-type-attr.html">Podpora v prohlížečích</a></p>
-</section>
-
-<section class="slide">
-	<h2>Validace</h2>
-	<pre data-syntax="xml">&lt;input type="text" pattern="[a-z]{3,}" required title="Uživatelské jméno" /&gt;</pre>
-	<pre data-syntax="css">:required { border: 1px solid red; }</pre>
-	<p>
-		<form><input type="text" pattern="[a-z]{3,}" required title="Uživatelské jméno" /><input type="submit" /></form>
-		<style>:required { border: 1px solid red; font-size:inherit; }</style>
-	</p>
+	<h2>Atribut contenteditable &ndash; range &amp; selection</h2>
 	<ul>
-		<li>Atribut <code>pattern</code> má smysl jen při atributu <code>required</code></li>
-		<li>Regulárnímu výrazu musí odpovídat obsah celého pole</li>
-		<li>Titulek se použije jako nápověda při nevyplnění</li>
-		<li>UI je <a href="img/required.jpg" target="_blank">v režii prohlížeče</a></li>
-		<li>CSS pseudotřídy <code>:required</code> a <code>:optional</code></li>
+		<li>Při práci s WYSIWYG editorem často pracujeme s vybraným textem</li>
+		<li>Rozhraní <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection"><code>Selection</code></a> je <em>nesouvislá množina výběrů</em></li>
+		<li>Rozhraní <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range"><code>Range</code></a> je <em>jeden rozsah označeného textu</em></li>
+		<li>Obě rozhraní nabízí komplexní API</li>
 	</ul>
-</section>
-
-<section class="slide">
-	<h2>Validace &ndash; lokalizace</h2>
-	<pre data-syntax="xml">
-&lt;input required title="Uživatelské jméno" x-moz-errormessage="Smůla" /&gt;
-</pre>
-	<pre data-syntax="js">
-var input = document.querySelector("input");
-input.setCustomValidity("Chyba");
-</pre>
 </section>
 
 <section class="slide">

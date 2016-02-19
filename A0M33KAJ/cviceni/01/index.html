@@ -29,7 +29,8 @@
 	<ol>
 		<li>O cvičení</li>
 		<li>Opáčko HTML</li>
-		<li>Vytvoření dokumentu s použitím "standardních" HTML značek</li>
+		<li>Vytvoření dokumentu s použitím HTML5 značek</li>
+		<li>Microdata, JSON-LD</li>
 	</ol>
 </section>
 
@@ -69,7 +70,7 @@
 	<h2>Pracovní prostředí</h2>
 	<ul class="sections">
 		<li>Moderní prohlížeč s ladícími nástroji:</li>
-		<li>Firefox, Google Chrome, Opera, IE 10</li>
+		<li>Firefox, Google Chrome, Opera, IE (10, 11, Edge), Safari</li>
 		<li>Firebug, intergrované nástroje prohlížečů</li>
 		<li>Textový editor:</li>
 		<li>jEdit, Eclipse, Sublime, PSPAD, notepad? :)</li>
@@ -77,7 +78,7 @@
 </section>
 
 <section class="slide">
-	<h2>XHTML dokument - cíl</h2>
+	<h2>HTML5 dokument - cíl</h2>
 	<ul class="sections">
 		<li>Vytvořit statickou stránku - námět: článek zpravodajského serveru</li>
 		<li>Součásti:
@@ -94,15 +95,14 @@
 </section>
 
 <section class="slide">
-	<h2>XHTML dokument - základní struktura</h2>
+	<h2>HTML5 dokument - základní struktura</h2>
 	<ul class="sections">
 		<li>
-			Kostra XHTML dokumentu:
+			Kostra HTML5 dokumentu:
 		</li>
 		<li>
 <pre data-syntax="xml">
-&lt;!DOCTYPE html PUBLIC &quot;-//W3C//DTD XHTML 1.1//EN&quot;
- &quot;http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd&quot;&gt;
+&lt;!DOCTYPE html&gt;
 
  &lt;html&gt;
  	&lt;head&gt;
@@ -117,13 +117,13 @@
 </section>
 
 <section class="slide">
-	<h2>XHTML dokument - hlavička</h2>
+	<h2>HTML5 dokument - hlavička</h2>
 	<ul class="sections">
 		<li>Co musí obsahovat tag HEAD?</li>
 		<li>
 <pre data-syntax="xml">
 &lt;head&gt;
-	&lt;meta http-equiv="Content-Type" content="text/html; charset=utf-8" /&gt;
+	&lt;meta charset="utf-8" /&gt;
 	&lt;title&gt;
 		Začal se vyučovat nový skvělý předmět o
 		moderních klientských aplikacích - Moje zprávy
@@ -137,7 +137,7 @@
 </section>
 
 <section class="slide">
-	<h2>XHTML dokument - tělo</h2>
+	<h2>HTML5 dokument - tělo</h2>
 	<ul class="sections">
 		<li>Co obsahuje tag BODY?</li>
 <li>
@@ -151,57 +151,57 @@
 </section>
 
 <section class="slide">
-	<h2>XHTML dokument - Struktura, která je viditelná</h2>
+	<h2>HTML5 dokument - Struktura, která je viditelná</h2>
 	<ul class="sections">
 		<li>Hmm, jak by mohla vypadat struktura stránky?</li>
 <li>
 <pre data-syntax="xml">
-&lt;div id="header"&gt;...&lt;/div&gt;
-&lt;div id="menu"&gt;...&lt;/div&gt;
-&lt;div id="content"&gt;
+&lt;header id="header"&gt;...&lt;/header&gt;
+&lt;nav id="menu"&gt;...&lt;/nav&gt;
+&lt;article id="content"&gt;
 	&lt;div id="author"&gt;...&lt;/div&gt;
 	&lt;div id="discForm"&gt;...&lt;/div&gt;
-&lt;/div&gt;
-&lt;div id="footer"&gt;...&lt;/div&gt;
+&lt;/article&gt;
+&lt;footer id="footer"&gt;...&lt;/footer&gt;
 </li>
 </ul>
 </pre>
 </section>
 
 <section class="slide">
-	<h2>XHTML dokument - hlavička</h2>
+	<h2>HTML5 dokument - hlavička</h2>
 <ul class="sections">
 		<li>Obsahuje logo + název našeho serveru</li>
 <li>
 <pre data-syntax="xml">
-&lt;div id="header"&gt;
+&lt;header id="header"&gt;
 	&lt;h2 id="service"&gt;
 		&lt;img src=&quot;/logo.jpg&quot; alt=&quot;&quot; /&gt;
 		Moje zprávy
 	&lt;/h2&gt;
-&lt;/div&gt;
+&lt;/header&gt;
 </pre>
 </section>
 
 <section class="slide">
-	<h2>XHTML dokument - menu</h2>
+	<h2>HTML5 dokument - menu</h2>
 <ul class="sections">
 	<li>Obsahuje katerogie první úrovně a kategorie aktuálně otevřené kategorie</li>
 <li>
 <pre data-syntax="xml">
-&lt;div id="menu"&gt;
+&lt;nav id="menu"&gt;
 	&lt;ul&gt;&lt;li&gt;Domácí&lt;/li&gt;
 		&lt;li&gt;Věda a technika
 			&lt;ul&gt;&lt;li class=&quot;active&quot;&gt;Školy&lt;/li&gt;
 			&lt;/ul&gt;
 		&lt;/li&gt;
 	&lt;/ul&gt;
-&lt;/div&gt;
+&lt;/nav&gt;
 </pre>
 </section>
 
 <section class="slide">
-	<h2>XHTML dokument - tělo článku</h2>
+	<h2>HTML5 dokument - tělo článku</h2>
 <ul class="sections">
 		<li>Nadpis, perex, text, obrázky, ostatní, &hellip;</li>
 <li>
@@ -218,7 +218,7 @@
 </section>
 
 <section class="slide">
-	<h2>XHTML dokument - o autorovi</h2>
+	<h2>5HTML dokument - o autorovi</h2>
 <ul class="sections">
 		<li>Jméno, o autorovi, adresa</li>
 <li>
@@ -232,7 +232,7 @@
 </section>
 
 <section class="slide">
-	<h2>XHTML dokument - formulář</h2>
+	<h2>HTML5 dokument - formulář</h2>
 <ul class="sections">
 		<li>Jméno, datum, email, text, tlačítka</li>
 <li>
@@ -250,12 +250,12 @@
 </section>
 
 <section class="slide">
-	<h2>XHTML dokument - patička</h2>
+	<h2>5HTML dokument - patička</h2>
 <ul class="sections">
 		<li>Údaje o serveru, odkazy, &hellip;</li>
 <li>
 <pre data-syntax="xml">
-&lt;div id="footer"&gt;
+&lt;footer id="footer"&gt;
 	&lt;p&gt;
 		&amp; copy; 2013 Můj desing
 		&lt;a href=&quot;/about.html&quot;&gt;O firmě&lt;/a&gt;
