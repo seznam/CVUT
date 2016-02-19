@@ -13,10 +13,10 @@
 		<base target="_blank" />
 	<body>
 		
-<h1>Microdata, SVG, Offline, Drag'n'Drop</h1>
+<h1>SVG, Offline, Drag'n'Drop</h1>
 
 <section class="slide">
-	<h2>Microdata, SVG, Offline, Drag'n'Drop</h2>
+	<h2>SVG, Offline, Drag'n'Drop</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -28,79 +28,10 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>Microdata, microformáty, RDFa</li>
 		<li>Scalable Vector Graphics</li>
 		<li>Offline + AppCache + Service Worker</li>
 		<li>Drag'n'Drop</li>
 	</ol>
-</section>
-
-<section class="slide">
-	<h2>Sémantika &ndash; RDFa, mikroformáty, mikrodata</h2>
-	<p>Různé techniky pro označování sémantických dat v HTML</p>
-	<pre data-syntax="xml">&lt;p&gt;
-	&lt;span&gt;Ondřej Žára&lt;/span&gt; 
-	&lt;span&gt;Seznam.cz&lt;/span&gt;
-	&lt;span&gt;JavaScript developer&lt;/span&gt;
-&lt;/p&gt;</pre>
-	<p><img src="img/snippet.png" alt="google snippet" /></p>
-</section>
-
-<section class="slide">
-	<h2>Sémantika &ndash; RDFa, mikroformáty, mikrodata</h2>
-	<pre data-syntax="xml">&lt;!-- RDFa --&gt;
-&lt;p xmlns:v="http://rdf.data-vocabulary.org/#" typeof="v:Person"&gt; 
-	&lt;span property="v:name"&gt;Ondřej Žára&lt;/span&gt; 
-	&lt;span property="v:affiliation"&gt;Seznam.cz&lt;/span&gt; 
-	&lt;span property="v:title"&gt;JavaScript developer&lt;/span&gt; 
-&lt;/p&gt;
-
-&lt;!-- Microformats --&gt;
-&lt;p class="vcard"&gt; 
-	&lt;span class="fn"&gt;Ondřej Žára&lt;/span&gt; 
-	&lt;span class="org"&gt;Seznam.cz&lt;/span&gt; 
-	&lt;span class="title"&gt;JavaScript developer&lt;/span&gt; 
-&lt;/p&gt;
-
-&lt;!-- Microdata --&gt;
-&lt;p itemscope itemtype="http://data-vocabulary.org/Person"&gt; 
-	&lt;span itemprop="name"&gt;Ondřej Žára&lt;/span&gt; 
-	&lt;span itemprop="affiliation"&gt;Seznam.cz&lt;/span&gt; 
-	&lt;span itemprop="role"&gt;JavaScript developer&lt;/span&gt; 
-&lt;/p&gt;</pre>
-</section>
-
-<section class="slide">
-	<h2>Microdata podrobněji</h2>
-	<ul>
-		<li>Atributy <code>item*</code> (zpravidla <code>itemscope</code>, <code>itemtype</code>, <code>itemprop</code>)</li>
-		<li>Validní v HTML5</li>
-		<li><a href="http://schema.org/">http://schema.org/</a> &ndash; kolekce <em>schémat</em> (sémantických typů)</li>
-		<li><a href="http://www.google.com/webmasters/tools/richsnippets">Rich Snippet Testing Tool</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Microdata &ndash; komplexní ukázka</h2>
-	<pre data-syntax="xml">
-&lt;section itemscope itemtype="http://schema.org/Person"&gt; 
-	Jmenuji se &lt;span itemprop="name"&gt;Josef K. Šmoula&lt;/span&gt;, 
-	a pracuji jako &lt;span itemprop="jobTitle"&gt;pomocný personál&lt;/span&gt; 
-	na &lt;span itemprop="affiliation"&gt;Univerzitě středního věku&lt;/span&gt;. 
-
-	Známí mne oslovují přezdívkou &lt;span itemprop="additionalName"&gt;Taťka Šmoula&lt;/span&gt;. 
-
-	Moje webová stránka je na adrese
-	&lt;a href="http://www.josefsmoula.com" itemprop="url"&gt;www.josefsmoula.com&lt;/a&gt;. 
-
-	&lt;section itemprop="address" itemscope itemtype="http://schema.org/PostalAddress"&gt;
-		Moje adresa:
-		&lt;span itemprop="streetAddress"&gt;Radlická 10&lt;/span&gt;,
-		&lt;span itemprop="addressLocality"&gt;Praha&lt;/span&gt;,
-		&lt;span itemprop="addressCountry"&gt;Česká republika&lt;/span&gt;.
-	&lt;/section&gt;
-&lt;/section&gt;
-</pre>
 </section>
 
 <section class="slide">
