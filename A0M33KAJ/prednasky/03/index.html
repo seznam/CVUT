@@ -277,11 +277,11 @@ navigator.serviceWorker.register("/worker.js").then(function(reg) {
 	<h2>Service Worker &ndash; ukázka</h2>
 	<pre data-syntax="js">
 self.addEventListener("install", function(event) {
-	console.log("prvotní instalace");
+	console.log("SW (či jeho nová verze) nainstalován");
 });
 
 self.addEventListener("activate", function(event) {
-	console.log("nová verze SW aktivována");
+	console.log("SW (či jeho nová verze) aktivován");
 });
 
 self.addEventListener("fetch", function(event) {
@@ -308,7 +308,7 @@ self.addEventListener("fetch", function(event) {
 		<li>Přetahování věcí ve stránce a do stránky</li>
 		<li>Překvapivě složité</li>
 		<li><a href="https://developer.mozilla.org/en-US/docs/DragDrop/Drag_Operations">Dokumentace na MDN</a></li>
-		<li><a href="http://html5demos.com/drag">Ukázka 1</a>, <a href="https://developer.mozilla.org/en-US/demos/detail/towers-of-hanoi/launch">Ukázka 2</a></li>
+		<li><a href="http://html5demos.com/drag">Ukázka 1</a>, <a href="http://mapy.cz/">Ukázka 2</a></li>
 	</ul>
 </section>
 
