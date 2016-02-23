@@ -266,6 +266,94 @@
 </section>
 
 <section class="slide">
+	<h2>Microdata</h2>
+	<ul class="sections">
+		<li>K čemu slouží?</li>
+		<li><strong>Označení informací pro strojové čtení</strong></li>
+		<li>Pomocí jakých prostředků dosáhneme označení?</li>
+		<li><strong>itemscope, itemtype, itemprop</strong></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Microdata - Opakování</h2>
+	<ul class="sections">
+		<li><strong>itemscope</strong></li>
+		<li>Kontejner obsahující data jednoho objektu, mohou se zanořovat</li>
+		<li><strong>itemtype</strong></li>
+		<li>Přirazení existujícího slovníku k itemscope</li>
+		<li><strong>itemprop</strong></li>
+		<li>Označení a popsání konkrétní hodnoty v dokumentu</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Microdata - slovníky, testovací nástroje</h2>
+	<ul class="sections">
+		<li>K čemu slouží?</li>
+		<li>Předdefinované, "standardizované" kolekce hodnot posisující různé objekty</li>
+		<li><a href="http://schema.org/">http://schema.org/</a></li>
+
+		<li><a href="http://www.google.com/webmasters/tools/richsnippets">Rich Snippet Testing Tool</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Microdata - úkol</h2>
+	<ul class="sections">
+		<li><em>Úkol I: </em>Popiště autora článku pomocí microdat</li>
+		<li><em>Úkol II: </em>Vyberte si nějaký objekt z reálného světa a popiště jej za pomoci microdat</li>
+		<li><em>Nápověda: </em>Inspirujte se na http://schema.org/</li>
+		<li>
+<pre data-syntax="xml">
+&lt;section itemscope itemtype=&quot;http://schema.org/EducationEvent&quot;&gt;
+	&lt;h1 itemprop=&quot;name&quot;&gt;Tvorba klientských aplikací v JavaScriptu - SVG a Microdata&lt;/h1&gt;
+	&lt;p itemprop=&quot;description&quot;&gt;Toto cvičení vám poskytne znalosti o moderních technologiích SVG a Microdata&lt;/p&gt;
+	&lt;p&gt;
+		Cviční se konná vždy od &lt;span itemprop=&quot;startDate&quot;&gt;02-25-2014&lt;/span&gt; do &lt;span itemprop=&quot;endDate&quot;&gt;02-25-2014&lt;/span&gt;
+		a trvá &lt;span itemprop=&quot;duration&quot;&gt;90 minut&lt;/span&gt;, cvičící je &lt;span itemprop=&quot;performer&quot;&gt;Zdeněk Vlach&lt;/span&gt;.
+	&lt;/p&gt;
+	&lt;address itemprop=&quot;location&quot; itemscope itemtype=&quot;http://schema.org/PostalAddress&quot;&gt;
+		&lt;span itemprop=&quot;streetAddress&quot;&gt;Karlovo náměstí 5&lt;/span&gt;, &lt;span itemprop=&quot;addressLocality&quot;&gt;Praha&lt;/span&gt;
+	&lt;/address&gt;
+&lt;/section&gt;
+</pre>
+</li>
+</ul>
+</section>
+
+<section class="slide">
+	<h2>JSON-LD</h2>
+	<ul class="sections">
+		<li>K čemu slouží?</li>
+		<li><strong>Označení informací pro strojové čtení</strong></li>
+		<li>Pomocí jakých prostředků dosáhneme označení?</li>
+		<li><strong><a href="http://json-ld.org/playground/">JSON LD</a></strong></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>JSON-LD podrobněji + úkol</h2>
+	<ul class="sections">
+		<li><em>Úkol: </em> Doplňte JSON LD do stránky</li>
+<li>
+<pre data-syntax="js">
+&lt;script type="application/ld+json"&gt;
+{
+	"@context": "http://schema.org",
+	"@type": "Person",
+	"name": "Autor Clanku",
+	"image": "http://ondras.zarovi.cz/img/oz.jpg",
+	"jobTitle": "Writer",
+	"address": "Prague, Czech Republic",
+	"affiliation": "http://www.seznam.cz/"
+}                                                                                                                                              
+&lt;/script&gt;</pre>
+</li>
+</ul>
+</section>
+
+<section class="slide">
 	<h2>Prostor pro otázky</h2>
 </section>
 
