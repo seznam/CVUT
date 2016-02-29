@@ -59,7 +59,7 @@
 				<td>Microsoft Internet Explorer / Edge</td><td>11/12</td><td>Trident</td><td>Chakra</td><td>Zajímavý až od verze 9</td>
 			</tr>
 			<tr>
-				<td>Opera</td><td>12/64</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
+				<td>Opera</td><td>12/35</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
 			</tr>
 		</tbody>
 	</table>
@@ -252,6 +252,46 @@ oscillator.start();
 		<li>Rozhraní <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range"><code>Range</code></a> je <em>jeden rozsah označeného textu</em></li>
 		<li>Obě rozhraní nabízí komplexní API</li>
 	</ul>
+</section>
+
+<section class="slide">
+	<h2>Objekt <code>Range</code></h2>
+	<ul>
+		<li>Rozsah textu</li>
+		<li>Od (uzel, pozice), do (uzel, pozice)</li>
+		<li>Nesouvisí přímo s vizuální stránkou</li>
+	</ul>
+	<pre data-syntax="js">
+var range = document.createRange();
+r.collapsed; // true: start = end
+
+r.set{Start,End}{Before,After}(node);
+r.selectNode(node);
+r.selectNodeContents(node);
+
+// ... manipulace s vybraným fragmentem, porovnávání s jiným rozsahem
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Objekt <code>Selection</code></h2>
+	<ul>
+		<li>Historicky množina rozsahů, nyní typicky jen jeden</li>
+		<li>Vizuální reprezentace</li>
+		<li>Možno ovlivňovat programově nebo myší/klávesnicí</li>
+	</ul>
+	<pre data-syntax="js">
+var sel = document.getSelection();
+sel.addRange(range); // range je nyní vidět
+
+sel.removeAllRanges();
+
+sel.getRangeAt(0);
+sel.deleteFromDocument();
+
+sel.anchorNode; // zde táhnutí započalo
+sel.focusNode;  // zde táhnutí ukončilo
+</pre>
 </section>
 
 <section class="slide">
