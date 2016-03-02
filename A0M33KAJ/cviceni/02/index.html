@@ -15,7 +15,7 @@
 <h1>Tvorba klientských aplikací v JavaScriptu</h1>
 
 <section class="slide">
-	<h2>Cross-browser, nové HTML značky, Audio a Video - cvičení</h2>
+	<h2>Cross-browser, Audio a Video, AudioContext, ContentEditable - cvičení</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -29,10 +29,11 @@
 	<ol>
 		<li>Informace o podkladech k cvičení</li>
 		<li>Crossbrowser</li>
-		<li>Převod XHTML na HTML 5</li>
 		<li>Audio - tagy, formáty</li>
 		<li>Video - JS API</li>
 		<li>Audio - JS API - Můj Button</li>
+		<li>AudioContext - Generátor zvuku</li>
+		<li>ContentEditable parametr</li>
 	</ol>
 </section>
 
@@ -100,207 +101,12 @@ Date.now = function() { return +(new Date); }
 </section>
 
 <section class="slide">
-	<h2>HTML5 dokument - značky</h2>
+	<h2>HTML5 dokument</h2>
 	<ul class="sections">
-		<li>Využijeme tagy:
-		SECTION, HEADER, FOOTER, ASIDE, NAV, FIGURE
-		</li>
-		<li>
-		Využijeme atribut:
-		role
-		</li>
-
-</section>
-
-<section class="slide">
-	<h2>HTML5 dokument - základní struktura</h2>
-	<ul class="sections">
-		<li>
-			Kostra HTML5 dokumentu:
-		</li>
 		<li><a href="http://www.zdrojak.cz/clanky/pristupnost-html5-strukturovani-obsahu/">HTML5 a přístupnost</a></li>
 		<li><a href="http://www.zdrojak.cz/clanky/vyhnete-se-nejobvyklejsim-chybam-v-html5/">HTML5 vyhněte se chybám</a></li>
-		<li>
-<pre data-syntax="xml">
-&lt;!DOCTYPE html&gt;
- &lt;html&gt;
- 	&lt;head&gt;
- 	&lt;/head&gt;
-
- 	&lt;body&gt;
- 	&lt;/body&gt;
- &lt;/html&gt;
-</pre>
-	</li>
 	</ul>
 </section>
-
-
-<section class="slide">
-	<h2>HTML5 dokument - hlavička</h2>
-	<ul class="sections">
-		<li>Co musí obsahovat tag HEAD?</li>
-		<li>
-<pre data-syntax="xml">
-&lt;head&gt;
-	&lt;meta charset="utf-8" /&gt;
-	&lt;title&gt;
-		Začal se vyučovat nový skvělý předmět o
-		moderních klientských aplikacích - Moje zprávy
-	&lt;/title&gt;
-&lt;/head&gt;
-</pre>
-		</li>
-		<li>Připojení kaskádových stylů</li>
-		<li>Připojení externích javascriptů</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>HTML5 dokument - Struktura, která je viditelná</h2>
-	<ul class="sections">
-		<li>Hmm, jak by mohla vypadat struktura stránky?</li>
-<li>
-<pre data-syntax="xml">
-&lt;header&gt;&hellip;&lt;/header&gt;
-&lt;nav&gt;&hellip;&lt;/nav&gt;
-&lt;div role=&quot;main&quot;&gt;
-	&lt;article&gt;&hellip;&lt;/article&gt;
-	&lt;div role=&quot;complementary&quot;&gt;
-		&lt;!-- Autor --&gt;
-		&lt;div role="form"&gt;&hellip;&lt;/div&gt;
-	&lt;/div&gt;
-&lt;/div&gt;
-&lt;footer&gt;&hellip;&lt;/footer&gt;
-</li>
-<li>Nepoužívejte zbytečně SECTION (označuje sémanticky samostatný celek)</li>
-</ul>
-</pre>
-</section>
-
-<section class="slide">
-	<h2>HTML5 dokument - hlavička</h2>
-<ul class="sections">
-		<li>Obsahuje logo + název našeho serveru</li>
-<li>
-<pre data-syntax="xml">
-&lt;header&gt;
-	&lt;h2 id="service"&gt;
-		&lt;img src=&quot;/logo.jpg&quot; alt=&quot;&quot; /&gt;
-		Moje zprávy
-	&lt;/h2&gt;
-&lt;/header&gt;
-</pre>
-</li>
-<li>Pozor nepoužívat zbytečně HGROUP a HEADER společně!</li>
-</ul>
-</section>
-
-<section class="slide">
-	<h2>HTML5 dokument - menu</h2>
-<ul class="sections">
-	<li>Obsahuje katerogie první úrovně a kategorie aktuálně otevřené kategorie</li>
-<li>
-<pre data-syntax="xml">
-&lt;nav&gt;
-	&lt;h3&gt;Menu&lt;/h3&gt;
-	&lt;ul&gt;&lt;li&gt;Domácí&lt;/li&gt;
-		&lt;li&gt;Věda a technika
-			&lt;ul&gt;&lt;li class=&quot;active&quot;&gt;Školy&lt;/li&gt;
-			&lt;/ul&gt;
-		&lt;/li&gt;
-	&lt;/ul&gt;
-&lt;/nav&gt;
-</pre>
-</li>
-<li>Pozor nepoužívat pro všechna menu, ale jen pro hlavní!</li>
-</ul>
-</section>
-
-<section class="slide">
-	<h2>HTML5 dokument - tělo článku</h2>
-<ul class="sections">
-		<li>Nadpis, perex, text, obrázky, ostatní, &hellip;</li>
-<li>
-<pre data-syntax="xml">
-&lt;article&gt;
-&lt;h1&gt;Začal se vyučovat&hellip;&lt;/h1&gt;
-&lt;p class=&quot;perex&quot;&gt;Bylo nebylo, ale spíš bylo&hellip;&lt;/p&gt;
-&lt;div class=&quot;text&quot;&gt;
-	&lt;p&gt;
-		&lt;figure&gt;
-			&lt;img src=&quot;/podpora.jpg&quot;  alt=&quot;Podpora v UA&quot;/&gt;
-		&lt;/figure&gt;
-		Tak určitě, Javascript je parádní&hellip;
-	&lt;/p&gt;
-	&lt;aside&gt;
-		&lt;h4&gt;Info k JS&lt;/h4&gt;
-		&lt;p&gt;JS je skriptovací jazyk&lt;/p&gt;
-	&lt;/aside&gt;
-&lt;/div&gt;
-&lt;/article&gt;
-</pre>
-</li>
-</ul>
-</section>
-
-<section class="slide">
-	<h2>HTML5 dokument - o autorovi</h2>
-<ul class="sections">
-		<li>Jméno, o autorovi, adresa</li>
-<li>
-<pre data-syntax="xml">
-&lt;div id="author"&gt;
-	&lt;p class=&quot;author&quot;&gt;Kaskadin Javascriptovič&lt;/p&gt;
-	&lt;p class=&quot;about&quot;&gt;Narodil se ve městě...&lt;/p&gt;
-	&lt;p class=&quot;address&quot;&gt;Někde 321, 123 02 Městov&lt;/p&gt;
-&lt;/div&gt;
-</pre>
-</li>
-</ul>
-</section>
-
-<section class="slide">
-	<h2>HTML5 dokument - formulář - nové formulářové prvky</h2>
-<ul class="sections">
-		<li>Jméno, datum, email, text, tlačítka</li>
-		<li>Obohaťte formulář o prvky: range (věk), datum, výběr barvy, předdefinovaný seznam jmen, email validaci</li>
-<li>
-<pre data-syntax="xml">
-&lt;div role=&quot;form&quot;&gt;
-	&lt;form action=&quot;/send&quot; method=&quot;post&quot;&gt;
-		&lt;label&gt;Jméno: &lt;input type=&quot;text&quot; name=&quot;name&quot; placeholder=&quot;Zde napiš své jméno&quot;  /&gt;&lt;/label&gt;
-		&lt;label&gt;Datum: &lt;input type=&quot;date&quot; name=&quot;date&quot; /&gt;&lt;/label&gt;
-		&lt;label&gt;E-mail: &lt;input type=&quot;text&quot; name=&quot;email&quot; required pattern=&quot;^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,3}$&quot; /&gt;&lt;/label&gt;
-		&lt;label&gt;E-mail: &lt;input type=&quot;email&quot; name=&quot;email&quot; required /&gt;&lt;/label&gt;
-
-		&lt;label&gt;Text: &lt;textarea name=&quot;text&quot;&gt; &lt;/textarea&gt;&lt;/label&gt;
-		&lt;input type=&quot;submit&quot; value=&quot;Přidat příspěvek&quot; /&gt;
-	&lt;/form&gt;
-&lt;/div&gt;
-</pre>
-</li>
-</ul>
-</section>
-
-<section class="slide">
-	<h2>HTML5 dokument - patička</h2>
-<ul class="sections">
-		<li>Údaje o serveru, odkazy, &hellip;</li>
-<li>
-<pre data-syntax="xml">
-&lt;footer&gt;
-	&lt;p&gt;
-		&amp; copy; 2013 Můj desing
-		&lt;a href=&quot;/about.html&quot;&gt;O firmě&lt;/&gt;
-		&lt;a href=&quot;/contact.html&quot;&gt;Kontakt&lt;/&gt;
-	&lt;/p&gt;
-&lt;/footer&gt;
-</pre>
-</li>
-</ul>
-</section>
-
 
 <section class="slide">
 	<h2>HTML5 Audio a Video</h2>
@@ -358,6 +164,32 @@ function playpause (e) {
 <li><a href="http://www.base64-image.de/">http://www.base64-image.de/</a></li>
 <li>Audio: <a href="http://seznam.github.io/CVUT/A0M33KAJ/cviceni/02/ani-ocko-nenasadis.mp3">http://seznam.github.io/CVUT/A0M33KAJ/cviceni/02/ani-ocko-nenasadis.mp3</a> (ogg)</li>
 <li><a href="http://jsfiddle.net/koko/s74gxz8d/">řešení</a></li>
+</ul>
+</section>
+
+<section class="slide">
+	<h2>AudioContext</h2>
+<ul class="sections">
+<li>Napište vlastní generátor zvuku za pomoci GainNode a OscillarorNode, který bude reagovat na pohyb myši</li>
+<li><a href="https://developer.mozilla.org/cs/docs/Web/API/AudioContext">AudioContext - dokumentace</a></li>
+<li>Zapojíme za sebe OscillatorNode a GainNode</li>
+<li>Vyrobíme posluchače na mousemove</li>
+<li>Horizontální pohyb bude měnit výšku tónu</li>
+<li>Vertilákní pohyb hlasitost</li>
+</ul>
+</section>
+
+
+<section class="slide">
+	<h2>ContentEditable</h2>
+<ul class="sections">
+	<li>
+<pre data-syntax="xml">
+&lt;div id=&quot;text&quot; contenteditable="true"&gt;
+	Toto muzu editovat ....
+&lt;/div&gt;
+</pre>
+	</li>
 </ul>
 </section>
 
