@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+
+ <html>
+     <head>
+         <meta charset="utf-8" />
+            <title>
+                AUDIO A VIDEO - Oscilator
+            </title>
+     </head>
+
+     <body>
+     	<script>
+     		(function () {
+	     		var audioCtx = new (window.AudioContext || window.webkitAudioContext)(); // vyrobim audio context
+	     		
+	     		// vyrobim node oscilator a gain
+	     		var oscillator = audioCtx.createOscillator();
+				var gainNode = audioCtx.createGain();
+
+				// zapojim gain do oscilatoru a gain dam na vystup
+				oscillator.connect(gainNode);
+				gainNode.connect(audioCtx.destination);
+
+				var maxFreq = 6000;
+				var maxVol = 0.02;
+
+				var WIDTH = window.innerWidth;
+				var HEIGHT = window.innerHeight;
+
+				var initialFreq = actucalFreq = 3000;
+				var initialVol = actucalVol = 0.001;
+				var oscillatorRun = false;
+
+				// nastavime hodnoty oscilatoru
+				function initOscillator (type, freq, cent) {
+					oscillator.type = type || 'sine';
+					oscillator.frequency.value = freq || initialFreq; // pocatecni frekvence
+					//oscillator.detune.value = cent || 100; // hodnota v centech
+					oscillator.start(0);
+					oscillatorRun = true;
+				}
+
+				initOscillator();
+
+				/*oscillator.onended = function() {
+				  console.log('Oscilator vypnut!');
+				}*/
+
+				gainNode.gain.value = initialVol;
+
+				// posun kurzoru po strance bude nastavovat hlasitost (vertikalni smer) a frekvenci (horizontalni smer)
+				function update(e) {
+				    CurX = e.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
+				    CurY = e.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
+				    actucalFreq = oscillator.frequency.value = (CurX/WIDTH) * maxFreq;
+				    actucalVol = gainNode.gain.value = (CurY/HEIGHT) * maxVol;
+				}
+
+				// vypinani a zapinani
+				function toggle (e) {
+					if(oscillatorRun) {
+						oscillator.disconnect(gainNode);
+						oscillator.stop(0);  // vypnuti znamena zruseni oscilatoru
+						oscillatorRun = false;
+					} else {
+						oscillatorRun = true;
+						oscillator = audioCtx.createOscillator();
+						oscillator.connect(gainNode);
+						initOscillator(null, actucalFreq);
+						gainNode.gain.value = actucalVol;
+					}
+				}
+
+				document.addEventListener("click", toggle);
+				document.addEventListener("mousemove", update);
+			})();
+     	</script>
+
+     </body>
+</html>
