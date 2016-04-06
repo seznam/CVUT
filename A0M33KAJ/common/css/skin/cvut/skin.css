@@ -145,10 +145,6 @@ td, th {
 	.overview .section.after {
 		opacity: 1;
 	}
-
-	.slide {
-		z-index: 1;
-	}
 }
 
 @media (max-width: 580px) {
