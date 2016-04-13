@@ -315,6 +315,18 @@ ch.hi(); /* "hello" */
 </section>
 
 <section class="slide">
+	<h2>Obohacování prototypů</h2>
+	<pre data-syntax="js">
+String.prototype.lpad = function(what, length) {
+  var count = length - this.length;
+  var padding = "";
+  for (var i=0; i&lt;count; i++) { padding += what; }
+  return padding + this;
+}
+</pre>
+</section>
+
+<section class="slide">
 	<h2>...</h2>
 	<p style="text-align:center; height:70%"><img src="img/yoda.jpg" style="height:100%"/></p>
 </section>
@@ -366,6 +378,20 @@ setTimeout(bar.foo, 100);
 setTimeout(bar.foo.bind(bar), 100);
 
 /* dtto addEventListener atp. */
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Bonus</h2>
+
+<p>Víte, co a proč udělá tato funkce?</p>
+<pre data-syntax="js">
+function s(a) {
+    while (a.length) {
+        var v = a.shift();
+        setTimeout(a.push.bind(a, v), v);
+    }
+}
 </pre>
 </section>
 
