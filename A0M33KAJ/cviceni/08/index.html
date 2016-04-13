@@ -81,7 +81,7 @@ Access-Control-Allow-Methods: PUT, DELETE
 			Do políčka se vyplní hledaná fráze a po stisku tlačítka se odešle dotaz na server seznamáckého našeptávače.
 			Odpověd (ve formátu JSON) ze serveru se vypíše do divu který je na stránce.
 		</li>
-		<li>http://www.seznam.cz/suggest/fulltext?phrase=xxx&amp;result=json&amp;highlight=0&amp;count=10</li>
+		<li>http://search.seznam.cz/suggest/fulltext?phrase=xxx&amp;result=json&amp;highlight=0&amp;count=10</li>
 		<li><a href="http://jsfiddle.net/koko/wGph2/">http://jsfiddle.net/koko/wGph2/</a></li>
 	</ul>
 </section>
@@ -110,7 +110,7 @@ Access-Control-Allow-Methods: PUT, DELETE
 		</li>
 		<li>
 <pre data-syntax="js">
-var file = e.dataTransfer.files[0]; // z eventy drag
+var file = e.dataTransfer.files[0]; // z eventy drop
 
 var xhr = new XMLHttpRequest()
 xhr.open("POST", "/upload", true);
