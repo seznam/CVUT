@@ -11,7 +11,7 @@
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
 		<title>Události a asynchronní zpracování</title>
 	<body>
-		
+
 <h1>Události a asynchronní zpracování</h1>
 
 <section class="slide">
@@ -208,7 +208,7 @@ while (1) {
 	if (!listeners.length) break;
 
 	/* počkat, než bude čas na nejbližší posluchač */
-	var currentListener = waitFor(listeners); 
+	var currentListener = waitFor(listeners);
 
 	/* naplánovat jej */
 	scheduledJS = listeners[currentListener];
@@ -259,19 +259,6 @@ Animal.prototype.eat = function() {
 }
 </pre></li>
 	</ul>
-</section>
-
-<section class="slide">
-	<h2>Hádanka</h2>
-	<pre data-syntax="js">
-/* Víte, co a proč udělá tato funkce? */
-function s(a) {
-    while (a.length) {
-        var v = a.shift();
-        setTimeout(a.push.bind(a, v), v);
-    }
-}
-</pre>
 </section>
 
 <section class="slide">
@@ -333,15 +320,24 @@ getData().then(
 		<li>Fulfilled/rejected == "resolved"</li>
 		<li>Tvůrce promise ji mění, konzument jen poslouchá (<code>then</code>)</li>
 		<li>Vrátit lze již naplněnou promise</li>
-		<li>Volání <code>then()</code> vrací novou promise (?!) &rArr; řetězení</li>
+		<li>Volání <code>then()</code> vrací novou promise (‽) &rArr; řetězení</li>
 		<li>Některé prohlížeče Promise nabízejí, pro jiné existují knihovny</li>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>Promises: tvorba a změna stavu</h2>
+	<ul>
+		<li>Je to složité!</li>
+		<li>&hellip;protože měnit stav smí jen producent</li>
+		<li>Tedy nic jako <code>Promise.prototype.fulfill = ...</code></li>
+		<li>API konstruktoru <code>new Promise</code> vyžaduje funkci, které budou <em>řídící nástroje</em> předány</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Promises: tvorba a změna stavu</h2>
 	<pre data-syntax="js">
-/* je to složité! */
 var promise = new Promise(function(resolve, reject) {
     /* funkce dodaná tvůrcem Promise */
     if (...) {
