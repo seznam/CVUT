@@ -11,7 +11,7 @@
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
 		<title>Nová JavaScriptová API</title>
 	<body>
-		
+
 <h1>Nová JavaScriptová API</h1>
 
 <section class="slide">
@@ -43,6 +43,7 @@
 		<li>Asynchronní</li>
 		<li>Polohu zjišťuje prohlížeč nedefinovanými mechanismy</li>
 		<li>GPS, IP, Názvy wifi AP, &hellip;</li>
+		<li>Google Chrome: <strong>jen po HTTPS!</strong></li>
 	</ul>
 </section>
 
@@ -96,6 +97,7 @@ localStorage.removeItem("a");
 <section class="slide">
 	<h2>Web Storage: další info</h2>
 	<ul>
+		<li>Problém s anonymním režimem</li>
 		<li>Ukládají se dvojice řetězců (klíč-hodnota)</li>
 		<li>Storage je sdílena všemi skripty na doméně</li>
 		<li>Slabé API s ohledem na kapacitu</li>
@@ -227,7 +229,7 @@ onmessage = function(e) {
 		<li>Data jsou při předávání klonována (netřeba řešit synchronizaci)</li>
 		<li>Vhodné tam, kde jsou třeba náročné výpočty</li>
 		<li>Ideálně málo vstupních i výstupních dat</li>
-		<li><a href="https://developer.mozilla.org/en-US/demos/devderby/2013/april">Ukázky</a></li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/Web/Demos_of_open_web_technologies#Unclassified">Ukázky</a></li>
 	</ul>
 </section>
 
@@ -321,12 +323,12 @@ fd.append("key3", blob);
 	<h2>IndexedDB</h2>
 	<pre data-syntax="js">
 indexedDB.open("eshop").onsuccess = function(e) {
-	var db = e.target.result; 
+	var db = e.target.result;
 	db.createObjectStore("item");
 }
 
-indexedDB.open("eshop").onsuccess = function(e) { 
-	var store = e.result.objectStore("item"); 
+indexedDB.open("eshop").onsuccess = function(e) {
+	var store = e.result.objectStore("item");
 	var item = { name: "Sample", price: 100 };
 	store.add(item);
 }
@@ -337,7 +339,7 @@ indexedDB.open("eshop").onsuccess = function(e) {
 	<h2>IndexedDB</h2>
 	<pre data-syntax="js">
 indexedDB.open("eshop").onsuccess = function(e) {
-	var store = e.result.objectStore("item"); 
+	var store = e.result.objectStore("item");
 	var request = store.openCursor();
 
 	request.onsuccess = function(e) {
