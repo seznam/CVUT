@@ -128,7 +128,7 @@ localStorage.removeItem("a");
 <pre data-syntax="js">
 var fr = new FileReader();
 fr.addEventListener("load", function(e) {
-	alert(e.result);
+	alert(e.target.result);
 });
 
 fr.readAsText(file);
