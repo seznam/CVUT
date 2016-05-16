@@ -121,7 +121,7 @@
 		<li><pre data-syntax="js">
 if (!("onhashchange" in window)) {
 	var oldHash = window.hash;
-	setTimeout(function() {
+	setInterval(function() {
 		if (window.hash == oldHash) return;
 		oldHash = window.hash;
 		if (window.onhashchange) window.onhashchange();

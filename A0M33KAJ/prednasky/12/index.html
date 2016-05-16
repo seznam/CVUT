@@ -11,7 +11,7 @@
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
 		<title>Bleeding edge</title>
 	<body>
-		
+
 <h1>Bleeding edge</h1>
 
 <section class="slide">
@@ -81,6 +81,42 @@
 	</ul>
 </section>
 
+<section class="slide">
+	<h2>CSS3 Custom Properties</h2>
+	<pre data-syntax="css">
+body {
+	--main-bg-color: brown;
+}
+
+div {
+	background-color: var(--main-bg-color);
+}
+
+a {
+	/* default value */
+	background-color: var(--main-bg-color, red);
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>CSS3 Custom Properties</h2>
+	<ul>
+		<li>Někdy nazýváno <em>CSS Variables</em></li>
+		<li>Shodné chování s ostatními vlastnostmi (kaskáda)</li>
+		<li>Druhý parametr funkce <code>var()</code> je výchozí hodnota, pokud by vlastnost neexistovala</li>
+		<li>Hodnoty lze měnit za běhu (JS API, media queries, &hellip;)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS3 Custom Properties</h2>
+	<ul>
+		<li>Nelze polyfillovat ani preprocessovat &ndash; hodnoty se v čase mění</li>
+		<li>Užitečné pro <em>skinování</em></li>
+		<li>Užitečné pro modularizaci a izolaci CSS komponent</li>
+	</ul>
+</section>
 
 <section class="slide">
 	<h2>WebRTC</h2>
