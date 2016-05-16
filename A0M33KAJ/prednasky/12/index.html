@@ -121,6 +121,26 @@ navigator.getUserMedia({audio:true, video:true}, ok, error);
 </section>
 
 <section class="slide">
+	<h2>Web Notifications</h2>
+	<ul>
+		<li>Zobrazení upozornění na úrovni OS</li>
+		<li>Spolupráce s notifikačním systémem OS</li>
+		<li>Agresivní; nutný souhlas uživatele</li>
+		<li><code data-syntax="js">var notification = new Notification(title, options)</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Web Notifications</h2>
+	<ul>
+		<li>Options: jazyk, tělíčko, ikona</li>
+		<li>Notifikace generuje události, lze ji programově zavřít</li>
+		<li>Souhlas uživatele lze získat asynchronním voláním <code>Notification.requestPermission</code></li>
+		<li><a target="_blank" href="https://developer.mozilla.org/en/docs/Web/API/notification">Ukázka na MDN</a></li>
+	</ul>
+</section>
+
+<section class="slide">
 	<h2>Web Components</h2>
 	<ul>
 		<li>Souhrnný termín pro čtveřici oddělených standardů</li>
@@ -250,35 +270,16 @@ map1.appendChild(map2);
 </section>
 
 <section class="slide">
-	<h2>Web Components: &lt;content&gt;</h2>
+	<h2>Web Components: &lt;slot&gt;</h2>
 	<ul>
 		<li>Nová HTML značka užitečná jen pro Shadow DOM</li>
 		<li>Určuje místo, do kterého se připnou prvky zvenčí umístěné do Shadow host</li>
-		<li>Uživatel appenduje do Shadow host, renderer vykresluje do &lt;content&gt;</li>
-		<li>Jeden Shadow DOM může mít více značek &lt;content&gt;</li>
-		<li><a href="http://w3c.github.io/webcomponents/assets/images/distributions.svg" target="_blank">Obrázek</a></li>
+		<li>Uživatel appenduje do Shadow host, renderer vykresluje do &lt;slot&gt;</li>
+		<li>Jeden Shadow DOM může mít více značek &lt;slot&gt;</li>
+		<li><a href="http://w3c.github.io/webcomponents/assets/images/distribution.svg" target="_blank">Obrázek</a></li>
 	</ul>
 </section>
 
-<section class="slide">
-	<h2>Web Notifications</h2>
-	<ul>
-		<li>Zobrazení upozornění na úrovni OS</li>
-		<li>Spolupráce s notifikačním systémem OS</li>
-		<li>Agresivní; nutný souhlas uživatele</li>
-		<li><code data-syntax="js">var notification = new Notification(title, options)</code></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Web Notifications</h2>
-	<ul>
-		<li>Options: jazyk, tělíčko, ikona</li>
-		<li>Notifikace generuje události, lze ji programově zavřít</li>
-		<li>Souhlas uživatele lze získat asynchronním voláním <code>Notification.requestPermission</code></li>
-		<li><a target="_blank" href="https://developer.mozilla.org/en/docs/Web/API/notification">Ukázka na MDN</a></li>
-	</ul>
-</section>
 
 <section class="slide">
 	<h2>Prostor pro otázky</h2>
