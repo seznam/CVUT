@@ -10,13 +10,13 @@
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
 		<base target="_blank" />
-		<title>ES6</title>
+		<title>ES 2015</title>
 	<body>
 		
-<h1>ES6</h1>
+<h1>ES 2015</h1>
 
 <section class="slide">
-	<h2>ES6</h2>
+	<h2>ES 2015</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -25,15 +25,12 @@
 	</ul>
 </section>
 
-<section style="background: url(screwthis.jpg) 50% 50% no-repeat #fff; background-size:contain;" class="slide">
-</section>
-
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>Jak si stojí ES6</li>
-		<li>Novinky ES6: syntaxe</li>
-		<li>Novinky ES6: rozšíření ES5</li>
+		<li>Jak si stojí ES 2015</li>
+		<li>Novinky ES 2015: syntaxe</li>
+		<li>Novinky ES 2015: rozšíření ES5</li>
 		<li>Kde a jak si to lze vyzkoušet?</li>
 	</ol>
 </section>
@@ -42,14 +39,13 @@
 	<h2>ES6</h2>
 
 	<ul>
-		<li>Formálne ECMAScript 2015, vžil se název ES6</li>
+		<li>Formálně ECMAScript 2015, vžil se název ES6</li>
 		<li>Nejnovější standardizovaná iterace jazyka</li>
 		<li>Dříve označováno jako <em>Harmony</em></li>
-		<li>Vývoj velmi zhruba 2008&ndash;2015</li>
-		<li>Finalizace standardizace v těchto dnech</li>
+		<li>Vývoj zhruba 2008&ndash;2015</li>
+		<li>V roce 2016 vznikne další verze</li>
 	</ul>
 </section>
-
 
 <section class="slide">
 	<h2>let, const</h2>
@@ -346,7 +342,7 @@ p.world === "Hello, world!"</pre>
 
 	<ul>
 		<li>Rozhraní pro introspekci objektů</li>
-		<li>Metody podobné těm v Object.*</li>
+		<li>Metody podobné těm v <code>Object.*</code></li>
 		<li>Namísto výjimek vrací false</li>
 	</ul>
 
@@ -365,7 +361,6 @@ Reflect.get(obj, property, thisForGetter);
 Number.EPSILON
 Number.MAX_SAFE_INTEGER
 Number.MIN_SAFE_INTEGER
-Number.EPSILON
 Number.isInteger(Infinity)                      // false
 Number.isNaN("NaN")                             // false
 
@@ -410,7 +405,7 @@ Object.assign(target, { source: "data" });
 </section>
 
 <section class="slide">
-	<h2>Jak zkoušet ES6?</h2>
+	<h2>Jak zkoušet ES 2015?</h2>
 
 	<ul>
 		<li><a href="https://kangax.github.io/compat-table/es6/">Compatibility table</a></li>
@@ -421,14 +416,14 @@ Object.assign(target, { source: "data" });
 </section>
 
 <section class="slide">
-	<h2>Transpilace ES6</h2>
+	<h2>Transpilace ES 2015</h2>
 
 	<ul>
-		<li>Proces konverze syntaxe ES6 do ES5</li>
-		<li><a href="https://github.com/google/traceur-compiler">Google Traceur Compiler</a>, <a href="https://github.com/babel/babel">Babel</a></li>
+		<li>Proces konverze syntaxe ES 2015 do ES5</li>
+		<li><a href="https://github.com/babel/babel">Babel</a>, <a href="https://github.com/google/traceur-compiler">Google Traceur Compiler</a></li>
 		<li>Babel zatím s nejlepší podporou</li>
 		<li>Pro některé novinky nutno dodat polyfilly</li>
-		<li>Problematická otázka ES6 modulů</li>
+		<li>Problematická otázka ES 2015 modulů</li>
 	</ul>
 </section>
 
@@ -439,6 +434,27 @@ Object.assign(target, { source: "data" });
 		<li>Online hřiště na <a href="http://babeljs.io/repl/">http://babeljs.io/repl/</a></li>
 		<li>Ke stažení jako npm modul</li>
 		<li>Ke stažení též jako ohromný kus ES5 (transformace za běhu)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Babel a moduly</h2>
+
+	<ul>
+		<li>Konverze buď do CommonJS, AMD nebo SystemJS</li>
+		<li>Vždy nutno dodat další podpůrný kód (Browserify, Webpack, RequireJS, &hellip;)</li>
+		<li>Hudba budoucnosti &ndash; <code>System.{import,register}</code></li>
+		<li>Více viz <a href="http://ondras.zarovi.cz/slides/devel2016/">přednáška na devel.cz 2016</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>ES 2016</h2>
+
+	<ul>
+		<li>Operátor <code>**</code></li>
+		<li><code data-syntax="js">Array.prototype.includes</code></li>
+		<li>...that's all, folks</li>
 	</ul>
 </section>
 
