@@ -2,14 +2,9 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
-		<script src="../../common/js/oz.js" type="text/javascript"></script>
-		<script src="../../common/js/slides2.js" type="text/javascript"></script>
-		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
 		<title>Tvorba klientských aplikací v JavaScriptu</title>
+	</head>
 	<body>
 		
 <h1>Tvorba klientských aplikací v JavaScriptu</h1>
@@ -185,10 +180,10 @@
 <section class="slide">
 	<h2>Minimální dokument HTML5</h2>
 	<h3>Validní!</h3>
-<pre data-syntax="xml">&lt;!doctype html&gt;
+<code class="block" data-syntax="xml">&lt;!doctype html&gt;
 &lt;title&gt;This is a title&lt;/title&gt;
 &lt;p&gt;This is a paragraph.
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -204,17 +199,17 @@
 <section class="slide">
 	<h2>RDFa, mikroformáty, mikrodata, JSON-LD</h2>
 	<p>Různé techniky pro označování sémantických dat v HTML</p>
-	<pre data-syntax="xml">&lt;p&gt;
+	<code class="block" data-syntax="xml">&lt;p&gt;
 	&lt;span&gt;Ondřej Žára&lt;/span&gt; 
 	&lt;span&gt;Seznam.cz&lt;/span&gt;
 	&lt;span&gt;JavaScript developer&lt;/span&gt;
-&lt;/p&gt;</pre>
+&lt;/p&gt;</code>
 	<p><img src="img/snippet.png" alt="google snippet" /></p>
 </section>
 
 <section class="slide">
 	<h2>RDFa, mikrodata, JSON-LD</h2>
-	<pre data-syntax="xml">&lt;!-- RDFa --&gt;
+	<code class="block" data-syntax="xml">&lt;!-- RDFa --&gt;
 &lt;p xmlns:v="http://rdf.data-vocabulary.org/#" typeof="v:Person"&gt; 
 	&lt;span property="v:name"&gt;Ondřej Žára&lt;/span&gt; 
 	&lt;span property="v:affiliation"&gt;Seznam.cz&lt;/span&gt; 
@@ -231,7 +226,7 @@
 &lt;!-- JSON-LD --&gt;
 &lt;script type="application/ld+json"&gt;
 { ... JSON ... }
-&lt;/script&gt;</pre>
+&lt;/script&gt;</code>
 	<p>Dříve i tzv. <em>Mikroformáty</em>, dnes již nepodporováno.</p>
 </section>
 
@@ -247,8 +242,7 @@
 
 <section class="slide">
 	<h2>JSON-LD podrobněji</h2>
-<pre data-syntax="js">
-&lt;script type="application/ld+json"&gt;
+<code class="block" data-syntax="js">&lt;script type="application/ld+json"&gt;
 {
 	"@context": "http://schema.org",
 	"@type": "Person",
@@ -258,9 +252,8 @@
 	"address": "Prague, Czech Republic",
 	"affiliation": "http://www.seznam.cz/"
 }                                                                                                                                              
-&lt;/script&gt;</pre>
+&lt;/script&gt;</code>
 </section>
-
 
 <section class="slide">
 	<h2>Prostor pro otázky</h2>
@@ -271,9 +264,10 @@
 	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
 </footer>
 
-<script type="text/javascript">
-	Syntax.all();
-	new Presentation();
+<script src="../../jsslides/v3/slides/slides3.js"></script>
+<script>
+	Slides.modules.skin = "cvut";
+	Slides.modules.numbering = false;
 </script>
 
 </body>
