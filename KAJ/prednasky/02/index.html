@@ -9,17 +9,13 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>Cross-browser, nové HTML značky</title>
-		<base target="_blank" />
-
-		<script src="//cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.5.2/webcomponents-lite.min.js"></script>
-		<link rel="import" href="instant-button/instant-button.html" />
+		<title>JavaScript &ndash; klíčové koncepty: this, new, prototype chain</title>
 	<body>
 		
-<h1>Cross-browser, nové HTML značky</h1>
+<h1>JavaScript &ndash; klíčové koncepty: this, new, prototype chain</h1>
 
 <section class="slide">
-	<h2>Cross-browser, nové HTML značky</h2>
+	<h2>JavaScript &ndash; klíčové koncepty: this, new, prototype chain</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -31,279 +27,374 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>Webové prohlížeče: každý pes, jiná ves</li>
-		<li>HTML5 audio a video</li>
-		<li>Conteneditable</li>
+		<li>JavaScript: opáčko</li>
+		<li>Objekty, funkce a pole</li>
+		<li>Pilíř 1: Uzávěry</li>
+		<li>Pilíř 2: Klíčové slovo this</li>
+		<li>Pilíř 3: Prototype chain</li>
+		<li>Operátor new</li>
 	</ol>
 </section>
 
 <section class="slide">
-	<h2>Webové prohlížeče</h2>
-	<table>
-		<thead>
-			<tr>
-				<td>Jméno</td><td>Verze</td><td>Renderer</td><td>JavaScript</td><td>Poznámka</td>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>Mozilla Firefox</td><td>44</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
-			</tr>
-			<tr>
-				<td>Google Chrome</td><td>48</td><td>Blink/WebKit</td><td>V8</td><td></td>
-			</tr>
-			<tr>
-				<td>Apple Safari</td><td>9</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
-			</tr>
-			<tr>
-				<td>Microsoft Internet Explorer / Edge</td><td>11/13</td><td>Trident</td><td>Chakra</td><td>Zajímavý až od verze 9</td>
-			</tr>
-			<tr>
-				<td>Opera</td><td>12/35</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
-			</tr>
-		</tbody>
-	</table>
-</section>
-
-<section class="slide">
-	<h2>Webové prohlížeče: mobilní</h2>
+	<h2>Opáčko</h2>
 	<ul>
-		<li>Apple Mobile Safari (iOS)</li>
-		<li>Android Browser (Android)</li>
-		<li>Opera Mobile (Android, Symbian, Windows Mobile)</li>
-		<li>Firefox for Android (Android)</li>
-		<li>Chrome for Android (Android, trošičku iOS)</li>
-		<li>Internet Explorer Mobile (Windows Mobile)</li>
+		<li>Interpret v každém prohlížeči</li>
+		<li>Pro nováčka obtížný: jazyk samotný vs. DOM</li>
+		<li>Jazyk stále vyvíjen (aktuálně ES5&rArr;ES6&rArr;ES7), vznikají nové verze</li>
+		<li>Neexistuje koncept tříd (obtížné porovnání s C++, Java, &hellip;)</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Webové prohlížeče: zpětná kompatibilita</h2>
+	<h2>Opáčko: primitivní datové typy</h2>
 	<ul>
-		<li>Nutnost definovat podporovaný <em>feature set</em></li>
-		<li>Oříznout starý prohlížeč znamená připravit se o uživatele</li>
-		<li>Oříznout starý prohlížeč znamená motivovat k upgrade</li>
-		<li>Časté aktualizace = snazší rozhodování</li>
+		<li>Číslo, bool, řetězec, null, undefined</li>
+		<li>Předávané hodnotou</li>
 	</ul>
+	<pre data-syntax="js">
+var a = 3;
+var b = 0.1 + 0.2;
+var c = "ahoj" + 'ahoj';
+var e = null;
+var f = undefined;
+</pre>
 </section>
 
 <section class="slide">
-	<h2>Webové prohlížeče: co kdo umí</h2>
+	<h2>Opáčko: komplexní datové typy</h2>
 	<ul>
-		<li><a href="http://caniuse.com/">http://caniuse.com/</a>
-			<ul>
-				<li>Srovnávací tabulky</li>
-				<li>Odkazy na testy</li>
-			</ul>
-		</li>
-		<li><a href="https://developer.mozilla.org/cs/">Mozilla Developer Network</a>
-			<ul>
-				<li>Dokumentace</li>
-				<li>Ukázky</li>
-			</ul>
-		</li>
-		<li><a href="http://diveintohtml5.info/detect.html">Feature detection</a></li>
+		<li>Objekt = neuspořádaná množina dvojic (klíč, hodnota)</li>
+		<li>Podobjekty: Array, Function, Date, RegExp</li>
+		<li>Předávané odkazem</li>
 	</ul>
+	<pre data-syntax="js">
+var a = {};               /* prázdný objekt */
+var b = {c:3, "d":"hi"}; 
+var e = [a, b];           /* pole o dvou položkách */
+var f = function() {};
+var g = /^.*/;            /* regulární výraz */
+</pre>
 </section>
 
 <section class="slide">
-	<h2>Volitelné nabízení pokročilých technologií</h2>
+	<h2>Opáčko: základní syntaktické prvky</h2>
 	<ul>
-		<li><strong>Progressive enhancement:</strong> nabízet základní funkcionalitu a volitelně přidávat</li>
-		<li><strong>Graceful degradation:</strong> nabízet pokročilou funkcionalitu a v případě nouze couvnout</li>
+		<li>Volitelný středník</li>
+		<li>if, for, while, switch</li>
+		<li><em>Type coercion</em></li>
 	</ul>
+	<pre class="section" data-syntax="js">
+var a = 1 + "dva";
+var b = {} + {};
+if (0 == "") { /* ... */ }
+if (undefined == null)  { /* ... */ }
+if (undefined === null) { /* ... */ }
+</pre>
 </section>
 
 <section class="slide">
-	<h2>Polyfill</h2>
+	<h2>Objekty, funkce a pole</h2>
 	<ul>
-		<li><strong>Polyfill:</strong> JavaScriptový kód, který je schopen doplnit chybějící funkcionalitu při zachování kompatibilního API</li>
-		<li><pre data-syntax="js">
-if (!("onhashchange" in window)) {
-	var oldHash = window.hash;
-	setInterval(function() {
-		if (window.hash == oldHash) return;
-		oldHash = window.hash;
-		if (window.onhashchange) window.onhashchange();
-	}, 100);
+		<li>Objekt = neuspořádaná množina dvojic</li>
+		<li>Klíč je řetězec</li>
+		<li>Hodnota je cokoliv</li>
+		<li>Pole je též objekt</li>
+	</ul>
+	<pre data-syntax="js">
+var pole1 = [3, 2, 1];
+var pole2 = [];
+
+pole1.length == 3;
+pole1[1]     == 2;
+pole2.length == 0;
+
+pole2.push(pole1);
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Objekty, funkce a pole</h2>
+	<ul>
+		<li>Funkce je též objekt</li>
+	</ul>
+	<pre data-syntax="js">
+var add = function(a, b) { return a+b; }
+add.c = 123;
+add(add.c, add["c"]);
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Pilíř 1: Uzávěry</h2>
+	<ul>
+		<li>Jaký je obor platnosti proměnných?</li>
+		<li>Funkci lze definovat uvnitř jiné funkce</li>
+		<li>Proměnná existuje v rámci své funkce a všech jejích podfunkcí</li>
+	</ul>
+	<pre data-syntax="js">
+var outer = function(a, b) {
+	var inner = function(x) { return 2*x; }
+	return a + inner(b);
 }
-</pre></li>
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Pilíř 1: Uzávěry</h2>
+	<ul>
+		<li>Co když použijeme proměnnou ve vnitřní funkci?</li>
+		<li>Vznikne <em>uzávěra</em></li>
+	</ul>
+	<pre data-syntax="js">
+var outer = function(a, b) {
+	var inner = function() { return 2*b; }
+	return a + inner();
+}
+
+var outer = function(a, b) {
+	var inner = function() { return 2*b; }
+	return inner;
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Pilíř 2: Klíčové slovo <em>this</em></h2>
+	<ul>
+		<li>Jeden z nejkomplikovanějších konceptů jazyka</li>
+		<li>Zásadní rozdíl oproti jiným: hodnota je určena při volání</li>
+	</ul>
+	<pre data-syntax="js">
+var fun = function() { alert(this); }
+fun(); /* ? */
+
+var obj1 = { fun:fun };
+var obj2 = { fun:fun };
+
+obj1.fun(); /* this == obj1 */
+obj2.fun(); /* this == obj2 */
+
+fun == obj1.fun == obj2.fun
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Pilíř 2: Klíčové slovo <em>this</em></h2>
+	<ul>
+		<li>Pokud je při volání před názvem funkce tečka, hodnota this je objekt vlevo</li>
+		<li>Jinak je this globální jmenný prostor</li>
+		<li>This lze explicitně určit</li>
+	</ul>
+	<pre data-syntax="js">
+var fun = function() { alert(this); }
+
+var obj1 = {};
+var obj2 = {};
+
+fun.call(obj1, arg1, ...);    /* this == obj1 */
+fun.apply(obj2, [arg1, ...]); /* this == obj2 */
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Pilíř 3: Prototype chain</h2>
+	<ul>
+		<li>Dva objekty je možno provázat</li>
+		<li><pre data-syntax="js">
+var obj1 = { klic:"hodnota" }; var obj2 = {};
+obj2.vazba = obj1;
+alert(obj2.vazba.klic); /* "hodnota" */
+</pre>
+		</li>
+		<li>Existuje speciální neviditelná vazba, zvaná "prototype link"</li>
+		<li>Prototype link se používá při přístupu k neexistujícím vlastnostem</li>
+		<li><pre data-syntax="js">
+var obj1 = { klic:"hodnota" }; 
+var obj2 = Object.create(obj1);
+alert(obj2.klic); /* "hodnota" */
+
+obj2.__proto__ == obj1;
+</pre>
+		</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>HTML5 Audio</h2>
-	<ul class="section">
-		<li>Vložení zvukového souboru do stránky</li>
-		<li>Ovládací prvky vyrábí prohlížeč (jsou-li požadovány)</li>
-		<li>Různé prohlížeče rozumí různým formátům zvukových souborů</li>
-		<li>Možnost specifikovat více formátů</li>
-		<li>Možnost zadat alternativní obsah pro nekompatibilní prohlížeče</li>
+	<h2>Pilíř 3: Prototype chain</h2>
+	<ul>
+		<li>Říkáme, že jeden objekt je prototypem druhého</li>
+		<li>Druhý nabízí vše, co první (+ možná něco navíc)</li>
+		<li>Více prototype linků = prototype chain</li>
 	</ul>
-	<p class="section">
-		<audio controls>
-			<source src="sound.ogg" type="audio/ogg" />
-			<source src="sound.mp3" type="audio/mpeg" />
-			<source src="sound.wav" type="audio/wave" />
-			Smůla :-(
-		</audio>
+	<pre data-syntax="js">
+var obj1 = { klic:"hodnota" }; 
+var obj2 = Object.create(obj1);
+var obj3 = Object.create(obj2);
+
+obj3.klic = "jina hodnota";
+obj1.jinyKlic = "jeste jina hodnota";
+
+alert(obj2.klic);     /* "hodnota" */
+alert(obj3.klic);     /* "jina hodnota" */
+alert(obj3.jinyKlic); /* "jeste jina hodnota" */
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Pilíř 3: odbočka</h2>
+	<p class="sections">
+		<q>Nepodporujeme atribut prototype, který je u všech objektů. Tento atribut je normou povolen a přidává do objektu nové metody a atributy (případně s danou hodnotou). Tento atribut jsme neimplementovali, protože by byl problém ho implementovat a jsme toho názoru, že je k ničemu.</q>
+		<strong>— prohlížeč Links, projektová dokumentace</strong>
 	</p>
-	<pre data-syntax="xml" class="section">&lt;audio controls&gt;
-	&lt;source src="sound.ogg" type="audio/ogg" /&gt;
-	&lt;source src="sound.mp3" type="audio/mpeg" /&gt;
-	&lt;source src="sound.wav" type="audio/wave" /&gt;
-	Smůla :-(
-&lt;/audio&gt;</pre>
+	<style>
+		q + strong.after { display: none; }
+		q + strong { display: block; text-align: right; }
+	</style>
 </section>
 
 <section class="slide">
-	<h2>HTML5 Audio: JavaScriptové API</h2>
-	<pre data-syntax="js">new Audio("song.mp3").play();</pre>
-	<pre data-syntax="js">var a = new Audio();
-a.canPlayType("audio/mpeg"); /* "", "maybe", "probably" */
-a.src = "song.mp3";
-a.addEventListener("timeupdate", function() { console.log(a.currentTime); }, false);
-a.play();</pre>
-
-	<p>
-		<instant-button color="red" src="instant-button/buzzer.{ogg,mp3}"></instant-button>
-		<instant-button color="lime" src="instant-button/tada.{ogg,mp3}"></instant-button>
-	</p>
-</section>
-
-<section class="slide">
-	<h2>HTML5 Video</h2>
+	<h2>Pilíř 3: Prototype chain</h2>
 	<ul>
-		<li>Vložení videa do stránky</li>
-		<li>Alternativa pro Flashové přehrávače</li>
-		<li>Syntaxe téměř shodná s audiem</li>
-		<li>Ještě výraznější problematika formátů</li>
-		<li>S výhodou použití <code class="syntax-xml">&lt;source media="..." /&gt;</code></li>
+		<li>Neexistuje koncept tříd</li>
+		<li>OOP lze realizovat pomocí prototypů</li>
+		<li>Vzor (třída) = rodičovský objekt</li>
+		<li>Objekt (instance) = objekty s prototypovým odkazem na rodiče</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>HTML5 Video: ukázka</h2>
-	<pre data-syntax="xml">&lt;video controls poster="image.png"&gt;
-	&lt;source src="video-small.mp4" 
-		type="video/mp4; codecs='avc1.42E01E, mp4a.40.2'" 
-		media="screen and (max-width:500px)" 
-	/&gt;
-	&lt;source src="video.mp4" type="video/mp4; codecs='avc1.42E01E, mp4a.40.2'" /&gt;
-	&lt;source src="video.ogv" type="video/ogg; codecs='theora, vorbis'"/&gt;
-	&lt;source src="video.webm" type="video/webm; codecs='vp8, vorbis'" /&gt;
-	&lt;!-- embed flash jako fallback --&gt;
-&lt;/video&gt;</pre>
-</section>
-
-<section class="slide">
-	<h2>&lt;audio&gt; &lt;video&gt; formáty</h2>
-	<p><a href="https://developer.mozilla.org/en-US/docs/HTML/Supported_media_formats">Tabulka</a></p>
-</section>
-
-<section class="slide">
-	<h2>Media Source Extensions</h2>
+	<h2>Operátor new</h2>
 	<ul>
-		<li>Tradiční HTML5 audio/video přehrává jen jeden soubor</li>
-		<li>MSE dovoluje definovat zdroj multimediálních dat s větší granularitou</li>
-		<li>Namísto souboru s pevným trváním se přenáší <em>stream</em></li>
-		<li>Změna datového toku za běhu</li>
-		<li>Protokol <code>mediasource:</code>, JS API <code>MediaSource</code>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Media_Source_Extensions_API">Dokumentace</a></li>	
+		<li>Prototype link nelze vytvářet přímo (<code>x.__proto__</code>)</li>
+		<li>Varianta 1: <code>Object.create</code></li>
+		<li>Varianta 2: <code>new</code></li>
+		<li>Každá funkce má (téměř prázdný) objekt <code>.prototype</code></li>
+		<li>Zápis <code>new f</code> vytvoří nový objekt, nastaví mu <code>__proto__</code> na <code>f.prototype</code> a vykoná nad ním <code>f()</code></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Web Audio API</h2>
+	<h2>Operátor new</h2>
+	<p><a href="img/prototype.svg" target="_blank">diagram</a></p>
+	<pre data-syntax="js">
+var F = function() {
+	this.a = 1;
+}
+F.prototype.b = 2;
+
+var f = new F();
+f.c = 3;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Operátor new</h2>
 	<ul>
-		<li>Poměrně moderní JS API</li>
-		<li>Konstrukce <a href="img/WebAudioBasics.png" target="_blank">zvukového grafu</a></li>
-		<li>Uzly = transformace zvuku</li>
-		<li>Přístup k právě přehrávaným datům (vizualizace)</li>
-		<li>Generování zvukového signálu</li>
-		<li><a href="http://ondras.github.io/fireworks-webgl/">Ohňostroj</a>, <a href="http://ondras.github.io/oscope/">osciloskop</a></li>
+		<li>Terminologický guláš: vlastnost <code>.prototype</code> vs. <code>__proto__</code></li>
+		<li>Objekt ("instance") nemá příliš souvislost se svojí vytvořující funkcí</li>
+		<li>Operátor <code>new</code> patří k nejsložitějším partiím jazyka</li>
+		<li>Do prototypu funkce zpravidla vkládáme metody (neb ty mají být sdíleny)</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Web Audio API: generování zvuku</h2>
+	<h2>Dědičnost pomocí prototypů</h2>
+	<p><a href="img/inheritance.svg" target="_blank">diagram</a></p>
+	<pre data-syntax="js">
+var Parent = function() {}
+Parent.prototype.hi = function() { return "hello"; }
+
+var Child = function() {}
+Child.prototype = Object.create(Parent.prototype);
+/* alternativně: Child.prototype = new Parent(); */
+
+var ch = new Child();
+ch.hi(); /* "hello" */
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Obohacování prototypů</h2>
+	<pre data-syntax="js">
+String.prototype.lpad = function(what, length) {
+  var count = length - this.length;
+  var padding = "";
+  for (var i=0; i&lt;count; i++) { padding += what; }
+  return padding + this;
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>...</h2>
+	<p style="text-align:center; height:70%"><img src="img/yoda.jpg" style="height:100%"/></p>
+</section>
+
+<section class="slide">
+	<h2>bind</h2>
+	<pre data-syntax="js">
+var f1 = function() { alert(this.name); }
+var foo = { name:"foo" }
+var bar = { name:"bar" }
+f1.call(foo); /* "foo" */
+
+var f2 = f1.bind(bar);
+f2() /* "bar" */
+</pre>
+</section>
+
+<section class="slide">
+	<h2>bind</h2>
+	<ul>
+		<li>Funkce/metoda <code>bind</code> vrací novou funkci</li>
+		<li>V nové funkci je <code>this</code> napevno definováno ve chvíli volání <code>bind</code></li>
+		<li><code>bind</code> umí ještě další věci, ale toto je nejdůležitější</li>
+		<li>Úkol: vyrobte <code>bind</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>bind</h2>
+	<pre data-syntax="js">
+Function.prototype.bind = function(newThis) {
+	var func = this;
+	return function() {
+		return func.apply(newThis, arguments);
+	}
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>bind &ndash; využití</h2>
+	<pre data-syntax="js">
+var Obj = function() {}
+Obj.prototype.foo = function() {}
+
+var bar = new Obj();
+setTimeout(bar.foo, 100);
+
+setTimeout(bar.foo.bind(bar), 100);
+
+/* dtto addEventListener atp. */
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Bonus</h2>
+
+<p>Víte, co a proč udělá tato funkce?</p>
 <pre data-syntax="js">
-var ctx = new AudioContext();
-
-var oscillator = ctx.createOscillator();
-
-oscillator.frequency.value = 440;
-oscillator.connect(ctx.destination);
-
-oscillator.start();
-</pre>
-	<ul>
-		<li>Tvar vlny možno určit vlastností <code>type</code></li>
-		<li>Jak zastavit běžící oscilátor?</li>
-	</ul>
-</section>
-
-<section class="slide" contenteditable onkeydown="event.stopPropagation()">
-	<h2>Atribut contenteditable</h2>
-	<p><code contenteditable="true" data-syntax="xml">&lt;div contenteditable="true"&gt;ahoj&lt;/div&gt;</code></p>
-	<ul>
-		<li>Obsah prvku lze po kliknutí upravovat</li>
-		<li>Základní stavební prvek WYSIWYG editorů (nikoliv GDrive)</li>
-		<li>Manipulace pomocí DOM + Range</li>
-		<li>Bonus: v takovém prvku lze použít <code>execCommand</code> API</li>
-		<li><code data-syntax="js">document.execCommand("bold")</code></li>
-		<li>Implementace execCommand nekonzistentní, <a href="https://developer.mozilla.org/en-US/docs/Web/API/document.execCommand">dokumentace</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Atribut contenteditable &ndash; range &amp; selection</h2>
-	<ul>
-		<li>Při práci s WYSIWYG editorem často pracujeme s vybraným textem</li>
-		<li>Rozhraní <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection"><code>Selection</code></a> je <em>nesouvislá množina výběrů</em></li>
-		<li>Rozhraní <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range"><code>Range</code></a> je <em>jeden rozsah označeného textu</em></li>
-		<li>Obě rozhraní nabízí komplexní API</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Objekt <code>Range</code></h2>
-	<ul>
-		<li>Rozsah textu</li>
-		<li>Od (uzel, pozice), do (uzel, pozice)</li>
-		<li>Nesouvisí přímo s vizuální stránkou</li>
-	</ul>
-	<pre data-syntax="js">
-var range = document.createRange();
-r.collapsed; // true: start = end
-
-r.set{Start,End}{Before,After}(node);
-r.selectNode(node);
-r.selectNodeContents(node);
-
-// ... manipulace s vybraným fragmentem, porovnávání s jiným rozsahem
+function s(a) {
+    while (a.length) {
+        var v = a.shift();
+        setTimeout(a.push.bind(a, v), v);
+    }
+}
 </pre>
 </section>
 
-<section class="slide">
-	<h2>Objekt <code>Selection</code></h2>
-	<ul>
-		<li>Historicky množina rozsahů, nyní typicky jen jeden</li>
-		<li>Vizuální reprezentace</li>
-		<li>Možno ovlivňovat programově nebo myší/klávesnicí</li>
-	</ul>
-	<pre data-syntax="js">
-var sel = document.getSelection();
-sel.addRange(range); // range je nyní vidět
-
-sel.removeAllRanges();
-
-sel.getRangeAt(0);
-sel.deleteFromDocument();
-
-sel.anchorNode; // zde táhnutí započalo
-sel.focusNode;  // zde táhnutí ukončilo
-</pre>
-</section>
 
 <section class="slide">
 	<h2>Prostor pro otázky</h2>

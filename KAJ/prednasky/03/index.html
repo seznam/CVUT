@@ -9,14 +9,14 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>SVG, Offline, Drag'n'Drop</title>
 		<base target="_blank" />
+		<title>ES 2015</title>
 	<body>
 		
-<h1>SVG, Offline, Drag'n'Drop</h1>
+<h1>ES 2015</h1>
 
 <section class="slide">
-	<h2>SVG, Offline, Drag'n'Drop</h2>
+	<h2>ES 2015</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -28,326 +28,433 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>Scalable Vector Graphics</li>
-		<li>Offline + AppCache + Service Worker</li>
-		<li>Drag'n'Drop</li>
+		<li>Jak si stojí ES 2015</li>
+		<li>Novinky ES 2015: syntaxe</li>
+		<li>Novinky ES 2015: rozšíření ES5</li>
+		<li>Kde a jak si to lze vyzkoušet?</li>
 	</ol>
 </section>
 
 <section class="slide">
-	<h2>SVG</h2>
+	<h2>ES6</h2>
+
 	<ul>
-		<li>Všechny prohlížeče krom IE&le;8</li>
-		<li>Prehistorický standard z roku 2001</li>
-		<li>VML pro IE&le;8</li>
-		<li>Rozšířený pro vektorovou grafiku</li>
-		<li>DOM, události, stylování</li>
-		<li>Horší výkon v porovnání s <code>&lt;canvas&gt;</code></li>
-		<li><a href="clock/">Ukázka hodiny</a>, <a href="http://ondras.zarovi.cz/demos/hex/?f=cr.emap">ukázka mapa</a></li>
+		<li>Formálně ECMAScript 2015, vžil se název ES6</li>
+		<li>Nejnovější standardizovaná iterace jazyka</li>
+		<li>Dříve označováno jako <em>Harmony</em></li>
+		<li>Vývoj zhruba 2008&ndash;2015</li>
+		<li>V roce 2016 vznikne další verze</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>SVG je dialekt XML</h2>
-	<pre data-syntax="xml">
-&lt;svg width="500" height="300" viewBox="0 0 100 100"&gt;
-	&lt;circle cx="20" cy="50" r="20" /&gt;
-	&lt;g transform="rotate(45) translate(30, -30)"&gt;
-		&lt;rect x="0" y="-10" width="30" height="30"/&gt;
-		&lt;text x="30" y="10"&gt;SVG&lt;/text&gt;
-	&lt;/g&gt;
-&lt;/svg&gt;
-	</pre>
-	<svg width="500" height="300" viewBox="0 0 100 100">
-		<circle cx="20" cy="50" r="20" />
-		<g transform="rotate(45) translate(30, -30)">
-			<rect x="0" y="-10" width="30" height="30"/>
-			<text x="30" y="10">SVG</text>
-		</g>
-	</svg>
-</section>
+	<h2>let, const</h2>
 
-<section class="slide">
-	<h2>Míchání HTML a SVG</h2>
-	<table><tbody>
-		<tr>
-			<td>HTML4</td>
-			<td><code class="syntax-xml">&lt;embed&gt;</code>, <code class="syntax-xml">&lt;object&gt;</code>, <code class="syntax-xml">&lt;iframe&gt;</code></td>
-		</tr>
-		<tr>
-			<td>XHTML (text/xml)</td>
-			<td><code class="syntax-xml">&lt;svg xmlns="http://www.w3.org/2000/svg"&gt;</code></td>
-		</tr>
-		<tr>
-			<td>HTML5</td>
-			<td>Dedikovaná značka <code class="syntax-xml">&lt;svg&gt;</code></td>
-		</tr>
-		<tr>
-			<td>JS</td>
-			<td><code class="syntax-js">document.createElementNS()</code></td>
-		</tr>
-	</tbody></table>
-</section>
-
-<section class="slide">
-	<h2>Stavební kameny SVG</h2>
 	<ul>
-		<li><code>&lt;svg&gt;</code>, <code>&lt;g&gt;</code> (group)</li>
-		<li><code>&lt;rect&gt;</code>, <code>&lt;circle&gt;</code>, <code>&lt;ellipse&gt;</code>, <code>&lt;line&gt;</code>, <code>&lt;polyline&gt;</code>, <code>&lt;polygon&gt;</code></li>
-		<li><code>&lt;path d="M100,200 C100,100 250,100 250,200"&gt;</code></li>
-		<li>Barevné přechody (gradient), vzory (pattern)</li>
+		<li>let = var + block scope</li>
+		<li>const = let + read-only</li>
 	</ul>
-</section>
 
-<section class="slide">
-	<h2>SVG &lt;path&gt; detailněji</h2>
-	<ul>
-		<li><code>M x y</code> &ndash; posun na absolutní pozici</li>
-		<li><code>m dx dy</code> &ndash; posun o relativní pozici</li>
-		<li><code>L x y (l dx dy)</code> &ndash; rovná čára</li>
-		<li><code>Q x1 y1, x y</code> &ndash; kvadratická Bézierova křivka</li>
-		<li><code>C x1 y1, x2 y2, x y</code> &ndash; kubická Bézierova křivka</li>
-		<li><code>A rx ry x-axis-rotation <a href="img/arc.png" target="_blank">large-arc-flag sweep-flag</a> x y</code> &ndash; eliptická křivka</li>
-		<li><code>Z</code> &ndash; spojit se začátkem</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>SVG barevné přechody</h2>
-	<svg width="300" height="200" style="float:right">
-		<defs>
-			<linearGradient id="gradient">
-				<stop offset="0%" stop-color="red"/>
-				<stop offset="50%" stop-color="black"/>
-				<stop offset="100%" stop-color="blue"/>
-			</linearGradient>
-		</defs>
-		<rect fill="url(#gradient)" x="0" y="0" width="100%" height="100%" />
-	</svg>
-	<pre data-syntax="xml">
-&lt;defs&gt;
-	&lt;linearGradient id="gradient"&gt;
-		&lt;stop offset="0%" stop-color="red" /&gt;
-		&lt;stop offset="50%" stop-color="black" /&gt;
-		&lt;stop offset="100%" stop-color="blue" /&gt;
-	&lt;/linearGradient&gt;
-&lt;/defs&gt;
-&lt;rect fill="url(#gradient)" x="0" y="0" width="100%" height="100%" /&gt;
-</pre>
-</section>
-
-<section class="slide">
-	<h2>SVG &lt;pattern&gt;</h2>
-	<svg width="300" height="200" style="float:right">
-		<defs>
-			<pattern id="pattern" width="0.25" height="0.333">
-				<circle cx="25" cy="25" r="20" fill="#00f">
-			</pattern>
-		</defs>
-		<rect fill="url(#pattern)" x="0" y="0" width="100%" height="100%" />
-	</svg>
-	<pre data-syntax="xml">
-&lt;defs&gt;
-	&lt;pattern id="pattern" width="0.25" height="0.333"&gt;
-		&lt;circle cx="25" cy="25" r="20" fill="#00f" /&gt;
-	&lt;/pattern&gt;
-&lt;/defs&gt;
-&lt;rect fill="url(#pattern)" x="0" y="0" width="100%" height="100%" /&gt;
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Stylování SVG</h2>
-	<ul>
-		<li>Pomocí atributů (<code>stroke</code>, <code>color</code>, <code>opacity</code>, &hellip;)</li>
-		<li>Pomocí CSS</li>
-	</ul>
-	<pre data-syntax="css" class="section">circle {
-	fill: yellow; stroke: red;
-}
-rect {
-	fill: none; stroke: black;
-	stroke-width: 2;
-}
-text {
-	text-anchor: middle; font-size: 10px;
-}</section>
-
-<section class="slide">
-	<h2>SVG a JavaScript</h2>
-	<ul>
-		<li>Práce stejně jako s DOM stránky</li>
-		<li>Tvorba prvků přes <code data-syntax="js">document.createElementNS("http://www.w3.org/2000/svg", "...")</code></li>
-		<li>Změna hodnot pomocí <code>setAttribute</code></li>
-		<li>Běžná práce s událostmi pomocí <code>addEventListener</code></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Offline API</h2>
-	<p>Webová aplikace má k dispozici JS API, které informuje o stavu připojení.</p>
-	<ul>
-		<li><code data-syntax="js">navigator.onLine</code></li>
-		<li><code data-syntax="js">window.addEventListener("online", ...)</code></li>
-		<li><code data-syntax="js">window.addEventListener("offline", ...)</code></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>App Cache</h2>
-	<ul>
-		<li>Webová aplikace poskytuje tzv. <em>offline manifest</em>, výčet souborů pro použití offline
-			<pre data-syntax="xml">&lt;html manifest="mysite.manifest"&gt;</pre>
-		</li>
-		<li>Pokud je uživatel offline a pokusí se přistoupit na adresu webové aplikace, prohlížeč mu poskytne soubory definované v manifestu</li>
-		<li>Pokud je uživatel online a nezměnil se čas modifikace manifestu, opět se použije cachovaná verze</li>
-		<li>Při změně souborů (a manifestu) jsou data jen stažena a připravena na použití příště</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>App Cache Manifest</h2>
-	<pre data-syntax="shell">CACHE MANIFEST
-	
-# soubory určené k použití offline
-offline/index.html
-offline/style.css
-offline/code.js
-
-# tyto soubory se nikdy nesmí cachovat
-NETWORK
-remote.cgi
-
-# tyto soubory, pokud nedostupné, budou nahrazeny jinými
-FALLBACK
-images/large offline/sorry.jpg</pre>
-</section>
-
-<section class="slide">
-	<h2>App Cache</h2>
-	<p>lehce obskurní <a href="http://ondras.zarovi.cz/demos/morgan/">ukázka</a>, její <a href="http://ondras.zarovi.cz/demos/morgan/morgan.manifest">manifest</a></p>
-</section>
-
-<section class="slide">
-	<h2>applicationCache API</h2>
-	<p>JS API pro práci s offline cache.</p>
-	<ul>
-		<li><code data-syntax="js">window.applicationCache</code> &ndash; objekt popisující stav offline cache, též možnost explicitně cache obnovit</li>
-		<li><code data-syntax="js">if (applicationCache.status == applicationCache.UPDATEREADY) { ... }</code></li>
-		<li><code data-syntax="js">applicationCache.update()</code> &ndash; pokyn ke kontrole novější verze (jako při reloadu)</li>
-		<li><code data-syntax="js">applicationCache.swapCache()</code> &ndash; přepnutí na aktuální verzi souborů (nutný reload)</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Service Worker</h2>
-	<ul>
-		<li>Modernější alternativa k AppCache</li>
-		<li>Konfigurace (AppCache) vs. logika (Service Worker)</li>
-		<li><a href="http://caniuse.com/#feat=serviceworkers">Mizerná podpora</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Jak funguje Service Worker</h2>
-	<img src="img/serviceworker.jpg" style="width:90%" />
-</section>
-
-<section class="slide">
-	<h2>Jak funguje Service Worker</h2>
-	<ul>
-		<li>Service Worker je skript, dodaný autorem stránky</li>
-		<li>Je prohlížečem vykonáván bokem, asynchronně, nezávisle na stránce, pro kterou pracuje</li>
-		<li>Service Worker může manipulovat s HTTP požadavky stránky, kterou obsluhuje</li>
-		<li>Service Worker nemá k dispozici DOM</li>
-		<li>Lze použít jen na HTTPS stránkách</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Service Worker &ndash; ukázka</h2>
 	<pre data-syntax="js">
-navigator.serviceWorker.register("/worker.js").then(function(reg) {
-	console.log("Service worker ready");
-});</pre>
-	<p>Řízení asynchronního toku kódu je realizováno pomocí vzoru Promise.</p>
+const N = 8;
+N = 4; // exception
+
+let x = 1;
+if (true) {
+	let x = 2;
+}
+alert(x); // 1
+</pre>
 </section>
 
 <section class="slide">
-	<h2>Service Worker &ndash; ukázka</h2>
+	<h2>Arrow functions</h2>
+
+	<ul>
+		<li>Zkrácená syntaxe definice funkcí</li>
+		<li>Lexical this (nelze <code>call, apply, new</code>)</li>
+		<li>Pokud má tělo funkce jediný příkaz, není třeba <code>return</code> ani závorky</li>
+	</ul>
+
 	<pre data-syntax="js">
-self.addEventListener("install", function(event) {
-	console.log("SW (či jeho nová verze) nainstalován");
-});
+var square = a => a*a;
+var add = (a, b) => a+b;
 
-self.addEventListener("activate", function(event) {
-	console.log("SW (či jeho nová verze) aktivován");
-});
-
-self.addEventListener("fetch", function(event) {
-	console.log("HTTP požadavek ze stránky");
-	event.respondWith(new Response("Hello world!"));
-});
+// lexical this
+setTimeout( () => this.doStuff(), 1000 );
 </pre>
 </section>
 
 <section class="slide">
-	<h2>Service Worker &ndash; další využití</h2>
-	<ul>
-		<li>Synchronizace dat na pozadí</li>
-		<li>Cachování</li>
-		<li>Preprocessing zdrojů na klientu</li>
-		<li>Šablonování</li>
-		<li>Pre-fetch</li>
-	</ul>
-</section>
+	<h2>Enhanced object literals</h2>
 
-<section class="slide">
-	<h2>Drag'n'Drop</h2>
 	<ul>
-		<li>Přetahování věcí ve stránce a do stránky</li>
-		<li>Překvapivě složité</li>
-		<li><a href="https://developer.mozilla.org/en-US/docs/DragDrop/Drag_Operations">Dokumentace na MDN</a></li>
-		<li><a href="http://html5demos.com/drag">Ukázka 1</a>, <a href="http://mapy.cz/">Ukázka 2</a></li>
+		<li>Zkrácená definice objektů</li>
 	</ul>
-</section>
 
-<section class="slide">
-	<h2>Drag'n'Drop: zahájení tažení</h2>
-	<ul>
-		<li>Soubor do okna prohlížeče</li>
-		<li>HTML prvek s atributem <code>draggable</code></li>
-		<li>Událost <code>dragstart</code></li>
-		<li>Vlastnost <code>dataTransfer</code> v události obsahuje relevantní metadata</li>
-	</ul>
-</section>
+	<pre data-syntax="js">
+var x = 42;
 
-<section class="slide">
-	<h2>Drag'n'Drop: práce s dataTransfer</h2>
-<pre data-syntax="js">
-div.addEventListener("dragstart", function(e) {
-	e.dataTransfer.setData("text/plain", "http://www.seznam.cz");
-	e.dataTransfer.setDragImage(image, offsetX, offsetY);
-	e.dataTransfer.effectAllowed = "copyMove";
-	e.dataTransfer.dropEffect = "copy";
-});
+var obj = {
+	x,                  // "x":42
+	y() { return x; },
+	["data_" + x]: x    // "data_42":42
+}
 </pre>
 </section>
 
 <section class="slide">
-	<h2>Drag'n'Drop: tažení</h2>
+	<h2>Template string literals</h2>
+
 	<ul>
-		<li>Události <code>dragenter</code>, <code>dragover</code>, <code>dragleave</code></li>
-		<li>Pokud má být nad prvkem tažení ukončitelné, je nutné událost "preventovat" (<code>preventDefault()</code>)</li>
+		<li>Nahrazování řetězců</li>
+		<li>Odpadá nutnost "sčítání"</li>
+		<li>Smí obsahovat newline</li>
+		<li>Možnost vlastní interpolační funkce</li>
+	</ul>
+
+	<pre data-syntax="js">
+var x = "world";
+var y = `hello ${x}`;
+var z = `this is a
+			very long string`;
+
+// html je uživ. funkce, která dostane jednotlivé tokeny k naformátování
+html`&lt;div&gt; ${unsafe} &lt;/div&gt;`;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Destructuring</h2>
+
+	<ul>
+		<li>Snazší přístup k vlastnostem struktur</li>
+	</ul>
+
+	<pre data-syntax="js">
+var [a, b, c] = [1, 2, 3];
+
+var f = function() { return {x:42}; }
+var { x } = f();
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Default + Rest + Spread</h2>
+
+	<ul>
+		<li>Výchozí hodnoty parametrů</li>
+		<li>Převod (podmnožiny) parametrů na pole a zpět</li>
+	</ul>
+
+	<pre data-syntax="js">
+var f = function(x, y = 12) {
+	return x + y;
+}
+f(10); // 22
+
+var f = function(x, ...y) {
+	alert(y.length);
+}
+f(1, 2, 3); // 2
+
+var f = function(a, b, c) { return c; }
+f(...[1, 2, 3]); // 3
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Classes</h2>
+
+	<ul>
+		<li>Nová syntaxe, staré chování (stále se jedná o prototypovou dědičnost)</li>
+	</ul>
+
+	<pre data-syntax="js">
+class B extends A {
+	constructor(x) {
+		super(); // v konstruktoru dědící třídy povinné; před ním neexistuje this
+		this.x = x;
+	}
+
+	get something() { /* .... */ }
+
+	f1() {
+		super.f1();
+		return this.x;
+	}
+
+	static f2() {}
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Modules</h2>
+
+	<ul>
+		<li>Modularizace na syntaktické úrovni</li>
+		<li>Jeden výchozí a libovolně dalších pojmenovaných exportů</li>
+	</ul>
+
+	<pre data-syntax="js">
+// a.js
+export var A = function() {};
+export default function() {};
+
+// b.js
+import { A } from "a"; // pozor na cestu!
+A();
+
+import myLocalName from "a"; // default
+</pre>
+</section>
+
+<section class="slide">
+	<h2>{Weak,}{Map,Set}</h2>
+
+	<ul>
+		<li>Set: množina unikátních hodnot</li>
+		<li>Map: dvojice cokoliv-cokoliv</li>
+		<li>WeakMap, WeakSet: bez reference na objekt, bez iterovatelnosti</li>
+	</ul>
+
+	<pre data-syntax="js">
+var s = new Set();
+s.add("hello").add("goodbye").add("hello");
+s.size == 2;
+s.has("hello") == true;
+
+var m = new Map();
+m.set("hello", 42);
+m.set(s, 34);
+m.get(s) == 34;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>&hellip;a to ještě není všechno.</h2>
+	<p style="text-align:center; height:70%"><img src="ready.jpg" style="height:100%"/></p>
+</section>
+
+<section class="slide">
+	<h2>Symbols</h2>
+
+	<ul>
+		<li>Nový datový typ pro řízení přístupu</li>
+		<li>Není zcela privátní, ale alespoň je unikátní</li>
+	</ul>
+
+	<pre data-syntax="js">
+(function() {
+	var moneyKey = Symbol("money");
+	typeof(moneyKey) == "symbol";
+
+	var Person = function() {
+		this[moneyKey] = 10000;
+	}
+
+	var person = new Person();
+	person.money == undefined;
+
+	Object.getOwnPropertySymbols(person); // :-(
+})();
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Iterators + for..of</h2>
+
+	<ul>
+		<li>Programovatelná iterovatelnost</li>
+		<li>Cokoliv, co má metodu <code>next</code> je iterátor</li>
+		<li>Cokoliv, co má symbol <code>Symbol.iterator</code> je iterovatelné cyklem <code>for..of</code></li>
+	</ul>
+
+	<pre data-syntax="js">
+let fibonacci = {
+	[Symbol.iterator]() {
+		let pre = 0, cur = 1;
+		return {
+			next() {
+				[pre, cur] = [cur, pre + cur];
+				return { done: false, value: cur }
+			}
+		}
+	}
+}
+
+for (var n of fibonacci) {
+  if (n > 1000) break;
+  console.log(n);
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Generators</h2>
+
+	<ul>
+		<li>Speciální druh funkce</li>
+		<li>Návratovou hodnotou je iterátor</li>
+		<li>Klíčové slovo <code>yield</code> odpovídá přerušení po jedné iteraci</li>
+	</ul>
+
+	<pre data-syntax="js">
+var generator = function*() {
+	var tmp = 1;
+	while (true) {
+		tmp *= 3;
+		yield tmp;
+	}
+}
+
+var iterator = generator();
+iterator.next().value; // 3, next() vrací i done:true/false
+iterator.next().value; // 9
+iterator.next().value; // 27
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Proxies</h2>
+
+	<ul>
+		<li>Monitorování libovolného přístupu k objektům</li>
+		<li>Čtení, zápis, volání, &hellip;</li>
+	</ul>
+
+	<pre data-syntax="js">
+var obj = {};
+
+var interceptor = {
+	get: function (receiver, name) {
+		return `Hello, ${name}!`;
+	}
+};
+
+var p = new Proxy(obj, interceptor);
+p.world === "Hello, world!"</pre>
+</section>
+
+<section class="slide">
+	<h2>Reflect</h2>
+
+	<ul>
+		<li>Rozhraní pro introspekci objektů</li>
+		<li>Metody podobné těm v <code>Object.*</code></li>
+		<li>Namísto výjimek vrací false</li>
+	</ul>
+
+	<pre data-syntax="js">
+Reflect.defineProperty(obj, name, descriptor);
+Reflect.construct(F, args);
+Reflect.get(obj, property, thisForGetter);
+/* ... */
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Rozšíření ES5 #1</h2>
+
+	<pre data-syntax="js">
+Number.EPSILON
+Number.MAX_SAFE_INTEGER
+Number.MIN_SAFE_INTEGER
+Number.isInteger(Infinity)                      // false
+Number.isNaN("NaN")                             // false
+
+Math.acosh(3)                                   // 1.762747174039086
+Math.hypot(3, 4)                                // 5
+Math.imul(Math.pow(2, 32)-1, Math.pow(2, 32)-2) // 2
+Math.sign(5)                                    // 1
+Math.trunc(3.1)                                 // 3
+/* ... */
+
+"abc".repeat(3)                                 // "abcabcabc"
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Rozšíření ES5 #2</h2>
+
+	<pre data-syntax="js">
+Array.from(document.querySelectorAll("*")) // real Array
+Array.of(1, 2, 3)                          // without special one-arg behavior
+[0, 0, 0].fill(7, 1)                       // [0,7,7]
+[1, 2, 3].find(x => x == 3)                // 3
+[1, 2, 3].findIndex(x => x == 2)           // 1
+[1, 2, 3, 4, 5].copyWithin(3, 0)           // [1, 2, 3, 1, 2]
+["a", "b", "c"].entries()                  // iterator [0, "a"], [1,"b"], [2,"c"]
+["a", "b", "c"].keys()                     // iterator 0, 1, 2
+["a", "b", "c"].values()                   // iterator "a", "b", "c"
+
+Object.assign(target, { source: "data" });
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Ostatní</h2>
+
+	<ul>
+		<li>Práce s Unicode znaky mimo BMP (tj. code points &gt; 65535)</li>
+		<li>Subclassing vestavěných objektů (Array, Element, &hellip;)</li>
+		<li>Garantované Tail Call Optimisation</li>
+		<li><code>new Promise((resolve, reject) => {}), Promise.all, Promise.race</code></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Drag'n'Drop: puštění</h2>
+	<h2>Jak zkoušet ES 2015?</h2>
+
 	<ul>
-		<li>Událost <code>drop</code></li>
-		<li>Pokud událost zpracujeme, voláme <code>preventDefault</code></li>
-		<li>Vlastnost <code>e.dataTransfer.files</code> je pole souborů, jsou-li jaké</li>
+		<li><a href="https://kangax.github.io/compat-table/es6/">Compatibility table</a></li>
+		<li>Pro něco lze polyfill (<code>Array.from</code>, <code>Promise</code>, &hellip;)</li>
+		<li>Některou syntaxi lze <em>transpilovat</em> (viz dále)</li>
+		<li>Něco nelze vůbec (<code>WeakMap, WeakSet, Proxy</code>)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Transpilace ES 2015</h2>
+
+	<ul>
+		<li>Proces konverze syntaxe ES 2015 do ES5</li>
+		<li><a href="https://github.com/babel/babel">Babel</a>, <a href="https://github.com/google/traceur-compiler">Google Traceur Compiler</a></li>
+		<li>Babel zatím s nejlepší podporou</li>
+		<li>Pro některé novinky nutno dodat polyfilly</li>
+		<li>Problematická otázka ES 2015 modulů</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Babel v praxi</h2>
+
+	<ul>
+		<li>Online hřiště na <a href="http://babeljs.io/repl/">http://babeljs.io/repl/</a></li>
+		<li>Ke stažení jako npm modul</li>
+		<li>Ke stažení též jako ohromný kus ES5 (transformace za běhu)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Babel a moduly</h2>
+
+	<ul>
+		<li>Konverze buď do CommonJS, AMD nebo SystemJS</li>
+		<li>Vždy nutno dodat další podpůrný kód (Browserify, Webpack, RequireJS, &hellip;)</li>
+		<li>Hudba budoucnosti &ndash; <code>System.{import,register}</code></li>
+		<li>Více viz <a href="http://ondras.zarovi.cz/slides/devel2016/">přednáška na devel.cz 2016</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>ES 2016</h2>
+
+	<ul>
+		<li>Operátor <code>**</code></li>
+		<li><code data-syntax="js">Array.prototype.includes</code></li>
+		<li>...that's all, folks</li>
 	</ul>
 </section>
 

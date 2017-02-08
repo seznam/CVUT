@@ -9,13 +9,14 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>CSS transitions, animations, efekty</title>
+		<title>CSS 3</title>
+		<base target="_blank" />
 	<body>
 		
-<h1>CSS transitions, animations, efekty</h1>
+<h1>CSS 3</h1>
 
 <section class="slide">
-	<h2>CSS transitions, animations, efekty</h2>
+	<h2>CSS 3</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -27,413 +28,320 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>Transitions</li>
-		<li>Animations</li>
-		<li>Filtry</li>
-		<li>Ostatní efekty</li>
+		<li>Vývoj CSS</li>
+		<li>Selektorový jazyk &ndash; rekapitulace</li>
+		<li>Selektorový jazyk &ndash; atributy</li>
+		<li>Selektorový jazyk &ndash; kombinátory</li>
+		<li>Selektorový jazyk &ndash; pseudotřídy</li>
+		<li>Bonus: generovaný obsah</li>
 	</ol>
 </section>
 
 <section class="slide">
-	<h2>CSS transitions</h2>
+	<h2>Vývoj CSS</h2>
 	<ul>
-		<li>V rámci životního cyklu stránky často dochází ke změnám CSS hodnot</li>
-		<li>Změny hodnot jsou okamžité a skokové</li>
-		<li>Pomocí transition lze tyto změny provádět plynule (animovaně)</li>
+		<li>CSS 1 v roce 1994</li>
+		<li>CSS 2 v roce 1998 &ndash; příliš ambiciózní (stíny, průhlednost, &hellip;)</li>
+		<li>CSS 2.1 (2004&ndash;2011) reviduje nepodporované vlastnosti; celkem 115 definovaných vlastností</li>
+		<li>CSS 3 &ndash; modularizace (přes padesát modulů), přes 243 vlastností</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>CSS transitions: ukázka</h2>
-<pre data-syntax="css">
+	<h2>Podpora CSS 3</h2>
+	<ul>
+		<li>Velmi výrazně odlišná napříč prohlížeči</li>
+		<li><a href="http://caniuse.com/">caniuse.com</a></li>
+		<li>Důvod pro používání <em>bleeding edge</em> verzí</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Vendor prefix #1</h2>
+	<ul>
+		<li>Problém: výrobce chce podporovat technologii, která není plně standardizovaná</li>
+		<li>Implementací riskuje stížnosti při změně API</li>
+		<li>Řešení: vlastní prefix před názvem vlastnosti</li>
+	</ul>
+	<pre class="section" data-syntax="css">
 div {
-	background-color: blue;
-	width: 200px;
-	height: 200px;
-	transition: all 3s;
-}
-div:hover {
-	width: 600px;
-	background-color: red;
-}
-</pre>
-	<div id="example1"></div>
-	<style>
-		#example1 {
-			background-color: blue;
-			width: 200px;
-			height: 200px;
-			transition: all 3s;
-			-moz-transition: all 3s;
-			-webkit-transition: all 3s;
-			position: absolute;
-			right: 0;
-			top: 3em;
-		}
-		#example1:hover {
-			width: 600px;
-			background-color: red;
-		}
-	</style>
-</section>
-
-<section class="slide">
-	<h2>CSS transitions: vlastnosti</h2>
-	<ul>
-		<li>Meta-vlastnost <code>transition</code></li>
-		<li>Individuálně lze upřesnit <code>transition-property</code>, <code>transition-duration</code>, <code>transition-timing-function</code>, <code>transition-delay</code></li>
-		<li>Častno nutnost prefixování</li>
-		<li>Žádný JavaScript</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS transitions: transition-property</h2>
-	<ul>
-		<li>Plynule lze měnit řadu vlastností, ne však všechny</li>
-		<li>Je nutné dbát na kompatibilní hodnoty (<code>px</code> vs. <code>%</code> vs. <code>auto</code>)</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS transitions: transition-duration</h2>
-	<ul>
-		<li>Jak dlouho plynulá změna trvá</li>
-		<li>Povolené jednotky <code>s</code> a <code>ms</code></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS transitions: transition-timing-function</h2>
-	<ul>
-		<li>Jak interpolovat hodnoty v závislosti na čase</li>
-		<li>Interpolační funkci možno zadat klíčovým slovem nebo předpisem</li>
-		<li><a href="https://developer.mozilla.org/en-US/docs/CSS/timing-function" target="_blank">Přehled na MDN</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS transitions: steps</h2>
-<pre data-syntax="css">
-div {
-	background-image: url(sprite.png);
-	background-position: 0 0;
-	transition: background-position 500ms steps(11);
-}
-div:hover {
-	background-position: -8800px 0;
-}
-</pre>
-	<div id="example-steps"></div>
-	<style>
-		#example-steps {
-			width: 800px;
-			height: 480px;
-			background-image: url(sprite.png);
-			background-position: 0 -100px;
-			transition: background-position 500ms steps(11);
-		}
-		#example-steps:hover {
-			background-position: -8800px -100px;
-		}
-	</style>
-</section>
-
-<section class="slide">
-	<h2>CSS transitions: transition-delay</h2>
-	<ul>
-		<li>Zpoždění animace po změně vlastnosti</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS transitions: pozor na implementaci vykreslování!</h2>
-	<pre data-syntax="js">
-var div = document.createElement("div");
-div.style.transition = "all 3s";
-div.style.color = "red";
-document.body.appendChild(div);
-
-div.style.color = "blue";
-/* ??? */
-</pre>
-</section>
-
-<section class="slide">
-	<h2>CSS transitions: pozor na implementaci vykreslování!</h2>
-	<pre data-syntax="js">
-div.style.color = "red";
-div.offsetWidth;
-div.style.color = "blue";
-</pre>
-
-	<pre data-syntax="js">
-div.style.color = "red";
-setTimeout(function() {
-	div.style.color = "blue";
-}, 0);
-</pre>
-</section>
-
-<section class="slide">
-	<h2>CSS animations</h2>
-	<ul>
-		<li>Vylepšení techniky transitions</li>
-		<li>Navazování změn</li>
-		<li>Možnost vykonávání ve smyčce</li>
-		<li>Řádově složitější syntaxe</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS animations: syntaxe</h2>
-	<ul>
-		<li>Definice rozdělena na dvě komponenty</li>
-		<li>V první části popis metadat animace (jak rychle, opakování, směr, časování, &hellip;)</li>
-		<li>V druhé části popis jednotlivých vizuálních vlastností v průběhu animace</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS animations: ukázka</h2>
-	<div id="example2"></div>
-<pre data-syntax="css">
-div {
-	animation: posun 4s linear infinite;
-}
-
-@keyframes posun {
-	0%, 100% { right: 0px;   top: 100px; }
-	25%      { right: 200px; top: 100px; }
-	50%      { right: 200px; top: 300px; }
-	75%      { right: 0px;   top: 300px; }
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
 }</pre>
-	<style>
-		#example2 {
-			animation: posun 4s linear infinite;
-			-moz-animation: posun 4s linear infinite;
-			-webkit-animation: posun 4s linear infinite;
-			background-color: blue;
-			width: 200px;
-			height: 200px;
-			position: absolute;
-		}
-
-		@keyframes posun {
-			0%, 100% { right: 0px; top: 100px;}
-			25% { right: 200px; top: 100px;}
-			50% { right: 200px; top: 300px;}
-			75% { right: 0px; top: 300px;}
-		}
-
-		@-moz-keyframes posun {
-			0%, 100% { right: 0px; top: 100px;}
-			25% { right: 200px; top: 100px;}
-			50% { right: 200px; top: 300px;}
-			75% { right: 0px; top: 300px;}
-		}
-
-		@-webkit-keyframes posun {
-			0%, 100% { right: 0px; top: 100px;}
-			25% { right: 200px; top: 100px;}
-			50% { right: 200px; top: 300px;}
-			75% { right: 0px; top: 300px;}
-		}
-	</style>
 </section>
 
 <section class="slide">
-	<h2>CSS animations: definice animace</h2>
+	<h2>Vendor prefix #2</h2>
 	<ul>
-		<li>Meta-vlastnost <code>animation</code></li>
-		<li>Individuálně lze upřesnit:
-			<ul>
-				<li><code>animation-name</code></li>
-				<li><code>animation-duration</code></li>
-				<li><code>animation-timing-function</code></li>
-				<li><code>animation-delay</code></li>
-				<li><code>animation-iteration-count</code></li>
-				<li><code>animation-direction</code></li>
-				<li><code>animation-fill-mode</code></li>
-				<li><code>animation-play-state</code></li>
-			</ul>
-		</li>
+		<li>Psaní prefixů je opruz</li>
+		<li>Poslední dobou snahy o odprefixování</li>
+		<li>Preprocessing na straně serveru (generuje všechny)</li>
+		<li>Preprocessing na straně prohlížeče (generuje jen potřebné)</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>CSS animation: animation-iteration-count</h2>
+	<h2>Selektorový jazyk &ndash; rekapitulace</h2>
 	<ul>
-		<li>Počet iterací</li>
-		<li>Hodnota <code>infinite</code> značí nekonečnou smyčku</li>
+		<li>Selektor = řetězec, kterému může vyhovovat libovolné množství prvků v HTML stránce</li>
+		<li>Při změně stránky (DOM) se mění množina prvků, vyhovujících selektorům &rArr; nutnost znovuvyhodnocení</li>
+		<li>Stavební kameny selektorového jazyka: názvy značek, kombinační znaky, atributové filtry</li>
+		<li>Chytré selektory dovolují čistější kód a <a href="http://jsfiddle.net/ondras/oz18b7r0/">snižují nutnost JavaScriptu</a></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>CSS animation: animation-direction</h2>
+	<h2>Selektorový jazyk &ndash; základy</h2>
 	<ul>
-		<li>Směr vykonávání jednotlivých iterací</li>
-		<li><code>normal</code>, <code>reverse</code>, <code>alternate</code>, <code>alternate-reverse</code></li>
+		<li>Název značky = všechny uzly tohoto typu</li>
+		<li>Čárka = sjednocení</li>
+		<li>Hvězdička = všechny uzly</li>
 	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS animation: animation-fill-mode</h2>
-	<ul>
-		<li>Jak aplikovat styly pokud animace neběží</li>
-		<li>Povolené hodnoty:
-			<ul>
-				<li><code>none</code></li>
-				<li><code>forwards</code> &ndash; styly z posledního aplikovaného keyframe</li>
-				<li><code>backwards</code> &ndash; styly z prvního aplikovaného keyframe</li>
-				<li><code>both</code> &ndash; obojí</li>
-			</ul>
-		</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS animation: animation-play-state</h2>
-	<ul>
-		<li>running/paused &ndash; možnost pozastavit animaci</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS animation: @keyframes</h2>
-	<ul>
-		<li>Definice vzhledu v jednotlivých krocích animace</li>
-		<li>
-			<pre data-syntax="css">
-@keyframes test {
-	from, 33% { /* ... */ }
-	to        { /* ... */ }
-}
-@-moz-keyframes {}
-@-webkit-keyframes {}</pre>
-		</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS efekty: průhlednost</h2>
-<pre data-syntax="css">
-div {
-	background-color: white;
-	opacity: 0.5;
-}
-
-div {
-	background-color: rgba(255, 255, 255, 0.5);
-}
-</pre>
-</section>
-
-<section class="slide">
-	<h2>CSS efekty: zaoblené rohy</h2>
-<pre data-syntax="css">
-div {
-	border-radius: 5px;
-	border-radius: 50% 0 0 0;
-}
-</pre>
-</section>
-
-<section class="slide">
-	<h2>CSS efekty: stín písma</h2>
-<pre data-syntax="css">
-div {
-	text-shadow: 2px 1px 5px red;
-}
-</pre>
-	<ul>
-		<li>Možno zadat více stínů naráz</li>
-		<li>Nulové rozostření = kopie textu</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS efekty: stín HTML uzlu</h2>
-<pre data-syntax="css">
-div {
-	box-shadow: 2px 1px 5px red;
-	box-shadow: 2px 1px 5px 10px red;  /* spread */
-	box-shadow: inset 2px 1px 5px red; /* dovnitř */
-}
-</pre>
-	<ul>
-		<li>Možno zadat více stínů naráz</li>
-		<li>Respektuje zaoblené rohy</li>
-		<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow">Ukázka</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS efekty: barevné přechody</h2>
-	<ul>
-		<li>Linární (opakující se) barevné přechody</li>
-		<li>Kruhové (opakující se) barevné přechody</li>
-		<li>Možno zadat více přechodů naráz</li>
-		<li>Respektuje zaoblené rohy</li>
-		<li>Pouze jako forma obrázku na pozadí</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS efekty: barevné přechody</h2>
-	<pre id="example3">background-image: linear-gradient(45deg, red, yellow, green, blue, violet);</pre>
-	<pre id="example4">background-image: radial-gradient(red, yellow, rgb(30, 144, 255));</pre>
-	<pre id="example5">repeating-linear-gradient(to right, #f88, #f88 5px, #fff 5px, #fff 10px);</pre>
-	<style>
-		#example3 {
-			background-image: linear-gradient(45deg, red, yellow, green, blue, violet);
-		}
-		#example4 {
-			background-image: radial-gradient(red, yellow, rgb(30, 144, 255));
-		}
-		#example5 {
-			background-image: repeating-linear-gradient(to right, #f88, #f88 5px, white 5px, white 10px);
-		}
-		#example3, #example4, #example5 {
-			line-height: 80px;
-			text-align: center;
-		}
-	</style>
-</section>
-
-<section class="slide">
-	<h2>CSS filtry</h2>
-	<ul>
-		<li>Návrat kdysi proprietární vlastnosti <code>filter</code></li>
-		<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter">Dokumentace na MDN</a></li>
-		<li>Aplikace základních grafických filtrů na jednotlivé HTML prvky</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS filtry &ndash; ukázka</h2>
 	<pre data-syntax="css">
-filter: blur(5px);
-filter: brightness(0.4);
-filter: contrast(200%);
-filter: drop-shadow(16px 16px 20px blue);
-filter: grayscale(50%);
-filter: hue-rotate(90deg);
-filter: invert(75%);
-filter: opacity(25%);
-filter: saturate(30%);
-filter: sepia(60%);
-filter: url("filters.svg#filter-id");
-
-filter: contrast(175%) brightness(3%);
+div   { ... }
+a, em { ... }
+*     { ... }
 </pre>
 </section>
 
 <section class="slide">
-	<h2>CSS efekty: ukázky</h2>
-	<p><a href="http://lea.verou.me/css3patterns/" target="_blank">Lea Verou: CSS3 Patterns</a></p>
-	<p><a href="http://ondras.zarovi.cz/demos/nojs/" target="_blank">Prezentace bez JS</a></p>
-	<p><a href="http://www.shadycharacters.co.uk/" target="_blank">Stín a přechod jako dekorace textu</a></p>
+	<h2>Selektorový jazyk &ndash; základy</h2>
+	<ul>
+		<li>Mezera = hierarchický vztah, čteno zprava</li>
+	</ul>
+	<pre data-syntax="css">
+p a          { /* odkazy v odstavci */ }
+ul a         { /* odkazy v položkách seznamu */ }
+p *          { /* vše pod všemi odstavci */ }
+header li em { /* ? */ }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; atributy</h2>
+	<ul>
+		<li>Hranaté závorky = atributový filtr</li>
+		<li>Test na rovnost, začátek, konec, podmnožinu</li>
+	</ul>
+	<pre data-syntax="css">
+input[placeholder] { /* ty vstupní prvky, které mají atribut placeholder */ }
+input[type="text"] { /* test rovnosti hodnoty */ }
+div[class~="test"] { /* div, jehož atribut class obsahuje mezerou oddělený řetězec test */ }
+div[id^="article"] { /* atribut začíná na */ }
+div[id$="article"] { /* atribut končí na */ }
+div[id*="article"] { /* atribut obsahuje */ }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; zkratky pro <code>class</code> a <code>id</code></h2>
+	<ul>
+		<li>Mřížka: <code>[id=]</code></li>
+		<li>Tečka: <code>[class~=]</code></li>
+	</ul>
+	<pre data-syntax="css">
+div#id          { ... }
+#id             { ... }
+div.test        { ... }
+div.test1.test2 { ... }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; kombinátory</h2>
+	<ul>
+		<li>Větší než = přímý potomek</li>
+		<li>Plus = přímý následný sourozenec</li>
+		<li>Tilda = libovolný následný sourozenec</li>
+	</ul>
+	<pre data-syntax="css">
+body > * { /* značky přímo v body */ }
+img + p  { /* odstavec za obrázkem */ }
+h1 ~ img { /* obrázky, kterým předchází nadpis */ }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
+	<ul>
+		<li>Zápis pomocí dvojtečky</li>
+		<li>Slouží k popsání podmínek, které nemusí být ze stromu stránky patrny</li>
+		<li><code>:hover</code> = při nadjetí myší</li>
+		<li><code>:focus</code> = pokud má <em>focus</em></li>
+	</ul>
+	<pre data-syntax="css">
+a:hover     { font-weight: bold; }
+input:focus { border: 1px solid red; }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
+	<ul>
+		<li><code>:target</code> = právě aktivní kotva stránky</li>
+	</ul>
+	<pre data-syntax="css">
+p        { opacity: 0.5; }
+p:target { opacity: 1; }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
+	<ul>
+		<li><code>:enabled</code>, <code>:disabled</code>, <code>:checked</code>, <code>:required</code> = stav vstupního prvku</li>
+		<li><a href="http://jsfiddle.net/ondras/GyzKG/">Ukázka na jsfiddle.net</a></li>
+	</ul>
+	<pre data-syntax="css">
+input:checked + label { font-weight: bold; }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
+	<ul>
+		<li><code>:nth-child()</code>, <code>:first-child</code>, <code>:last-child</code> = pořadí v rámci sourozenců</li>
+	</ul>
+	<pre data-syntax="css">
+a:first-child     { /* odkaz, pokud je prvním potomkem svého rodiče */ }
+p:nth-child(2n+1) { /* liché odstavce */ }
+p:nth-child(odd)  { /* liché odstavce */ }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
+	<ul>
+		<li><code>:nth-of-type()</code> = pořadí v rámci sourozenců stejného typu</li>
+	</ul>
+	<pre data-syntax="css">
+img:nth-of-type(2n+1) { float: left; }
+img:nth-of-type(2n+0) { float: right; }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
+	<ul>
+		<li><code>:empty</code> = nemá-li potomky</li>
+	</ul>
+	<pre data-syntax="css">
+li:empty { display: none; }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
+	<ul>
+		<li><code>:empty</code> = nemá-li potomky</li>
+		<li><code>:only-child</code> = je-li jediný potomek</li>
+		<li><code>:not()</code> = negace</li>
+		<li><a href="http://jsfiddle.net/ondras/7JAT8/">Ukázka na jsfiddle.net</a></li>
+	</ul>
+	<pre data-syntax="css">
+p:not(:target)        { opacity: 0.5; }
+input:not([required]) { color: blue; }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Selektorový jazyk &ndash; pseudoprvky</h2>
+	<ul>
+		<li><code>::first-line</code> = první řádek textu</li>
+		<li><code>::first-letter</code> = první písmeno textu</li>
+		<li><a href="http://jsfiddle.net/ondras/A7S8f/">Ukázka na jsfiddle.net</a></li>
+	</ul>
+	<pre data-syntax="css">
+p::first-letter { font-size: 200%; }
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Bonus: generovaný obsah</h2>
+	<p><code>::before</code>, <code>::after</code> = falešný první a poslední potomek</p>
+	<pre data-syntax="css">
+li.good::before {
+	content: "✔ ";
+	color: green;
+}
+li.bad::before {
+	content: "✘ ";
+	color: red;
+}
+</pre>
+	<ul>
+		<li class="good"><code>&lt;li class="good"&gt;</code></li>
+		<li class="bad"><code>&lt;li class="bad"&gt;</code></li>
+	</ul>
+	<style>
+		li.good, li.bad { list-style-type: none; }
+		li.good::before {
+			content: "✔ ";
+			color: green;
+		}
+		li.bad::before {
+			content: "✘ ";
+			color: red;
+		}
+	</style>
+</section>
+
+<section class="slide">
+	<h2>Bonus: generovaný obsah</h2>
+	<p>Generovat lze i obrázky a hodnoty atributů</p>
+	<pre data-syntax="css">
+a[href^="http"]::before {
+	content: url(externi.png);
+}
+a[data-id]::after {
+	content: attr(data-id);
+	color: gray;
+}
+</pre>
+	<p><a href="http://jsfiddle.net/ondras/dhjpe/">Ukázka na jsfiddle.net</a></p>
+</section>
+
+<section class="slide">
+	<h2>Bonus: generovaný obsah</h2>
+	<p>Generovat lze také úvozovky</p>
+	<pre data-syntax="css">
+q {
+	quotes: "«" "»";
+}
+q::before {
+	content: open-quote;
+}
+q::after {
+	content: close-quote;
+}
+</pre>
+	<p><a href="http://jsfiddle.net/egyuf0p2/">Ukázka na jsfiddle.net</a></p>
+</section>
+
+
+<section class="slide">
+	<h2>Bonus: generovaný obsah</h2>
+	<p>
+		Podpora pro čítače: reset, změna hodnoty, výpis hodnoty
+		<button onclick="document.querySelector('#test_1').innerHTML = document.querySelector('#test_2').textContent">aplikovat</button>
+	</p>
+	<style id="test_1"></style>
+	<pre data-syntax="css" id="test_2">
+body {
+	counter-reset: kapitola;
+}
+
+h2 {
+	counter-increment: kapitola;
+}
+
+h2::before {
+	content: counter(kapitola) ". ";
+}
+</pre>
 </section>
 
 <section class="slide">

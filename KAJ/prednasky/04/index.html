@@ -9,14 +9,13 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>CSS 3</title>
-		<base target="_blank" />
+		<title>Události a asynchronní zpracování</title>
 	<body>
-		
-<h1>CSS 3</h1>
+
+<h1>Události a asynchronní zpracování</h1>
 
 <section class="slide">
-	<h2>CSS 3</h2>
+	<h2>Události a asynchronní zpracování</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -28,319 +27,326 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>Vývoj CSS</li>
-		<li>Selektorový jazyk &ndash; rekapitulace</li>
-		<li>Selektorový jazyk &ndash; atributy</li>
-		<li>Selektorový jazyk &ndash; kombinátory</li>
-		<li>Selektorový jazyk &ndash; pseudotřídy</li>
-		<li>Bonus: generovaný obsah</li>
+		<li>Události: opáčko</li>
+		<li>Události: objekt události</li>
+		<li>Události: capture a bubble</li>
+		<li>Události: posluchače</li>
+		<li>Asynchronní zpracování</li>
+		<li>Promises</li>
 	</ol>
 </section>
 
 <section class="slide">
-	<h2>Vývoj CSS</h2>
+	<h2>Události: opáčko</h2>
 	<ul>
-		<li>CSS 1 v roce 1994</li>
-		<li>CSS 2 v roce 1998 &ndash; příliš ambiciózní (stíny, průhlednost, &hellip;)</li>
-		<li>CSS 2.1 (2004&ndash;2011) reviduje nepodporované vlastnosti; celkem 115 definovaných vlastností</li>
-		<li>CSS 3 &ndash; modularizace (přes padesát modulů), přes 243 vlastností</li>
+		<li>Alternativní způsob řízení toku programu</li>
+		<li><em>Event-based programming</em></li>
+		<li><code>Až nastane X, udělej Y</code></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Podpora CSS 3</h2>
+	<h2>Události: opáčko</h2>
+	<pre data-syntax="js">
+var func = function(e) {
+	alert("...");
+}
+document.body.addEventListener("click", func, false);
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Události: opáčko</h2>
+	<p>Co je na událostech zajimavého?</p>
 	<ul>
-		<li>Velmi výrazně odlišná napříč prohlížeči</li>
-		<li><a href="http://caniuse.com/">caniuse.com</a></li>
-		<li>Důvod pro používání <em>bleeding edge</em> verzí</li>
+		<li>Na jakých vznikají prvcích?</li>
+		<li>Jaké existují?</li>
+		<li>Co obsahuje (jediný) parametr posluchače?</li>
+		<li>Jaký význam má třetí parametr <code>addEventListener</code>?</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Vendor prefix #1</h2>
+	<h2>Události: objekt události</h2>
 	<ul>
-		<li>Problém: výrobce chce podporovat technologii, která není plně standardizovaná</li>
-		<li>Implementací riskuje stížnosti při změně API</li>
-		<li>Řešení: vlastní prefix před názvem vlastnosti</li>
+		<li>Liší se podle typu události</li>
+		<li>Vždy obsahuje <code>target</code>, <code>currentTarget</code>, <code>timeStamp</code>, <code>type</code></li>
+		<li>Vždy obsahuje <code>stopPropagation</code> a <code>preventDefault</code></li>
 	</ul>
-	<pre class="section" data-syntax="css">
-div {
-	-webkit-transform: rotate(45deg);
-	-moz-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-	-o-transform: rotate(45deg);
-	transform: rotate(45deg);
+</section>
+
+<section class="slide">
+	<h2>Události klávesnice</h2>
+	<ul>
+		<li><code>keydown</code>, <code>keypress</code>, <code>keyup</code></li>
+		<li>Modifikátory <code>ctrlKey</code>, <code>altKey</code>, <code>shiftKey</code>, <code>metaKey</code></li>
+		<li>Stisk a uvolnění obsahuje <code>keyCode</code>
+			<ul>
+				<li>Identifikátor klávesy na klávesnici</li>
+				<li>Seznam na <a href="https://developer.mozilla.org/en-US/docs/DOM/KeyboardEvent">https://developer.mozilla.org/en-US/docs/DOM/KeyboardEvent</a></li>
+			</ul>
+		</li>
+		<li>Tištitelný keypress obsahuje <code>charCode</code>
+			<ul>
+				<li>Unicode code point znaku</li>
+				<li><code>String.fromCharCode</code> převede na znak</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Události myši</h2>
+	<ul>
+		<li><code>mousedown</code>, <code>mouseup</code>, <code>click</code>, <code>mouseover</code>, <code>mouseout</code>, <code>mousemove</code></li>
+		<li><code>clientX</code> a <code>clientY</code> &ndash; souřadnice kurzoru vůči průhledu</li>
+		<li><code>button</code> je tlačítko (0 = levé, 1 = prostřední, 2 = pravé)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Události dotykové</h2>
+	<ul>
+		<li><code>touchstart</code>, <code>touchmove</code>, <code>touchend</code>, (<code>gesturechange</code>)</li>
+		<li><code>touches</code> &ndash; pole všech dotyků</li>
+		<li><code>changedTouches</code> &ndash; pole změněných dotyků</li>
+		<li><code>targetTouches</code> &ndash; pole dotyků na cílovém prvku</li>
+		<li>Dotyk je mini-událost, obsahující pozici a doplňkové údaje (sílu stisku, velikost prstu a natočení)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Události ostatní</h2>
+	<ul>
+		<li><code>focus</code>, <code>blur</code></li>
+		<li><code>select</code>, <code>change</code>, <code>submit</code></li>
+		<li><code>scroll</code>, <code>resize</code></li>
+		<li><code>DOMContentLoaded</code></li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/DOM/Mozilla_event_reference">Kompletní soupis</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Capture a bubble #1</h2>
+	<ul>
+		<li>Třetí parametr pro <code>addEventListener</code> je <em>useCapture</em></li>
+		<li>Posluchače události jsou volány nejprve ve fázi capture, poté ve fázi bubble</li>
+		<li>Pořadí fází a volání viz <a href="img/event.gif">diagram</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Capture a bubble #2</h2>
+	<ul>
+		<li>Více posluchačů na stejném uzlu (ve stejné fázi) je voláno v definovaném pořadí</li>
+		<li>Zpracovávání události (mezi uzly) lze zastavit voláním <code>stopPropagation()</code></li>
+		<li>Zpracovávání události (v rámci uzlu) lze zastavit voláním <code>stopImmediatePropagation()</code></li>
+		<li>Metoda <code>preventDefault()</code> s tím nijak nesouvisí</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Capture a bubble #3</h2>
+	<ul>
+		<li>Některé události nebublají&hellip;</li>
+		<li>&hellip;ale i tyto procházejí capture</li>
+		<li><code>load</code>, <code>unload</code></li>
+		<li><code>focus</code>, <code>blur</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Posluchače událostí</h2>
+	<p>Varianta 1: posluchač je funkce</p>
+	<pre data-syntax="js">window.addEventListener("load", function(e) {
+	alert(e.target == this);
+});</pre>
+	<ul>
+		<li><code>this</code> je prvek, na kterém je posluchač zavěšen (nikoliv ten, kde událost vznikla)</li>
+		<li>Pokud chceme předat parametry nebo změnit this, použijeme <code>bind</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<p style="text-align: center"><img src="img/secret.jpg" /></p>
+</section>
+
+<section class="slide">
+	<h2>Posluchače událostí</h2>
+	<p>Varianta 2: posluchač je objekt</p>
+	<pre data-syntax="js">
+var obj = {
+	handleEvent: function(e) {
+		alert(this == obj);
+	}
+}
+window.addEventListener("load", obj);</pre>
+	<ul>
+		<li><code>obj</code> musí mít metodu <code>handleEvent</code></li>
+		<li><code>this</code> je posluchač</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Asynchronní zpracování</h2>
+	<ul>
+		<li>JavaScript je vykonáván v jednom vlákně</li>
+		<li>Není nutné řešit přerušení a synchronizaci vykonávání</li>
+		<li><em>Event loop</em></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Event loop</h2>
+	<pre data-syntax="js">
+var scheduledJS = "";
+var listeners = [];
+
+while (1) {
+	eval(scheduledJS); /* TADY se vykoná JS */
+
+	if (!listeners.length) break;
+
+	/* počkat, než bude čas na nejbližší posluchač */
+	var currentListener = waitFor(listeners);
+
+	/* naplánovat jej */
+	scheduledJS = listeners[currentListener];
+	delete listeners[currentListener];
 }</pre>
 </section>
 
 <section class="slide">
-	<h2>Vendor prefix #2</h2>
+	<h2>Zpožděné vykonávání</h2>
 	<ul>
-		<li>Psaní prefixů je opruz</li>
-		<li>Poslední dobou snahy o odprefixování</li>
-		<li>Preprocessing na straně serveru (generuje všechny)</li>
-		<li>Preprocessing na straně prohlížeče (generuje jen potřebné)</li>
+		<li>Je řada způsobů, jak "naplánovat" zpožděné vykonání kódu</li>
+		<li>XMLHttpRequest, addEventListener</li>
+		<li><pre data-syntax="js">
+setTimeout(  function() { /* ... */ }, 1000);
+setInterval( function() { /* ... */ }, 100);
+</pre></li>
+		<li>Pořadí určuje <del>lékař</del> prohlížeč, ale vždy nejprve v příští iteraci event loopu</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Selektorový jazyk &ndash; rekapitulace</h2>
+	<h2>Zpožděné vykonávání: this v callbacku</h2>
 	<ul>
-		<li>Selektor = řetězec, kterému může vyhovovat libovolné množství prvků v HTML stránce</li>
-		<li>Při změně stránky (DOM) se mění množina prvků, vyhovujících selektorům &rArr; nutnost znovuvyhodnocení</li>
-		<li>Stavební kameny selektorového jazyka: názvy značek, kombinační znaky, atributové filtry</li>
-		<li>Chytré selektory dovolují čistější kód a <a href="http://jsfiddle.net/ondras/oz18b7r0/">snižují nutnost JavaScriptu</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Selektorový jazyk &ndash; základy</h2>
-	<ul>
-		<li>Název značky = všechny uzly tohoto typu</li>
-		<li>Čárka = sjednocení</li>
-		<li>Hvězdička = všechny uzly</li>
-	</ul>
-	<pre data-syntax="css">
-div   { ... }
-a, em { ... }
-*     { ... }
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Selektorový jazyk &ndash; základy</h2>
-	<ul>
-		<li>Mezera = hierarchický vztah, čteno zprava</li>
-	</ul>
-	<pre data-syntax="css">
-p a          { /* odkazy v odstavci */ }
-ul a         { /* odkazy v položkách seznamu */ }
-p *          { /* vše pod všemi odstavci */ }
-header li em { /* ? */ }
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Selektorový jazyk &ndash; atributy</h2>
-	<ul>
-		<li>Hranaté závorky = atributový filtr</li>
-		<li>Test na rovnost, začátek, konec, podmnožinu</li>
-	</ul>
-	<pre data-syntax="css">
-input[placeholder] { /* ty vstupní prvky, které mají atribut placeholder */ }
-input[type="text"] { /* test rovnosti hodnoty */ }
-div[class~="test"] { /* div, jehož atribut class obsahuje mezerou oddělený řetězec test */ }
-div[id^="article"] { /* atribut začíná na */ }
-div[id$="article"] { /* atribut končí na */ }
-div[id*="article"] { /* atribut obsahuje */ }
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Selektorový jazyk &ndash; zkratky pro <code>class</code> a <code>id</code></h2>
-	<ul>
-		<li>Mřížka: <code>[id=]</code></li>
-		<li>Tečka: <code>[class~=]</code></li>
-	</ul>
-	<pre data-syntax="css">
-div#id          { ... }
-#id             { ... }
-div.test        { ... }
-div.test1.test2 { ... }
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Selektorový jazyk &ndash; kombinátory</h2>
-	<ul>
-		<li>Větší než = přímý potomek</li>
-		<li>Plus = přímý následný sourozenec</li>
-		<li>Tilda = libovolný následný sourozenec</li>
-	</ul>
-	<pre data-syntax="css">
-body > * { /* značky přímo v body */ }
-img + p  { /* odstavec za obrázkem */ }
-h1 ~ img { /* obrázky, kterým předchází nadpis */ }
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
-	<ul>
-		<li>Zápis pomocí dvojtečky</li>
-		<li>Slouží k popsání podmínek, které nemusí být ze stromu stránky patrny</li>
-		<li><code>:hover</code> = při nadjetí myší</li>
-		<li><code>:focus</code> = pokud má <em>focus</em></li>
-	</ul>
-	<pre data-syntax="css">
-a:hover     { font-weight: bold; }
-input:focus { border: 1px solid red; }
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
-	<ul>
-		<li><code>:target</code> = právě aktivní kotva stránky</li>
-	</ul>
-	<pre data-syntax="css">
-p        { opacity: 0.5; }
-p:target { opacity: 1; }
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
-	<ul>
-		<li><code>:enabled</code>, <code>:disabled</code>, <code>:checked</code>, <code>:required</code> = stav vstupního prvku</li>
-		<li><a href="http://jsfiddle.net/ondras/GyzKG/">Ukázka na jsfiddle.net</a></li>
-	</ul>
-	<pre data-syntax="css">
-input:checked + label { font-weight: bold; }
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
-	<ul>
-		<li><code>:nth-child()</code>, <code>:first-child</code>, <code>:last-child</code> = pořadí v rámci sourozenců</li>
-	</ul>
-	<pre data-syntax="css">
-a:first-child     { /* odkaz, pokud je prvním potomkem svého rodiče */ }
-p:nth-child(2n+1) { /* liché odstavce */ }
-p:nth-child(odd)  { /* liché odstavce */ }
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
-	<ul>
-		<li><code>:nth-of-type()</code> = pořadí v rámci sourozenců stejného typu</li>
-	</ul>
-	<pre data-syntax="css">
-img:nth-of-type(2n+1) { float: left; }
-img:nth-of-type(2n+0) { float: right; }
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
-	<ul>
-		<li><code>:empty</code> = nemá-li potomky</li>
-	</ul>
-	<pre data-syntax="css">
-li:empty { display: none; }
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Selektorový jazyk &ndash; pseudotřídy</h2>
-	<ul>
-		<li><code>:empty</code> = nemá-li potomky</li>
-		<li><code>:only-child</code> = je-li jediný potomek</li>
-		<li><code>:not()</code> = negace</li>
-		<li><a href="http://jsfiddle.net/ondras/7JAT8/">Ukázka na jsfiddle.net</a></li>
-	</ul>
-	<pre data-syntax="css">
-p:not(:target)        { opacity: 0.5; }
-input:not([required]) { color: blue; }
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Selektorový jazyk &ndash; pseudoprvky</h2>
-	<ul>
-		<li><code>::first-line</code> = první řádek textu</li>
-		<li><code>::first-letter</code> = první písmeno textu</li>
-		<li><a href="http://jsfiddle.net/ondras/A7S8f/">Ukázka na jsfiddle.net</a></li>
-	</ul>
-	<pre data-syntax="css">
-p::first-letter { font-size: 200%; }
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Bonus: generovaný obsah</h2>
-	<p><code>::before</code>, <code>::after</code> = falešný první a poslední potomek</p>
-	<pre data-syntax="css">
-li.good::before {
-	content: "✔ ";
-	color: green;
-}
-li.bad::before {
-	content: "✘ ";
-	color: red;
-}
-</pre>
-	<ul>
-		<li class="good"><code>&lt;li class="good"&gt;</code></li>
-		<li class="bad"><code>&lt;li class="bad"&gt;</code></li>
-	</ul>
-	<style>
-		li.good, li.bad { list-style-type: none; }
-		li.good::before {
-			content: "✔ ";
-			color: green;
-		}
-		li.bad::before {
-			content: "✘ ";
-			color: red;
-		}
-	</style>
-</section>
-
-<section class="slide">
-	<h2>Bonus: generovaný obsah</h2>
-	<p>Generovat lze i obrázky a hodnoty atributů</p>
-	<pre data-syntax="css">
-a[href^="http"]::before {
-	content: url(externi.png);
-}
-a[data-id]::after {
-	content: attr(data-id);
-	color: gray;
-}
-</pre>
-	<p><a href="http://jsfiddle.net/ondras/dhjpe/">Ukázka na jsfiddle.net</a></p>
-</section>
-
-<section class="slide">
-	<h2>Bonus: generovaný obsah</h2>
-	<p>Generovat lze také úvozovky</p>
-	<pre data-syntax="css">
-q {
-	quotes: "«" "»";
-}
-q::before {
-	content: open-quote;
-}
-q::after {
-	content: close-quote;
-}
-</pre>
-	<p><a href="http://jsfiddle.net/egyuf0p2/">Ukázka na jsfiddle.net</a></p>
-</section>
-
-
-<section class="slide">
-	<h2>Bonus: generovaný obsah</h2>
-	<p>
-		Podpora pro čítače: reset, změna hodnoty, výpis hodnoty
-		<button onclick="document.querySelector('#test_1').innerHTML = document.querySelector('#test_2').textContent">aplikovat</button>
-	</p>
-	<style id="test_1"></style>
-	<pre data-syntax="css" id="test_2">
-body {
-	counter-reset: kapitola;
+		<li>Pokud někam předávám funkci, s jakým <code>this</code> bude volána?</li>
+		<li><pre data-syntax="js">
+var Animal = function() {
+	setTimeout(this.eat, 3000);
 }
 
-h2 {
-	counter-increment: kapitola;
+Animal.prototype.eat = function() {
+	this.food += 3;
+}
+</pre></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Zpožděné vykonávání: this v callbacku</h2>
+	<ul>
+		<li><code>bind</code> pomůže</li>
+		<li><pre data-syntax="js">
+var Animal = function() {
+	setTimeout(this.eat.bind(this), 3000);
 }
 
-h2::before {
-	content: counter(kapitola) ". ";
+Animal.prototype.eat = function() {
+	this.food += 3;
 }
+</pre></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Zpožděné vykonávání: requestAnimationFrame</h2>
+	<ul>
+		<li><code>setTimeout</code> zní jako rozumné řešení pro JS animace</li>
+		<li><code>requestAnimationFrame</code> je výrazně vhodnější alternativa</li>
+		<li><pre data-syntax="js">
+requestAnimationFrame(function() {
+	/* animujeme... */
+});
+</pre></li>
+		<li>Prohlížeč sám volí vhodnou délku časového kroku (zpravidla okolo 60 fps)</li>
+		<li>Pozor na prefixy</li>
+		<li>Více info viz <a href="https://developer.mozilla.org/en-US/docs/DOM/window.requestAnimationFrame">MDN</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Promises</h2>
+	<ul>
+		<li>Při návrhu vlastního API narážíme na asynchronní funkce</li>
+		<li>Takové funkce vyžadují <code>callback</code></li>
+		<li>Kolikátý parametr? Co návratová hodnota? Co výjimky?</li>
+		<li>Co podmíněně asynchronní funkce?</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Promises</h2>
+	<ul>
+		<li>Návrhový vzor <code>Promise</code> nabízí výrazně přehlednější řízení asynchronního kódu</li>
+		<li>Promise je "krabička na časem získanou hodnotu"</li>
+		<li>(podmíněně) asynchronní funkce <strong>vrací</strong> Promise</li>
+		<li>Zájemce může na promise navěsit posluchače (dva různé)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Promises: ukázka</h2>
+	<pre data-syntax="js">
+var getData = function() {
+	var promise = new Promise();
+	/* ... */
+	return promise;
+}
+
+getData().then(
+    function(data) { alert(data); },
+    function(error) { alert(error); }
+);
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Promises: doplnění</h2>
+	<ul>
+		<li>Promise se může nacházet ve stavech "pending", "fulfilled", "rejected"</li>
+		<li>Fulfilled/rejected == "resolved"</li>
+		<li>Tvůrce promise ji mění, konzument jen poslouchá (<code>then</code>)</li>
+		<li>Vrátit lze již naplněnou promise</li>
+		<li>Volání <code>then()</code> vrací novou promise (‽) &rArr; řetězení</li>
+		<li>Některé prohlížeče Promise nabízejí, pro jiné existují knihovny</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Promises: tvorba a změna stavu</h2>
+	<ul>
+		<li>Je to složité!</li>
+		<li>&hellip;protože měnit stav smí jen producent</li>
+		<li>Tedy nic jako <code>Promise.prototype.fulfill = ...</code></li>
+		<li>API konstruktoru <code>new Promise</code> vyžaduje funkci, které budou <em>řídící nástroje</em> předány</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Promises: tvorba a změna stavu</h2>
+	<pre data-syntax="js">
+var promise = new Promise(function(resolve, reject) {
+    /* funkce dodaná tvůrcem Promise */
+    if (...) {
+    	resolve(value);
+    } else {
+    	reject(error);
+    }
+});
+return promise;
 </pre>
 </section>
 

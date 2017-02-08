@@ -9,13 +9,14 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>Události a asynchronní zpracování</title>
+		<title>SVG, Offline, Drag'n'Drop</title>
+		<base target="_blank" />
 	<body>
-
-<h1>Události a asynchronní zpracování</h1>
+		
+<h1>SVG, Offline, Drag'n'Drop</h1>
 
 <section class="slide">
-	<h2>Události a asynchronní zpracování</h2>
+	<h2>SVG, Offline, Drag'n'Drop</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -27,327 +28,327 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>Události: opáčko</li>
-		<li>Události: objekt události</li>
-		<li>Události: capture a bubble</li>
-		<li>Události: posluchače</li>
-		<li>Asynchronní zpracování</li>
-		<li>Promises</li>
+		<li>Scalable Vector Graphics</li>
+		<li>Offline + AppCache + Service Worker</li>
+		<li>Drag'n'Drop</li>
 	</ol>
 </section>
 
 <section class="slide">
-	<h2>Události: opáčko</h2>
+	<h2>SVG</h2>
 	<ul>
-		<li>Alternativní způsob řízení toku programu</li>
-		<li><em>Event-based programming</em></li>
-		<li><code>Až nastane X, udělej Y</code></li>
+		<li>Všechny prohlížeče krom IE&le;8</li>
+		<li>Prehistorický standard z roku 2001</li>
+		<li>VML pro IE&le;8</li>
+		<li>Rozšířený pro vektorovou grafiku</li>
+		<li>DOM, události, stylování</li>
+		<li>Horší výkon v porovnání s <code>&lt;canvas&gt;</code></li>
+		<li><a href="clock/">Ukázka hodiny</a>, <a href="http://ondras.zarovi.cz/demos/hex/?f=cr.emap">ukázka mapa</a></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Události: opáčko</h2>
-	<pre data-syntax="js">
-var func = function(e) {
-	alert("...");
-}
-document.body.addEventListener("click", func, false);
+	<h2>SVG je dialekt XML</h2>
+	<pre data-syntax="xml">
+&lt;svg width="500" height="300" viewBox="0 0 100 100"&gt;
+	&lt;circle cx="20" cy="50" r="20" /&gt;
+	&lt;g transform="rotate(45) translate(30, -30)"&gt;
+		&lt;rect x="0" y="-10" width="30" height="30"/&gt;
+		&lt;text x="30" y="10"&gt;SVG&lt;/text&gt;
+	&lt;/g&gt;
+&lt;/svg&gt;
+	</pre>
+	<svg width="500" height="300" viewBox="0 0 100 100">
+		<circle cx="20" cy="50" r="20" />
+		<g transform="rotate(45) translate(30, -30)">
+			<rect x="0" y="-10" width="30" height="30"/>
+			<text x="30" y="10">SVG</text>
+		</g>
+	</svg>
+</section>
+
+<section class="slide">
+	<h2>Míchání HTML a SVG</h2>
+	<table><tbody>
+		<tr>
+			<td>HTML4</td>
+			<td><code class="syntax-xml">&lt;embed&gt;</code>, <code class="syntax-xml">&lt;object&gt;</code>, <code class="syntax-xml">&lt;iframe&gt;</code></td>
+		</tr>
+		<tr>
+			<td>XHTML (text/xml)</td>
+			<td><code class="syntax-xml">&lt;svg xmlns="http://www.w3.org/2000/svg"&gt;</code></td>
+		</tr>
+		<tr>
+			<td>HTML5</td>
+			<td>Dedikovaná značka <code class="syntax-xml">&lt;svg&gt;</code></td>
+		</tr>
+		<tr>
+			<td>JS</td>
+			<td><code class="syntax-js">document.createElementNS()</code></td>
+		</tr>
+	</tbody></table>
+</section>
+
+<section class="slide">
+	<h2>Stavební kameny SVG</h2>
+	<ul>
+		<li><code>&lt;svg&gt;</code>, <code>&lt;g&gt;</code> (group)</li>
+		<li><code>&lt;rect&gt;</code>, <code>&lt;circle&gt;</code>, <code>&lt;ellipse&gt;</code>, <code>&lt;line&gt;</code>, <code>&lt;polyline&gt;</code>, <code>&lt;polygon&gt;</code></li>
+		<li><code>&lt;path d="M100,200 C100,100 250,100 250,200"&gt;</code></li>
+		<li>Barevné přechody (gradient), vzory (pattern)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>SVG &lt;path&gt; detailněji</h2>
+	<ul>
+		<li><code>M x y</code> &ndash; posun na absolutní pozici</li>
+		<li><code>m dx dy</code> &ndash; posun o relativní pozici</li>
+		<li><code>L x y (l dx dy)</code> &ndash; rovná čára</li>
+		<li><code>Q x1 y1, x y</code> &ndash; kvadratická Bézierova křivka</li>
+		<li><code>C x1 y1, x2 y2, x y</code> &ndash; kubická Bézierova křivka</li>
+		<li><code>A rx ry x-axis-rotation <a href="img/arc.png" target="_blank">large-arc-flag sweep-flag</a> x y</code> &ndash; eliptická křivka</li>
+		<li><code>Z</code> &ndash; spojit se začátkem</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>SVG barevné přechody</h2>
+	<svg width="300" height="200" style="float:right">
+		<defs>
+			<linearGradient id="gradient">
+				<stop offset="0%" stop-color="red"/>
+				<stop offset="50%" stop-color="black"/>
+				<stop offset="100%" stop-color="blue"/>
+			</linearGradient>
+		</defs>
+		<rect fill="url(#gradient)" x="0" y="0" width="100%" height="100%" />
+	</svg>
+	<pre data-syntax="xml">
+&lt;defs&gt;
+	&lt;linearGradient id="gradient"&gt;
+		&lt;stop offset="0%" stop-color="red" /&gt;
+		&lt;stop offset="50%" stop-color="black" /&gt;
+		&lt;stop offset="100%" stop-color="blue" /&gt;
+	&lt;/linearGradient&gt;
+&lt;/defs&gt;
+&lt;rect fill="url(#gradient)" x="0" y="0" width="100%" height="100%" /&gt;
 </pre>
 </section>
 
 <section class="slide">
-	<h2>Události: opáčko</h2>
-	<p>Co je na událostech zajimavého?</p>
+	<h2>SVG &lt;pattern&gt;</h2>
+	<svg width="300" height="200" style="float:right">
+		<defs>
+			<pattern id="pattern" width="0.25" height="0.333">
+				<circle cx="25" cy="25" r="20" fill="#00f">
+			</pattern>
+		</defs>
+		<rect fill="url(#pattern)" x="0" y="0" width="100%" height="100%" />
+	</svg>
+	<pre data-syntax="xml">
+&lt;defs&gt;
+	&lt;pattern id="pattern" width="0.25" height="0.333"&gt;
+		&lt;circle cx="25" cy="25" r="20" fill="#00f" /&gt;
+	&lt;/pattern&gt;
+&lt;/defs&gt;
+&lt;rect fill="url(#pattern)" x="0" y="0" width="100%" height="100%" /&gt;
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Stylování SVG</h2>
 	<ul>
-		<li>Na jakých vznikají prvcích?</li>
-		<li>Jaké existují?</li>
-		<li>Co obsahuje (jediný) parametr posluchače?</li>
-		<li>Jaký význam má třetí parametr <code>addEventListener</code>?</li>
+		<li>Pomocí atributů (<code>stroke</code>, <code>color</code>, <code>opacity</code>, &hellip;)</li>
+		<li>Pomocí CSS</li>
+	</ul>
+	<pre data-syntax="css" class="section">circle {
+	fill: yellow; stroke: red;
+}
+rect {
+	fill: none; stroke: black;
+	stroke-width: 2;
+}
+text {
+	text-anchor: middle; font-size: 10px;
+}</section>
+
+<section class="slide">
+	<h2>SVG a JavaScript</h2>
+	<ul>
+		<li>Práce stejně jako s DOM stránky</li>
+		<li>Tvorba prvků přes <code data-syntax="js">document.createElementNS("http://www.w3.org/2000/svg", "...")</code></li>
+		<li>Změna hodnot pomocí <code>setAttribute</code></li>
+		<li>Běžná práce s událostmi pomocí <code>addEventListener</code></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Události: objekt události</h2>
+	<h2>Offline API</h2>
+	<p>Webová aplikace má k dispozici JS API, které informuje o stavu připojení.</p>
 	<ul>
-		<li>Liší se podle typu události</li>
-		<li>Vždy obsahuje <code>target</code>, <code>currentTarget</code>, <code>timeStamp</code>, <code>type</code></li>
-		<li>Vždy obsahuje <code>stopPropagation</code> a <code>preventDefault</code></li>
+		<li><code data-syntax="js">navigator.onLine</code></li>
+		<li><code data-syntax="js">window.addEventListener("online", ...)</code></li>
+		<li><code data-syntax="js">window.addEventListener("offline", ...)</code></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Události klávesnice</h2>
+	<h2>App Cache</h2>
 	<ul>
-		<li><code>keydown</code>, <code>keypress</code>, <code>keyup</code></li>
-		<li>Modifikátory <code>ctrlKey</code>, <code>altKey</code>, <code>shiftKey</code>, <code>metaKey</code></li>
-		<li>Stisk a uvolnění obsahuje <code>keyCode</code>
-			<ul>
-				<li>Identifikátor klávesy na klávesnici</li>
-				<li>Seznam na <a href="https://developer.mozilla.org/en-US/docs/DOM/KeyboardEvent">https://developer.mozilla.org/en-US/docs/DOM/KeyboardEvent</a></li>
-			</ul>
+		<li>Webová aplikace poskytuje tzv. <em>offline manifest</em>, výčet souborů pro použití offline
+			<pre data-syntax="xml">&lt;html manifest="mysite.manifest"&gt;</pre>
 		</li>
-		<li>Tištitelný keypress obsahuje <code>charCode</code>
-			<ul>
-				<li>Unicode code point znaku</li>
-				<li><code>String.fromCharCode</code> převede na znak</li>
-			</ul>
-		</li>
+		<li>Pokud je uživatel offline a pokusí se přistoupit na adresu webové aplikace, prohlížeč mu poskytne soubory definované v manifestu</li>
+		<li>Pokud je uživatel online a nezměnil se čas modifikace manifestu, opět se použije cachovaná verze</li>
+		<li>Při změně souborů (a manifestu) jsou data jen stažena a připravena na použití příště</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Události myši</h2>
+	<h2>App Cache Manifest</h2>
+	<pre data-syntax="shell">CACHE MANIFEST
+	
+# soubory určené k použití offline
+offline/index.html
+offline/style.css
+offline/code.js
+
+# tyto soubory se nikdy nesmí cachovat
+NETWORK
+remote.cgi
+
+# tyto soubory, pokud nedostupné, budou nahrazeny jinými
+FALLBACK
+images/large offline/sorry.jpg</pre>
+</section>
+
+<section class="slide">
+	<h2>App Cache</h2>
+	<p>lehce obskurní <a href="http://ondras.zarovi.cz/demos/morgan/">ukázka</a>, její <a href="http://ondras.zarovi.cz/demos/morgan/morgan.manifest">manifest</a></p>
+</section>
+
+<section class="slide">
+	<h2>applicationCache API</h2>
+	<p>JS API pro práci s offline cache.</p>
 	<ul>
-		<li><code>mousedown</code>, <code>mouseup</code>, <code>click</code>, <code>mouseover</code>, <code>mouseout</code>, <code>mousemove</code></li>
-		<li><code>clientX</code> a <code>clientY</code> &ndash; souřadnice kurzoru vůči průhledu</li>
-		<li><code>button</code> je tlačítko (0 = levé, 1 = prostřední, 2 = pravé)</li>
+		<li><code data-syntax="js">window.applicationCache</code> &ndash; objekt popisující stav offline cache, též možnost explicitně cache obnovit</li>
+		<li><code data-syntax="js">if (applicationCache.status == applicationCache.UPDATEREADY) { ... }</code></li>
+		<li><code data-syntax="js">applicationCache.update()</code> &ndash; pokyn ke kontrole novější verze (jako při reloadu)</li>
+		<li><code data-syntax="js">applicationCache.swapCache()</code> &ndash; přepnutí na aktuální verzi souborů (nutný reload)</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Události dotykové</h2>
+	<h2>Service Worker</h2>
 	<ul>
-		<li><code>touchstart</code>, <code>touchmove</code>, <code>touchend</code>, (<code>gesturechange</code>)</li>
-		<li><code>touches</code> &ndash; pole všech dotyků</li>
-		<li><code>changedTouches</code> &ndash; pole změněných dotyků</li>
-		<li><code>targetTouches</code> &ndash; pole dotyků na cílovém prvku</li>
-		<li>Dotyk je mini-událost, obsahující pozici a doplňkové údaje (sílu stisku, velikost prstu a natočení)</li>
+		<li>Modernější alternativa k AppCache</li>
+		<li>Konfigurace (AppCache) vs. logika (Service Worker)</li>
+		<li><a href="http://caniuse.com/#feat=serviceworkers">Mizerná podpora</a></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Události ostatní</h2>
+	<h2>Jak funguje Service Worker</h2>
+	<img src="img/serviceworker.jpg" style="width:90%" />
+</section>
+
+<section class="slide">
+	<h2>Jak funguje Service Worker</h2>
 	<ul>
-		<li><code>focus</code>, <code>blur</code></li>
-		<li><code>select</code>, <code>change</code>, <code>submit</code></li>
-		<li><code>scroll</code>, <code>resize</code></li>
-		<li><code>DOMContentLoaded</code></li>
-		<li><a href="https://developer.mozilla.org/en-US/docs/DOM/Mozilla_event_reference">Kompletní soupis</a></li>
+		<li>Service Worker je skript, dodaný autorem stránky</li>
+		<li>Je prohlížečem vykonáván bokem, asynchronně, nezávisle na stránce, pro kterou pracuje</li>
+		<li>Service Worker může manipulovat s HTTP požadavky stránky, kterou obsluhuje</li>
+		<li>Service Worker nemá k dispozici DOM</li>
+		<li>Lze použít jen na HTTPS stránkách</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Capture a bubble #1</h2>
-	<ul>
-		<li>Třetí parametr pro <code>addEventListener</code> je <em>useCapture</em></li>
-		<li>Posluchače události jsou volány nejprve ve fázi capture, poté ve fázi bubble</li>
-		<li>Pořadí fází a volání viz <a href="img/event.gif">diagram</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Capture a bubble #2</h2>
-	<ul>
-		<li>Více posluchačů na stejném uzlu (ve stejné fázi) je voláno v definovaném pořadí</li>
-		<li>Zpracovávání události (mezi uzly) lze zastavit voláním <code>stopPropagation()</code></li>
-		<li>Zpracovávání události (v rámci uzlu) lze zastavit voláním <code>stopImmediatePropagation()</code></li>
-		<li>Metoda <code>preventDefault()</code> s tím nijak nesouvisí</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Capture a bubble #3</h2>
-	<ul>
-		<li>Některé události nebublají&hellip;</li>
-		<li>&hellip;ale i tyto procházejí capture</li>
-		<li><code>load</code>, <code>unload</code></li>
-		<li><code>focus</code>, <code>blur</code></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Posluchače událostí</h2>
-	<p>Varianta 1: posluchač je funkce</p>
-	<pre data-syntax="js">window.addEventListener("load", function(e) {
-	alert(e.target == this);
+	<h2>Service Worker &ndash; ukázka</h2>
+	<pre data-syntax="js">
+navigator.serviceWorker.register("/worker.js").then(function(reg) {
+	console.log("Service worker ready");
 });</pre>
-	<ul>
-		<li><code>this</code> je prvek, na kterém je posluchač zavěšen (nikoliv ten, kde událost vznikla)</li>
-		<li>Pokud chceme předat parametry nebo změnit this, použijeme <code>bind</code></li>
-	</ul>
+	<p>Řízení asynchronního toku kódu je realizováno pomocí vzoru Promise.</p>
 </section>
 
 <section class="slide">
-	<p style="text-align: center"><img src="img/secret.jpg" /></p>
-</section>
-
-<section class="slide">
-	<h2>Posluchače událostí</h2>
-	<p>Varianta 2: posluchač je objekt</p>
+	<h2>Service Worker &ndash; ukázka</h2>
 	<pre data-syntax="js">
-var obj = {
-	handleEvent: function(e) {
-		alert(this == obj);
-	}
-}
-window.addEventListener("load", obj);</pre>
-	<ul>
-		<li><code>obj</code> musí mít metodu <code>handleEvent</code></li>
-		<li><code>this</code> je posluchač</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Asynchronní zpracování</h2>
-	<ul>
-		<li>JavaScript je vykonáván v jednom vlákně</li>
-		<li>Není nutné řešit přerušení a synchronizaci vykonávání</li>
-		<li><em>Event loop</em></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Event loop</h2>
-	<pre data-syntax="js">
-var scheduledJS = "";
-var listeners = [];
-
-while (1) {
-	eval(scheduledJS); /* TADY se vykoná JS */
-
-	if (!listeners.length) break;
-
-	/* počkat, než bude čas na nejbližší posluchač */
-	var currentListener = waitFor(listeners);
-
-	/* naplánovat jej */
-	scheduledJS = listeners[currentListener];
-	delete listeners[currentListener];
-}</pre>
-</section>
-
-<section class="slide">
-	<h2>Zpožděné vykonávání</h2>
-	<ul>
-		<li>Je řada způsobů, jak "naplánovat" zpožděné vykonání kódu</li>
-		<li>XMLHttpRequest, addEventListener</li>
-		<li><pre data-syntax="js">
-setTimeout(  function() { /* ... */ }, 1000);
-setInterval( function() { /* ... */ }, 100);
-</pre></li>
-		<li>Pořadí určuje <del>lékař</del> prohlížeč, ale vždy nejprve v příští iteraci event loopu</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Zpožděné vykonávání: this v callbacku</h2>
-	<ul>
-		<li>Pokud někam předávám funkci, s jakým <code>this</code> bude volána?</li>
-		<li><pre data-syntax="js">
-var Animal = function() {
-	setTimeout(this.eat, 3000);
-}
-
-Animal.prototype.eat = function() {
-	this.food += 3;
-}
-</pre></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Zpožděné vykonávání: this v callbacku</h2>
-	<ul>
-		<li><code>bind</code> pomůže</li>
-		<li><pre data-syntax="js">
-var Animal = function() {
-	setTimeout(this.eat.bind(this), 3000);
-}
-
-Animal.prototype.eat = function() {
-	this.food += 3;
-}
-</pre></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Zpožděné vykonávání: requestAnimationFrame</h2>
-	<ul>
-		<li><code>setTimeout</code> zní jako rozumné řešení pro JS animace</li>
-		<li><code>requestAnimationFrame</code> je výrazně vhodnější alternativa</li>
-		<li><pre data-syntax="js">
-requestAnimationFrame(function() {
-	/* animujeme... */
+self.addEventListener("install", function(event) {
+	console.log("SW (či jeho nová verze) nainstalován");
 });
-</pre></li>
-		<li>Prohlížeč sám volí vhodnou délku časového kroku (zpravidla okolo 60 fps)</li>
-		<li>Pozor na prefixy</li>
-		<li>Více info viz <a href="https://developer.mozilla.org/en-US/docs/DOM/window.requestAnimationFrame">MDN</a></li>
-	</ul>
-</section>
 
-<section class="slide">
-	<h2>Promises</h2>
-	<ul>
-		<li>Při návrhu vlastního API narážíme na asynchronní funkce</li>
-		<li>Takové funkce vyžadují <code>callback</code></li>
-		<li>Kolikátý parametr? Co návratová hodnota? Co výjimky?</li>
-		<li>Co podmíněně asynchronní funkce?</li>
-	</ul>
-</section>
+self.addEventListener("activate", function(event) {
+	console.log("SW (či jeho nová verze) aktivován");
+});
 
-<section class="slide">
-	<h2>Promises</h2>
-	<ul>
-		<li>Návrhový vzor <code>Promise</code> nabízí výrazně přehlednější řízení asynchronního kódu</li>
-		<li>Promise je "krabička na časem získanou hodnotu"</li>
-		<li>(podmíněně) asynchronní funkce <strong>vrací</strong> Promise</li>
-		<li>Zájemce může na promise navěsit posluchače (dva různé)</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Promises: ukázka</h2>
-	<pre data-syntax="js">
-var getData = function() {
-	var promise = new Promise();
-	/* ... */
-	return promise;
-}
-
-getData().then(
-    function(data) { alert(data); },
-    function(error) { alert(error); }
-);
+self.addEventListener("fetch", function(event) {
+	console.log("HTTP požadavek ze stránky");
+	event.respondWith(new Response("Hello world!"));
+});
 </pre>
 </section>
 
 <section class="slide">
-	<h2>Promises: doplnění</h2>
+	<h2>Service Worker &ndash; další využití</h2>
 	<ul>
-		<li>Promise se může nacházet ve stavech "pending", "fulfilled", "rejected"</li>
-		<li>Fulfilled/rejected == "resolved"</li>
-		<li>Tvůrce promise ji mění, konzument jen poslouchá (<code>then</code>)</li>
-		<li>Vrátit lze již naplněnou promise</li>
-		<li>Volání <code>then()</code> vrací novou promise (‽) &rArr; řetězení</li>
-		<li>Některé prohlížeče Promise nabízejí, pro jiné existují knihovny</li>
+		<li>Synchronizace dat na pozadí</li>
+		<li>Cachování</li>
+		<li>Preprocessing zdrojů na klientu</li>
+		<li>Šablonování</li>
+		<li>Pre-fetch</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Promises: tvorba a změna stavu</h2>
+	<h2>Drag'n'Drop</h2>
 	<ul>
-		<li>Je to složité!</li>
-		<li>&hellip;protože měnit stav smí jen producent</li>
-		<li>Tedy nic jako <code>Promise.prototype.fulfill = ...</code></li>
-		<li>API konstruktoru <code>new Promise</code> vyžaduje funkci, které budou <em>řídící nástroje</em> předány</li>
+		<li>Přetahování věcí ve stránce a do stránky</li>
+		<li>Překvapivě složité</li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/DragDrop/Drag_Operations">Dokumentace na MDN</a></li>
+		<li><a href="http://html5demos.com/drag">Ukázka 1</a>, <a href="http://mapy.cz/">Ukázka 2</a></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Promises: tvorba a změna stavu</h2>
-	<pre data-syntax="js">
-var promise = new Promise(function(resolve, reject) {
-    /* funkce dodaná tvůrcem Promise */
-    if (...) {
-    	resolve(value);
-    } else {
-    	reject(error);
-    }
+	<h2>Drag'n'Drop: zahájení tažení</h2>
+	<ul>
+		<li>Soubor do okna prohlížeče</li>
+		<li>HTML prvek s atributem <code>draggable</code></li>
+		<li>Událost <code>dragstart</code></li>
+		<li>Vlastnost <code>dataTransfer</code> v události obsahuje relevantní metadata</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Drag'n'Drop: práce s dataTransfer</h2>
+<pre data-syntax="js">
+div.addEventListener("dragstart", function(e) {
+	e.dataTransfer.setData("text/plain", "http://www.seznam.cz");
+	e.dataTransfer.setDragImage(image, offsetX, offsetY);
+	e.dataTransfer.effectAllowed = "copyMove";
+	e.dataTransfer.dropEffect = "copy";
 });
-return promise;
 </pre>
+</section>
+
+<section class="slide">
+	<h2>Drag'n'Drop: tažení</h2>
+	<ul>
+		<li>Události <code>dragenter</code>, <code>dragover</code>, <code>dragleave</code></li>
+		<li>Pokud má být nad prvkem tažení ukončitelné, je nutné událost "preventovat" (<code>preventDefault()</code>)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Drag'n'Drop: puštění</h2>
+	<ul>
+		<li>Událost <code>drop</code></li>
+		<li>Pokud událost zpracujeme, voláme <code>preventDefault</code></li>
+		<li>Vlastnost <code>e.dataTransfer.files</code> je pole souborů, jsou-li jaké</li>
+	</ul>
 </section>
 
 <section class="slide">

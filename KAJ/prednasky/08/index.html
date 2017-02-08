@@ -9,13 +9,13 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>Ajax, XHR, HTTP a jejich kamarádi</title>
+		<title>CSS transitions, animations, efekty</title>
 	<body>
 		
-<h1>Ajax, XHR, HTTP a jejich kamarádi</h1>
+<h1>CSS transitions, animations, efekty</h1>
 
 <section class="slide">
-	<h2>Ajax, XHR, HTTP a jejich kamarádi</h2>
+	<h2>CSS transitions, animations, efekty</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -27,370 +27,417 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>XHR a HTTP</li>
-		<li>CORS</li>
-		<li>Transportní formáty</li>
-		<li>Relevantní drobnosti</li>
-		<li>Web Sockets</li>
+		<li>Transitions</li>
+		<li>Animations</li>
+		<li>Filtry</li>
+		<li>Ostatní efekty</li>
 	</ol>
 </section>
 
 <section class="slide">
-	<h2>Ajax &ndash; motivace</h2>
-	<p style="text-align: center; height:70%">
-		<img style="height:100%; margin-right:1em" src="img/ajax1.jpg" alt="Ajax" />
-		<img style="height:100%" src="img/ajax2.jpg" alt="Ajax" />
-	</p>
-</section>
-
-<section class="slide">
-	<h2>Ajax</h2>
+	<h2>CSS transitions</h2>
 	<ul>
-		<li>Asynchronous JavaScript and XML</li>
-		<li>Označení zpravidla používána chybně</li>
-		<li>Požadavky nemusí být asynchronní</li>
-		<li>Přenášet se dá cokoliv (nejen XML)</li>
+		<li>V rámci životního cyklu stránky často dochází ke změnám CSS hodnot</li>
+		<li>Změny hodnot jsou okamžité a skokové</li>
+		<li>Pomocí transition lze tyto změny provádět plynule (animovaně)</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>XMLHttpRequest</h2>
+	<h2>CSS transitions: ukázka</h2>
+<pre data-syntax="css">
+div {
+	background-color: blue;
+	width: 200px;
+	height: 200px;
+	transition: all 3s;
+}
+div:hover {
+	width: 600px;
+	background-color: red;
+}
+</pre>
+	<div id="example1"></div>
+	<style>
+		#example1 {
+			background-color: blue;
+			width: 200px;
+			height: 200px;
+			transition: all 3s;
+			-moz-transition: all 3s;
+			-webkit-transition: all 3s;
+			position: absolute;
+			right: 0;
+			top: 3em;
+		}
+		#example1:hover {
+			width: 600px;
+			background-color: red;
+		}
+	</style>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions: vlastnosti</h2>
 	<ul>
-		<li>XMLHttpRequest je alfou a omegou pro bohaté webové aplikace</li>
-		<li>Možnost provést HTTP požadavek</li>
-		<li>Dočítání dat, odesílání informací</li>
-		<li>V moderních prohlížečích není nutná žádná abstrakce</li>
+		<li>Meta-vlastnost <code>transition</code></li>
+		<li>Individuálně lze upřesnit <code>transition-property</code>, <code>transition-duration</code>, <code>transition-timing-function</code>, <code>transition-delay</code></li>
+		<li>Častno nutnost prefixování</li>
+		<li>Žádný JavaScript</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>XMLHttpRequest API</h2>
+	<h2>CSS transitions: transition-property</h2>
+	<ul>
+		<li>Plynule lze měnit řadu vlastností, ne však všechny</li>
+		<li>Je nutné dbát na kompatibilní hodnoty (<code>px</code> vs. <code>%</code> vs. <code>auto</code>)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions: transition-duration</h2>
+	<ul>
+		<li>Jak dlouho plynulá změna trvá</li>
+		<li>Povolené jednotky <code>s</code> a <code>ms</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions: transition-timing-function</h2>
+	<ul>
+		<li>Jak interpolovat hodnoty v závislosti na čase</li>
+		<li>Interpolační funkci možno zadat klíčovým slovem nebo předpisem</li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/CSS/timing-function" target="_blank">Přehled na MDN</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions: steps</h2>
+<pre data-syntax="css">
+div {
+	background-image: url(sprite.png);
+	background-position: 0 0;
+	transition: background-position 500ms steps(11);
+}
+div:hover {
+	background-position: -8800px 0;
+}
+</pre>
+	<div id="example-steps"></div>
+	<style>
+		#example-steps {
+			width: 800px;
+			height: 480px;
+			background-image: url(sprite.png);
+			background-position: 0 -100px;
+			transition: background-position 500ms steps(11);
+		}
+		#example-steps:hover {
+			background-position: -8800px -100px;
+		}
+	</style>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions: transition-delay</h2>
+	<ul>
+		<li>Zpoždění animace po změně vlastnosti</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS transitions: pozor na implementaci vykreslování!</h2>
 	<pre data-syntax="js">
-var xhr = new XMLHttpRequest();
+var div = document.createElement("div");
+div.style.transition = "all 3s";
+div.style.color = "red";
+document.body.appendChild(div);
 
-xhr.onreadystatechange = /* ... */;
-xhr.addEventListener("readystatechange", /* ... */);
-
-xhr.open(metoda, url, async);
-xhr.send(data);
+div.style.color = "blue";
+/* ??? */
 </pre>
 </section>
 
 <section class="slide">
-	<h2>XMLHttpRequest API</h2>
-	<ul>
-		<li>Lze použít jakoukoliv HTTP metodu</li>
-		<li>Synchronní požadavek blokuje vykreslovací vlákno</li>
-		<li>URL požadavku podstupuje kontrolu <em>originu</em> (viz dále)</li>
-		<li>Použití <code>onreadystatechange</code> vs. <code>addEventListener</code> jako u běžných DOM událostí</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>XMLHttpRequest API: doplňková funkcionalita</h2>
-	<ul>
-		<li><code>setRequestHeader(name, value)</code></li>
-		<li><code>getResponseHeader(name)</code>, <code>getAllResponseHeaders()</code></li>
-		<li><code>abort()</code></li>
-		<li><code>overrideMimeType()</code></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>XMLHttpRequest API: vlastnosti a data odpovědi</h2>
-	<ul>
-		<li><code>xhr.readyState</code> je stav požadavku (4 = hotovo)</li>
-		<li><code>xhr.status</code> je HTTP kód odpovědi (200 = OK)</li>
-		<li><code>xhr.responseText</code> jsou data odpovědi</li>
-		<li><code>xhr.responseXML</code> jsou data odpovědi ve formátu XML, jsou-li k dispozici</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>XMLHttpRequest 2</h2>
-	<ul>
-		<li>Rozšíření se zpětně kompatibilním API</li>
-		<li>Události <em>progress</em>, <em>load</em>, <em>error</em>, <em>abort</em></li>
-		<li>To samé na objektu <code>xhr.upload</code></li>
-		<li><code>xhr.responseType</code> = "arraybuffer", "blob", "document", "json", "text"</li>
-		<li><code>xhr.response</code></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Nuda!</h2>
-	<p style="text-align: center;"><span></span><img src="img/unicorn.png" alt="" /></p>
-</section>
-
-<section class="slide">
-	<h2>Origin a CORS</h2>
-	<ul>
-		<li>XHR nelze poslat na jakékoliv URL</li>
-		<li>Kvůli bezpečnosti!</li>
-		<li>Protože součastí požadavku jsou cookies, HTTP autorizace, certifikáty&hellip;</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Origin a CORS: potenciální riziko</h2>
+	<h2>CSS transitions: pozor na implementaci vykreslování!</h2>
 	<pre data-syntax="js">
-var xhr = new XMLHttpRequest();
-xhr.open("get", "http://gmail.com/", true);
-xhr.send();
+div.style.color = "red";
+div.offsetWidth;
+div.style.color = "blue";
+</pre>
 
-xhr.onreadystatechange = function() {
-	alert(this.responseText);
+	<pre data-syntax="js">
+div.style.color = "red";
+setTimeout(function() {
+	div.style.color = "blue";
+}, 0);
+</pre>
+</section>
+
+<section class="slide">
+	<h2>CSS animations</h2>
+	<ul>
+		<li>Vylepšení techniky transitions</li>
+		<li>Navazování změn</li>
+		<li>Možnost vykonávání ve smyčce</li>
+		<li>Řádově složitější syntaxe</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS animations: syntaxe</h2>
+	<ul>
+		<li>Definice rozdělena na dvě komponenty</li>
+		<li>V první části popis metadat animace (jak rychle, opakování, směr, časování, &hellip;)</li>
+		<li>V druhé části popis jednotlivých vizuálních vlastností v průběhu animace</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS animations: ukázka</h2>
+	<div id="example2"></div>
+<pre data-syntax="css">
+div {
+	animation: posun 4s linear infinite;
+}
+
+@keyframes posun {
+	0%, 100% { right: 0px;   top: 100px; }
+	25%      { right: 200px; top: 100px; }
+	50%      { right: 200px; top: 300px; }
+	75%      { right: 0px;   top: 300px; }
 }</pre>
-</section>
-
-<section class="slide">
-	<h2>Origin a CORS: omezení originem</h2>
-	<ul>
-		<li>XHR jsou v základu omezeny jen na URL se stejným <em>originem</em></li>
-		<li>origin = schema + host + port</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Cross-origin bez XHR?</h2>
-	<ul>
-		<li>Odbočka pro zvídavé</li>
-		<li><code data-syntax="xml">&lt;img src="http://gmail.com/" /&gt;</code></li>
-		<li><code data-syntax="xml">&lt;form method="post" action="http://gmail.com/sendEmail" /&gt;</code></li>
-		<li>Nelze získat data odpovědi</li>
-		<li>Formulářový útok je CSRF</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CORS: technika pro cross-origin XHR</h2>
-	<ul>
-		<li>Cross Origin Resource Sharing</li>
-		<li>Skvělá podpora prohlížečů</li>
-		<li>Myšlenka: zeptat se backendu, jestli je ochoten takovýto požadavek přijmout</li>
-		<li>Pokud ne (default), odpověď se zahodí</li>
-		<li>Pokud ano, odpověď se vrátí</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CORS: implementace</h2>
-	<ul>
-		<li>HTTP hlavička požadavku <code>Origin</code></li>
-		<li>Podpora inzerovaná v hlavičce odpovědi <code>Access-Control-Allow-Origin</code></li>
-		<li>Požadavek se <strong>vždy</strong> provede</li>
-		<li>U složitějších požadavků (file upload, DELETE, &hellip;) je realizace podstatně složitější (<em>preflight</em>)</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CORS: poznámky</h2>
-	<ul>
-		<li>Autor veřejného API by měl posílat <code>Access-Control-Allow-Origin</code></li>
-		<li>Nouzové řešení je server-side proxy (stejný origin)</li>
-		<li>Kompletní čtení na <a href="http://enable-cors.org/">http://enable-cors.org/</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Nuda!</h2>
-	<p style="text-align: center;"><span></span><img src="img/monkey.png"  alt="" /></p>
-</section>
-
-<section class="slide">
-	<h2>Transportní formáty</h2>
-	<ul>
-		<li>Data lze posílat v mnoha formátech</li>
-		<li>Žádný není nejlepší</li>
-		<li>Upload zpravidla neřešíme</li>
-		<li>Download podle potřeby</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Transportní formáty: plain text</h2>
-	<p>(to není žádný formát)</p>
-</section>
-
-<section class="slide">
-	<h2>Transportní formáty: XML</h2>
-	<ul>
-		<li>Odpověď musí být validní XML</li>
-		<li>Odpověď musí mít platný XML mime type (nebo overrideMimeType)</li>
-		<li><code data-syntax="js">xhr.responseXML instanceof DOMDocument</code></li>
-		<li>Dotazování přes DOM nebo XPath</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Transportní formáty: JSON</h2>
-	<ul>
-		<li>Populární textový formát (<a href="http://json.org/">http://json.org/</a>)</li>
-		<li>Podmnožina JavaScriptu</li>
-		<li>Řetězce, čísla, bool, pole, struktury, null</li>
-		<li>Absence speciálních číselných hodnot, undefined, Date, RegExp</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Transportní formáty: JSON</h2>
-	<pre data-syntax="js">{
-	"name": "jan",
-	"data": [3, 4, true]
-}</pre>
-	<ul>
-		<li>Klíče musí být ohraničeny úvozovkami</li>
-		<li><code>JSON.parse</code> a <code>JSON.stringify</code></li>
-		<li><code>eval</code> jako zpětná kompatibilita</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Transportní formáty: binárně</h2>
-	<ul>
-		<li>Lze, ale je obtížné (cross-browser)</li>
-		<li>Odesílání ještě horší</li>
-		<li>U XMLHttpRequest 2 lze přes <code>responseType</code> a <code>send(binaryData)</code></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>JSONP</h2>
-	<ul>
-		<li>NENÍ transportní formát</li>
-		<li>Úplně jiná technika přenosu dat</li>
-		<li>Způsob obcházení cross-origin restriction</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>JSONP: ukázka</h2>
-	<pre data-syntax="xml">
-&lt;!-- vložit do dokumentu --&gt;
-&lt;script src="http://api.com/service?callback=mojeFunkce"&gt;&lt;/script&gt;
-</pre>
-
-	<pre data-syntax="js">
-/* opdpověď serveru */
-mojeFunkce({name: "jan", data: [3, 4, true]});
-</pre>
-</section>
-
-<section class="slide">
-	<h2>fetch()</h2>
-	<ul>
-		<li>Nové, právě standardizované rozhraní</li>
-		<li>Podobné jako XMLHttpRequest, ale jednodušší</li>
-		<li>Asynchronní řízení pomocí <em>Promises</em></li>
-		<li>K dispozici je <a href="https://github.com/github/fetch">polyfill</a></li>
-	</ul>
-</section>
-
-
-<section class="slide">
-	<h2>fetch()</h2>
-	<pre data-syntax="js">
-fetch("/nejaky/soubor.json")
-	.then(function(response) {
-		if (response.status != 200) {
-			console.log("HTTP status", response.status);
-			return;
+	<style>
+		#example2 {
+			animation: posun 4s linear infinite;
+			-moz-animation: posun 4s linear infinite;
+			-webkit-animation: posun 4s linear infinite;
+			background-color: blue;
+			width: 200px;
+			height: 200px;
+			position: absolute;
 		}
 
-		response.json().then(function(data) {
-			console.log(data);
-		});
-	})
-	.catch(function(err) {
-		console.log("Error", err);
-	});
-</pre>
-</section>
+		@keyframes posun {
+			0%, 100% { right: 0px; top: 100px;}
+			25% { right: 200px; top: 100px;}
+			50% { right: 200px; top: 300px;}
+			75% { right: 0px; top: 300px;}
+		}
 
-<section class="slide">
-	<h2>Doplňkové informace #1</h2>
-	<ul>
-		<li>Prohlížeče omezují počet současných XHR na stránku (zpravidla 4)</li>
-		<li>HTTP požadavek musí být iniciován klientem</li>
-		<li>Technika <em>long poll</em>/<em>comet</em>: pošlu HTTP požadavek; server odpoví, až bude mít data</li>
-		<li>Server takto může notifikovat, ale musí držet mnoho otevřených spojení</li>
-	</ul>
-</section>
+		@-moz-keyframes posun {
+			0%, 100% { right: 0px; top: 100px;}
+			25% { right: 200px; top: 100px;}
+			50% { right: 200px; top: 300px;}
+			75% { right: 0px; top: 300px;}
+		}
 
-<section class="slide">
-	<h2>Doplňkové informace #2</h2>
-	<ul>
-		<li>Velikost přenášených dat (a jejich formát a následné zpracování) může razantně ovlivňovat výkon aplikace</li>
-		<li>Ladění XHR vždy ve spolupráci s vyvojářskými nástroji prohlížeče</li>
-		<li>V případě nouze wireshark/tcpdump</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Web Sockets</h2>
-	<ul>
-		<li>Snaha o zpřístupnění duplexní komunikace v prohlížeči</li>
-		<li>Notifikace ze strany serveru</li>
-		<li>Persistentní spojení</li>
-		<li>Léta draftů</li>
-		<li><a id="demo" href="http://bit.ly/1lBDw4W">bit.ly/1lBDw4W</a></li>
-	</ul>
-	<style>
-		#demo { font-size: 200%; }
+		@-webkit-keyframes posun {
+			0%, 100% { right: 0px; top: 100px;}
+			25% { right: 200px; top: 100px;}
+			50% { right: 200px; top: 300px;}
+			75% { right: 0px; top: 300px;}
+		}
 	</style>
 </section>
 
 <section class="slide">
-	<h2>Web Sockets: princip</h2>
+	<h2>CSS animations: definice animace</h2>
 	<ul>
-		<li>Trvale otevřené spojení na server</li>
-		<li>Možnost oboustranného posílání dat</li>
-		<li>Vlastní protokol postavený nad HTTP Upgrade</li>
-		<li>Žádná spojitost s BSD sockety</li>
+		<li>Meta-vlastnost <code>animation</code></li>
+		<li>Individuálně lze upřesnit:
+			<ul>
+				<li><code>animation-name</code></li>
+				<li><code>animation-duration</code></li>
+				<li><code>animation-timing-function</code></li>
+				<li><code>animation-delay</code></li>
+				<li><code>animation-iteration-count</code></li>
+				<li><code>animation-direction</code></li>
+				<li><code>animation-fill-mode</code></li>
+				<li><code>animation-play-state</code></li>
+			</ul>
+		</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Web Sockets: klientská část</h2>
-	<pre data-syntax="js">
-var socket = new WebSocket("ws://server.tld:1234/");
+	<h2>CSS animation: animation-iteration-count</h2>
+	<ul>
+		<li>Počet iterací</li>
+		<li>Hodnota <code>infinite</code> značí nekonečnou smyčku</li>
+	</ul>
+</section>
 
-socket.onopen = function(e) {
-	socket.send("data");
+<section class="slide">
+	<h2>CSS animation: animation-direction</h2>
+	<ul>
+		<li>Směr vykonávání jednotlivých iterací</li>
+		<li><code>normal</code>, <code>reverse</code>, <code>alternate</code>, <code>alternate-reverse</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS animation: animation-fill-mode</h2>
+	<ul>
+		<li>Jak aplikovat styly pokud animace neběží</li>
+		<li>Povolené hodnoty:
+			<ul>
+				<li><code>none</code></li>
+				<li><code>forwards</code> &ndash; styly z posledního aplikovaného keyframe</li>
+				<li><code>backwards</code> &ndash; styly z prvního aplikovaného keyframe</li>
+				<li><code>both</code> &ndash; obojí</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS animation: animation-play-state</h2>
+	<ul>
+		<li>running/paused &ndash; možnost pozastavit animaci</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS animation: @keyframes</h2>
+	<ul>
+		<li>Definice vzhledu v jednotlivých krocích animace</li>
+		<li>
+			<pre data-syntax="css">
+@keyframes test {
+	from, 33% { /* ... */ }
+	to        { /* ... */ }
+}
+@-moz-keyframes {}
+@-webkit-keyframes {}</pre>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS efekty: průhlednost</h2>
+<pre data-syntax="css">
+div {
+	background-color: white;
+	opacity: 0.5;
 }
 
-socket.onmessage = function(e) {
-	alert(e.data);
-	socket.close();
+div {
+	background-color: rgba(255, 255, 255, 0.5);
 }
 </pre>
 </section>
 
 <section class="slide">
-	<h2>Web Sockets: serverová část</h2>
+	<h2>CSS efekty: zaoblené rohy</h2>
+<pre data-syntax="css">
+div {
+	border-radius: 5px;
+	border-radius: 50% 0 0 0;
+}
+</pre>
+</section>
+
+<section class="slide">
+	<h2>CSS efekty: stín písma</h2>
+<pre data-syntax="css">
+div {
+	text-shadow: 2px 1px 5px red;
+}
+</pre>
 	<ul>
-		<li>Ta nás nezajímá!</li>
-		<li>Nutný specializovaný software</li>
-		<li>Knihovny pro řadu jazyků (PHP, Python, TeaJS, node.js, &hellip;)</li>
+		<li>Možno zadat více stínů naráz</li>
+		<li>Nulové rozostření = kopie textu</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Web Sockets: protokol</h2>
+	<h2>CSS efekty: stín HTML uzlu</h2>
+<pre data-syntax="css">
+div {
+	box-shadow: 2px 1px 5px red;
+	box-shadow: 2px 1px 5px 10px red;  /* spread */
+	box-shadow: inset 2px 1px 5px red; /* dovnitř */
+}
+</pre>
 	<ul>
-		<li>Vlastní binární protokol</li>
-		<li>Komunikace začíná HTTP požadavkem s hlavičkou Upgrade</li>
-		<li>Zpětná kompatibilita s existujícími webovými servery</li>
-		<li>CORS</li>
+		<li>Možno zadat více stínů naráz</li>
+		<li>Respektuje zaoblené rohy</li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow">Ukázka</a></li>
 	</ul>
 </section>
 
-<section class="slide" id="noimage">
+<section class="slide">
+	<h2>CSS efekty: barevné přechody</h2>
+	<ul>
+		<li>Linární (opakující se) barevné přechody</li>
+		<li>Kruhové (opakující se) barevné přechody</li>
+		<li>Možno zadat více přechodů naráz</li>
+		<li>Respektuje zaoblené rohy</li>
+		<li>Pouze jako forma obrázku na pozadí</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS efekty: barevné přechody</h2>
+	<pre id="example3">background-image: linear-gradient(45deg, red, yellow, green, blue, violet);</pre>
+	<pre id="example4">background-image: radial-gradient(red, yellow, rgb(30, 144, 255));</pre>
+	<pre id="example5">repeating-linear-gradient(to right, #f88, #f88 5px, #fff 5px, #fff 10px);</pre>
 	<style>
-		#noimage:after { display: none; }
+		#example3 {
+			background-image: linear-gradient(45deg, red, yellow, green, blue, violet);
+		}
+		#example4 {
+			background-image: radial-gradient(red, yellow, rgb(30, 144, 255));
+		}
+		#example5 {
+			background-image: repeating-linear-gradient(to right, #f88, #f88 5px, white 5px, white 10px);
+		}
+		#example3, #example4, #example5 {
+			line-height: 80px;
+			text-align: center;
+		}
 	</style>
+</section>
+
+<section class="slide">
+	<h2>CSS filtry</h2>
+	<ul>
+		<li>Návrat kdysi proprietární vlastnosti <code>filter</code></li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/filter">Dokumentace na MDN</a></li>
+		<li>Aplikace základních grafických filtrů na jednotlivé HTML prvky</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS filtry &ndash; ukázka</h2>
+	<pre data-syntax="css">
+filter: blur(5px);
+filter: brightness(0.4);
+filter: contrast(200%);
+filter: drop-shadow(16px 16px 20px blue);
+filter: grayscale(50%);
+filter: hue-rotate(90deg);
+filter: invert(75%);
+filter: opacity(25%);
+filter: saturate(30%);
+filter: sepia(60%);
+filter: url("filters.svg#filter-id");
+
+filter: contrast(175%) brightness(3%);
+</pre>
+</section>
+
+<section class="slide">
+	<h2>CSS efekty: ukázky</h2>
+	<p><a href="http://lea.verou.me/css3patterns/" target="_blank">Lea Verou: CSS3 Patterns</a></p>
+	<p><a href="http://ondras.zarovi.cz/demos/nojs/" target="_blank">Prezentace bez JS</a></p>
+	<p><a href="http://www.shadycharacters.co.uk/" target="_blank">Stín a přechod jako dekorace textu</a></p>
+</section>
+
+<section class="slide">
 	<h2>Prostor pro otázky</h2>
-	<p style="height:70%; text-align:center"><img style="height:100%" src="img/ajax3.jpg" alt="Ajax" /></p>
 </section>
 
 <footer>
