@@ -1,0 +1,3 @@
+[submodule "KAJ/jsslides"]
+	path = KAJ/jsslides
+	url = https://github.com/ondras/jsslides
