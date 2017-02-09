@@ -1,0 +1,73 @@
+<section class="slide" contenteditable onkeydown="event.stopPropagation()">
+	<h2>Atribut contenteditable</h2>
+	<p><code contenteditable="true" data-syntax="xml">&lt;div contenteditable="true"&gt;ahoj&lt;/div&gt;</code></p>
+	<ul>
+		<li>Obsah prvku lze po kliknutí upravovat</li>
+		<li>Základní stavební prvek WYSIWYG editorů (nikoliv GDrive)</li>
+		<li>Manipulace pomocí DOM + Range</li>
+		<li>Bonus: v takovém prvku lze použít <code>execCommand</code> API</li>
+		<li><code data-syntax="js">document.execCommand("bold")</code></li>
+		<li>Implementace execCommand nekonzistentní, <a href="https://developer.mozilla.org/en-US/docs/Web/API/document.execCommand">dokumentace</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Atribut contenteditable &ndash; range &amp; selection</h2>
+	<ul>
+		<li>Při práci s WYSIWYG editorem často pracujeme s vybraným textem</li>
+		<li>Rozhraní <a href="https://developer.mozilla.org/en-US/docs/Web/API/Selection"><code>Selection</code></a> je <em>nesouvislá množina výběrů</em></li>
+		<li>Rozhraní <a href="https://developer.mozilla.org/en-US/docs/Web/API/Range"><code>Range</code></a> je <em>jeden rozsah označeného textu</em></li>
+		<li>Obě rozhraní nabízí komplexní API</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Objekt <code>Range</code></h2>
+	<ul>
+		<li>Rozsah textu</li>
+		<li>Od (uzel, pozice), do (uzel, pozice)</li>
+		<li>Nesouvisí přímo s vizuální stránkou</li>
+	</ul>
+	<pre data-syntax="js">
+var range = document.createRange();
+r.collapsed; // true: start = end
+
+r.set{Start,End}{Before,After}(node);
+r.selectNode(node);
+r.selectNodeContents(node);
+
+// ... manipulace s vybraným fragmentem, porovnávání s jiným rozsahem
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Objekt <code>Selection</code></h2>
+	<ul>
+		<li>Historicky množina rozsahů, nyní typicky jen jeden</li>
+		<li>Vizuální reprezentace</li>
+		<li>Možno ovlivňovat programově nebo myší/klávesnicí</li>
+	</ul>
+	<pre data-syntax="js">
+var sel = document.getSelection();
+sel.addRange(range); // range je nyní vidět
+
+sel.removeAllRanges();
+
+sel.getRangeAt(0);
+sel.deleteFromDocument();
+
+sel.anchorNode; // zde táhnutí započalo
+sel.focusNode;  // zde táhnutí ukončilo
+</pre>
+</section>
+
+<section class="slide">
+	<h2>Jdeme s dobou: HTTP/2</h2>
+	<ul>
+		<li>HTTP též prochází pozvolnou modernizací</li>
+		<li>V roce 2015 vyšla verze HTTP/2</li>
+		<li>Mnoho novinek, mimo rozsah předmětu</li>
+		<li>Slušná podpora klientů, na serveru horší</li>
+		<li>V praxi jen ve spojení s HTTPS</li>
+	</ul>
+</section>

@@ -1,4 +1,3 @@
-<!-- IIFE, iterace + fcionalni, DOM create/classList, merge s #2 -->
 <!doctype html>
 <html>
 	<head>
@@ -24,8 +23,9 @@
 	<h2>Obsah</h2>
 	<ol>
 		<li>O předmětu</li>
-		<li>Opáčko</li>
-		<li>Rodina technologií HTML5</li>
+		<li>Kompatibilita napříč prohlížeči</li>
+		<li>JavaScript pro středně pokročilé</li>
+		<li>Vybrané partie DOM API</li>
 	</ol>
 </section>
 
@@ -56,6 +56,7 @@
 		<li>Semestrální práce</li>
 		<li>Přednášky: RNDr. Ondřej Žára, Seznam.cz</li>
 		<li>Cvičení: Bc. Zdeněk Vlach, Seznam.cz</li>
+		<li>Cvičení: Bc. Petr Huřťák, Seznam.cz</li>
 	</ul>
 </section>
 
@@ -65,12 +66,13 @@
 		<li><a href="https://developer.mozilla.org/">https://developer.mozilla.org/</a></li>
 		<li><a href="http://caniuse.com/">http://caniuse.com/</a></li>
 		<li>Google</li>
+		<li><del>Stack Overflow</del></li>
 		<li><a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Kniha!</h2>
+	<h2>Kniha</h2>
 	<p style="float:right; margin-top:-1em"><img style="height:80vh" src="http://storage.cpress.cz/images/large/891d6de967cf23e151fb48f888f3a433.jpg" /></p>
 	<ul>
 		<li>JavaScript &ndash; Programátorské techniky a webové technologie</li>
@@ -81,57 +83,23 @@
 </section>
 
 <section class="slide">
-	<h2>Good news, everyone!</h2>
+	<h2>Sylabus předmětu</h2>
 	<p>
-		<img src="img/Farnsworth.png" style="float:right" />
-		Stránky předmětu na <a href="http://cvut.seznam.cz/">cvut.seznam.cz</a>
+		<img src="img/sylabus.png" />
 	</p>
 </section>
 
 <section class="slide">
-	<h2>Opáčko: koncept HTTP</h2>
+	<h2>Web předmětu</h2>
 	<ul>
-		<li>HTTP je textový komunikační protokol</li>
-		<li>HTTP je bezstavový</li>
-		<li>HTTP požadavek obsahuje hlavičky a volitelně tělíčko</li>
-		<li>HTTP odpověď obsahuje hlavičky a volitelně tělíčko</li>
-		<li>HTTP přenáší cokoliv, nejen HTML</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Jdeme s dobou: HTTP/2</h2>
-	<ul>
-		<li>HTTP též prochází pozvolnou modernizací</li>
-		<li>V roce 2015 vyšla verze HTTP/2</li>
-		<li>Mnoho novinek, mimo rozsah předmětu</li>
-		<li>Slušná podpora klientů, na serveru horší</li>
-		<li>V praxi jen ve spojení s HTTPS</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Opáčko: koncept HTML</h2>
-	<ul>
-		<li>HTML je značkovací jazyk</li>
-		<li>Do prostého textu jsou doplněny značky</li>
-		<li>Množina a význam dostupných značek se mění s verzí standardu</li>
-		<li>Stavební kameny: značky, atributy, entity, komentáře, &hellip;</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Opáčko: webové prohlížeče</h2>
-	<ul>
-		<li>Webový prohlížeč je neuvěřitelně komplikovaný software</li>
-		<li>Komponenty: síť, renderer, interpret JS</li>
-		<li>Prohlížeče na desktopu, mobilních zařízeních, ostatní (TV, ledničky, &hellip;)</li>
-		<li>Mozilla Firefox, Google Chrome, Opera, Internet Explorer / Edge, Apple Safari</li>
+		<li>Stránky předmětu na <a href="http://cvut.seznam.cz/">cvut.seznam.cz</a></li>
+		<li>(Nové) pořadí témat: JS, síť, CSS, multimédia</li>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>Standard HTML5</h2>
+	<p><a href="https://html.spec.whatwg.org/">https://html.spec.whatwg.org/</a></p>
 	<ul>
 		<li>
 			<img src="img/w3c.png" alt="w3c logo" /> + <img src="img/whatwg.png" alt="whatwg logo" />
@@ -160,7 +128,7 @@
 		<li>Editor Ian Hickson</li>
 		<li>Aktuálně <del><em>Working Draft</em></del> <em>Recommendation</em></li>
 		<li><em>Living standard</em></li>
-		<li>7MB, 104k řádek</li>
+		<li>téměř 9MB textu, 85k řádek</li>
 		<li>Vývoj pomocí mailinglistu <a href="mailto:whatwg@whatwg.org">whatwg@whatwg.org</a></li>
 		<li><em>Dozorčí rada</em> (WHATWG members)</li>
 		<li>2004 &ndash; <del>2022</del> 2014</li>
@@ -168,92 +136,294 @@
 </section>
 
 <section class="slide">
-	<h2>Rodina technologií HTML5</h2>
+	<h2>Webové prohlížeče</h2>
+	<table>
+		<thead>
+			<tr>
+				<td>Jméno</td><td>Verze</td><td>Renderer</td><td>JavaScript</td><td>Poznámka</td>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>Mozilla Firefox</td><td>51</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
+			</tr>
+			<tr>
+				<td>Google Chrome</td><td>56</td><td>Blink/WebKit</td><td>V8</td><td></td>
+			</tr>
+			<tr>
+				<td>Apple Safari</td><td>10</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
+			</tr>
+			<tr>
+				<td>Microsoft Internet Explorer</td><td>11</td><td>Trident</td><td>Chakra</td><td>Zajímavý až od verze 9</td>
+			</tr>
+			<tr>
+				<td>Microsoft Edge</td><td>14</td><td>EdgeHTML</td><td>Chakra</td><td></td>
+			</tr>
+			<tr>
+				<td>Opera</td><td>12/42</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
+			</tr>
+		</tbody>
+	</table>
+</section>
+
+<section class="slide">
+	<h2>Webové prohlížeče: mobilní</h2>
 	<ul>
-		<li>Značkovací jazyk</li>
-		<li>Definice zpracování chyb</li>
-		<li>CSS3</li>
-		<li>ECMAScript 5, 6/2015, další verze</li>
-		<li>Nová JS API (canvas, websockets, storage, geolocation, &hellip;)</li>
+		<li>Apple Mobile Safari (iOS)</li>
+		<li>Android Browser (Android)</li>
+		<li>Opera Mobile (Android, Symbian, Windows Mobile)</li>
+		<li>Firefox for Android (Android)</li>
+		<li>Chrome for Android (Android, trošičku iOS)</li>
+		<li>Internet Explorer Mobile (Windows Mobile)</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Minimální dokument HTML5</h2>
-	<h3>Validní!</h3>
-<code class="block" data-syntax="xml">&lt;!doctype html&gt;
-&lt;title&gt;This is a title&lt;/title&gt;
-&lt;p&gt;This is a paragraph.
+	<h2>Webové prohlížeče: zpětná kompatibilita</h2>
+	<ul>
+		<li>Nutnost definovat podporovaný <em>feature set</em></li>
+		<li>Oříznout starý prohlížeč znamená připravit se o uživatele</li>
+		<li>Oříznout starý prohlížeč znamená motivovat k upgrade</li>
+		<li>Časté aktualizace = snazší rozhodování</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Webové prohlížeče: co kdo umí</h2>
+	<ul>
+		<li><a href="http://caniuse.com/">http://caniuse.com/</a>
+			<ul>
+				<li>Srovnávací tabulky</li>
+				<li>Odkazy na testy</li>
+			</ul>
+		</li>
+		<li><a href="https://developer.mozilla.org/cs/">Mozilla Developer Network</a>
+			<ul>
+				<li>Dokumentace</li>
+				<li>Ukázky</li>
+			</ul>
+		</li>
+		<li><a href="http://diveintohtml5.info/detect.html">Feature detection</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Volitelné nabízení pokročilých technologií</h2>
+	<ul>
+		<li><strong>Progressive enhancement:</strong> nabízet základní funkcionalitu a volitelně přidávat</li>
+		<li><strong>Graceful degradation:</strong> nabízet pokročilou funkcionalitu a v případě nouze couvnout</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Polyfill</h2>
+	<p><strong>Polyfill:</strong> JavaScriptový kód, který je schopen doplnit chybějící funkcionalitu při zachování kompatibilního API</p>
+	<code class="block" data-syntax="js">if (!("onhashchange" in window)) {
+	var oldHash = window.hash;
+	setInterval(function() {
+		if (window.hash == oldHash) return;
+		oldHash = window.hash;
+		if (window.onhashchange) window.onhashchange();
+	}, 100);
+}
 </code>
 </section>
 
 <section class="slide">
-	<h2>HTML5 versus XHTML</h2>
+	<h2>JavaScript pro středně pokročilé</h2>
 	<ul>
-		<li>Neexistuje žádný "XML-friendly" dialekt HTML5</li>
-		<li>HTML5 je možné psát tak, aby zůstalo validní XML</li>
-		<li><em>Polyglot markup</em></li>
-		<li>Speciální doctype, uzavírání značek, atributy s hodnotami</li>
+		<li>Očekáváme znalost na úrovni základního kurzu (proměnná, funkce, <code>querySelector</code>, <code>addEventListener</code>)</li>
+		<li>Pokročilé partie jazyka nás čekají příště</li>
+		<li>Co zbývá: console API, iterace, IIFE</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>RDFa, mikroformáty, mikrodata, JSON-LD</h2>
-	<p>Různé techniky pro označování sémantických dat v HTML</p>
-	<code class="block" data-syntax="xml">&lt;p&gt;
-	&lt;span&gt;Ondřej Žára&lt;/span&gt; 
-	&lt;span&gt;Seznam.cz&lt;/span&gt;
-	&lt;span&gt;JavaScript developer&lt;/span&gt;
-&lt;/p&gt;</code>
-	<p><img src="img/snippet.png" alt="google snippet" /></p>
+	<h2>JS: console API</h2>
+	<p>Vývojářské nástroje v každém prohlížeči (typicky <kbd>F12</kbd>)</p>
+	<code class="block" data-syntax="js">console.log("...");
+console.log("test", 123, ["pole", "hodnot"]);
+console.log("Formatovani %s", "retezcu");
+
+console.warn("warning");
+console.error("crash");
+
+console.time("test");
+console.timeEnd("test");
+</code>
+	<p>Více info v <a href="https://developer.mozilla.org/en-US/docs/Web/API/Console">kompletní dokumentaci</a>.</p>
 </section>
 
 <section class="slide">
-	<h2>RDFa, mikrodata, JSON-LD</h2>
-	<code class="block" data-syntax="xml">&lt;!-- RDFa --&gt;
-&lt;p xmlns:v="http://rdf.data-vocabulary.org/#" typeof="v:Person"&gt; 
-	&lt;span property="v:name"&gt;Ondřej Žára&lt;/span&gt; 
-	&lt;span property="v:affiliation"&gt;Seznam.cz&lt;/span&gt; 
-	&lt;span property="v:title"&gt;JavaScript developer&lt;/span&gt; 
-&lt;/p&gt;
+	<h2>JS: iterace struktur/objektů</h2>
+	<code class="block" data-syntax="js">var data = {
+	jmeno: "Eva",
+	prijmeni: "Stará",
+	vek: 74
+};
 
-&lt;!-- Microdata --&gt;
-&lt;p itemscope itemtype="http://data-vocabulary.org/Person"&gt; 
-	&lt;span itemprop="name"&gt;Ondřej Žára&lt;/span&gt; 
-	&lt;span itemprop="affiliation"&gt;Seznam.cz&lt;/span&gt; 
-	&lt;span itemprop="role"&gt;JavaScript developer&lt;/span&gt; 
-&lt;/p&gt;
-
-&lt;!-- JSON-LD --&gt;
-&lt;script type="application/ld+json"&gt;
-{ ... JSON ... }
-&lt;/script&gt;</code>
-	<p>Dříve i tzv. <em>Mikroformáty</em>, dnes již nepodporováno.</p>
+for (var p in data) {
+	console.log(p); // "jmeno", "prijmeni", "vek"
+}
+</code>
 </section>
 
 <section class="slide">
-	<h2>Microdata podrobněji</h2>
+	<h2>JS: iterace polí</h2>
+	<code class="block" data-syntax="js">var data = [15, "babicka", true];
+
+// spravne
+for (var i=0; i&lt;data.length; i++) {
+	console.log(i); // 0, 1, 2
+	console.log(data[i]); // 15, "babicka", true
+}
+
+// spatne &ndash; ale proc?
+for (var p in data) {
+	console.log(p); // 0, 1, 2
+}
+</code>
+</section>
+
+<section class="slide">
+	<h2>JS: iterace polí</h2>
 	<ul>
-		<li>Atributy <code>item*</code> (zpravidla <code>itemscope</code>, <code>itemtype</code>, <code>itemprop</code>)</li>
-		<li>Validní v HTML5</li>
-		<li><a href="http://schema.org/">http://schema.org/</a> &ndash; kolekce <em>schémat</em> (sémantických typů)</li>
-		<li><a href="http://www.google.com/webmasters/tools/richsnippets">Rich Snippet Testing Tool</a></li>
+		<li>Cyklus <code>for-in</code> <em>občas</em> funguje</li>
+		<li>Ale někdy vyústí v nečekané (nesprávné) výsledky</li>
+		<li>Jde totiž o výčet klíčů &rArr; a těch může být jiný počet, než hodnot
+			<ul>
+				<li><em>sparse arrays:</em> <code>new Array(10)</code></li>
+				<li>obohacená pole: <code>Array.prototype.X = ...</code></li>
+			</ul>
+		</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>JSON-LD podrobněji</h2>
-<code class="block" data-syntax="js">&lt;script type="application/ld+json"&gt;
-{
-	"@context": "http://schema.org",
-	"@type": "Person",
-	"name": "Ondřej Žára",
-	"image": "http://ondras.zarovi.cz/img/oz.jpg",
-	"jobTitle": "JavaScript developer",
-	"address": "Prague, Czech Republic",
-	"affiliation": "http://www.seznam.cz/"
-}                                                                                                                                              
-&lt;/script&gt;</code>
+	<h2>JS: funkcionální iterace</h2>
+	<ul>
+		<li>Přístup známý z tzv. funkcionálního programování</li>
+		<li>Aplikace uživatelem zadané funkce na (některé) položky pole</li>
+		<li>V řadě případů kratší / expresivnější zápis</li>
+		<li>Obliba použití roste s ES6 (třetí přednáška)</li>
+		<li>Kompletní <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Iteration_methods">dokumentace na MDN</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>JS: funkcionální iterace I</h2>
+	<code class="block" data-syntax="js">var data = [15, "babicka", true];
+
+/* anonymni funkce */
+data.forEach(function(item, index) {
+	console.log(item); // 15, "babicka", true
+});
+
+/* pojmenovana funkce */
+function log(item, index) {
+	console.log(index);
+}
+data.forEach(log); // 0, 1, 2
+</code>
+</section>
+
+<section class="slide">
+	<h2>JS: funkcionální iterace II</h2>
+	<code class="block" data-syntax="js">var data = [1, 2, 3];
+
+function square(x) { return x*x; }
+var data2 = data.map(square); // 1, 4, 9
+
+function odd(x) { return x % 2; }
+var data3 = data.filter(odd); // 1, 3
+</code>
+</section>
+
+<section class="slide">
+	<h2>JS: funkcionální iterace III</h2>
+	<code class="block" data-syntax="js">var data = [1, 2, 3];
+
+function odd(x) { return x % 2; }
+data.every(odd);  // false
+data.some(odd);   // true
+
+function add(x, y) { return x+y; }
+data.reduce(add); // 6
+</code>
+</section>
+
+<section class="slide">
+	<h2>JS: IIFE</h2>
+	<ul>
+		<li>Problém: strukturování (modularizace) JS kódu</li>
+		<li>Historicky velká ostuda</li>
+		<li>Solidní řešení až v ES6 (třetí přednáška)</li>
+		<li>Více HTML značek &lt;script&gt; sdílí jmenný prostor</li>
+		<li>Trik: immediately-invoked function expressions</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>JS: IIFE</h2>
+	<code class="block" data-syntax="js">(function(){
+	var document = "test"; // lokalni promenna
+	alert(document);       // "test"
+})();
+
+alert(document);           // [object HTMLDocument]
+</code>
+</section>
+
+<section class="slide">
+	<h2>Vybrané partie DOM API</h2>
+	<ul>
+		<li>Funkce, konstanty a objekty pro manipulaci se stránkou</li>
+		<li>Zpravidla dostupné pomocí (globální) proměnné <code>document</code></li>
+		<li>John Resig: <a href="http://ejohn.org/blog/the-dom-is-a-mess/">The DOM is a mess</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>DOM: úpravy podstromu</h2>
+	<code class="block" data-syntax="js">var p = document.querySelector("p");
+
+/* HTML parser, pozor na XSS! */
+p.innerHTML = "&lt;strong&gt;toto je test&lt;/strong&gt;";
+
+/* jen text */
+p.textContent = "&lt;strong&gt;toto je test&lt;/strong&gt;";
+</code>
+</section>
+
+<section class="slide">
+	<h2>DOM: tvorba nových prvků</h2>
+	<code class="block" data-syntax="js">var p = document.querySelector("p");
+
+var strong = document.createElement("strong");
+p.appendChild(strong);
+
+var text = document.createTextElement("toto je test");
+p.appendChild(text);
+
+var input = document.createElement("input");
+input.type = "number";
+input.id = "foo";
+</code>
+</section>
+
+<section class="slide">
+	<h2>DOM: práce s atributem <code>class</code></h2>
+	<code class="block" data-syntax="js">var p = document.querySelector("p");
+
+p.className = "class1";
+
+p.classList.add("class2");
+p.classList.remove("class3");
+p.classList.contains("class2"); // true
+
+p.classList.toggle("class4");
+p.classList.toggle("class4", x > 15);
+</code>
 </section>
 
 <section class="slide">

@@ -10,13 +10,13 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>HTML5 Canvas</title>
+		<title>HTML značky &lt;canvas&gt; a &lt;video&gt;</title>
 	<body>
 
-<h1>HTML5 Canvas</h1>
+<h1>HTML značky &lt;canvas&gt; a &lt;video&gt;</h1>
 
 <section class="slide">
-	<h2>HTML5 Canvas</h2>
+	<h2>HTML značky &lt;canvas&gt; a &lt;video&gt;</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -36,6 +36,43 @@
 		<li>Tipy a triky</li>
 		<li>WebGL</li>
 	</ol>
+</section>
+
+
+<section class="slide">
+	<h2>HTML5 Video</h2>
+	<ul>
+		<li>Vložení videa do stránky</li>
+		<li>Alternativa pro Flashové přehrávače</li>
+		<li>Syntaxe téměř shodná s audiem</li>
+		<li>Ještě výraznější problematika formátů</li>
+		<li>S výhodou použití <code class="syntax-xml">&lt;source media="..." /&gt;</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>HTML5 Video: ukázka</h2>
+	<pre data-syntax="xml">&lt;video controls poster="image.png"&gt;
+	&lt;source src="video-small.mp4" 
+		type="video/mp4; codecs='avc1.42E01E, mp4a.40.2'" 
+		media="screen and (max-width:500px)" 
+	/&gt;
+	&lt;source src="video.mp4" type="video/mp4; codecs='avc1.42E01E, mp4a.40.2'" /&gt;
+	&lt;source src="video.ogv" type="video/ogg; codecs='theora, vorbis'"/&gt;
+	&lt;source src="video.webm" type="video/webm; codecs='vp8, vorbis'" /&gt;
+	&lt;!-- embed flash jako fallback --&gt;
+&lt;/video&gt;</pre>
+</section>
+
+<section class="slide">
+	<h2>Media Source Extensions</h2>
+	<ul>
+		<li>Tradiční HTML5 audio/video přehrává jen jeden soubor</li>
+		<li>MSE dovoluje definovat zdroj multimediálních dat s větší granularitou</li>
+		<li>Namísto souboru s pevným trváním se přenáší <em>stream</em></li>
+		<li>Změna datového toku za běhu</li>
+		<li>Protokol <code>mediasource:</code>, JS API <code>MediaSource</code>, <a href="https://developer.mozilla.org/en-US/docs/Web/API/Media_Source_Extensions_API">Dokumentace</a></li>	
+	</ul>
 </section>
 
 <section class="slide">
