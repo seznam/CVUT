@@ -72,7 +72,7 @@ alert(x); // 1
 		<li>Pokud má tělo funkce jediný příkaz, není třeba <code>return</code> ani závorky</li>
 	</ul>
 
-	<code class="section" data-syntax="js">var square = a => a*a;
+	<code class="block" data-syntax="js">var square = a => a*a;
 var add = (a, b) => a+b;
 
 // lexical this
@@ -87,7 +87,7 @@ setTimeout( () => this.doStuff(), 1000 );
 		<li>Zkrácená definice objektů</li>
 	</ul>
 
-	<code class="section" data-syntax="js">var x = 42;
+	<code class="block" data-syntax="js">var x = 42;
 
 var obj = {
 	x,                  // "x":42
@@ -208,8 +208,7 @@ import myLocalName from "./a.js"; // default
 		<li>WeakMap, WeakSet: bez reference na objekt, bez iterovatelnosti</li>
 	</ul>
 
-	<code class="slide" data-syntax="js">
-var s = new Set();
+	<code class="block" data-syntax="js">var s = new Set();
 s.add("hello").add("goodbye").add("hello");
 s.size == 2;
 s.has("hello") == true;
@@ -332,8 +331,7 @@ p.world === "Hello, world!"
 		<li>Namísto výjimek vrací false</li>
 	</ul>
 
-	<code class="block" data-syntax="js">
-Reflect.defineProperty(obj, name, descriptor);
+	<code class="block" data-syntax="js">Reflect.defineProperty(obj, name, descriptor);
 Reflect.construct(F, args);
 Reflect.get(obj, property, thisForGetter);
 /* ... */
@@ -365,7 +363,7 @@ Math.trunc(3.1)                                 // 3
 
 	<code class="block" data-syntax="js">Array.from(document.querySelectorAll("*")) // real Array
 Array.of(1, 2, 3)                          // without special one-arg behavior
-[0, 0, 0].fill(7, 1)                       // [0,7,7]
+[0, 0, 0].fill(7, 1)                       // [0, 7, 7]
 [1, 2, 3].find(x => x == 3)                // 3
 [1, 2, 3].findIndex(x => x == 2)           // 1
 [1, 2, 3, 4, 5].copyWithin(3, 0)           // [1, 2, 3, 1, 2]
@@ -381,7 +379,12 @@ Object.assign(target, { source: "data" });
 	<h2>Ostatní</h2>
 
 	<ul>
-		<li>Práce s Unicode znaky mimo BMP (tj. code points &gt; 65535)</li>
+		<li>Práce s Unicode znaky mimo BMP (tj. code points &gt; 65535): 
+			<span title="U+1F602 FACE WITH TEARS OF JOY">😂</span>,
+			<span title="U+1F4A9 PILE OF POO">💩</span>, 
+			<span title="U+1F923 ROLLING ON THE FLOOR LAUGHING">🤣</span>,
+			<span title="U+1F953 BACON">🥓</span>,
+			&hellip;</li>
 		<li>Subclassing vestavěných objektů (Array, Element, &hellip;)</li>
 		<li>Garantované Tail Call Optimisation</li>
 		<li><code>new Promise((resolve, reject) => {}), Promise.all, Promise.race</code></li>
