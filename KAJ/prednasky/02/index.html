@@ -2,17 +2,13 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
-		<script src="../../common/js/oz.js" type="text/javascript"></script>
-		<script src="../../common/js/slides2.js" type="text/javascript"></script>
-		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
+		<base target="_blank" />
 		<title>JavaScript pro starší a pokročilé</title>
+	</head>
 	<body>
 		
-<h1>JJavaScript pro starší a pokročilé</h1>
+<h1>JavaScript pro starší a pokročilé</h1>
 
 <section class="slide">
 	<h2>JavaScript pro starší a pokročilé</h2>
@@ -41,7 +37,7 @@
 	<ul>
 		<li>Interpret v každém prohlížeči</li>
 		<li>Pro nováčka obtížný: jazyk samotný vs. DOM</li>
-		<li>Jazyk stále vyvíjen (aktuálně ES5&rArr;ES6&rArr;ES7), vznikají nové verze</li>
+		<li>Jazyk stále vyvíjen (ES5&rArr;ES6&rArr;ES7), vznikají nové verze</li>
 		<li>Neexistuje koncept tříd (obtížné porovnání s C++, Java, &hellip;)</li>
 	</ul>
 </section>
@@ -52,13 +48,12 @@
 		<li>Číslo, bool, řetězec, null, undefined</li>
 		<li>Předávané hodnotou</li>
 	</ul>
-	<pre data-syntax="js">
-var a = 3;
+	<code class="block" data-syntax="js">var a = 3;
 var b = 0.1 + 0.2;
 var c = "ahoj" + 'ahoj';
 var e = null;
 var f = undefined;
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -68,13 +63,12 @@ var f = undefined;
 		<li>Podobjekty: Array, Function, Date, RegExp</li>
 		<li>Předávané odkazem</li>
 	</ul>
-	<pre data-syntax="js">
-var a = {};               /* prázdný objekt */
+	<code class="block" data-syntax="js">var a = {};               /* prázdný objekt */
 var b = {c:3, "d":"hi"}; 
 var e = [a, b];           /* pole o dvou položkách */
 var f = function() {};
 var g = /^.*/;            /* regulární výraz */
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -84,13 +78,12 @@ var g = /^.*/;            /* regulární výraz */
 		<li>if, for, while, switch</li>
 		<li><em>Type coercion</em></li>
 	</ul>
-	<pre class="section" data-syntax="js">
-var a = 1 + "dva";
+	<code class="block" data-syntax="js">var a = 1 + "dva";
 var b = {} + {};
 if (0 == "") { /* ... */ }
 if (undefined == null)  { /* ... */ }
 if (undefined === null) { /* ... */ }
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -101,8 +94,7 @@ if (undefined === null) { /* ... */ }
 		<li>Hodnota je cokoliv</li>
 		<li>Pole je též objekt</li>
 	</ul>
-	<pre data-syntax="js">
-var pole1 = [3, 2, 1];
+	<code class="block" data-syntax="js">var pole1 = [3, 2, 1];
 var pole2 = [];
 
 pole1.length == 3;
@@ -110,7 +102,7 @@ pole1[1]     == 2;
 pole2.length == 0;
 
 pole2.push(pole1);
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -118,11 +110,10 @@ pole2.push(pole1);
 	<ul>
 		<li>Funkce je též objekt</li>
 	</ul>
-	<pre data-syntax="js">
-var add = function(a, b) { return a+b; }
+	<code class="block" data-syntax="js">var add = function(a, b) { return a+b; }
 add.c = 123;
 add(add.c, add["c"]);
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -132,12 +123,11 @@ add(add.c, add["c"]);
 		<li>Funkci lze definovat uvnitř jiné funkce</li>
 		<li>Proměnná existuje v rámci své funkce a všech jejích podfunkcí</li>
 	</ul>
-	<pre data-syntax="js">
-var outer = function(a, b) {
+	<code class="block" data-syntax="js">var outer = function(a, b) {
 	var inner = function(x) { return 2*x; }
 	return a + inner(b);
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -146,8 +136,7 @@ var outer = function(a, b) {
 		<li>Co když použijeme proměnnou ve vnitřní funkci?</li>
 		<li>Vznikne <em>uzávěra</em></li>
 	</ul>
-	<pre data-syntax="js">
-var outer = function(a, b) {
+	<code class="block" data-syntax="js">var outer = function(a, b) {
 	var inner = function() { return 2*b; }
 	return a + inner();
 }
@@ -156,7 +145,7 @@ var outer = function(a, b) {
 	var inner = function() { return 2*b; }
 	return inner;
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -165,8 +154,7 @@ var outer = function(a, b) {
 		<li>Jeden z nejkomplikovanějších konceptů jazyka</li>
 		<li>Zásadní rozdíl oproti jiným: hodnota je určena při volání</li>
 	</ul>
-	<pre data-syntax="js">
-var fun = function() { alert(this); }
+	<code class="block" data-syntax="js">var fun = function() { alert(this); }
 fun(); /* ? */
 
 var obj1 = { fun:fun };
@@ -176,7 +164,7 @@ obj1.fun(); /* this == obj1 */
 obj2.fun(); /* this == obj2 */
 
 fun == obj1.fun == obj2.fun
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -186,36 +174,33 @@ fun == obj1.fun == obj2.fun
 		<li>Jinak je this globální jmenný prostor</li>
 		<li>This lze explicitně určit</li>
 	</ul>
-	<pre data-syntax="js">
-var fun = function() { alert(this); }
+	<code class="block" data-syntax="js">var fun = function() { alert(this); }
 
 var obj1 = {};
 var obj2 = {};
 
 fun.call(obj1, arg1, ...);    /* this == obj1 */
 fun.apply(obj2, [arg1, ...]); /* this == obj2 */
-</pre>
+</code>
 </section>
 
 <section class="slide">
 	<h2>Pilíř 3: Prototype chain</h2>
 	<ul>
 		<li>Dva objekty je možno provázat</li>
-		<li><pre data-syntax="js">
-var obj1 = { klic:"hodnota" }; var obj2 = {};
+		<li><code class="block" data-syntax="js">var obj1 = { klic:"hodnota" }; var obj2 = {};
 obj2.vazba = obj1;
 alert(obj2.vazba.klic); /* "hodnota" */
-</pre>
+</code>
 		</li>
 		<li>Existuje speciální neviditelná vazba, zvaná "prototype link"</li>
 		<li>Prototype link se používá při přístupu k neexistujícím vlastnostem</li>
-		<li><pre data-syntax="js">
-var obj1 = { klic:"hodnota" }; 
+		<li><code class="block" data-syntax="js">var obj1 = { klic:"hodnota" }; 
 var obj2 = Object.create(obj1);
 alert(obj2.klic); /* "hodnota" */
 
 obj2.__proto__ == obj1;
-</pre>
+</code>
 		</li>
 	</ul>
 </section>
@@ -227,8 +212,7 @@ obj2.__proto__ == obj1;
 		<li>Druhý nabízí vše, co první (+ možná něco navíc)</li>
 		<li>Více prototype linků = prototype chain</li>
 	</ul>
-	<pre data-syntax="js">
-var obj1 = { klic:"hodnota" }; 
+	<code class="block" data-syntax="js">var obj1 = { klic:"hodnota" }; 
 var obj2 = Object.create(obj1);
 var obj3 = Object.create(obj2);
 
@@ -238,7 +222,7 @@ obj1.jinyKlic = "jeste jina hodnota";
 alert(obj2.klic);     /* "hodnota" */
 alert(obj3.klic);     /* "jina hodnota" */
 alert(obj3.jinyKlic); /* "jeste jina hodnota" */
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -277,15 +261,14 @@ alert(obj3.jinyKlic); /* "jeste jina hodnota" */
 <section class="slide">
 	<h2>Operátor new</h2>
 	<p><a href="img/prototype.svg" target="_blank">diagram</a></p>
-	<pre data-syntax="js">
-var F = function() {
+	<code class="block" data-syntax="js">var F = function() {
 	this.a = 1;
 }
 F.prototype.b = 2;
 
 var f = new F();
 f.c = 3;
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -301,8 +284,7 @@ f.c = 3;
 <section class="slide">
 	<h2>Dědičnost pomocí prototypů</h2>
 	<p><a href="img/inheritance.svg" target="_blank">diagram</a></p>
-	<pre data-syntax="js">
-var Parent = function() {}
+	<code class="block" data-syntax="js">var Parent = function() {}
 Parent.prototype.hi = function() { return "hello"; }
 
 var Child = function() {}
@@ -311,19 +293,18 @@ Child.prototype = Object.create(Parent.prototype);
 
 var ch = new Child();
 ch.hi(); /* "hello" */
-</pre>
+</code>
 </section>
 
 <section class="slide">
 	<h2>Obohacování prototypů</h2>
-	<pre data-syntax="js">
-String.prototype.lpad = function(what, length) {
+	<code class="block" data-syntax="js">String.prototype.lpad = function(what, length) {
   var count = length - this.length;
   var padding = "";
   for (var i=0; i&lt;count; i++) { padding += what; }
   return padding + this;
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -333,15 +314,14 @@ String.prototype.lpad = function(what, length) {
 
 <section class="slide">
 	<h2>bind</h2>
-	<pre data-syntax="js">
-var f1 = function() { alert(this.name); }
+	<code class="block" data-syntax="js">var f1 = function() { alert(this.name); }
 var foo = { name:"foo" }
 var bar = { name:"bar" }
 f1.call(foo); /* "foo" */
 
 var f2 = f1.bind(bar);
 f2() /* "bar" */
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -356,20 +336,18 @@ f2() /* "bar" */
 
 <section class="slide">
 	<h2>bind</h2>
-	<pre data-syntax="js">
-Function.prototype.bind = function(newThis) {
+	<code class="block" data-syntax="js">Function.prototype.bind = function(newThis) {
 	var func = this;
 	return function() {
 		return func.apply(newThis, arguments);
 	}
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
 	<h2>bind &ndash; využití</h2>
-	<pre data-syntax="js">
-var Obj = function() {}
+	<code class="block" data-syntax="js">var Obj = function() {}
 Obj.prototype.foo = function() {}
 
 var bar = new Obj();
@@ -378,23 +356,21 @@ setTimeout(bar.foo, 100);
 setTimeout(bar.foo.bind(bar), 100);
 
 /* dtto addEventListener atp. */
-</pre>
+</code>
 </section>
 
 <section class="slide">
 	<h2>Bonus</h2>
 
 <p>Víte, co a proč udělá tato funkce?</p>
-<pre data-syntax="js">
-function s(a) {
+<code class="block" data-syntax="js">function s(a) {
     while (a.length) {
         var v = a.shift();
         setTimeout(a.push.bind(a, v), v);
     }
 }
-</pre>
+</code>
 </section>
-
 
 <section class="slide">
 	<h2>Prostor pro otázky</h2>
@@ -405,9 +381,10 @@ function s(a) {
 	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
 </footer>
 
-<script type="text/javascript">
-	Syntax.all();
-	new Presentation();
+<script src="../../jsslides/v3/slides/slides3.js"></script>
+<script>
+	Slides.modules.skin = "cvut";
+	Slides.modules.numbering = false;
 </script>
 
 </body>

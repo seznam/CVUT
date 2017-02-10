@@ -1,17 +1,12 @@
-<!-- vic  Promise -->
+<!-- vic Promise -->
 <!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
-		<script src="../../common/js/oz.js" type="text/javascript"></script>
-		<script src="../../common/js/slides2.js" type="text/javascript"></script>
-		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
 		<base target="_blank" />
 		<title>ES 2015, historie a transpilace</title>
+	</head>
 	<body>
 		
 <h1>ES 2015, historie a transpilace</h1>
@@ -44,7 +39,8 @@
 		<li>Nejnovější standardizovaná iterace jazyka</li>
 		<li>Dříve označováno jako <em>Harmony</em></li>
 		<li>Vývoj zhruba 2008&ndash;2015</li>
-		<li>V roce 2016 vznikne další verze</li>
+		<li>V roce 2016 vznikla další verze ES7</li>
+		<li>Aktuálně práce na ES8</li>
 	</ul>
 </section>
 
@@ -56,8 +52,7 @@
 		<li>const = let + read-only</li>
 	</ul>
 
-	<pre data-syntax="js">
-const N = 8;
+	<code class="block" data-syntax="js">const N = 8;
 N = 4; // exception
 
 let x = 1;
@@ -65,7 +60,7 @@ if (true) {
 	let x = 2;
 }
 alert(x); // 1
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -77,13 +72,12 @@ alert(x); // 1
 		<li>Pokud má tělo funkce jediný příkaz, není třeba <code>return</code> ani závorky</li>
 	</ul>
 
-	<pre data-syntax="js">
-var square = a => a*a;
+	<code class="section" data-syntax="js">var square = a => a*a;
 var add = (a, b) => a+b;
 
 // lexical this
 setTimeout( () => this.doStuff(), 1000 );
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -93,15 +87,14 @@ setTimeout( () => this.doStuff(), 1000 );
 		<li>Zkrácená definice objektů</li>
 	</ul>
 
-	<pre data-syntax="js">
-var x = 42;
+	<code class="section" data-syntax="js">var x = 42;
 
 var obj = {
 	x,                  // "x":42
 	y() { return x; },
 	["data_" + x]: x    // "data_42":42
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -114,30 +107,28 @@ var obj = {
 		<li>Možnost vlastní interpolační funkce</li>
 	</ul>
 
-	<pre data-syntax="js">
-var x = "world";
+	<code class="block" data-syntax="js">var x = "world";
 var y = `hello ${x}`;
 var z = `this is a
 			very long string`;
 
 // html je uživ. funkce, která dostane jednotlivé tokeny k naformátování
 html`&lt;div&gt; ${unsafe} &lt;/div&gt;`;
-</pre>
+</code>
 </section>
 
 <section class="slide">
 	<h2>Destructuring</h2>
 
 	<ul>
-		<li>Snazší přístup k vlastnostem struktur</li>
+		<li>Snazší přístup k vlastnostem struktur a polí</li>
 	</ul>
 
-	<pre data-syntax="js">
-var [a, b, c] = [1, 2, 3];
+	<code class="block" data-syntax="js">var [a, b, c] = [1, 2, 3];
 
 var f = function() { return {x:42}; }
 var { x } = f();
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -148,8 +139,7 @@ var { x } = f();
 		<li>Převod (podmnožiny) parametrů na pole a zpět</li>
 	</ul>
 
-	<pre data-syntax="js">
-var f = function(x, y = 12) {
+	<code class="block" data-syntax="js">var f = function(x, y = 12) {
 	return x + y;
 }
 f(10); // 22
@@ -161,7 +151,7 @@ f(1, 2, 3); // 2
 
 var f = function(a, b, c) { return c; }
 f(...[1, 2, 3]); // 3
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -171,8 +161,7 @@ f(...[1, 2, 3]); // 3
 		<li>Nová syntaxe, staré chování (stále se jedná o prototypovou dědičnost)</li>
 	</ul>
 
-	<pre data-syntax="js">
-class B extends A {
+	<code class="block" data-syntax="js">class B extends A {
 	constructor(x) {
 		super(); // v konstruktoru dědící třídy povinné; před ním neexistuje this
 		this.x = x;
@@ -187,7 +176,7 @@ class B extends A {
 
 	static f2() {}
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -198,17 +187,16 @@ class B extends A {
 		<li>Jeden výchozí a libovolně dalších pojmenovaných exportů</li>
 	</ul>
 
-	<pre data-syntax="js">
-// a.js
+	<code class="block" data-syntax="js">// a.js
 export var A = function() {};
 export default function() {};
 
 // b.js
-import { A } from "a"; // pozor na cestu!
+import { A } from "./a.js";
 A();
 
-import myLocalName from "a"; // default
-</pre>
+import myLocalName from "./a.js"; // default
+</code>
 </section>
 
 <section class="slide">
@@ -220,7 +208,7 @@ import myLocalName from "a"; // default
 		<li>WeakMap, WeakSet: bez reference na objekt, bez iterovatelnosti</li>
 	</ul>
 
-	<pre data-syntax="js">
+	<code class="slide" data-syntax="js">
 var s = new Set();
 s.add("hello").add("goodbye").add("hello");
 s.size == 2;
@@ -230,7 +218,7 @@ var m = new Map();
 m.set("hello", 42);
 m.set(s, 34);
 m.get(s) == 34;
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -246,8 +234,7 @@ m.get(s) == 34;
 		<li>Není zcela privátní, ale alespoň je unikátní</li>
 	</ul>
 
-	<pre data-syntax="js">
-(function() {
+	<code class="block" data-syntax="js">(function() {
 	var moneyKey = Symbol("money");
 	typeof(moneyKey) == "symbol";
 
@@ -260,7 +247,7 @@ m.get(s) == 34;
 
 	Object.getOwnPropertySymbols(person); // :-(
 })();
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -272,8 +259,7 @@ m.get(s) == 34;
 		<li>Cokoliv, co má symbol <code>Symbol.iterator</code> je iterovatelné cyklem <code>for..of</code></li>
 	</ul>
 
-	<pre data-syntax="js">
-let fibonacci = {
+	<code class="block" data-syntax="js">let fibonacci = {
 	[Symbol.iterator]() {
 		let pre = 0, cur = 1;
 		return {
@@ -289,7 +275,7 @@ for (var n of fibonacci) {
   if (n > 1000) break;
   console.log(n);
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -301,8 +287,7 @@ for (var n of fibonacci) {
 		<li>Klíčové slovo <code>yield</code> odpovídá přerušení po jedné iteraci</li>
 	</ul>
 
-	<pre data-syntax="js">
-var generator = function*() {
+	<code class="block" data-syntax="js">var generator = function*() {
 	var tmp = 1;
 	while (true) {
 		tmp *= 3;
@@ -314,7 +299,7 @@ var iterator = generator();
 iterator.next().value; // 3, next() vrací i done:true/false
 iterator.next().value; // 9
 iterator.next().value; // 27
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -325,8 +310,7 @@ iterator.next().value; // 27
 		<li>Čtení, zápis, volání, &hellip;</li>
 	</ul>
 
-	<pre data-syntax="js">
-var obj = {};
+	<code class="block" data-syntax="js">var obj = {};
 
 var interceptor = {
 	get: function (receiver, name) {
@@ -335,7 +319,8 @@ var interceptor = {
 };
 
 var p = new Proxy(obj, interceptor);
-p.world === "Hello, world!"</pre>
+p.world === "Hello, world!"
+</code>
 </section>
 
 <section class="slide">
@@ -347,19 +332,18 @@ p.world === "Hello, world!"</pre>
 		<li>Namísto výjimek vrací false</li>
 	</ul>
 
-	<pre data-syntax="js">
+	<code class="block" data-syntax="js">
 Reflect.defineProperty(obj, name, descriptor);
 Reflect.construct(F, args);
 Reflect.get(obj, property, thisForGetter);
 /* ... */
-</pre>
+</code>
 </section>
 
 <section class="slide">
 	<h2>Rozšíření ES5 #1</h2>
 
-	<pre data-syntax="js">
-Number.EPSILON
+	<code class="block" data-syntax="js">Number.EPSILON
 Number.MAX_SAFE_INTEGER
 Number.MIN_SAFE_INTEGER
 Number.isInteger(Infinity)                      // false
@@ -373,14 +357,13 @@ Math.trunc(3.1)                                 // 3
 /* ... */
 
 "abc".repeat(3)                                 // "abcabcabc"
-</pre>
+</code>
 </section>
 
 <section class="slide">
 	<h2>Rozšíření ES5 #2</h2>
 
-	<pre data-syntax="js">
-Array.from(document.querySelectorAll("*")) // real Array
+	<code class="block" data-syntax="js">Array.from(document.querySelectorAll("*")) // real Array
 Array.of(1, 2, 3)                          // without special one-arg behavior
 [0, 0, 0].fill(7, 1)                       // [0,7,7]
 [1, 2, 3].find(x => x == 3)                // 3
@@ -391,7 +374,7 @@ Array.of(1, 2, 3)                          // without special one-arg behavior
 ["a", "b", "c"].values()                   // iterator "a", "b", "c"
 
 Object.assign(target, { source: "data" });
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -406,7 +389,7 @@ Object.assign(target, { source: "data" });
 </section>
 
 <section class="slide">
-	<h2>Jak zkoušet ES 2015?</h2>
+	<h2>Jak zkoušet ES 2015+?</h2>
 
 	<ul>
 		<li><a href="https://kangax.github.io/compat-table/es6/">Compatibility table</a></li>
@@ -417,10 +400,10 @@ Object.assign(target, { source: "data" });
 </section>
 
 <section class="slide">
-	<h2>Transpilace ES 2015</h2>
+	<h2>Transpilace ES 2015+</h2>
 
 	<ul>
-		<li>Proces konverze syntaxe ES 2015 do ES5</li>
+		<li>Proces konverze syntaxe ES 2015+ do ES5</li>
 		<li><a href="https://github.com/babel/babel">Babel</a>, <a href="https://github.com/google/traceur-compiler">Google Traceur Compiler</a></li>
 		<li>Babel zatím s nejlepší podporou</li>
 		<li>Pro některé novinky nutno dodat polyfilly</li>
@@ -439,12 +422,21 @@ Object.assign(target, { source: "data" });
 </section>
 
 <section class="slide">
-	<h2>Babel a moduly</h2>
+	<h2>Moduly v praxi</h2>
 
 	<ul>
-		<li>Konverze buď do CommonJS, AMD nebo SystemJS</li>
+		<li>Implementováno jen v <em>nightly</em> verzích Edge, Safari a Firefoxu</li>
+		<li>Alternativa #1: <em>bundling</em> do jednoho souboru nástrojem <a href="http://rollupjs.org/">Rollup</a></li>
+		<li>Alternativa #2: <em>transpilace</em> do jiného (kompatibilnějšího) formátu modulů</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Transpilace modulů</h2>
+
+	<ul>
+		<li>Konverze do CommonJS, AMD nebo SystemJS</li>
 		<li>Vždy nutno dodat další podpůrný kód (Browserify, Webpack, RequireJS, &hellip;)</li>
-		<li>Hudba budoucnosti &ndash; <code>System.{import,register}</code></li>
 		<li>Více viz <a href="http://ondras.zarovi.cz/slides/devel2016/">přednáška na devel.cz 2016</a></li>
 	</ul>
 </section>
@@ -468,9 +460,10 @@ Object.assign(target, { source: "data" });
 	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
 </footer>
 
-<script type="text/javascript">
-	Syntax.all();
-	new Presentation();
+<script src="../../jsslides/v3/slides/slides3.js"></script>
+<script>
+	Slides.modules.skin = "cvut";
+	Slides.modules.numbering = false;
 </script>
 
 </body>
