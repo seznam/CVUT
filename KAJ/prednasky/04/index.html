@@ -3,12 +3,6 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
-		<script src="../../common/js/oz.js" type="text/javascript"></script>
-		<script src="../../common/js/slides2.js" type="text/javascript"></script>
-		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
 		<title>Události a asynchronní zpracování</title>
 	<body>
@@ -33,7 +27,7 @@
 		<li>Události: capture a bubble</li>
 		<li>Události: posluchače</li>
 		<li>Asynchronní zpracování</li>
-		<li>Promises</li>
+		<li>Promises a dále</li>
 	</ol>
 </section>
 
@@ -48,12 +42,11 @@
 
 <section class="slide">
 	<h2>Události: opáčko</h2>
-	<pre data-syntax="js">
-var func = function(e) {
+	<code class="block" data-syntax="js">var func = function(e) {
 	alert("...");
 }
 document.body.addEventListener("click", func, false);
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -83,14 +76,35 @@ document.body.addEventListener("click", func, false);
 		<li>Modifikátory <code>ctrlKey</code>, <code>altKey</code>, <code>shiftKey</code>, <code>metaKey</code></li>
 		<li>Stisk a uvolnění obsahuje <code>keyCode</code>
 			<ul>
-				<li>Identifikátor klávesy na klávesnici</li>
-				<li>Seznam na <a href="https://developer.mozilla.org/en-US/docs/DOM/KeyboardEvent">https://developer.mozilla.org/en-US/docs/DOM/KeyboardEvent</a></li>
+				<li>Identifikátor klávesy na klávesnici (int)</li>
+				<li>Seznam na <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode">https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode</a></li>
 			</ul>
 		</li>
 		<li>Tištitelný keypress obsahuje <code>charCode</code>
 			<ul>
-				<li>Unicode code point znaku</li>
+				<li>Unicode code point znaku (int)</li>
 				<li><code>String.fromCharCode</code> převede na znak</li>
+			</ul>
+		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Události klávesnice</h2>
+	<ul>
+		<li>Dělení na keydown/keypress se ukázalo jako nepraktické</li>
+		<li>Dělení na tištitelné/netištitelné se ukázalo jako nepraktické</li>
+		<li>Aktuálně probíhá implementace upraveného API, ve kterém je jen keydown/keyup</li>
+		<li>Vlastnost <code>key</code>
+			<ul>
+				<li>Identifikátor stisklé logické klávesy (string)</li>
+				<li>Seznam na <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values">https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values</a></li>
+			</ul>
+		</li>
+		<li>Vlastnost <code>code</code>
+			<ul>
+				<li>Identifikátor stisklé fyzické (hardwarové) klávesy</li>
+				<li>Stejná množina hodnot jako u <code>key</code></li>
 			</ul>
 		</li>
 	</ul>
@@ -159,9 +173,9 @@ document.body.addEventListener("click", func, false);
 <section class="slide">
 	<h2>Posluchače událostí</h2>
 	<p>Varianta 1: posluchač je funkce</p>
-	<pre data-syntax="js">window.addEventListener("load", function(e) {
+	<code class="block" data-syntax="js">window.addEventListener("load", function(e) {
 	alert(e.target == this);
-});</pre>
+});</code>
 	<ul>
 		<li><code>this</code> je prvek, na kterém je posluchač zavěšen (nikoliv ten, kde událost vznikla)</li>
 		<li>Pokud chceme předat parametry nebo změnit this, použijeme <code>bind</code></li>
@@ -175,13 +189,12 @@ document.body.addEventListener("click", func, false);
 <section class="slide">
 	<h2>Posluchače událostí</h2>
 	<p>Varianta 2: posluchač je objekt</p>
-	<pre data-syntax="js">
-var obj = {
+	<code class="block" data-syntax="js">var obj = {
 	handleEvent: function(e) {
 		alert(this == obj);
 	}
 }
-window.addEventListener("load", obj);</pre>
+window.addEventListener("load", obj);</code>
 	<ul>
 		<li><code>obj</code> musí mít metodu <code>handleEvent</code></li>
 		<li><code>this</code> je posluchač</li>
@@ -199,8 +212,7 @@ window.addEventListener("load", obj);</pre>
 
 <section class="slide">
 	<h2>Event loop</h2>
-	<pre data-syntax="js">
-var scheduledJS = "";
+	<code class="block" data-syntax="js">var scheduledJS = "";
 var listeners = [];
 
 while (1) {
@@ -214,7 +226,7 @@ while (1) {
 	/* naplánovat jej */
 	scheduledJS = listeners[currentListener];
 	delete listeners[currentListener];
-}</pre>
+}</code>
 </section>
 
 <section class="slide">
@@ -222,10 +234,9 @@ while (1) {
 	<ul>
 		<li>Je řada způsobů, jak "naplánovat" zpožděné vykonání kódu</li>
 		<li>XMLHttpRequest, addEventListener</li>
-		<li><pre data-syntax="js">
-setTimeout(  function() { /* ... */ }, 1000);
+		<li><code class="block" data-syntax="js">setTimeout(  function() { /* ... */ }, 1000);
 setInterval( function() { /* ... */ }, 100);
-</pre></li>
+</code></li>
 		<li>Pořadí určuje <del>lékař</del> prohlížeč, ale vždy nejprve v příští iteraci event loopu</li>
 	</ul>
 </section>
@@ -234,15 +245,14 @@ setInterval( function() { /* ... */ }, 100);
 	<h2>Zpožděné vykonávání: this v callbacku</h2>
 	<ul>
 		<li>Pokud někam předávám funkci, s jakým <code>this</code> bude volána?</li>
-		<li><pre data-syntax="js">
-var Animal = function() {
+		<li><code class="block" data-syntax="js">var Animal = function() {
 	setTimeout(this.eat, 3000);
 }
 
 Animal.prototype.eat = function() {
 	this.food += 3;
 }
-</pre></li>
+</code></li>
 	</ul>
 </section>
 
@@ -250,15 +260,14 @@ Animal.prototype.eat = function() {
 	<h2>Zpožděné vykonávání: this v callbacku</h2>
 	<ul>
 		<li><code>bind</code> pomůže</li>
-		<li><pre data-syntax="js">
-var Animal = function() {
+		<li><code class="block" data-syntax="js">var Animal = function() {
 	setTimeout(this.eat.bind(this), 3000);
 }
 
 Animal.prototype.eat = function() {
 	this.food += 3;
 }
-</pre></li>
+</code></li>
 	</ul>
 </section>
 
@@ -267,13 +276,11 @@ Animal.prototype.eat = function() {
 	<ul>
 		<li><code>setTimeout</code> zní jako rozumné řešení pro JS animace</li>
 		<li><code>requestAnimationFrame</code> je výrazně vhodnější alternativa</li>
-		<li><pre data-syntax="js">
-requestAnimationFrame(function() {
+		<li><code class="block" data-syntax="js">requestAnimationFrame(function() {
 	/* animujeme... */
 });
-</pre></li>
+</code></li>
 		<li>Prohlížeč sám volí vhodnou délku časového kroku (zpravidla okolo 60 fps)</li>
-		<li>Pozor na prefixy</li>
 		<li>Více info viz <a href="https://developer.mozilla.org/en-US/docs/DOM/window.requestAnimationFrame">MDN</a></li>
 	</ul>
 </section>
@@ -300,8 +307,7 @@ requestAnimationFrame(function() {
 
 <section class="slide">
 	<h2>Promises: ukázka</h2>
-	<pre data-syntax="js">
-var getData = function() {
+	<code class="block" data-syntax="js">var getData = function() {
 	var promise = new Promise();
 	/* ... */
 	return promise;
@@ -311,7 +317,7 @@ getData().then(
     function(data) { alert(data); },
     function(error) { alert(error); }
 );
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -332,14 +338,13 @@ getData().then(
 		<li>Je to složité!</li>
 		<li>&hellip;protože měnit stav smí jen producent</li>
 		<li>Tedy nic jako <code>Promise.prototype.fulfill = ...</code></li>
-		<li>API konstruktoru <code>new Promise</code> vyžaduje funkci, které budou <em>řídící nástroje</em> předány</li>
+		<li>API konstruktoru <code>new Promise</code> vyžaduje funkci (tzv. exekutor), které budou <em>řídící nástroje</em> předány</li>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>Promises: tvorba a změna stavu</h2>
-	<pre data-syntax="js">
-var promise = new Promise(function(resolve, reject) {
+	<code class="block" data-syntax="js">var promise = new Promise(function(resolve, reject) {
     /* funkce dodaná tvůrcem Promise */
     if (...) {
     	resolve(value);
@@ -348,7 +353,35 @@ var promise = new Promise(function(resolve, reject) {
     }
 });
 return promise;
-</pre>
+</code>
+</section>
+
+<section class="slide">
+	<h2>Promises v praxi</h2>
+	<ul>
+		<li>Nacházíme se v období přechodu z callbacků na Promises</li>
+		<li>Stará API (<code>setTimeout</code>) požadují callbacky, nová (<code>fetch</code>) vrací Promise</li>
+		<li>Nový kód by měl vždy pracovat s Promises</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Hudba budoucnosti: async/await</h2>
+	<ul>
+		<li>Novinka z ES2017</li>
+		<li>Nadstavba nad Promises</li>
+		<li>Asynchronní funkce stále vracejí Promise</li>
+		<li>Konzument může na hodnotu čekat blokujícím způsobem</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Hudba budoucnosti: async/await</h2>
+	<code class="block" data-syntax="js">async function getData() {
+	let data = await fetch(...); // vrací Promise
+	let processed = process(data);
+	return processed;            // implicitně obaleno do Promise
+}</code>
 </section>
 
 <section class="slide">
@@ -360,9 +393,10 @@ return promise;
 	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
 </footer>
 
-<script type="text/javascript">
-	Syntax.all();
-	new Presentation();
+<script src="../../jsslides/v3/slides/slides3.js"></script>
+<script>
+	Slides.modules.skin = "cvut";
+	Slides.modules.numbering = false;
 </script>
 
 </body>
