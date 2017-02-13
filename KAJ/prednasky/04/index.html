@@ -1,4 +1,3 @@
-<!-- async/await? -->
 <!doctype html>
 <html>
 	<head>
@@ -299,7 +298,7 @@ Animal.prototype.eat = function() {
 	<h2>Promises</h2>
 	<ul>
 		<li>Návrhový vzor <code>Promise</code> nabízí výrazně přehlednější řízení asynchronního kódu</li>
-		<li>Promise je "krabička na časem získanou hodnotu"</li>
+		<li>Promise je <em>krabička na časem získanou hodnotu</em></li>
 		<li>(podmíněně) asynchronní funkce <strong>vrací</strong> Promise</li>
 		<li>Zájemce může na promise navěsit posluchače (dva různé)</li>
 	</ul>
@@ -314,8 +313,8 @@ Animal.prototype.eat = function() {
 }
 
 getData().then(
-    function(data) { alert(data); },
-    function(error) { alert(error); }
+	function(data) { alert(data); },
+	function(error) { alert(error); }
 );
 </code>
 </section>
@@ -326,10 +325,22 @@ getData().then(
 		<li>Promise se může nacházet ve stavech "pending", "fulfilled", "rejected"</li>
 		<li>Fulfilled/rejected == "resolved"</li>
 		<li>Tvůrce promise ji mění, konzument jen poslouchá (<code>then</code>)</li>
-		<li>Vrátit lze již naplněnou promise</li>
+		<li>Vyrobit lze již naplněnou promise: <code>Promise.resolve(123)</code></li>
 		<li>Volání <code>then()</code> vrací novou promise (‽) &rArr; řetězení</li>
 		<li>Některé prohlížeče Promise nabízejí, pro jiné existují knihovny</li>
 	</ul>
+</section>
+
+<section class="slide">
+	<h2>Promises: další API</h2>
+	<code class="block" data-syntax="js">getData().catch(console.error); // jako .then(null, console.error)
+
+var p1 = getData();
+var p2 = getData();
+
+Promise.all([p1, p2]).then( ... );  // parametr callbacku je pole hodnot
+Promise.race([p1, p2]).then( ... ); // první s hodnotou
+</code>
 </section>
 
 <section class="slide">
@@ -345,12 +356,12 @@ getData().then(
 <section class="slide">
 	<h2>Promises: tvorba a změna stavu</h2>
 	<code class="block" data-syntax="js">var promise = new Promise(function(resolve, reject) {
-    /* funkce dodaná tvůrcem Promise */
-    if (...) {
-    	resolve(value);
-    } else {
-    	reject(error);
-    }
+	/* funkce dodaná tvůrcem Promise */
+	if (...) {
+		resolve(value);
+	} else {
+		reject(error);
+	}
 });
 return promise;
 </code>

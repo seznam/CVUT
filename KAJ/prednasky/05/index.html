@@ -2,12 +2,6 @@
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
-		<script src="../../common/js/oz.js" type="text/javascript"></script>
-		<script src="../../common/js/slides2.js" type="text/javascript"></script>
-		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
 		<title>Ajax, XHR, HTTP a jejich kamarádi</title>
 	<body>
@@ -65,15 +59,14 @@
 
 <section class="slide">
 	<h2>XMLHttpRequest API</h2>
-	<pre data-syntax="js">
-var xhr = new XMLHttpRequest();
+	<code class="block" data-syntax="js">var xhr = new XMLHttpRequest();
 
 xhr.onreadystatechange = /* ... */;
 xhr.addEventListener("readystatechange", /* ... */);
 
 xhr.open(metoda, url, async);
 xhr.send(data);
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -133,14 +126,13 @@ xhr.send(data);
 
 <section class="slide">
 	<h2>Origin a CORS: potenciální riziko</h2>
-	<pre data-syntax="js">
-var xhr = new XMLHttpRequest();
+	<code class="block" data-syntax="js">var xhr = new XMLHttpRequest();
 xhr.open("get", "http://gmail.com/", true);
 xhr.send();
 
 xhr.onreadystatechange = function() {
 	alert(this.responseText);
-}</pre>
+}</code>
 </section>
 
 <section class="slide">
@@ -234,10 +226,10 @@ xhr.onreadystatechange = function() {
 
 <section class="slide">
 	<h2>Transportní formáty: JSON</h2>
-	<pre data-syntax="js">{
+	<code class="block" data-syntax="js">{
 	"name": "jan",
 	"data": [3, 4, true]
-}</pre>
+}</code>
 	<ul>
 		<li>Klíče musí být ohraničeny úvozovkami</li>
 		<li><code>JSON.parse</code> a <code>JSON.stringify</code></li>
@@ -265,15 +257,14 @@ xhr.onreadystatechange = function() {
 
 <section class="slide">
 	<h2>JSONP: ukázka</h2>
-	<pre data-syntax="xml">
-&lt;!-- vložit do dokumentu --&gt;
+	<p>
+	<code class="block" data-syntax="xml">&lt;!-- vložit do dokumentu --&gt;
 &lt;script src="http://api.com/service?callback=mojeFunkce"&gt;&lt;/script&gt;
-</pre>
+</code></p>
 
-	<pre data-syntax="js">
-/* opdpověď serveru */
+	<p><code class="block" data-syntax="js">/* odpověď serveru */
 mojeFunkce({name: "jan", data: [3, 4, true]});
-</pre>
+</code></p>
 </section>
 
 <section class="slide">
@@ -289,8 +280,7 @@ mojeFunkce({name: "jan", data: [3, 4, true]});
 
 <section class="slide">
 	<h2>fetch()</h2>
-	<pre data-syntax="js">
-fetch("/nejaky/soubor.json")
+	<code class="block" data-syntax="js">fetch("/nejaky/soubor.json")
 	.then(function(response) {
 		if (response.status != 200) {
 			console.log("HTTP status", response.status);
@@ -304,7 +294,7 @@ fetch("/nejaky/soubor.json")
 	.catch(function(err) {
 		console.log("Error", err);
 	});
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -352,8 +342,7 @@ fetch("/nejaky/soubor.json")
 
 <section class="slide">
 	<h2>Web Sockets: klientská část</h2>
-	<pre data-syntax="js">
-var socket = new WebSocket("ws://server.tld:1234/");
+	<code class="block" data-syntax="js">var socket = new WebSocket("ws://server.tld:1234/");
 
 socket.onopen = function(e) {
 	socket.send("data");
@@ -363,7 +352,7 @@ socket.onmessage = function(e) {
 	alert(e.data);
 	socket.close();
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -371,7 +360,7 @@ socket.onmessage = function(e) {
 	<ul>
 		<li>Ta nás nezajímá!</li>
 		<li>Nutný specializovaný software</li>
-		<li>Knihovny pro řadu jazyků (PHP, Python, TeaJS, node.js, &hellip;)</li>
+		<li>Knihovny pro řadu jazyků (PHP, Python, node.js, &hellip;)</li>
 	</ul>
 </section>
 
@@ -398,9 +387,10 @@ socket.onmessage = function(e) {
 	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
 </footer>
 
-<script type="text/javascript">
-	Syntax.all();
-	new Presentation();
+<script src="../../jsslides/v3/slides/slides3.js"></script>
+<script>
+	Slides.modules.skin = "cvut";
+	Slides.modules.numbering = false;
 </script>
 
 </body>
