@@ -1,14 +1,7 @@
-<!-- bez MQ, + flexbox -->
 <!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
-		<script src="../../common/js/oz.js" type="text/javascript"></script>
-		<script src="../../common/js/slides2.js" type="text/javascript"></script>
-		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
 		<link href='http://fonts.googleapis.com/css?family=The+Girl+Next+Door' rel='stylesheet' type='text/css' />
 		<title>2D a 3D transformace, Flexible Boxes</title>
@@ -29,9 +22,9 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>Media queries</li>
 		<li>2D transformace</li>
 		<li>3D transformace</li>
+		<li>CSS Flexible Box Module</li>
 		<li>Písma</li>
 	</ol>
 </section>
@@ -49,17 +42,16 @@
 <section class="slide">
 	<h2>CSS transformace: dostupné funkce</h2>
 	<p><a href="https://developer.mozilla.org/en-US/docs/CSS/transform" target="_blank">Dokumentace na MDN</a></p>
-<pre data-syntax="css" class="hover">
-div {
+<code data-syntax="css" class="block hover">div {
 	transform: translate(100%, 50px);
 	transform: rotate(45deg);
 	transform: scale(0.2);
 	transform: skewX(30deg);
 	transform: matrix(a, b, c, d, tx, ty);
 }
-</pre>
+</code>
 <style>
-	pre.hover:hover {
+	code.hover:hover {
 		transform: scale(0.8) rotate(10deg);
 		-webkit-transform: scale(0.8) rotate(10deg);
 	}
@@ -69,19 +61,17 @@ div {
 <section class="slide">
 	<h2>CSS transformace: ostatní</h2>
 	<ul>
-		<li>Vlastnost <code>transform-origin</code> určuje počátek souřadného systému (výchozí: 50% 50%)</li>
-		<li><pre data-syntax="css">
-div {
+		<li>Vlastnost <code>transform-origin</code> určuje počátek souřadného systému (výchozí: 50% 50%)
+		<code class="block" data-syntax="css">div {
 	transform-origin: 0 0;
 	transform: rotate(45deg);
 }
-</pre></li>
-		<li>Transformace lze kombinovat</li>
-		<li><pre data-syntax="css">
-div {
+</code></li>
+		<li>Transformace lze kombinovat
+		<code class="block" data-syntax="css">div {
 	transform: rotate(45deg) translate(50px, 50px);
 }
-</pre></li>
+</code></li>
 	</ul>
 </section>
 
@@ -90,12 +80,12 @@ div {
 	<div id="order1">
 		<div></div>
 		<div></div>
-		<pre data-syntax="css">transform: translate(100%, 0) rotate(45deg)</pre>
+		<code class="block" data-syntax="css">transform: translate(100%, 0) rotate(45deg)</code>
 	</div>
 	<div id="order2">
 		<div></div>
 		<div></div>
-		<pre data-syntax="css">transform: rotate(45deg) translate(100%, 0)</pre>
+		<code class="block" data-syntax="css">transform: rotate(45deg) translate(100%, 0)</code>
 	</div>
 	<style>
 		#order1, #order2 {
@@ -171,7 +161,7 @@ div {
 	<ul>
 		<li>Aby docházelo k prespektivnímu zkreslení, je nutno definovat parametry 3D prostoru</li>
 		<li>Vlastnost <code>perspective</code> na rodičovském prvku určuje míru zkreslení</li>
-		<li>Vlastnost <code>transform-style</code> na rodičovském prvku určuje hloubku potomků (<a href="https://jsfiddle.net/5g42pchc/" target="_blank">ukázka</a>)</li>
+		<li>Vlastnost <code>transform-style</code> určuje, jak se chovají 3d transformace <a href="https://jsfiddle.net/1rzpe641/">na potomcích již transformovaných prvků</a></li>
 	</ul>
 </section>
 
@@ -193,15 +183,14 @@ div {
 			margin: auto;
 		}
 	</style>
-	<pre data-syntax="css">
-#parent {
+	<code class="block" data-syntax="css">#parent {
 	perspective: 500px;
 }
 
 #parent div {
 	transform: rotateY(45deg);
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -212,27 +201,82 @@ div {
 	</ul>
 </section>
 
+<section class="slide">
+	<h2>CSS3 Flexible Box</h2>
+	<ul>
+		<li>Nový pozicovací algoritmus do CSS</li>
+		<li>Pro polohování boxů vedle sebe / pod sebe</li>
+		<li>Náhrada za (slabý) float</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS3 Flexible Box: základ</h2>
+<code class="block" data-syntax="xml">&lt;div id="parent"&gt;
+	&lt;div id="child1"&gt;&lt;/div&gt;
+	&lt;div id="child2"&gt;&lt;/div&gt;
+	&lt;div id="child3"&gt;&lt;/div&gt;
+&lt;/div&gt;
+</code>
+
+<code class="block" data-syntax="css">#parent {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+</code>
+
+<p><a href="https://jsfiddle.net/cu4ykbxL/1/">výsledek</a></p>
+</section>
+
+<section class="slide">
+	<h2>CSS3 Flexible Box</h2>
+	<ul>
+		<li>Komplexní systém mnoha CSS vlastností</li>
+		<li>Popisuje vždy jen rozložení několika sourozenců v rámci rodiče</li>
+		<li>Terminologie a <em>big picture</em> <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes">na MDN</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS3 Flexible Box: relativní rozměry boxů</h2>
+	<ul>
+		<li><code>flex-grow</code> je relativní <em>síla růstu</em></li>
+		<li><code>flex-shrink</code> je relativní <em>síla zmenšení</em></li>
+		<li><code>flex-base</code> je základní rozměr (výška/šířka)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS3 Flexible Box: další vlastnosti</h2>
+	<ul>
+		<li><code>align-items</code> a <code>align-self</code> pro zarovnání v kolmé ose (<em>cross axis</em>)</li>
+		<li><code>order</code> pro změnu pořadí v prvků</li>
+		<li><code>flex-wrap</code> pro povolení/zakázání zalamování</li>
+		<li><a href="http://jsfiddle.net/ondras/tGK7p/">Ukázka</a></li>
+	</ul>
+</section>
+
 <section class="slide" style="font-family:the girl next door; font-weight: bold">
 	<h2>CSS @font-face</h2>
 	<ul>
 		<li>Definice vlastního písma</li>
 		<li>Podporováno od IE 4 (!)</li>
 		<li>Nutnost dodat soubor(y) s definicí písma</li>
-		<li>Vhodné pro typografii i <a target="_blank" href="http://www.justbenicestudio.com/studio/websymbolsliga/">ideogramy</a> (<del>GitHub</del>, Seznam E-mail)</li>
+		<li>Vhodné pro typografii, dříve pro ideogramy (nyní lépe SVG)</li>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>CSS @font-face &ndash; ukázka</h2>
-	<pre data-syntax="css">
-@font-face {
+	<code class="block" data-syntax="css">@font-face {
 	font-family: MujFont;
 	src: local("Muj Font"), url(MujFont.ttf);
 }
 
 body {
 	font-family: MujFont;
-}
+}</code>
 </section>
 
 <section class="slide">
@@ -247,13 +291,12 @@ body {
 
 <section class="slide">
 	<h2>CSS @font-face &ndash; Data URI</h2>
-	<pre data-syntax="css">
-@font-face {
+	<code class="block" data-syntax="css">@font-face {
     font-family: "MujFont";
     src: url(data:application/x-font-woff;charset=utf-8;base64,d09......AAA==) format("woff"),
          url("MujFont.ttf") format("truetype");
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -275,9 +318,10 @@ body {
 	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
 </footer>
 
-<script type="text/javascript">
-	Syntax.all();
-	new Presentation();
+<script src="../../jsslides/v3/slides/slides3.js"></script>
+<script>
+	Slides.modules.skin = "cvut";
+	Slides.modules.numbering = false;
 </script>
 
 </body>

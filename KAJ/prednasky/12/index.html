@@ -37,52 +37,6 @@
 </section>
 
 <section class="slide">
-	<h2>CSS3 Flexible Box</h2>
-	<ul>
-		<li>Nový pozicovací algoritmus do CSS</li>
-		<li>Pro polohování boxů vedle sebe / pod sebe</li>
-		<li>Náhrada za (slabý) float</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS3 Flexible Box: základ</h2>
-<pre data-syntax="xml">
-&lt;div id="parent"&gt;
-	&lt;div id="child1"&gt;&lt;/div&gt;
-	&lt;div id="child2"&gt;&lt;/div&gt;
-	&lt;div id="child3"&gt;&lt;/div&gt;
-&lt;/div&gt;
-</pre>
-<pre data-syntax="css">
-#parent {
-	display: flex;
-	flex-direction: row;
-	justify-content: space-between;
-}
-</pre>
-</section>
-
-<section class="slide">
-	<h2>CSS3 Flexible Box: relativní rozměry boxů</h2>
-	<ul>
-		<li><code>flex-grow</code> je relativní <em>síla růstu</em></li>
-		<li><code>flex-shrink</code> je relativní <em>síla zmenšení</em></li>
-		<li><code>flex-base</code> je základní rozměr (výška/šířka)</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>CSS3 Flexible Box: další vlastnosti</h2>
-	<ul>
-		<li><code>align-items</code> a <code>align-self</code> pro zarovnání v kolmé ose (<em>cross axis</em>)</li>
-		<li><code>order</code> pro změnu pořadí v prvků</li>
-		<li><code>flex-wrap</code> pro povolení/zakázání zalamování</li>
-		<li><a href="http://jsfiddle.net/ondras/tGK7p/">Ukázka</a></li>
-	</ul>
-</section>
-
-<section class="slide">
 	<h2>CSS3 Custom Properties</h2>
 	<pre data-syntax="css">
 body {
