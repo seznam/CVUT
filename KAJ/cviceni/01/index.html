@@ -9,7 +9,7 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>Tvorba klientských aplikací v JavaScriptu</title>
+		<title>Cvičení 01 - Tvorba klientských aplikací v JavaScriptu</title>
 	<body>
 
 <h1>Tvorba klientských aplikací v JavaScriptu</h1>
@@ -28,9 +28,12 @@
 	<h2>Obsah</h2>
 	<ol>
 		<li>O cvičení</li>
-		<li>Opáčko HTML</li>
-		<li>Vytvoření dokumentu s použitím HTML5 značek</li>
-		<li>Microdata, JSON-LD</li>
+		<li>Pracovní prostředí</li>
+		<li>HTML5</li>
+		<li>DOM: práce s elementy, ClassList</li>
+		<li>Cykly</li>
+		<li>Polyfily</li>
+		<li>Aplikace</li>
 	</ol>
 </section>
 
@@ -39,11 +42,10 @@
 	<ul class="sections">
 		<li><a href="http://www.fel.cvut.cz/education/bk/predmety/25/99/p2599006.html">Moderní" webové technologie na klientu</a></li>
 		<li>HTML5, CSS3, Javascript</li>
-		<li>Klasifikovaný zápočet</li>
+		<li>Klasifikovaný zápočet nebo jen zápočet</li>
 		<li>Semestrální práce</li>
-		<li>Pracovní prostředí</li>
 		<li>Přednášky: RNDr. Ondřej Žára, Seznam.cz</li>
-		<li>Cvičení: Bc. Zdeněk Vlach, Seznam.cz</li>
+		<li>Cvičení: Bc. Zdeněk Vlach, Seznam.cz, Bc. Petr Huřťák, Seznam.cz</li>
 	</ul>
 </section>
 
@@ -78,280 +80,67 @@
 </section>
 
 <section class="slide">
-	<h2>HTML5 dokument - cíl</h2>
+	<h2>HTML5 TODO applikace</h2>
 	<ul class="sections">
-		<li>Vytvořit statickou stránku - námět: článek zpravodajského serveru</li>
-		<li>Součásti:
-			<ul>
-				<li>Hlavička s logem</li>
-				<li>Menu s kategoriemi</li>
-				<li>Tělo článku</li>
-				<li>Informace o autorovi</li>
-				<li>Formulář pro zaslání příspěvku do diskuze k článku</li>
-				<li>Patička s informacemi o webu a copyright</li>
-			</ul>
-		</li>
+		<li>Vytvoříme stránku dle <a href="http://todomvc.com/">http://todomvc.com/</a></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>HTML5 dokument - základní struktura</h2>
+	<h2>HTML5</h2>
 	<ul class="sections">
-		<li>
-			Kostra HTML5 dokumentu:
-		</li>
-		<li>
-<pre data-syntax="xml">
-&lt;!DOCTYPE html&gt;
-
- &lt;html&gt;
- 	&lt;head&gt;
- 	&lt;/head&gt;
-
- 	&lt;body&gt;
- 	&lt;/body&gt;
- &lt;/html&gt;
-</pre>
-	</li>
+		<li>Vytvoře správnou kostru aplikace v HTML5</li>
+		<li><a href="https://github.com/tastejs/todomvc/tree/gh-pages/examples/vanillajs">https://github.com/tastejs/todomvc/tree/gh-pages/examples/vanillajs</a></li>
+		<li>Podívejte se na kaskádové styly</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>HTML5 dokument - hlavička</h2>
+	<h2>Javasript - DOM</h2>
 	<ul class="sections">
-		<li>Co musí obsahovat tag HEAD?</li>
+		<li>Napište aplikaci, která data v proměnné <i>todos</i> objektu <i>state</i> vypíše do stránky</li>
 		<li>
-<pre data-syntax="xml">
-&lt;head&gt;
-	&lt;meta charset="utf-8" /&gt;
-	&lt;title&gt;
-		Začal se vyučovat nový skvělý předmět o
-		moderních klientských aplikacích - Moje zprávy
-	&lt;/title&gt;
-&lt;/head&gt;
+<pre>
+	var state = {
+		todos: [
+			{ text: 'Hi', completed: true  },
+			{ text: 'Hello', completed: false },
+			{ text: 'Hi there!', completed: true },
+		],
+		filter: 'all'
+	};
 </pre>
 		</li>
-		<li>Připojení kaskádových stylů</li>
-		<li>Připojení externích javascriptů</li>
+		<li>Pro výpis použijte metody DOM</li>
+		<li>Použijte výpis použije string</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>HTML5 dokument - tělo</h2>
+	<h2>Javasript - cykly</h2>
 	<ul class="sections">
-		<li>Co obsahuje tag BODY?</li>
-<li>
-<pre data-syntax="xml">
-&lt;body&gt;
-	moje výtvory, které uvidí celý svět :)&hellip;
-&lt;/body&gt;
-</pre>
-</li>
-</ul>
-</section>
-
-<section class="slide">
-	<h2>HTML5 dokument - Struktura, která je viditelná</h2>
-	<ul class="sections">
-		<li>Hmm, jak by mohla vypadat struktura stránky?</li>
-<li>
-<pre data-syntax="xml">
-&lt;header id="header"&gt;...&lt;/header&gt;
-&lt;nav id="menu"&gt;...&lt;/nav&gt;
-&lt;article id="content"&gt;
-	&lt;div id="author"&gt;...&lt;/div&gt;
-	&lt;div id="discForm"&gt;...&lt;/div&gt;
-&lt;/article&gt;
-&lt;footer id="footer"&gt;...&lt;/footer&gt;
-</li>
-</ul>
-</pre>
-</section>
-
-<section class="slide">
-	<h2>HTML5 dokument - hlavička</h2>
-<ul class="sections">
-		<li>Obsahuje logo + název našeho serveru</li>
-<li>
-<pre data-syntax="xml">
-&lt;header id="header"&gt;
-	&lt;h2 id="service"&gt;
-		&lt;img src=&quot;/logo.jpg&quot; alt=&quot;&quot; /&gt;
-		Moje zprávy
-	&lt;/h2&gt;
-&lt;/header&gt;
-</pre>
-</section>
-
-<section class="slide">
-	<h2>HTML5 dokument - menu</h2>
-<ul class="sections">
-	<li>Obsahuje katerogie první úrovně a kategorie aktuálně otevřené kategorie</li>
-<li>
-<pre data-syntax="xml">
-&lt;nav id="menu"&gt;
-	&lt;ul&gt;&lt;li&gt;Domácí&lt;/li&gt;
-		&lt;li&gt;Věda a technika
-			&lt;ul&gt;&lt;li class=&quot;active&quot;&gt;Školy&lt;/li&gt;
-			&lt;/ul&gt;
-		&lt;/li&gt;
-	&lt;/ul&gt;
-&lt;/nav&gt;
-</pre>
-</section>
-
-<section class="slide">
-	<h2>HTML5 dokument - tělo článku</h2>
-<ul class="sections">
-		<li>Nadpis, perex, text, obrázky, ostatní, &hellip;</li>
-<li>
-<pre data-syntax="xml">
-&lt;h1&gt;Začal se vyučovat...&lt;/h1&gt;
-&lt;p class=&quot;perex&quot;&gt;Bylo nebylo, ale spíš bylo...&lt;/p&gt;
-&lt;div class=&quot;text&quot;&gt;
-	&lt;p&gt;
-		&lt;img src=&quot;/podpora.jpg&quot;  alt=&quot;Podpora v UA&quot;/&gt;
-		Tak určitě, Javascript je parádní...
-	&lt;/p&gt;
-&lt;/div&gt;
-</pre>
-</section>
-
-<section class="slide">
-	<h2>5HTML dokument - o autorovi</h2>
-<ul class="sections">
-		<li>Jméno, o autorovi, adresa</li>
-<li>
-<pre data-syntax="xml">
-&lt;div id="author"&gt;
-	&lt;p class=&quot;author&quot;&gt;Kaskadin Javascriptovič&lt;/p&gt;
-	&lt;p class=&quot;about&quot;&gt;Narodil se ve městě...&lt;/p&gt;
-	&lt;p class=&quot;address&quot;&gt;Někde 321, 123 02 Městov&lt;/p&gt;
-&lt;/div&gt;
-</pre>
-</section>
-
-<section class="slide">
-	<h2>HTML5 dokument - formulář</h2>
-<ul class="sections">
-		<li>Jméno, datum, email, text, tlačítka</li>
-<li>
-<pre data-syntax="xml">
-&lt;div id=&quot;discForm&quot;&gt;
-	&lt;form action=&quot;/send&quot; method=&quot;post&quot;&gt;
-		&lt;label&gt;Jméno: &lt;input type=&quot;text&quot; name=&quot;name&quot; /&gt;&lt;/label&gt;
-		&lt;label&gt;Datum: &lt;input type=&quot;text&quot; name=&quot;date&quot; /&gt;&lt;/label&gt;
-		&lt;label&gt;E-mail: &lt;input type=&quot;text&quot; name=&quot;email&quot; /&gt;&lt;/label&gt;
-		&lt;label&gt;Text: &lt;textarea name=&quot;text&quot;&gt; &lt;/textarea&gt;&lt;/label&gt;
-		&lt;input type=&quot;submit&quot; value=&quot;Přidat příspěvek&quot; /&gt;
-	&lt;/form&gt;
-&lt;/div&gt;
-</pre>
-</section>
-
-<section class="slide">
-	<h2>5HTML dokument - patička</h2>
-<ul class="sections">
-		<li>Údaje o serveru, odkazy, &hellip;</li>
-<li>
-<pre data-syntax="xml">
-&lt;footer id="footer"&gt;
-	&lt;p&gt;
-		&amp; copy; 2013 Můj desing
-		&lt;a href=&quot;/about.html&quot;&gt;O firmě&lt;/a&gt;
-		&lt;a href=&quot;/contact.html&quot;&gt;Kontakt&lt;/a&gt;
-	&lt;/p&gt;
-&lt;/footer&gt;
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Microdata</h2>
-	<ul class="sections">
-		<li>K čemu slouží?</li>
-		<li><strong>Označení informací pro strojové čtení</strong></li>
-		<li>Pomocí jakých prostředků dosáhneme označení?</li>
-		<li><strong>itemscope, itemtype, itemprop</strong></li>
+		<li>Použijte for cyklus</li>
+		<li>Použijte for - in cyklus</li>
+		<li>Použijte funkcionální iterace</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Microdata - Opakování</h2>
+	<h2>Javasript - události</h2>
 	<ul class="sections">
-		<li><strong>itemscope</strong></li>
-		<li>Kontejner obsahující data jednoho objektu, mohou se zanořovat</li>
-		<li><strong>itemtype</strong></li>
-		<li>Přirazení existujícího slovníku k itemscope</li>
-		<li><strong>itemprop</strong></li>
-		<li>Označení a popsání konkrétní hodnoty v dokumentu</li>
+		<li>Zrovozněte zaškrtávání dokončených úkolů</li>
+		<li>addEventListener</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Microdata - slovníky, testovací nástroje</h2>
+	<h2>Javasript - IIFE</h2>
 	<ul class="sections">
-		<li>K čemu slouží?</li>
-		<li>Předdefinované, "standardizované" kolekce hodnot posisující různé objekty</li>
-		<li><a href="http://schema.org/">http://schema.org/</a></li>
-
-		<li><a href="http://www.google.com/webmasters/tools/richsnippets">Rich Snippet Testing Tool</a></li>
+		<li>Immediately-invoked function expression</li>
+		<li>Odstiňte vaši aplikaci od globálního jmenného prostoru</li>
 	</ul>
 </section>
 
-<section class="slide">
-	<h2>Microdata - úkol</h2>
-	<ul class="sections">
-		<li><em>Úkol I: </em>Popiště autora článku pomocí microdat</li>
-		<li><em>Úkol II: </em>Vyberte si nějaký objekt z reálného světa a popiště jej za pomoci microdat</li>
-		<li><em>Nápověda: </em>Inspirujte se na http://schema.org/</li>
-		<li>
-<pre data-syntax="xml">
-&lt;section itemscope itemtype=&quot;http://schema.org/EducationEvent&quot;&gt;
-	&lt;h1 itemprop=&quot;name&quot;&gt;Tvorba klientských aplikací v JavaScriptu - SVG a Microdata&lt;/h1&gt;
-	&lt;p itemprop=&quot;description&quot;&gt;Toto cvičení vám poskytne znalosti o moderních technologiích SVG a Microdata&lt;/p&gt;
-	&lt;p&gt;
-		Cviční se konná vždy od &lt;span itemprop=&quot;startDate&quot;&gt;02-25-2014&lt;/span&gt; do &lt;span itemprop=&quot;endDate&quot;&gt;02-25-2014&lt;/span&gt;
-		a trvá &lt;span itemprop=&quot;duration&quot;&gt;90 minut&lt;/span&gt;, cvičící je &lt;span itemprop=&quot;performer&quot;&gt;Zdeněk Vlach&lt;/span&gt;.
-	&lt;/p&gt;
-	&lt;address itemprop=&quot;location&quot; itemscope itemtype=&quot;http://schema.org/PostalAddress&quot;&gt;
-		&lt;span itemprop=&quot;streetAddress&quot;&gt;Karlovo náměstí 5&lt;/span&gt;, &lt;span itemprop=&quot;addressLocality&quot;&gt;Praha&lt;/span&gt;
-	&lt;/address&gt;
-&lt;/section&gt;
-</pre>
-</li>
-</ul>
-</section>
-
-<section class="slide">
-	<h2>JSON-LD</h2>
-	<ul class="sections">
-		<li>K čemu slouží?</li>
-		<li><strong>Označení informací pro strojové čtení</strong></li>
-		<li>Pomocí jakých prostředků dosáhneme označení?</li>
-		<li><strong><a href="http://json-ld.org/playground/">JSON-LD</a></strong></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>JSON-LD podrobněji + úkol</h2>
-	<ul class="sections">
-		<li><em>Úkol: </em> Doplňte JSON-LD do stránky</li>
-<li>
-<pre data-syntax="js">
-&lt;script type="application/ld+json"&gt;
-{
-	"@context": "http://schema.org",
-	"@type": "Person",
-	"name": "Autor Clanku",
-	"image": "http://ondras.zarovi.cz/img/oz.jpg",
-	"jobTitle": "Writer",
-	"address": "Prague, Czech Republic",
-	"affiliation": "http://www.seznam.cz/"
-}                                                                                                                                              
-&lt;/script&gt;</pre>
-</li>
-</ul>
-</section>
 
 <section class="slide">
 	<h2>Prostor pro otázky</h2>
