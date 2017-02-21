@@ -19,9 +19,9 @@
                 <footer class="footer">
                     <span class="todo-count"></span>
                     <div class="filters">
-                        <a href="#/" class="selected">All</a>
-                        <a href="#/active">Active</a>
-                        <a href="#/completed">Completed</a>
+                        <a id="filter-all" href="#/" class="selected">All</a>
+                        <a id="filter-active" href="#/active">Active</a>
+                        <a id="filter-completed" href="#/completed">Completed</a>
                     </div>
                     <button class="clear-completed">Clear completed</button>
                 </footer>
@@ -48,13 +48,6 @@
                 ],
                 filter: 'all'
             };
-
-            //
-            // Gather elements
-            //
-
-            var inputEl = document.querySelector('.new-todo');
-            var todoListEl = document.querySelector('.todo-list')
 
             //
             // Prepare todos html
@@ -118,74 +111,79 @@
             // Append todos html into the page
             //
 
+            var todoListEl = document.querySelector('.todo-list')
             createHtmlWithCreateElement(state.todos, todoListEl);
             createHtmlWithStrings(state.todos, todoListEl);
 
             //
-            // 2nd lencture starts here ???
+            // Handle main input
             //
 
-            // //
-            // // Handle main input
-            // //
-            // inputEl.addEventListener('keyup', function (event) {
-            //     // EXCERCISE: inspect the event object in dev console
+            var inputEl = document.querySelector('.new-todo');
+            inputEl.addEventListener('keyup', function (event) {
+                // EXCERCISE: inspect the event object in dev console
 
-            //     var KEY_ENTER = 13;
-            //     if (event.keyCode !== KEY_ENTER) {
-            //         return;
-            //     }
+                var KEY_ENTER = 13;
+                if (event.keyCode !== KEY_ENTER) {
+                    return;
+                }
 
-            //     // Update app state
-            //     var todo = {
-            //         text: inputEl.value,
-            //         completed: false
-            //     };
-            //     state.todos.push(todo);
+                // Update app state
+                var todo = {
+                    text: inputEl.value,
+                    completed: false
+                };
+                state.todos.push(todo);
 
-            //     // Update html
-            //     inputEl.value = '';
-            //     todoListEl.innerHTML = '';
-            //     createHtmlWithStrings(state.todos, todoListEl);
-            // })
+                // Update html
+                inputEl.value = '';
+                todoListEl.innerHTML = '';
+                createHtmlWithStrings(state.todos, todoListEl);
+            })
 
-            // //
-            // // Handle completion state change
-            // //
+            //
+            // Handle filters
+            //
 
-            // todoListEl.addEventListener('click', function (event) {
-            //     if (!event.target.classList.contains('toggle')) {
-            //         return;
-            //     }
+            var filters = {
+                all: document.querySelector('#filter-all'),
+                active: document.querySelector('#filter-active'),
+                completed: document.querySelector('#filter-completed')
+            };
 
-            //     console.log(event);
-            // })
+            filters.all.addEventListener('click', function (e) { filtersClick('all'); });
+            filters.active.addEventListener('click', function (e) { filtersClick('active'); });
+            filters.completed.addEventListener('click', function (e) { filtersClick('completed'); });
 
-            // //
-            // // Handle filters
-            // //
+            function filtersClick (newFilterType) {
+                for (var key in filters) {
+                    var filter = filters[key];
+                    filter.classList.remove('selected');
+                }
+                filters[newFilterType].classList.add('selected');
 
-            // function getTodosByCurrentFilter (todos, filter) {
-            //     switch (filter) {
-            //         case 'all':
-            //             return todos;
-            //         case 'active':
-            //             return todos.filter(function (todo) {
-            //                 return todo.completed === false;
-            //             });
-            //         case 'completed':
-            //             return todos.filter(function (todo) {
-            //                 return todo.completed === true;
-            //             });
-            //         default:
-            //             throw new Error('unknown filter');
-            //     }
-            // }
+                todoListEl.innerHTML = '';
+                state.filter = newFilterType;
+                var todos = getTodosByCurrentFilter(state.todos, state.filter);
+                createHtmlWithCreateElement(todos, todoListEl);
+            }
 
-            // todoListEl.innerHTML = '';
-            // var todos = getTodosByCurrentFilter(state.todos, state.filter);
-            // createHtmlWithCreateElement(todos, todoListEl);
-
+            function getTodosByCurrentFilter (todos, filter) {
+                switch (filter) {
+                    case 'all':
+                        return todos;
+                    case 'active':
+                        return todos.filter(function (todo) {
+                            return todo.completed === false;
+                        });
+                    case 'completed':
+                        return todos.filter(function (todo) {
+                            return todo.completed === true;
+                        });
+                    default:
+                        throw new Error('unknown filter');
+                }
+            }
 
         </script>
 
