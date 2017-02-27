@@ -90,7 +90,9 @@
             }
 
             function createHtmlWithStrings (todos, targetEl) {
-                var todosHtmlArray = todos.map(function (todo) {
+                for (var i = 0; i < todos.length; i++) {
+                    var todo = todos[i];
+
                     var html =
                         '<li>' +
                         '  <input class="toggle" type="checkbox" ' + (todo.completed ? 'checked' : '')  + '>' +
@@ -98,13 +100,8 @@
                         '  <button class="destroy"></button>' +
                         '</li>';
 
-                    return html;
-                })
-                // EXERCISE: try to use reduce instead of map
-
-                var todosHtml = todosHtmlArray.join('');
-                targetEl.innerHTML = todosHtml;
-                // EXERCISE: try to use insertAdjacentHTML instead of innerHTML, what is the difference between these two
+                    targetEl.insertAdjacentHTML('beforeend', html);
+                }
             }
 
             //
@@ -112,7 +109,7 @@
             //
 
             var todoListEl = document.querySelector('.todo-list')
-            createHtmlWithCreateElement(state.todos, todoListEl);
+            // createHtmlWithCreateElement(state.todos, todoListEl);
             createHtmlWithStrings(state.todos, todoListEl);
 
             //
@@ -121,8 +118,6 @@
 
             var inputEl = document.querySelector('.new-todo');
             inputEl.addEventListener('keyup', function (event) {
-                // EXCERCISE: inspect the event object in dev console
-
                 var KEY_ENTER = 13;
                 if (event.keyCode !== KEY_ENTER) {
                     return;
@@ -140,51 +135,6 @@
                 todoListEl.innerHTML = '';
                 createHtmlWithStrings(state.todos, todoListEl);
             })
-
-            //
-            // Handle filters
-            //
-
-            var filters = {
-                all: document.querySelector('#filter-all'),
-                active: document.querySelector('#filter-active'),
-                completed: document.querySelector('#filter-completed')
-            };
-
-            filters.all.addEventListener('click', function (e) { filtersClick('all'); });
-            filters.active.addEventListener('click', function (e) { filtersClick('active'); });
-            filters.completed.addEventListener('click', function (e) { filtersClick('completed'); });
-
-            function filtersClick (newFilterType) {
-                for (var key in filters) {
-                    var filter = filters[key];
-                    filter.classList.remove('selected');
-                }
-                filters[newFilterType].classList.add('selected');
-
-                todoListEl.innerHTML = '';
-                state.filter = newFilterType;
-                var todos = getTodosByCurrentFilter(state.todos, state.filter);
-                createHtmlWithCreateElement(todos, todoListEl);
-            }
-
-            function getTodosByCurrentFilter (todos, filter) {
-                switch (filter) {
-                    case 'all':
-                        return todos;
-                    case 'active':
-                        return todos.filter(function (todo) {
-                            return todo.completed === false;
-                        });
-                    case 'completed':
-                        return todos.filter(function (todo) {
-                            return todo.completed === true;
-                        });
-                    default:
-                        throw new Error('unknown filter');
-                }
-            }
-
         </script>
 
     </body>
