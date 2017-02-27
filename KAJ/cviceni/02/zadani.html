@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="http://todomvc.com/examples/vanilla-es6/node_modules/todomvc-common/base.css">
+        <link rel="stylesheet" href="http://todomvc.com/examples/vanilla-es6/node_modules/todomvc-app-css/index.css">
+        <title>Lecture 02</title>
+    </head>
+    <body>
+        <section class="todoapp">
+            <header class="header">
+                <h1>todos</h1>
+                <input class="new-todo" placeholder="What needs to be done?" autofocus>
+            </header>
+            <section class="main">
+                <input class="toggle-all" type="checkbox">
+                <label for="toggle-all">Mark all as complete</label>
+                <ul class="todo-list"></ul>
+                <footer class="footer">
+                    <span class="todo-count"></span>
+                    <div class="filters">
+                        <a id="filter-all" href="#/" class="selected">All</a>
+                        <a id="filter-active" href="#/active">Active</a>
+                        <a id="filter-completed" href="#/completed">Completed</a>
+                    </div>
+                    <button class="clear-completed">Clear completed</button>
+                </footer>
+            </section>
+        </section>
+
+        <footer class="info">
+            <p>Double-click to edit a todo</p>
+            <p>Created by <a href="http://twitter.com/oscargodson">Oscar Godson</a></p>
+            <p>Refactored by <a href="https://github.com/cburgmer">Christoph Burgmer</a></p>
+            <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+        </footer>
+
+        <script>
+            //
+            // Predefined data
+            //
+
+            var state = {
+                todos: [
+                    { text: 'Hi', completed: true  },
+                    { text: 'Hello', completed: false },
+                    { text: 'Hi there!', completed: true },
+                ],
+                filter: 'all'
+            };
+
+            //
+            // Prepare todos html
+            //
+
+            /*
+                Template example:
+                <li>
+                    <input class="toggle" type="checkbox" checked>
+                    <label>aaa</label>
+                    <button class="destroy"></button>
+                </li>
+            */
+
+            function createHtmlWithCreateElement (todos, targetEl) {
+                for (var i = 0; i < todos.length; i++) {
+                    var todo = todos[i];
+
+                    // Prepare elements
+                    var inputEl = document.createElement('input');
+                    inputEl.classList.add('toggle');
+                    inputEl.type = 'checkbox';
+                    inputEl.checked = todo.completed;
+
+                    var labelEl = document.createElement('label');
+                    labelEl.innerHTML = todo.text;
+
+                    var buttonEl = document.createElement('button');
+                    buttonEl.classList.add('destroy');
+
+                    // Append these elements to the todo wrapper element
+                    var todoEl = document.createElement('li');
+                    todoEl.appendChild(inputEl);
+                    todoEl.appendChild(labelEl);
+                    todoEl.appendChild(buttonEl);
+
+                    // Append todo to the page
+                    targetEl.appendChild(todoEl);
+                }
+            }
+
+            function createHtmlWithStrings (todos, targetEl) {
+                for (var i = 0; i < todos.length; i++) {
+                    var todo = todos[i];
+
+                    var html =
+                        '<li>' +
+                        '  <input class="toggle" type="checkbox" ' + (todo.completed ? 'checked' : '')  + '>' +
+                        '  <label>' + todo.text + '</label>' +
+                        '  <button class="destroy"></button>' +
+                        '</li>';
+
+                    targetEl.insertAdjacentHTML('beforeend', html);
+                }
+            }
+
+            //
+            // Append todos html into the page
+            //
+
+            var todoListEl = document.querySelector('.todo-list')
+            // createHtmlWithCreateElement(state.todos, todoListEl);
+            createHtmlWithStrings(state.todos, todoListEl);
+
+            //
+            // Handle main input
+            //
+
+            var inputEl = document.querySelector('.new-todo');
+            inputEl.addEventListener('keyup', function (event) {
+                var KEY_ENTER = 13;
+                if (event.keyCode !== KEY_ENTER) {
+                    return;
+                }
+
+                // Update app state
+                var todo = {
+                    text: inputEl.value,
+                    completed: false
+                };
+                state.todos.push(todo);
+
+                // Update html
+                inputEl.value = '';
+                todoListEl.innerHTML = '';
+                createHtmlWithStrings(state.todos, todoListEl);
+            })
+        </script>
+
+    </body>
+</html>
