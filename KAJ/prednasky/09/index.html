@@ -1,26 +1,19 @@
-<!-- bez offline, bez dnd, + audio, + znacky z #2 -->
 <!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
-		<script src="../../common/js/oz.js" type="text/javascript"></script>
-		<script src="../../common/js/slides2.js" type="text/javascript"></script>
-		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>HTML značky &lt;svg&gt; a &lt;audio&gt;</title>
+		<title>Offline; HTML značky &lt;svg&gt; a &lt;audio&gt;</title>
 		<base target="_blank" />
 
 		<script src="//cdnjs.cloudflare.com/ajax/libs/webcomponentsjs/0.5.2/webcomponents-lite.min.js"></script>
 		<link rel="import" href="instant-button/instant-button.html" />
 	<body>
 		
-<h1>HTML značky &lt;svg&gt; a &lt;audio&gt;</h1>
+<h1>Offline; HTML značky &lt;svg&gt; a &lt;audio&gt;</h1>
 
 <section class="slide">
-	<h2>HTML značky &lt;svg&gt; a &lt;audio&gt;</h2>
+	<h2>Offline; HTML značky &lt;svg&gt; a &lt;audio&gt;</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -32,89 +25,129 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
+		<li>Offline + Cache Manifest + Service Worker</li>
 		<li>Scalable Vector Graphics</li>
-		<li>Offline + AppCache + Service Worker</li>
-		<li>Drag'n'Drop</li>
+		<li>HTML &lt;audio&gt;</li>
+		<li>Web Audio API</li>
 	</ol>
 </section>
 
 <section class="slide">
-	<h2>HTML5 Audio</h2>
-	<ul class="section">
-		<li>Vložení zvukového souboru do stránky</li>
-		<li>Ovládací prvky vyrábí prohlížeč (jsou-li požadovány)</li>
-		<li>Různé prohlížeče rozumí různým formátům zvukových souborů</li>
-		<li>Možnost specifikovat více formátů</li>
-		<li>Možnost zadat alternativní obsah pro nekompatibilní prohlížeče</li>
-	</ul>
-	<p class="section">
-		<audio controls>
-			<source src="sound.ogg" type="audio/ogg" />
-			<source src="sound.mp3" type="audio/mpeg" />
-			<source src="sound.wav" type="audio/wave" />
-			Smůla :-(
-		</audio>
-	</p>
-	<pre data-syntax="xml" class="section">&lt;audio controls&gt;
-	&lt;source src="sound.ogg" type="audio/ogg" /&gt;
-	&lt;source src="sound.mp3" type="audio/mpeg" /&gt;
-	&lt;source src="sound.wav" type="audio/wave" /&gt;
-	Smůla :-(
-&lt;/audio&gt;</pre>
-</section>
-
-<section class="slide">
-	<h2>HTML5 Audio: JavaScriptové API</h2>
-	<pre data-syntax="js">new Audio("song.mp3").play();</pre>
-	<pre data-syntax="js">var a = new Audio();
-a.canPlayType("audio/mpeg"); /* "", "maybe", "probably" */
-a.src = "song.mp3";
-a.addEventListener("timeupdate", function() { console.log(a.currentTime); }, false);
-a.play();</pre>
-
-	<p>
-		<instant-button color="red" src="instant-button/buzzer.{ogg,mp3}"></instant-button>
-		<instant-button color="lime" src="instant-button/tada.{ogg,mp3}"></instant-button>
-	</p>
-</section>
-
-<section class="slide">
-	<h2>&lt;audio&gt; &lt;video&gt; formáty</h2>
-	<p><a href="https://developer.mozilla.org/en-US/docs/HTML/Supported_media_formats">Tabulka</a></p>
-</section>
-
-
-<section class="slide">
-	<h2>Web Audio API</h2>
+	<h2>Offline API</h2>
+	<p>Webová aplikace má k dispozici JS API, které informuje o stavu připojení.</p>
 	<ul>
-		<li>Poměrně moderní JS API</li>
-		<li>Konstrukce <a href="img/WebAudioBasics.png" target="_blank">zvukového grafu</a></li>
-		<li>Uzly = transformace zvuku</li>
-		<li>Přístup k právě přehrávaným datům (vizualizace)</li>
-		<li>Generování zvukového signálu</li>
-		<li><a href="http://ondras.github.io/fireworks-webgl/">Ohňostroj</a>, <a href="http://ondras.github.io/oscope/">osciloskop</a></li>
+		<li><code data-syntax="js">navigator.onLine</code></li>
+		<li><code data-syntax="js">window.addEventListener("online", ...)</code></li>
+		<li><code data-syntax="js">window.addEventListener("offline", ...)</code></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Web Audio API: generování zvuku</h2>
-<pre data-syntax="js">
-var ctx = new AudioContext();
-
-var oscillator = ctx.createOscillator();
-
-oscillator.frequency.value = 440;
-oscillator.connect(ctx.destination);
-
-oscillator.start();
-</pre>
+	<h2>App Cache</h2>
 	<ul>
-		<li>Tvar vlny možno určit vlastností <code>type</code></li>
-		<li>Jak zastavit běžící oscilátor?</li>
+		<li>Webová aplikace poskytuje tzv. <em>offline manifest</em>, výčet souborů pro použití offline
+			<code data-syntax="xml">&lt;html manifest="mysite.manifest"&gt;</code>
+		</li>
+		<li>Pokud je uživatel offline a pokusí se přistoupit na adresu webové aplikace, prohlížeč mu poskytne soubory definované v manifestu</li>
+		<li>Pokud je uživatel online a nezměnil se čas modifikace manifestu, opět se použije cachovaná verze</li>
+		<li>Při změně souborů (a manifestu) jsou data jen stažena a připravena na použití příště</li>
 	</ul>
 </section>
 
+<section class="slide">
+	<h2>App Cache Manifest</h2>
+	<code class="block" data-syntax="shell">CACHE MANIFEST
+	
+# soubory určené k použití offline
+offline/index.html
+offline/style.css
+offline/code.js
 
+# tyto soubory se nikdy nesmí cachovat
+NETWORK
+remote.cgi
+
+# tyto soubory, pokud nedostupné, budou nahrazeny jinými
+FALLBACK
+images/large offline/sorry.jpg</code>
+</section>
+
+<section class="slide">
+	<h2>App Cache</h2>
+	<p>lehce obskurní <a href="http://ondras.zarovi.cz/demos/morgan/">ukázka</a>, její <a href="http://ondras.zarovi.cz/demos/morgan/morgan.manifest">manifest</a></p>
+</section>
+
+<section class="slide">
+	<h2>applicationCache API</h2>
+	<p>JS API pro práci s offline cache</p>
+	<ul>
+		<li><code data-syntax="js">window.applicationCache</code> &ndash; objekt popisující stav offline cache, též možnost explicitně cache obnovit</li>
+		<li><code data-syntax="js">if (applicationCache.status == applicationCache.UPDATEREADY) { ... }</code></li>
+		<li><code data-syntax="js">applicationCache.update()</code> &ndash; pokyn ke kontrole novější verze (jako při reloadu)</li>
+		<li><code data-syntax="js">applicationCache.swapCache()</code> &ndash; přepnutí na aktuální verzi souborů (nutný reload)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Service Worker</h2>
+	<ul>
+		<li>Modernější alternativa k AppCache</li>
+		<li>Konfigurace (AppCache) vs. logika (Service Worker)</li>
+		<li><a href="http://caniuse.com/#feat=serviceworkers">Mizerná podpora</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Jak funguje Service Worker</h2>
+	<img src="img/serviceworker.jpg" style="width:90%" />
+</section>
+
+<section class="slide">
+	<h2>Jak funguje Service Worker</h2>
+	<ul>
+		<li>Service Worker je skript, dodaný autorem stránky</li>
+		<li>Je prohlížečem vykonáván bokem, asynchronně, nezávisle na stránce, pro kterou pracuje</li>
+		<li>Service Worker může manipulovat s HTTP požadavky stránky, kterou obsluhuje</li>
+		<li>Service Worker nemá k dispozici DOM</li>
+		<li>Lze použít jen na HTTPS stránkách</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Service Worker &ndash; ukázka</h2>
+	<code class="block" data-syntax="js">navigator.serviceWorker.register("/worker.js").then(function(reg) {
+	console.log("Service worker ready");
+});</code>
+	<p>Řízení asynchronního toku kódu je realizováno pomocí vzoru Promise</p>
+</section>
+
+<section class="slide">
+	<h2>Service Worker &ndash; ukázka</h2>
+	<code class="block" data-syntax="js">self.addEventListener("install", function(event) {
+	console.log("SW (či jeho nová verze) nainstalován");
+});
+
+self.addEventListener("activate", function(event) {
+	console.log("SW (či jeho nová verze) aktivován");
+});
+
+self.addEventListener("fetch", function(event) {
+	console.log("HTTP požadavek ze stránky");
+	event.respondWith(new Response("Hello world!"));
+});
+</code>
+</section>
+
+<section class="slide">
+	<h2>Service Worker &ndash; další využití</h2>
+	<ul>
+		<li>Synchronizace dat na pozadí</li>
+		<li>Cachování</li>
+		<li>Preprocessing zdrojů na klientu</li>
+		<li>Šablonování</li>
+		<li>Pre-fetch</li>
+	</ul>
+</section>
 
 <section class="slide">
 	<h2>SVG</h2>
@@ -131,15 +164,15 @@ oscillator.start();
 
 <section class="slide">
 	<h2>SVG je dialekt XML</h2>
-	<pre data-syntax="xml">
-&lt;svg width="500" height="300" viewBox="0 0 100 100"&gt;
+	<p>
+	<code class="block" data-syntax="xml">&lt;svg width="500" height="300" viewBox="0 0 100 100"&gt;
 	&lt;circle cx="20" cy="50" r="20" /&gt;
 	&lt;g transform="rotate(45) translate(30, -30)"&gt;
 		&lt;rect x="0" y="-10" width="30" height="30"/&gt;
 		&lt;text x="30" y="10"&gt;SVG&lt;/text&gt;
 	&lt;/g&gt;
 &lt;/svg&gt;
-	</pre>
+</code></p>
 	<svg width="500" height="300" viewBox="0 0 100 100">
 		<circle cx="20" cy="50" r="20" />
 		<g transform="rotate(45) translate(30, -30)">
@@ -206,8 +239,7 @@ oscillator.start();
 		</defs>
 		<rect fill="url(#gradient)" x="0" y="0" width="100%" height="100%" />
 	</svg>
-	<pre data-syntax="xml">
-&lt;defs&gt;
+	<code class="block" data-syntax="xml">&lt;defs&gt;
 	&lt;linearGradient id="gradient"&gt;
 		&lt;stop offset="0%" stop-color="red" /&gt;
 		&lt;stop offset="50%" stop-color="black" /&gt;
@@ -215,7 +247,7 @@ oscillator.start();
 	&lt;/linearGradient&gt;
 &lt;/defs&gt;
 &lt;rect fill="url(#gradient)" x="0" y="0" width="100%" height="100%" /&gt;
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -228,14 +260,13 @@ oscillator.start();
 		</defs>
 		<rect fill="url(#pattern)" x="0" y="0" width="100%" height="100%" />
 	</svg>
-	<pre data-syntax="xml">
-&lt;defs&gt;
+	<code class="block" data-syntax="xml">&lt;defs&gt;
 	&lt;pattern id="pattern" width="0.25" height="0.333"&gt;
 		&lt;circle cx="25" cy="25" r="20" fill="#00f" /&gt;
 	&lt;/pattern&gt;
 &lt;/defs&gt;
 &lt;rect fill="url(#pattern)" x="0" y="0" width="100%" height="100%" /&gt;
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -244,7 +275,7 @@ oscillator.start();
 		<li>Pomocí atributů (<code>stroke</code>, <code>color</code>, <code>opacity</code>, &hellip;)</li>
 		<li>Pomocí CSS</li>
 	</ul>
-	<pre data-syntax="css" class="section">circle {
+	<code class="block" data-syntax="css">circle {
 	fill: yellow; stroke: red;
 }
 rect {
@@ -253,7 +284,8 @@ rect {
 }
 text {
 	text-anchor: middle; font-size: 10px;
-}</section>
+}</code>
+</section>
 
 <section class="slide">
 	<h2>SVG a JavaScript</h2>
@@ -266,170 +298,87 @@ text {
 </section>
 
 <section class="slide">
-	<h2>Offline API</h2>
-	<p>Webová aplikace má k dispozici JS API, které informuje o stavu připojení.</p>
+	<h2>Inline SVG</h2>
 	<ul>
-		<li><code data-syntax="js">navigator.onLine</code></li>
-		<li><code data-syntax="js">window.addEventListener("online", ...)</code></li>
-		<li><code data-syntax="js">window.addEventListener("offline", ...)</code></li>
+		<li>SVG je možné přímo mixovat s HTML5</li>
+		<li>V mnoha ohledech flexibilnější, než <code>&lt;img src=".svg" /&gt;</code></li>
+		<li>Styly sdílené s dokumentem stránky</li>
+		<li>Ideální pro (barvené) ikonky</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>App Cache</h2>
+	<h2>HTML5 Audio</h2>
 	<ul>
-		<li>Webová aplikace poskytuje tzv. <em>offline manifest</em>, výčet souborů pro použití offline
-			<pre data-syntax="xml">&lt;html manifest="mysite.manifest"&gt;</pre>
-		</li>
-		<li>Pokud je uživatel offline a pokusí se přistoupit na adresu webové aplikace, prohlížeč mu poskytne soubory definované v manifestu</li>
-		<li>Pokud je uživatel online a nezměnil se čas modifikace manifestu, opět se použije cachovaná verze</li>
-		<li>Při změně souborů (a manifestu) jsou data jen stažena a připravena na použití příště</li>
+		<li>Vložení zvukového souboru do stránky</li>
+		<li>Ovládací prvky vyrábí prohlížeč (jsou-li požadovány)</li>
+		<li>Různé prohlížeče rozumí různým formátům zvukových souborů</li>
+		<li>Možnost specifikovat více formátů</li>
+		<li>Možnost zadat alternativní obsah pro nekompatibilní prohlížeče</li>
+	</ul>
+	<p>
+		<audio controls>
+			<source src="sound.ogg" type="audio/ogg" />
+			<source src="sound.mp3" type="audio/mpeg" />
+			<source src="sound.wav" type="audio/wave" />
+			Smůla :-(
+		</audio>
+	</p>
+	<code class="block" data-syntax="xml">&lt;audio controls&gt;
+	&lt;source src="sound.ogg" type="audio/ogg" /&gt;
+	&lt;source src="sound.mp3" type="audio/mpeg" /&gt;
+	&lt;source src="sound.wav" type="audio/wave" /&gt;
+	Smůla :-(
+&lt;/audio&gt;</code>
+</section>
+
+<section class="slide">
+	<h2>HTML5 Audio: JavaScriptové API</h2>
+	<p><code data-syntax="js">new Audio("song.mp3").play();</code></p>
+	<p><code class="block" data-syntax="js">var a = new Audio();
+a.canPlayType("audio/mpeg"); /* "", "maybe", "probably" */
+a.src = "song.mp3";
+a.addEventListener("timeupdate", function() { console.log(a.currentTime); }, false);
+a.play();</code></p>
+
+	<p>
+		<instant-button color="red" src="instant-button/buzzer.{ogg,mp3}"></instant-button>
+		<instant-button color="lime" src="instant-button/tada.{ogg,mp3}"></instant-button>
+	</p>
+</section>
+
+<section class="slide">
+	<h2>&lt;audio&gt; &lt;video&gt; formáty</h2>
+	<p><a href="https://developer.mozilla.org/en-US/docs/HTML/Supported_media_formats">Tabulka</a></p>
+</section>
+
+
+<section class="slide">
+	<h2>Web Audio API</h2>
+	<ul>
+		<li>Poměrně moderní JS API</li>
+		<li>Konstrukce <a href="img/WebAudioBasics.png" target="_blank">zvukového grafu</a></li>
+		<li>Uzly = transformace zvuku</li>
+		<li>Přístup k právě přehrávaným datům (vizualizace)</li>
+		<li>Generování zvukového signálu</li>
+		<li><a href="http://ondras.github.io/fireworks-webgl/">Ohňostroj</a>, <a href="http://ondras.github.io/oscope/">osciloskop</a></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>App Cache Manifest</h2>
-	<pre data-syntax="shell">CACHE MANIFEST
-	
-# soubory určené k použití offline
-offline/index.html
-offline/style.css
-offline/code.js
+	<h2>Web Audio API: generování zvuku</h2>
+	<code class="block" data-syntax="js">var ctx = new AudioContext();
 
-# tyto soubory se nikdy nesmí cachovat
-NETWORK
-remote.cgi
+var oscillator = ctx.createOscillator();
 
-# tyto soubory, pokud nedostupné, budou nahrazeny jinými
-FALLBACK
-images/large offline/sorry.jpg</pre>
-</section>
+oscillator.frequency.value = 440;
+oscillator.connect(ctx.destination);
 
-<section class="slide">
-	<h2>App Cache</h2>
-	<p>lehce obskurní <a href="http://ondras.zarovi.cz/demos/morgan/">ukázka</a>, její <a href="http://ondras.zarovi.cz/demos/morgan/morgan.manifest">manifest</a></p>
-</section>
-
-<section class="slide">
-	<h2>applicationCache API</h2>
-	<p>JS API pro práci s offline cache.</p>
+oscillator.start();
+</code>
 	<ul>
-		<li><code data-syntax="js">window.applicationCache</code> &ndash; objekt popisující stav offline cache, též možnost explicitně cache obnovit</li>
-		<li><code data-syntax="js">if (applicationCache.status == applicationCache.UPDATEREADY) { ... }</code></li>
-		<li><code data-syntax="js">applicationCache.update()</code> &ndash; pokyn ke kontrole novější verze (jako při reloadu)</li>
-		<li><code data-syntax="js">applicationCache.swapCache()</code> &ndash; přepnutí na aktuální verzi souborů (nutný reload)</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Service Worker</h2>
-	<ul>
-		<li>Modernější alternativa k AppCache</li>
-		<li>Konfigurace (AppCache) vs. logika (Service Worker)</li>
-		<li><a href="http://caniuse.com/#feat=serviceworkers">Mizerná podpora</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Jak funguje Service Worker</h2>
-	<img src="img/serviceworker.jpg" style="width:90%" />
-</section>
-
-<section class="slide">
-	<h2>Jak funguje Service Worker</h2>
-	<ul>
-		<li>Service Worker je skript, dodaný autorem stránky</li>
-		<li>Je prohlížečem vykonáván bokem, asynchronně, nezávisle na stránce, pro kterou pracuje</li>
-		<li>Service Worker může manipulovat s HTTP požadavky stránky, kterou obsluhuje</li>
-		<li>Service Worker nemá k dispozici DOM</li>
-		<li>Lze použít jen na HTTPS stránkách</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Service Worker &ndash; ukázka</h2>
-	<pre data-syntax="js">
-navigator.serviceWorker.register("/worker.js").then(function(reg) {
-	console.log("Service worker ready");
-});</pre>
-	<p>Řízení asynchronního toku kódu je realizováno pomocí vzoru Promise.</p>
-</section>
-
-<section class="slide">
-	<h2>Service Worker &ndash; ukázka</h2>
-	<pre data-syntax="js">
-self.addEventListener("install", function(event) {
-	console.log("SW (či jeho nová verze) nainstalován");
-});
-
-self.addEventListener("activate", function(event) {
-	console.log("SW (či jeho nová verze) aktivován");
-});
-
-self.addEventListener("fetch", function(event) {
-	console.log("HTTP požadavek ze stránky");
-	event.respondWith(new Response("Hello world!"));
-});
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Service Worker &ndash; další využití</h2>
-	<ul>
-		<li>Synchronizace dat na pozadí</li>
-		<li>Cachování</li>
-		<li>Preprocessing zdrojů na klientu</li>
-		<li>Šablonování</li>
-		<li>Pre-fetch</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop</h2>
-	<ul>
-		<li>Přetahování věcí ve stránce a do stránky</li>
-		<li>Překvapivě složité</li>
-		<li><a href="https://developer.mozilla.org/en-US/docs/DragDrop/Drag_Operations">Dokumentace na MDN</a></li>
-		<li><a href="http://html5demos.com/drag">Ukázka 1</a>, <a href="http://mapy.cz/">Ukázka 2</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop: zahájení tažení</h2>
-	<ul>
-		<li>Soubor do okna prohlížeče</li>
-		<li>HTML prvek s atributem <code>draggable</code></li>
-		<li>Událost <code>dragstart</code></li>
-		<li>Vlastnost <code>dataTransfer</code> v události obsahuje relevantní metadata</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop: práce s dataTransfer</h2>
-<pre data-syntax="js">
-div.addEventListener("dragstart", function(e) {
-	e.dataTransfer.setData("text/plain", "http://www.seznam.cz");
-	e.dataTransfer.setDragImage(image, offsetX, offsetY);
-	e.dataTransfer.effectAllowed = "copyMove";
-	e.dataTransfer.dropEffect = "copy";
-});
-</pre>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop: tažení</h2>
-	<ul>
-		<li>Události <code>dragenter</code>, <code>dragover</code>, <code>dragleave</code></li>
-		<li>Pokud má být nad prvkem tažení ukončitelné, je nutné událost "preventovat" (<code>preventDefault()</code>)</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Drag'n'Drop: puštění</h2>
-	<ul>
-		<li>Událost <code>drop</code></li>
-		<li>Pokud událost zpracujeme, voláme <code>preventDefault</code></li>
-		<li>Vlastnost <code>e.dataTransfer.files</code> je pole souborů, jsou-li jaké</li>
+		<li>Tvar vlny možno určit vlastností <code>type</code></li>
+		<li>Jak zastavit běžící oscilátor?</li>
 	</ul>
 </section>
 
@@ -442,9 +391,10 @@ div.addEventListener("dragstart", function(e) {
 	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
 </footer>
 
-<script type="text/javascript">
-	Syntax.all();
-	new Presentation();
+<script src="../../jsslides/v3/slides/slides3.js"></script>
+<script>
+	Slides.modules.skin = "cvut";
+	Slides.modules.numbering = false;
 </script>
 
 </body>
