@@ -1,63 +1,63 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="http://todomvc.com/examples/vanilla-es6/node_modules/todomvc-common/base.css">
-        <link rel="stylesheet" href="http://todomvc.com/examples/vanilla-es6/node_modules/todomvc-app-css/index.css">
-        <title>Lecture 01</title>
-    </head>
-    <body>
-        <section class="todoapp">
-            <header class="header">
-                <h1>todos</h1>
-                <input class="new-todo" placeholder="What needs to be done?" autofocus>
-            </header>
-            <section class="main">
-                <input class="toggle-all" type="checkbox">
-                <label for="toggle-all">Mark all as complete</label>
-                <ul class="todo-list"></ul>
-                <footer class="footer">
-                    <span class="todo-count"></span>
-                    <div class="filters">
-                        <a href="#/" class="selected">All</a>
-                        <a href="#/active">Active</a>
-                        <a href="#/completed">Completed</a>
-                    </div>
-                    <button class="clear-completed">Clear completed</button>
-                </footer>
-            </section>
-        </section>
-
-        <footer class="info">
-            <p>Double-click to edit a todo</p>
-            <p>Created by <a href="http://twitter.com/oscargodson">Oscar Godson</a></p>
-            <p>Refactored by <a href="https://github.com/cburgmer">Christoph Burgmer</a></p>
-            <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
-        </footer>
-
-        <script>
-            var state = {
-                todos: [
-                    { text: 'Hi', completed: true  },
-                    { text: 'Hello', completed: false },
-                    { text: 'Hi there!', completed: true },
-                ],
-                filter: 'all'
-            };
-
-                        
-            /*
-            Template:
-            
-            <li>
-                <div class="view">
-                    <input class="toggle" type="checkbox">
-                    <label>aaa</label>
-                    <button class="destroy"></button>
+<head>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="http://todomvc.com/examples/vanilla-es6/node_modules/todomvc-common/base.css">
+    <link rel="stylesheet" href="http://todomvc.com/examples/vanilla-es6/node_modules/todomvc-app-css/index.css">
+    <title>Lecture 01</title>
+</head>
+<body>
+    <section class="todoapp">
+        <header class="header">
+            <h1>todos</h1>
+            <input class="new-todo" placeholder="What needs to be done?" autofocus>
+        </header>
+        <section class="main">
+            <input class="toggle-all" type="checkbox">
+            <label for="toggle-all">Mark all as complete</label>
+            <ul class="todo-list"></ul>
+            <footer class="footer">
+                <span class="todo-count"></span>
+                <div class="filters">
+                    <a href="#/" class="selected">All</a>
+                    <a href="#/active">Active</a>
+                    <a href="#/completed">Completed</a>
                 </div>
-            </li>
-            */
-        </script>
+                <button class="clear-completed">Clear completed</button>
+            </footer>
+        </section>
+    </section>
 
-    </body>
+    <footer class="info">
+        <p>Double-click to edit a todo</p>
+        <p>Created by <a href="http://twitter.com/oscargodson">Oscar Godson</a></p>
+        <p>Refactored by <a href="https://github.com/cburgmer">Christoph Burgmer</a></p>
+        <p>Part of <a href="http://todomvc.com">TodoMVC</a></p>
+    </footer>
+
+    <script>
+        var state = {
+            todos: [
+                { text: 'Hi', completed: true  },
+                { text: 'Hello', completed: false },
+                { text: 'Hi there!', completed: true },
+            ],
+            filter: 'all'
+        };
+
+
+        /*
+        Template:
+
+        <li>
+            <div class="view">
+                <input class="toggle" type="checkbox">
+                <label>aaa</label>
+                <button class="destroy"></button>
+            </div>
+        </li>
+        */
+    </script>
+
+</body>
 </html>
