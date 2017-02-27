@@ -92,11 +92,9 @@
             }
 
             function createHtmlWithStrings (todos, targetEl) {
-                targetEl.innerHTML = ''
+                targetEl.innerHTML = '';
 
-                for (var i = 0; i < todos.length; i++) {
-                    var todo = todos[i];
-
+                var todosHtmlArray = todos.map(function (todo) {
                     var html =
                         '<li>' +
                         '  <input class="toggle" type="checkbox" ' + (todo.completed ? 'checked' : '')  + '>' +
@@ -104,8 +102,13 @@
                         '  <button class="destroy"></button>' +
                         '</li>';
 
-                    targetEl.insertAdjacentHTML('beforeend', html);
-                }
+                    return html;
+                })
+                // EXERCISE: try to use reduce instead of map
+
+                var todosHtml = todosHtmlArray.join('');
+                targetEl.innerHTML = todosHtml;
+                // EXERCISE: try to use insertAdjacentHTML instead of innerHTML, what is the difference between these two
             }
 
             //
@@ -122,6 +125,8 @@
 
             var inputEl = document.querySelector('.new-todo');
             inputEl.addEventListener('keyup', function (event) {
+                // EXCERCISE: inspect the event object in dev console
+
                 var KEY_ENTER = 13;
                 if (event.keyCode !== KEY_ENTER) {
                     return;
@@ -138,6 +143,92 @@
                 inputEl.value = '';
                 createHtmlWithStrings(state.todos, todoListEl);
             })
+
+            //
+            // Prototype expansion
+            //
+
+            // Add method on Object prototype. This method will modify the object
+            // and add current timestamp to it. All created objects inherit from
+            // Object prototype and will have this method.
+            Object.prototype.addTimestamp = function () {
+                this.timestamp = Date.now();
+            }
+            // You should generally avoid modifying prototypes of basic JavaScript
+            // objects, see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+            // But it can be sometimes useful, for example, if we want to polyfill
+            // some language feature to older browsers.
+
+            //
+            // Handle filters
+            //
+
+            var filters = {
+                all: document.querySelector('#filter-all'),
+                active: document.querySelector('#filter-active'),
+                completed: document.querySelector('#filter-completed')
+            };
+
+            for (var filterName in filters) {
+                // Without hasOwnProperty check, we would also be iterating over addTimestamp method
+                if (filters.hasOwnProperty(filterName)) {
+                    var filterEl = filters[filterName];
+
+                    // This is IIFE (immediately-invoked function expression).
+                    // We need to capture the filterName value. Otherwise, we would
+                    // be referencing (after some time when the user clicks and the
+                    // listener function is called) to the last value of this iteration,
+                    // not the value of current iteration - which is what we want.
+                    (function (captiredFilterName) {
+                        filterEl.addEventListener('click', function (e) {
+                            filtersClick(captiredFilterName);
+                        });
+                    }(filterName));
+                }
+            }
+
+            function filtersClick (newFilterType) {
+                // Another approach to rendering the view, manually update html
+                // nodes that need to be updated instead of rerendering the whole
+                // part of the UI, as we did in createHtmlWithStrings or in
+                // createHtmlWithCreateElement functions.
+
+                // Remove 'selected' class on all filter buttons
+                for (var key in filters) {
+                    if (filters.hasOwnProperty(key)) {
+                        var filter = filters[key];
+                        filter.classList.remove('selected');
+                    }
+                }
+
+                // Add 'selected' class to clicked filter button
+                filters[newFilterType].classList.add('selected');
+
+                // Update state
+                state.filter = newFilterType;
+
+                // Render todos view
+                var todos
+                switch (state.filter) {
+                    case 'all':
+                        todos = state.todos;
+                        break;
+                    case 'active':
+                        todos = state.todos.filter(function (todo) {
+                            return todo.completed === false;
+                        });
+                        break;
+                    case 'completed':
+                        todos = state.todos.filter(function (todo) {
+                            return todo.completed === true;
+                        });
+                        break;
+                    default:
+                        throw new Error('unknown filter');
+                }
+                createHtmlWithCreateElement(todos, todoListEl);
+            }
+
         </script>
 
     </body>

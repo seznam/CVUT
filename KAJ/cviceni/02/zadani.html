@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <link rel="stylesheet" href="http://todomvc.com/examples/vanilla-es6/node_modules/todomvc-common/base.css">
         <link rel="stylesheet" href="http://todomvc.com/examples/vanilla-es6/node_modules/todomvc-app-css/index.css">
-        <title>Lecture 02</title>
+        <title>Lecture 01</title>
     </head>
     <body>
         <section class="todoapp">
@@ -63,6 +63,8 @@
             */
 
             function createHtmlWithCreateElement (todos, targetEl) {
+                targetEl.innerHTML = ''
+
                 for (var i = 0; i < todos.length; i++) {
                     var todo = todos[i];
 
@@ -90,6 +92,8 @@
             }
 
             function createHtmlWithStrings (todos, targetEl) {
+                targetEl.innerHTML = ''
+
                 for (var i = 0; i < todos.length; i++) {
                     var todo = todos[i];
 
@@ -132,7 +136,6 @@
 
                 // Update html
                 inputEl.value = '';
-                todoListEl.innerHTML = '';
                 createHtmlWithStrings(state.todos, todoListEl);
             })
         </script>
