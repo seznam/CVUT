@@ -40,7 +40,7 @@
         // Predefined data
         //
 
-        var state = {
+        var initialState = {
             todos: [
                 { text: 'Hi', completed: true  },
                 { text: 'Hello', completed: false },
@@ -48,6 +48,42 @@
             ],
             filter: 'all'
         };
+
+        //
+        // Class containing state
+        //
+
+        var State = function (initialTodos, initialFilter) {
+            this._todos = initialTodos;
+            this._filter = initialFilter;
+        }
+
+        State.prototype.addTodo = function (todo) {
+            this._todos.push(todo);
+        }
+
+        State.prototype.setFilter = function (filter) {
+            this._filter = filter;
+        }
+
+        State.prototype.getTodos = function () {
+            switch (this._filter) {
+                case 'all':
+                    return this._todos;
+                case 'active':
+                    return this._todos.filter(function (todo) {
+                        return todo.completed === false;
+                    });
+                case 'completed':
+                    return this._todos.filter(function (todo) {
+                        return todo.completed === true;
+                    });
+                default:
+                    throw new Error('unknown filter');
+            }
+        }
+
+        var state = new State(initialState.todos, initialState.filter);
 
         //
         // Prepare todos html
@@ -116,8 +152,8 @@
         //
 
         var todoListEl = document.querySelector('.todo-list')
-        // createHtmlWithCreateElement(state.todos, todoListEl);
-        createHtmlWithStrings(state.todos, todoListEl);
+        // createHtmlWithCreateElement(state.getTodos(), todoListEl);
+        createHtmlWithStrings(state.getTodos(), todoListEl);
 
         //
         // Handle main input
@@ -137,11 +173,11 @@
                 text: inputEl.value,
                 completed: false
             };
-            state.todos.push(todo);
+            state.addTodo(todo);
 
             // Update html
             inputEl.value = '';
-            createHtmlWithStrings(state.todos, todoListEl);
+            createHtmlWithStrings(state.getTodos(), todoListEl);
         })
 
         //
@@ -205,28 +241,10 @@
             filters[newFilterType].classList.add('selected');
 
             // Update state
-            state.filter = newFilterType;
+            state.setFilter(newFilterType);
 
             // Render todos view
-            var todos
-            switch (state.filter) {
-                case 'all':
-                    todos = state.todos;
-                    break;
-                case 'active':
-                    todos = state.todos.filter(function (todo) {
-                        return todo.completed === false;
-                    });
-                    break;
-                case 'completed':
-                    todos = state.todos.filter(function (todo) {
-                        return todo.completed === true;
-                    });
-                    break;
-                default:
-                    throw new Error('unknown filter');
-            }
-            createHtmlWithCreateElement(todos, todoListEl);
+            createHtmlWithCreateElement(state.getTodos(), todoListEl);
         }
 
     </script>
