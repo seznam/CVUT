@@ -1,4 +1,4 @@
-<!-- css grid, offline / service worker -->
+<!-- css grid, FIXME co dalsiho? -->
 <!doctype html>
 <html>
 	<head>
@@ -28,7 +28,7 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>CSS: FlexBox</li>
+		<li>CSS: Grid</li>
 		<li>CSS: Custom Properties</li>
 		<li>JS: WebRTC</li>
 		<li>JS: Web Notifications</li>
@@ -71,44 +71,6 @@ a {
 		<li>Užitečné pro <em>skinování</em></li>
 		<li>Užitečné pro modularizaci a izolaci CSS komponent</li>
 	</ul>
-</section>
-
-<section class="slide">
-	<h2>WebRTC</h2>
-	<ul>
-		<li>RTC = Real Time Communications</li>
-		<li>Technologie pro komunikaci mezi klienty (bez serveru)</li>
-		<li>Primárně přenos zvuku a obrazu, sekundárně JS dat</li>
-		<li>Obtížné navázání spojení (tzv. <em>signalling</em> &ndash; nutný server pro iniciální sestavení)</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>WebRTC: getUserMedia</h2>
-	<ul>
-		<li><code>navigator.getUserMedia()</code></li>
-		<li>Nejlépe podporovaná komponenta WebRTC</li>
-		<li>Přístup ke kameře a mikrofonu</li>
-		<li>Prefixované varianty</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>WebRTC: getUserMedia</h2>
-	<pre data-syntax="js">
-var ok = function(stream) {
-	var url = window.URL.createObjectURL(stream);
-	video.src = url;
-	video.play();
-}
-
-var error = function(e) {
-	alert(e);
-}
-
-navigator.getUserMedia({audio:true, video:true}, ok, error);
-</pre>
-	<p><a target="_blank" href="http://jsfiddle.net/ondras/6fgu4/">Ukázka</a></p>
 </section>
 
 <section class="slide">
