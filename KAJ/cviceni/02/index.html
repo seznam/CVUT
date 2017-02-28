@@ -15,7 +15,7 @@
 <h1>Tvorba klientských aplikací v JavaScriptu</h1>
 
 <section class="slide">
-	<h2>Cross-browser, Audio a Video, AudioContext, ContentEditable - cvičení</h2>
+	<h2>Prototype, koncept this - cvičení</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -27,177 +27,39 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>Informace o podkladech k cvičení</li>
-		<li>Crossbrowser</li>
-		<li>Audio - tagy, formáty</li>
-		<li>Video - JS API</li>
-		<li>Audio - JS API - Můj Button</li>
-		<li>AudioContext - Generátor zvuku</li>
-		<li>ContentEditable parametr</li>
+		<li>Informace k odevzdání zadání sem. práce</li>
+		<li>Prototype</li>
+		<li>Koncept this</li>
+		<li>Otázky</li>
+		<li>Řešení</li>
 	</ol>
 </section>
 
 <section class="slide">
 	<h2>Informace</h2>
 	<ul class="sections">
-		<li><a href="http://cvut.seznam.cz/A0M33KAJ/">http://cvut.seznam.cz/A0M33KAJ/</a></li>
-		<li>Po každém cvičení se zde objeví prezentace</li>
-		<li>A nebo další informace</li>
+		<li><a href="https://docs.google.com/forms/d/e/1FAIpQLSdhTvg-4Fp-PAi69mz8AvM5r5j76eGJZQCgF0ebOAIpy8_smQ/viewform">https://docs.google.com/forms/d/e/1FAIpQLSdhTvg-4Fp-PAi69mz8AvM5r5j76eGJZQCgF0ebOAIpy8_smQ/viewform</a></li>
+		<li>Nepovinné, vymyslet si zadání a vyplnit form nejlépe do 6. cvičení</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Crossbrowser</h2>
+	<h2>Zadání</h2>
 	<ul class="sections">
-		<li>Zajištění funkčnosti na všech platformách</li>
-		<li>Nebo zajištění správného "selhání" aplikace</li>
-		<li><a href="http://caniuse.com/">http://caniuse.com/</a></li>
-		<li><a href="https://developer.mozilla.org">https://developer.mozilla.org</a></li>
+		<li><a href="zadani.html">http://opensource.seznam.cz/CVUT/KAJ/cviceni/02/zadani.html</a></li>
+		<li>Dokončete z minula: události, funkcionální iterace, IFFE</li>
+		<li>Dodejte: filtrování, přidávání položek</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Crossbrowser - detekce vlastností</h2>
-	<ul class="sections">
-		<li><em>Úkol I:</em> Detekujte podporu geolokace v prohlížeči a případně vypište souřadnice</li>
-		<li><em>Úkol II:</em> Detekujte podporu INPUT type data v prohlížeči</li>
-		<li>
-<pre data-syntax="js">
-function showPosition(position) { alert("[" + position.coords.latitude + " ; " + position.coords.longitude + "]"); }
-
-if ("geolocation" in navigator) { navigator.geolocation.getCurrentPosition(showPosition); }
-else { alert("Váš browser nepodporuje geolokaci"); }
-</pre>
-</li>
-<li>
-<pre data-syntax="js">
-function supportType(value) {
-	var i = document.createElement("input");
-	i.setAttribute("type", value);
-	return i.type !== "text";
-}
-</pre>
-</li>
-<li><a href="http://diveintohtml5.info/detect.html">http://diveintohtml5.info/detect.html</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Crossbrowser - doplnění chybějící funkcionality</h2>
-	<ul class="sections">
-		<li>Nelze vždy na 100%</li>
-		<li><em>Úkol:</em> Doplňte do objektu Date funkci <strong>now ()</strong> vracející aktuální timestamp</li>
-		<li>
-<pre data-syntax="js">
-if (!Date.now) {
-/**
- * aktuální timestamp dle ES5 - http://dailyjs.com/2010/01/07/ecmascript5-date/
- */
-Date.now = function() { return +(new Date); }
-}
-</pre>
-</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>HTML5 dokument</h2>
-	<ul class="sections">
-		<li><a href="http://www.zdrojak.cz/clanky/pristupnost-html5-strukturovani-obsahu/">HTML5 a přístupnost</a></li>
-		<li><a href="http://www.zdrojak.cz/clanky/vyhnete-se-nejobvyklejsim-chybam-v-html5/">HTML5 vyhněte se chybám</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>HTML5 Audio a Video</h2>
-<ul class="sections">
-		<li>Vyzkoušejte si implementaci Audio a Video prvku do stránky</li>
-		<li>Co budete muset řešit?</li>
-<li>
-<pre data-syntax="xml">
-&lt;audio id=&quot;zvuk&quot; controls&gt;
-	&lt;source src="sound.ogg" type="audio/ogg" /&gt;
-	&lt;source src="sound.mp3" type="audio/mpeg" /&gt;
-	Ani jedno neumíš? Tak to máš smůlu :) ...
-&lt;/audio&gt;
-</pre>
-</li>
-<li>Pro zvuk: Ogg, Mp3</li>
-<li>Pro video: H.264, WebM</li>
-</ul>
-</section>
-
-<section class="slide">
-	<h2>HTML5 Audio a Video - JS API</h2>
-<ul class="sections">
-<li>Napište vlastní ovládací prvek pro spuštění a zastavení zvuku/filmu, video vytvořte pomocí JS</li>
-<li>
-<pre data-syntax="js">
-var v = document.createElement('video');
-document.body.insertBefore(v, document.body.firstChild);
-if (v.canPlayType('video/webm'))
-	v.src = 'video.webm';
-var playButton = document.createElement('div');
-playButton.innerHTML = 'play';
-document.body.insertBefore(playButton, document.body.firstChild);
-playButton.addEventListener('click', playpause, false);
-
-function playpause (e) {
-	if (v.paused)
-		v.play();
-	else
-		v.pause();
-}
-</pre>
-</li>
-</ul>
-</section>
-
-<section class="slide">
-	<h2>HTML5 Audio - button</h2>
-<ul class="sections">
-<li>Napište vlastní krásný button, který bude spouštet zvuk - kompletně v JS</li>
-<li>Funkce konstruktoru bude mít tři parametry (mpo3, ogg, parentDOMELement)</li>
-<li>Grafiku zadejte ve formátu base64</li>
-<li>http://www.base64-image.de/</li>
-<li>Obrázky: <a href="http://seznam.github.io/CVUT/A0M33KAJ/cviceni/02/b-unpresed.png">http://seznam.github.io/CVUT/A0M33KAJ/cviceni/02/b-unpresed.png</a> (b-presed.png)</li>
-<li><a href="http://www.base64-image.de/">http://www.base64-image.de/</a></li>
-<li>Audio: <a href="http://seznam.github.io/CVUT/A0M33KAJ/cviceni/02/ani-ocko-nenasadis.mp3">http://seznam.github.io/CVUT/A0M33KAJ/cviceni/02/ani-ocko-nenasadis.mp3</a> (ogg)</li>
-<li><a href="http://jsfiddle.net/koko/s74gxz8d/">řešení</a></li>
-</ul>
-</section>
-
-<section class="slide">
-	<h2>AudioContext</h2>
-<ul class="sections">
-<li>Napište vlastní generátor zvuku za pomoci GainNode a OscillarorNode, který bude reagovat na pohyb myši</li>
-<li><a href="https://developer.mozilla.org/cs/docs/Web/API/AudioContext">AudioContext - dokumentace</a></li>
-<li>Zapojíme za sebe OscillatorNode a GainNode</li>
-<li>Vyrobíme posluchače na mousemove</li>
-<li>Horizontální pohyb bude měnit výšku tónu</li>
-<li>Vertilákní pohyb hlasitost</li>
-</ul>
-</section>
-
-
-<section class="slide">
-	<h2>ContentEditable</h2>
-<ul class="sections">
-	<li>
-<pre data-syntax="xml">
-&lt;div id=&quot;text&quot; contenteditable="true"&gt;
-	Toto muzu editovat ....
-&lt;/div&gt;
-</pre>
-	</li>
-</ul>
-</section>
-
-<section class="slide">
-	<h2>Studijní materiály</h2>
+	<h2>Prototype, this</h2>
 	<ul>
-		<li><a href="html5.html">Ukazková stránka</a></li>
-		<li><a href="02.zip">Všechny ukázky</a></li>
+		<li>Rozšiřte Object o metodu addTimestamp, použijte Date.now</li>
+		<li>Vytvořte "třídu" State, která slouží k manipulaci s datovým objektem</li>
+		<li>Parametry konstuktoru: initialTodos, initialFilter</li>
+		<li>Vlastnosti: this._todos, this._filter</li>
+		<li>Metody:addTodo, setFilter, getTodos</li>
 	</ul>
 </section>
 
@@ -206,7 +68,9 @@ function playpause (e) {
 </section>
 
 <footer>
-	<a href="mailto:ondrej.zara@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
+	<a href="mailto:ondrej.zara@firma.seznam.cz"></a>
+	<a href="mailto:zdenek.vlach@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
+	<a href="mailto:pert.hurtak@firma.seznam.cz">pert.hurtak@firma.seznam.cz</a>
 </footer>
 
 <script type="text/javascript">
