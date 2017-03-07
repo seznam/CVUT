@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="http://todomvc.com/examples/vanilla-es6/node_modules/todomvc-common/base.css">
     <link rel="stylesheet" href="http://todomvc.com/examples/vanilla-es6/node_modules/todomvc-app-css/index.css">
-    <title>Lecture 02</title>
+    <title>Lecture 03</title>
 </head>
 <body>
     <section class="todoapp">
@@ -40,7 +40,7 @@
         // Predefined data
         //
 
-        var initialState = {
+        const initialState = {
             todos: [
                 { text: 'Hi', completed: true  },
                 { text: 'Hello', completed: false },
@@ -53,34 +53,39 @@
         // Class containing state
         //
 
-        var State = function (initialTodos, initialFilter) {
-            this._todos = initialTodos;
-            this._filter = initialFilter;
+        class State {
+            constructor (initialTodos, initialFilter) {
+                this._todos = initialTodos;
+                this._filter = initialFilter;
+            }
+
+            addTodo (todo) {
+                this._todos.push(todo);
+            }
+
+            setFilter (filter) {
+                this._filter = filter;
+            }
+
+            getTodos () {
+                return this._todos.filter(todo => {
+                    // The .bind(this) is no longer needed because we used arrow function
+                    // An arrow function expression has a shorter syntax than a
+                    // function expression and does not bind its own this, arguments,
+                    // super, or new.target. These function expressions are best suited
+                    // for non-method functions, and they cannot be used as constructors.
+                    if (this._filter === 'all') {
+                        return true;
+                    } else if (this._filter === 'completed') {
+                        return todo.completed === true;
+                    } else if (this._filter === 'active') {
+                        return todo.completed === false;
+                    }
+                });
+            }
         }
 
-        State.prototype.addTodo = function (todo) {
-            this._todos.push(todo);
-        }
-
-        State.prototype.setFilter = function (filter) {
-            this._filter = filter;
-        }
-
-        State.prototype.getTodos = function () {
-            return this._todos.filter(function (todo) {
-                if (this._filter === 'all') {
-                    return true;
-                } else if (this._filter === 'completed') {
-                    return todo.completed === true;
-                } else if (this._filter === 'active') {
-                    return todo.completed === false;
-                }
-            }.bind(this));
-            // The bind() method creates a new function that, when called, has
-            // its this keyword set to the provided value.
-        }
-
-        var state = new State(initialState.todos, initialState.filter);
+        const state = new State(initialState.todos, initialState.filter);
 
         //
         // Prepare todos html
@@ -98,23 +103,21 @@
         function createHtmlWithCreateElement (todos, targetEl) {
             targetEl.innerHTML = ''
 
-            for (var i = 0; i < todos.length; i++) {
-                var todo = todos[i];
-
+            for (const todo of todos) {
                 // Prepare elements
-                var inputEl = document.createElement('input');
+                const inputEl = document.createElement('input');
                 inputEl.classList.add('toggle');
                 inputEl.type = 'checkbox';
                 inputEl.checked = todo.completed;
 
-                var labelEl = document.createElement('label');
+                const labelEl = document.createElement('label');
                 labelEl.innerHTML = todo.text;
 
-                var buttonEl = document.createElement('button');
+                const buttonEl = document.createElement('button');
                 buttonEl.classList.add('destroy');
 
                 // Append these elements to the todo wrapper element
-                var todoEl = document.createElement('li');
+                const todoEl = document.createElement('li');
                 todoEl.appendChild(inputEl);
                 todoEl.appendChild(labelEl);
                 todoEl.appendChild(buttonEl);
@@ -127,28 +130,27 @@
         function createHtmlWithStrings (todos, targetEl) {
             targetEl.innerHTML = '';
 
-            var todosHtmlArray = todos.map(function (todo) {
-                var html =
-                    '<li>' +
-                    '  <input class="toggle" type="checkbox" ' + (todo.completed ? 'checked' : '')  + '>' +
-                    '  <label>' + todo.text + '</label>' +
-                    '  <button class="destroy"></button>' +
-                    '</li>';
+            const todosHtmlArray = todos.map(todo => {
+                const html = `
+                    <li>
+                      <input class="toggle" type="checkbox" ${ todo.completed ? 'checked' : '' }>
+                      <label>${ todo.text }</label>
+                      <button class="destroy"></button>
+                    </li>
+                `;
 
                 return html;
             })
-            // EXERCISE: try to use reduce instead of map
 
-            var todosHtml = todosHtmlArray.join('');
+            const todosHtml = todosHtmlArray.join('');
             targetEl.innerHTML = todosHtml;
-            // EXERCISE: try to use insertAdjacentHTML instead of innerHTML, what is the difference between these two
         }
 
         //
         // Append todos html into the page
         //
 
-        var todoListEl = document.querySelector('.todo-list')
+        const todoListEl = document.querySelector('.todo-list')
         // createHtmlWithCreateElement(state.getTodos(), todoListEl);
         createHtmlWithStrings(state.getTodos(), todoListEl);
 
@@ -156,17 +158,15 @@
         // Handle main input
         //
 
-        var inputEl = document.querySelector('.new-todo');
-        inputEl.addEventListener('keyup', function (event) {
-            // EXCERCISE: inspect the event object in dev console
-
-            var KEY_ENTER = 13;
+        const inputEl = document.querySelector('.new-todo');
+        inputEl.addEventListener('keyup', event => {
+            const KEY_ENTER = 13;
             if (event.keyCode !== KEY_ENTER) {
                 return;
             }
 
             // Update app state
-            var todo = {
+            const todo = {
                 text: inputEl.value,
                 completed: false
             };
@@ -196,27 +196,24 @@
         // Handle filters
         //
 
-        var filters = {
+        const filters = {
             all: document.querySelector('#filter-all'),
             active: document.querySelector('#filter-active'),
             completed: document.querySelector('#filter-completed')
         };
 
-        for (var filterName in filters) {
+        for (const filterName in filters) {
             // Without hasOwnProperty check, we would also be iterating over addTimestamp method
             if (filters.hasOwnProperty(filterName)) {
-                var filterEl = filters[filterName];
+                const filterEl = filters[filterName];
 
-                // This is IIFE (immediately-invoked function expression).
-                // We need to capture the filterName value. Otherwise, we would
-                // be referencing (after some time when the user clicks and the
-                // listener function is called) to the last value of this iteration,
-                // not the value of current iteration - which is what we want.
-                (function (capturedFilterName) {
-                    filterEl.addEventListener('click', function (e) {
-                        filtersClick(capturedFilterName);
-                    });
-                }(filterName));
+                // Because we are using `const filterName` instead of `var filterName`
+                // and const/let is block scoped instead of function scoped
+                // we can pass the value directly to the asynchronous event listener
+                // without capturing it in iife as we did in previous lecture.
+                filterEl.addEventListener('click', () => {
+                    filtersClick(filterName);
+                });
             }
         }
 
@@ -227,9 +224,9 @@
             // createHtmlWithCreateElement functions.
 
             // Remove 'selected' class on all filter buttons
-            for (var key in filters) {
+            for (const key in filters) {
                 if (filters.hasOwnProperty(key)) {
-                    var filter = filters[key];
+                    const filter = filters[key];
                     filter.classList.remove('selected');
                 }
             }
