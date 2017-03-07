@@ -67,20 +67,17 @@
         }
 
         State.prototype.getTodos = function () {
-            switch (this._filter) {
-                case 'all':
-                    return this._todos;
-                case 'active':
-                    return this._todos.filter(function (todo) {
-                        return todo.completed === false;
-                    });
-                case 'completed':
-                    return this._todos.filter(function (todo) {
-                        return todo.completed === true;
-                    });
-                default:
-                    throw new Error('unknown filter');
-            }
+            return this._todos.filter(function (todo) {
+                if (this._filter === 'all') {
+                    return true;
+                } else if (this._filter === 'completed') {
+                    return todo.completed === true;
+                } else if (this._filter === 'active') {
+                    return todo.completed === false;
+                }
+            }.bind(this));
+            // The bind() method creates a new function that, when called, has
+            // its this keyword set to the provided value.
         }
 
         var state = new State(initialState.todos, initialState.filter);
