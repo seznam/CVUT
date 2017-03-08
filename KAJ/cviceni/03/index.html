@@ -1,4 +1,4 @@
-	<!doctype html>
+<!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8" />
@@ -15,7 +15,7 @@
 <h1>Tvorba klientských aplikací v JavaScriptu</h1>
 
 <section class="slide">
-	<h2>SVG, Drag'n'Drop - cvičení</h2>
+	<h2>ES6 - cvičení</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -27,319 +27,31 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>Odevzdání sem. práce</li>
-		<li><a href="https://docs.google.com/forms/d/1ag0E3VsT4-I5SAuRUv265fifPcB2iuUayIhAQN0q2sg/viewform">https://docs.google.com/forms/d/1ag0E3VsT4-I5SAuRUv265fifPcB2iuUayIhAQN0q2sg/viewform</a></li>
+		<li>Transpilace do ES5 - Babel</li>
+		<li>let, const</li>
+		<li>Arrow funkce</li>
+		<li>Template literal</li>
+		<li>Class</li>
 	</ol>
 </section>
 
 <section class="slide">
-	<h2>Obsah</h2>
-	<ol>
-		<li>SVG - vložení, stylování, změna rozměru</li>
-		<li>Drag&amp;drop</li>
-	</ol>
-</section>
-
-<section class="slide">
-	<h2>SVG - základy - teorie. Opáčko.</h2>
+	<h2>Babel</h2>
 	<ul class="sections">
-		<li>Co znamená SVG?</li>
-		<li><strong>Scalable Vector Graphics</strong></li>
-		<li><strong>Založeno na XML, stylovatelné pomocí CSS, možno vyrábět pomocí JS</strong></li>
-		<li>Jak přidáme SVG do HTML5 stránky?</li>
-		<li><code>Tag &lt;svg&gt;</code></li>
-		<li>Jaké základní tvary a konstrukce můžeme využít?</li>
-		<li><code>&lt;rect&gt;</code>, <code>&lt;circle&gt;</code>, <code>&lt;ellipse&gt;</code>, <code>&lt;line&gt;</code>, <code>&lt;polyline&gt;</code>, <code>&lt;polygon&gt;</code></li>
-		<li><code>&lt;g&gt;</code>, <strong>gradients + patterns</strong></li>
+		<li><a href="https://babeljs.io">https://babeljs.io</a></li>
+		<li>Vyzkoušejte různé konstrukce: let, const, class, arrow funkce, template literal</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>SVG - základ</h2>
+	<h2>Zadání</h2>
 	<ul class="sections">
-		</svg>
-		<li><em>Úkol: </em>Vytvořte ve stránce místo pro "kreslení".</li>
-		<li>
-		<pre data-syntax="xml">
-&lt;svg width="300" height="300"&gt;&lt;/svg&gt;
-			</pre>
-			<svg width="300" height="300" style="background:red;">
-		</li>
-
-
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>SVG - jednoduché tvary</h2>
-	<ul class="sections">
-		</svg>
-		<li><a hre="http://www.w3.org/TR/SVG/">http://www.w3.org/TR/SVG/</a></li>
-		<li><em>Úkol I: </em>Nakreslete čáru, bezierovu křivku, čtverec ,kruh</li>
-		<li><em>Úkol II: </em>Nakreslete poly-čáru, elipsu, mnohoúhelník</li>
-		<li>
-		<svg width="400" height="400" style="border:1px solid black; float:right;">
-			 <g stroke-width="5" >
-				//linka
-				<path d="M 300 10 L 150 50" stroke="gray" />
-				<line x1="250" y1="250" x2="350" y2="350" stroke="purple"  />
-				//bezier
-				<path d="M50,200 S150,50 250,200" fill="none" stroke="brown" />
-				<path d="M50,200 C100,150 200,250 250,200" fill="none" stroke="blue" />
-			 </g>
-			 // ctverec
-			 <path d="M 20 20 L 100 20 L 100 100 L 20 100 z" fill="red" stroke="blue" stroke-width="3" />
-			 <rect x="100" y="300" width="100" height="50" fill="yellow" stroke="navy" stroke-width="10"  />
-
-			 //kruh
-			 <circle cx="300" cy="200" r="30" fill="red" stroke="blue" stroke-width="10" />
-
-			 //polyline
-			 <g transform="translate(50,200)">
-				 <polyline fill="none" stroke="pink" stroke-width="3"
-				points="5,37, 15,37 15,32 25,32 25,37, 35,37 35,25 45,25 45,37, 55,37 55,17 65,17 65,37" />
-			</g>
-
-			// ellipse
-			<ellipse transform="rotate(-30)" cx="150" cy="200" rx="10" ry="20" fill="none" stroke="blue" stroke-width="20"  />
-		</svg>
-		<pre data-syntax="xml">
-&lt;g stroke-width=&quot;5&quot; &gt;
-	//linka
-	&lt;path d=&quot;M 300 10 L 200 100&quot; stroke=&quot;red&quot; /&gt;
-	&lt;line x1=&quot;200&quot; y1=&quot;200&quot; x2=&quot;300&quot; y2=&quot;300&quot;  /&gt;
-	//bezier
-	&lt;path d=&quot;M10,150 C110,50 110,200 210,150&quot; fill=&quot;none&quot; stroke=&quot;red&quot; /&gt;
-	&lt;path d=&quot;M210,150 S300,300 300,200&quot; fill=&quot;none&quot; stroke=&quot;red&quot; /&gt;
- &lt;/g&gt;
- // ctverec
- &lt;path d=&quot;M 20 20 L 100 20 L 100 100 L 20 100 z&quot; fill=&quot;red&quot; stroke=&quot;blue&quot; stroke-width=&quot;3&quot; /&gt;
- &lt;rect x=&quot;100&quot; y=&quot;300&quot; width=&quot;100&quot; height=&quot;50&quot; fill=&quot;yellow&quot; stroke=&quot;navy&quot; stroke-width=&quot;10&quot;  /&gt;
-
- //kruh
- &lt;circle cx=&quot;300&quot; cy=&quot;200&quot; r=&quot;30&quot; fill=&quot;red&quot; stroke=&quot;blue&quot; stroke-width=&quot;10&quot; /&gt;
-
- // ellipse
-&lt;ellipse transform="rotate(-30)" cx="150" cy="200" rx="10" ry="20" fill="none" stroke="blue" stroke-width="20"  /&gt;
- //polyline
- &lt;g transform=&quot;translate(50,150)&quot;&gt;
-	 &lt;polyline fill=&quot;none&quot; stroke=&quot;pink&quot; stroke-width=&quot;3&quot;
-	points=&quot;5,37, 15,37 15,32 25,32 25,37, 35,37 35,25 45,25 45,37, 55,37 55,17 65,17 65,37&quot; /&gt;
-&lt;/g&gt;
-		</pre>
-
-		</li>
-
-
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>SVG - přechody, pattern</h2>
-	<ul class="sections">
-		<li><em>Úkol I: </em>Nakreslete kruh a v něm radiálná přechod</li>
-		<li><em>Úkol II: </em>Nakreslete kruh a vyplňte jej trojúhelníky</li>
-		<li>
-<svg width="800" height="400" style="float:right">
-	<defs>
-		 <radialGradient id="grad" gradientUnits="userSpaceOnUse"
-		  cx="200" cy="200" r="150" fx="200" fy="200">
-		<stop offset="0%" stop-color="red" />
-		<stop offset="50%" stop-color="green" />
-		<stop offset="100%" stop-color="yellow" />
-	  </radialGradient>
-	</defs>
-	<circle cx="200" cy="200" r="150" stroke="black" fill="url(#grad)" stroke-width="2" />
-
-	<defs>
-		<pattern id="triang" width="0.2" height="0.2">
-			<polygon points="0,10 10,0 20,10" fill="#00f" />
-		</pattern>
-	</defs>
-	<circle fill="url(#triang)" cx="600" cy="200" r="50" stroke-width="1" stroke="red"/>
-</svg>
-<pre data-syntax=xml>
-&lt;svg width=&quot;800&quot; height=&quot;400&quot; style=&quot;float:right&quot;&gt;
-	&lt;defs&gt;
-		 &lt;radialGradient id=&quot;grad&quot; gradientUnits=&quot;userSpaceOnUse&quot;
-		  cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;150&quot; fx=&quot;200&quot; fy=&quot;200&quot;&gt;
-		&lt;stop offset=&quot;0%&quot; stop-color=&quot;red&quot; /&gt;
-		&lt;stop offset=&quot;50%&quot; stop-color=&quot;green&quot; /&gt;
-		&lt;stop offset=&quot;100%&quot; stop-color=&quot;yellow&quot; /&gt;
-	  &lt;/radialGradient&gt;
-	&lt;/defs&gt;
-	&lt;circle cx=&quot;200&quot; cy=&quot;200&quot; r=&quot;150&quot; stroke=&quot;black&quot; fill=&quot;url(#grad)&quot;
-	stroke-width=&quot;2&quot; /&gt;
-
-	&lt;defs&gt;
-		&lt;pattern id=&quot;triang&quot; width=&quot;0.2&quot; height=&quot;0.2&quot;&gt;
-			&lt;polygon points=&quot;0,10 10,0 20,10&quot; fill=&quot;#00f&quot; /&gt;
-		&lt;/pattern&gt;
-	&lt;/defs&gt;
-	&lt;circle fill=&quot;url(#triang)&quot; cx=&quot;600&quot; cy=&quot;200&quot; r=&quot;50&quot; stroke-width=&quot;1&quot; stroke=&quot;red&quot;/&gt;
-&lt;/svg&gt;
-</pre>
-		</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>SVG - stylování pomocí CSS</h2>
-	<ul class="sections">
-		<li><em>Úkol I: </em> Nakreslete obličej (3 kruhy a půl kruh).</li>
-		<li><em>Úkol II: </em> Obarvěte za pomocí CSS a zařiďte, že při najetí nad oko se oko schová</li>
-		<li>
-			<style>
-				#face	{ stroke-width:1px; stroke:black; fill:yellow; }
-				.eye	{ fill:blue; }
-				.eye:hover	{ fill:transparent; }
-				.eye-close	{ fill:blue; }
-				#mouth	{ stroke:red; stroke-width:10px; fill:none; }
-				#mouth:hover	{ stroke-width:20px; }
-			</style>
-			<svg width="300" height="300" style="float:right">
-				<circle cx="150" cy="150" r="145" id="face"/>
-				<path d="M0,100 S30,32 60,100" transform="translate(70,0)" class="eye-close"/>
-				<circle cx="100" cy="100" r="30" class="eye"/>
-				<circle cx="200" cy="100" r="30" class="eye"/>
-				<path d="M50,200 S150,350 250,200" id="mouth" />
-			</svg>
-			<pre data-syntax="xml">
-&lt;style&gt;
-	#face	{ stroke-width:1px; stroke:black; fill:yellow; }
-	.eye	{ fill:blue; }
-	.eye:hover	{ fill:transparent; }
-	.eye-close	{ fill:blue; }
-	#mouth	{ stroke:red; stroke-width:10px; fill:none; }
-	#mouth:hover	{ stroke-width:20px; }
-&lt;/style&gt;
-&lt;svg width=&quot;300&quot; height=&quot;300&quot; style=&quot;float:right&quot;&gt;
-	&lt;circle cx=&quot;150&quot; cy=&quot;150&quot; r=&quot;145&quot; id=&quot;face&quot;/&gt;
-	&lt;path d=&quot;M0,100 S30,32 60,100&quot; transform=&quot;translate(70,0)&quot; class=&quot;eye-close&quot;/&gt;
-	&lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;30&quot; class=&quot;eye&quot;/&gt;
-	&lt;circle cx=&quot;200&quot; cy=&quot;100&quot; r=&quot;30&quot; class=&quot;eye&quot;/&gt;
-	&lt;path d=&quot;M50,200 S150,350 250,200&quot; id=&quot;mouth&quot; /&gt;
-&lt;/svg&gt;
-			</pre>
-		</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>SVG - Změna rozměrů</h2>
-	<ul class="sections">
-		<li>
-			<em>Úkol: </em> Vyzkoušejte si souřadný systém a definovat nový uživatelský souř. systém
-		</li>
-		<li>
-			<em>Úkol: </em> Vyzkoušejte si zvětšovat a zmenšovat obrázek obličeje ... co musíte udělat?
-		</li>
-
-		<li>
-<pre data-syntax="xml">
-&lt;svg width=&quot;200&quot; height=&quot;200&quot; style=&quot;border:1px solid pink&quot;&gt;
-	&lt;circle cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;20%&quot; stroke=&quot;red&quot; fill=&quot;none&quot; /&gt;
-&lt;/svg&gt;
-&lt;svg width=&quot;100&quot; height=&quot;100&quot; style=&quot;border:1px solid pink&quot;&gt;
-	&lt;circle cx=&quot;50%&quot; cy=&quot;50%&quot; r=&quot;20%&quot; stroke=&quot;red&quot; fill=&quot;none&quot; /&gt;
-&lt;/svg&gt;
-&lt;svg width=&quot;200&quot; height=&quot;200&quot; viewBox=&quot;0 0 200 200&quot; style=&quot;border:1px solid pink&quot;&gt;
-	&lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;50&quot; stroke=&quot;green&quot; fill=&quot;none&quot;/&gt;
-&lt;/svg&gt;
-&lt;svg width=&quot;50&quot; height=&quot;50&quot; viewBox=&quot;0 0 200 200&quot; style=&quot;border:1px solid pink&quot;&gt;
-	&lt;circle cx=&quot;100&quot; cy=&quot;100&quot; r=&quot;50&quot; stroke=&quot;green&quot; fill=&quot;none&quot;/&gt;
-&lt;/svg&gt;
-			</pre>
-			<svg width="200" height="200" style="border:1px solid lightgray">
-				<g stroke="black" stroke-width="8">
-					<line x1=0 y1=0 x2=200 y2=0 />
-					<line x1=0 y1=0 x2=0 y2=200 />
-				</g>
-				<text x="8" y="20" font-family="Verdana" font-size="18" fill="blue" >
-					0,0
-				</text>
-
-				<text x="145" y="20" font-family="Verdana" font-size="18" fill="blue" >
-					200,0
-				</text>
-
-				<text x="8" y="195" font-family="Verdana" font-size="18" fill="blue" >
-					0,200
-				</text>
-				<text x="122" y="195" font-family="Verdana" font-size="18" fill="blue" >
-					200,200
-				</text>
-
-				<g transform="translate(50,50)" stroke="red" stroke-width="2">
-					<line x1=0 y1=0 x2=100 y2=0  />
-					<line x1=0 y1=0 x2=0 y2=100  />
-					<text x="5" y="15" font-family="Verdana" font-size="12" fill="blue" stroke-width="0" >
-						0,0
-					</text>
-				</g>
-			</svg>
-			<svg width="200" height="200" style="border:1px solid pink">
-				<circle cx="50%" cy="50%" r="20%" stroke="red" fill="none" />
-			</svg>
-			<svg width="100" height="100" style="border:1px solid pink">
-				<circle cx="50%" cy="50%" r="20%" stroke="red" fill="none" />
-			</svg>
-			<svg width="200" height="200" viewBox="0 0 200 200" style="border:1px solid pink">
-				<circle cx="100" cy="100" r="50" stroke="green" fill="none"/>
-			</svg>
-			<svg width="50" height="50" viewBox="0 0 200 200" style="border:1px solid pink">
-				<circle cx="100" cy="100" r="50" stroke="green" fill="none"/>
-			</svg>
-		</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>SVG - souřadnice příklad</h2>
-	<pre data-syntax="xml">
-&lt;svg width=&quot;200&quot; height=&quot;200&quot; style=&quot;border:1px solid lightgray&quot;&gt;
-	&lt;g stroke=&quot;black&quot; stroke-width=&quot;8&quot;&gt;
-		&lt;line x1=0 y1=0 x2=200 y2=0 /&gt;
-		&lt;line x1=0 y1=0 x2=0 y2=200 /&gt;
-	&lt;/g&gt;
-	&lt;text x=&quot;8&quot; y=&quot;20&quot; font-family=&quot;Verdana&quot; font-size=&quot;18&quot; fill=&quot;blue&quot; &gt;
-		0,0
-	&lt;/text&gt;
-
-	&lt;text x=&quot;145&quot; y=&quot;20&quot; font-family=&quot;Verdana&quot; font-size=&quot;18&quot; fill=&quot;blue&quot; &gt;
-		200,0
-	&lt;/text&gt;
-
-	&lt;text x=&quot;8&quot; y=&quot;195&quot; font-family=&quot;Verdana&quot; font-size=&quot;18&quot; fill=&quot;blue&quot; &gt;
-		0,200
-	&lt;/text&gt;
-	&lt;text x=&quot;122&quot; y=&quot;195&quot; font-family=&quot;Verdana&quot; font-size=&quot;18&quot; fill=&quot;blue&quot; &gt;
-		200,200
-	&lt;/text&gt;
-
-	&lt;g transform=&quot;translate(50,50)&quot; stroke=&quot;red&quot; stroke-width=&quot;2&quot;&gt;
-		&lt;line x1=0 y1=0 x2=100 y2=0  /&gt;
-		&lt;line x1=0 y1=0 x2=0 y2=100  /&gt;
-		&lt;text x=&quot;5&quot; y=&quot;15&quot; font-family=&quot;Verdana&quot; font-size=&quot;12&quot; fill=&quot;blue&quot; stroke-width=&quot;0&quot; &gt;
-			0,0
-		&lt;/text&gt;
-	&lt;/g&gt;
-&lt;/svg&gt;
-	</pre>
-</section>
-
-<section class="slide">
-	<h2>Drag&amp;Drop</h2>
-	
-	<ul class="sections">
-		<li>Umožňuje manipulovat s objekty ve stránce i přetahovat externí soubory do stránky</li>
-		<li>Přesunovatelný prvek - atribut <strong>draggable="draggable"</strong></li>
-		<li>Události: <strong>dragstart</strong>, <strong>dragover</strong>, <strong>drop</strong></li>
-		<li>Vlastnost <strong>dataTransfer</strong> - obsahuje metadata</li>
-		<li>Pokud má být nad prvkem tažení ukončitelné, je nutné událost "preventovat" - protože v defaultu není "dropnutí" dovoleno</li>
-		<li>Pokud událost zpracujeme, voláme preventDefault</li>
-		<li><em>Úkol:</em> Napište JS aplikaci, která umožní uživateli přetáhnout do stránky soubor a stránka vypíše meta informace o souboru (typ, velikost, umístění)</li>
-		<li>Řešení: <a href="fileinfo.html">fileinfo.html</a></li>
+		<li><a href="zadani.html">http://opensource.seznam.cz/CVUT/KAJ/cviceni/03/zadani.html</a></li>
+		<li>Upravte: IFFE v navěšování posluchačů nahraďte za const/let </li>
+		<li>Upravte: State zkuste přepsat pomocí Class</li>
+		<li>Upravte: State.getTodos filter a bind, přepište na arrow funkci</li>
+		<li>Upravte: createHtmlWithCreateElement cyklus zkuste přepsat na for - of</li>
+		<li>Upravte: createHtmlWithCreateElement přepište na template literal</li>
 	</ul>
 </section>
 
@@ -348,7 +60,9 @@
 </section>
 
 <footer>
+	<a href="mailto:ondrej.zara@firma.seznam.cz"></a>
 	<a href="mailto:zdenek.vlach@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
+	<a href="mailto:petr.hurtak@firma.seznam.cz">petr.hurtak@firma.seznam.cz</a>
 </footer>
 
 <script type="text/javascript">
