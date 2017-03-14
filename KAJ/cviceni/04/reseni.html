@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Keyboard</title>
+        <style>
+            body, html { height:100%; font-family: Arial; }
+            div {
+                background: red; width:200px; height:200px; position:absolute; top:20px; left:40px;
+                border-radius: 50%;
+                box-sizing: border-box;
+                text-align: center;
+                padding-top:80px;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            div a {
+                color: white;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div> <a href="http://www.seznam.cz">SEZNAM</a></div>
+        <script>
+            var M = function (x,y) {
+                // standard way
+                //document.body.addEventListener('keydown', this._keydown.bind(this));
+
+                // with handleEvent
+                document.body.addEventListener('keydown', this);
+                document.body.addEventListener('mousemove', this); // try set useCapture when stopPropagating on circle
+
+                var b = document.querySelector('div');
+                // listener for stopping Propagation
+                b.addEventListener('mousemove', this._stop.bind(this)); // bind only for clearing timeout
+                b.style.top = y+'px';
+                b.style.left = x+'px';
+
+                var l = b.querySelector("a");
+                l.addEventListener("click", this);
+                this._step = 5;
+                this._tId = null;
+            }
+
+            M.prototype._keydown = function (e) {
+                var c = e.keyCode;
+                switch(c) {
+                    case 38:  this._move('top', -this._step); break; // up
+                    case 40:  this._move('top', this._step); break; // down
+                    case 37:  this._move('left', -this._step); break; // left
+                    case 39:  this._move('left', this._step); break; // right
+                }
+            }
+
+            // move circle
+            M.prototype._move = function (dir, mv) {
+                var b = document.querySelector('div');
+                b.style[dir] = (parseInt(b.style[dir]) + mv) + 'px';
+            }
+
+            // log mouse position
+            M.prototype._logPosition = function (e) {
+                if (this._tId == null) {
+                    this._tId = window.setTimeout( function () {
+                        console.log(("x: " + e.clientX), ("y:" + e.clientY));
+                        this._tId = null;
+                    }.bind(this), 1000);
+                }
+            }
+
+            // showConfirm for links
+            M.prototype._showConfirm = function (e) {
+                if (!confirm("Opravdu chcete přejít na odkaz:" + e.target.href +" ?")) {
+                    e.preventDefault(e);
+                }
+            }
+
+            M.prototype._stop = function (e) {
+                e.stopPropagation();
+                // clear interval if exists to avoi delayed printing of mouseposition
+                if (this._tId != null) {
+
+                    clearTimeout(this._tId);
+                    this._tId = null;
+                }
+            }
+
+            // handleEvent function look at constructor
+            M.prototype.handleEvent = function (e) {
+                if (e.type == "keydown") {
+                    this._keydown(e);
+                }
+                if (e.type == "mousemove") {
+                    this._logPosition(e);
+                }
+                if (e.type == "click" && e.target.nodeName.toLowerCase() == "a") {
+                    this._showConfirm(e);
+                }
+            }
+
+            var m = new M(100,100);
+
+            // some easy Promise which is resolved
+            let p1 = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    resolve("succes");
+                }, 3000);
+            })
+            // some easy Promise which is rejected
+            let p2 = new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    reject("error");
+                }, 3000);
+            })
+            // call the promise
+            p1.then(message => {console.log(message)}, error => {console.log(error)});
+            p2.then(message => {console.log(message)}, error => {console.log(error)});
+
+
+            var downloader = new Promise((resolve, reject) => {
+                fetch(document.location.href)
+                    .then(response => response.text(), () => {reject("error fetching")})
+                    .then(text => {resolve(text)}, () => {reject("error tranforming")});
+            })
+
+            downloader.then(text => console.log(text), error => {console.log(error)});
+
+            // downloader to async and await
+            var dwn = async function () {
+                let d = await fetch(document.location.href);
+                let t = await d.text();
+                return t;
+            }
+
+            dwn().then(text => {console.log(text)});
+
+        </script>
+    </body>
+</html>

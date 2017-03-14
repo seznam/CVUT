@@ -9,13 +9,13 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>Tvorba klientských aplikací v JavaScriptu</title>
+		<title>Události a asynchronní zpracování</title>
 	<body>
 
 <h1>Tvorba klientských aplikací v JavaScriptu</h1>
 
 <section class="slide">
-	<h2>CSS selektory - cvičení</h2>
+	<h2>Události a asynchronní zpracování - cvičení</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -27,124 +27,96 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>Selektorový jazyk – rekapitulace</li>
-		<li>Selektorový jazyk – atributy</li>
-		<li>Selektorový jazyk – kombinátory</li>
-		<li>Selektorový jazyk – pseudotřídy</li>
-		<li>Selektorový jazyk – pseudoelementy</li>
-		<li>Generovaný obsah</li>
+		<li>Události opakování</li>
+		<li>Události klávesnice</li>
+		<li>Handle event</li>
+		<li>Události - stornování výchozí události</li>
+		<li>Události - fáze průchodu události</li>
+		<li>Zpoždění vykonávání - setTimeout, requestAnimationFrame</li>
+		<li>Promises, async a await</li>
 	</ol>
 </section>
 
 <section class="slide">
-	<h2>Opakování</h2>
+	<h2>Události - opakování</h2>
 	<ul class="sections">
-		<li>K čemu slouží CSS?</li>
-		<li>Jak připojíte CSS do stránky?</li>
-		<li>Jak vypadá struktura jednoho CSS pravidla?</li>
-		<li>Jaké znáte selektory?</li>
+		<li>
+			Co víte o událostech?
+		</li>
+		<li>addEventListener, removeEventListener, Event</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>HTML dokument</h2>
+	<h2>Klavesnice</h2>
 	<ul class="sections">
-		<li>Budeme pracovat s daty, která jsou uložena v HTML stránce</li>
-		<li><a href="http://jsfiddle.net/7WR9A/184/">http://jsfiddle.net/7WR9A/184/</a></li>
-		<li><a href="http://caniuse.com/">http://caniuse.com/</a></li>
+		<li>
+			<em>Úkol I:</em> Napište aplikaci která bude za pomoci šipek posunovat po obrazovce kolečko.
+		</li>
+		<li>keyCode, code, key</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Základní selektory</h2>
+	<h2>Handle event</h2>
 	<ul class="sections">
-		<li>jméno tagu</li>
-		<li>. = class</li>
-		<li># = id</li>
-		<li>* = všechny elementy</li>
-		<li>, = sjednocení</li>
-		<li>mezera = hiearchie</li>
-	</ul>
-</section>
-
-
-<section class="slide">
-	<h2>Atributové selektory</h2>
-	<ul class="sections">
-		<li><em>Úkol: </em>Vyberte na stránce všechny inputy typu text a nastylujte jejich vzhled (kulaté rohy, barva pozadí)</li>
-		<li><em>ÚkolII: </em>Vyberte na stránce všechny odstavce obsahující v atributu class na prvním místě withShadow a nastylujte je</li>
-		<li><em>ÚkolIII: </em> Nastylujte ty prvky ve stránce, které mají atribut data-currency tak, že při najetí budou tučné a orámované (vychozi těchto prvků také nastylujte)</li>
+		<li>O co jde?</li>
+		<li>obj.handleEvent</li>
+		<li><em>Upravte:</em> předchozí kód tak, aby využíval handleEvent metodu (logujte pozici myši do console)</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Kombinátory</h2>
+	<h2>Stornování</h2>
 	<ul class="sections">
-		<li><em>Úkol: </em>Nastylujte všechny divy, které jsou přímým potomkem div s id "article" (border)</li>
-		<li><em>ÚkolII: </em> Nastylujte odstavec za obrázkem (background)</li>
-		<li><em>ÚkolIII: </em> Po prvním výskytu p.withShadow budou další sourozenecké p modrou barvou (color)</li>
+		<li>O co jde?</li>
+		<li>e.preventDefault</li>
+		<li><em>Doplňte:</em> před proklikem cílové url zobrazte potvrzení</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Pseudotřídy</h2>
+	<h2>Fáze</h2>
 	<ul class="sections">
-		<li><em>Úkol: </em>Při nadjetí myši nad odstavec v článku se text stane tučným</li>
-		<li><em>ÚkolII: </em>Pokud budu psát do libovolného formulářového políčka, bude políčko červeně orámované a text tučný</li>
-		<li><em>ÚkolIII: </em> Ve stránce udělejte odkaz (kotvu) na formulář a pokud bude kotva aktivní, formulář půjde vidět, jinak ne</li>
+		<li>O co jde?</li>
+		<li>e.stopPropagation, useCapture</li>
+		<li><em>Doplňte:</em> logujte pohyb myši jen mimo červený kruh</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Pseudotřídy II</h2>
+	<h2>Zpozďování</h2>
 	<ul class="sections">
-		<li><em>ÚkolI: </em>Obarvěte každý druhý řádek tabulky šedou barvou</li>
-		<li><em>ÚkolII: </em>První řádek tabulky bude vykreslen zvětšeným fontem a zelenou barvou</li>
-		<li><em>ÚkolIII: </em>Poslední odstavec v divu #contentArticleBox bude zvýrazněný (color, background)</li>
-		<li><em>ÚkolIV: </em>Liché odstavce v divu #articleBody, budou červené.</li>
+		<li>O co jde?</li>
+		<li>setTimeout, requestAnimationFrame - ukážeme si více u canvasu</li>
+		<li><em>Doplňte:</em> nelogujte pohyb myši neustále, ale jen co 500 ms</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Elementy</h2>
+	<h2>Promise</h2>
 	<ul class="sections">
-		<li><em>ÚkolI: </em>První písmeno odstavce bude zvětšené</li>
-		<li><em>ÚkolII: </em>První řádek sudých odstavců bude podtržený</li>
+		<li>O co jde?</li>
+		<li>Promise, then, fullfill, reject, resolve</li>
+		<li><em>Úkol:</em> napište asynchroní výpočet za použití setTimeout</li>
+		<li><em>Úkol:</em> napište stahovač html aktuální stránky pomocí Promise</li>
+		<li><em>Úkol:</em> napište stahovač html aktuální stránky pomocí async/await</li>
 	</ul>
 </section>
 
-<section class="slide">
-	<h2>Generovaný obsah</h2>
-	<ul class="sections">
-		<li><em>Úkol: </em>Před každý odstavec vypište jeho pořadí v dokumentu / v elementu</li>
-		<li><em>ÚkolII: </em>Vyrobte více úrovňový seznam a na něm vyrobte vnořené číslování (1., 1.1, 2, 2.1, 2.2, ...)</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Záverečný úkol</h2>
-	<ul class="sections">
-		<li>Vymyslete zajímavou "blbůstku", za použití CSS3 (only) - čas 15 minut</li>
-		<li>IDEA I: přestylujte checkbox na cool sexy prvek</li>
-		<li>IDEAII: přestylujte radiobutton na cool sexy prvek</li>
-		<li><a href="http://jsfiddle.net/koko/xudouuh7/"> Sexy checkbox</a></li>
-		<li><a href="http://jsfiddle.net/koko/t6Lzsx6g/"> Sexy radio</a></li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Dokumenty</h2>
-	<ul class="sections">
-		<li><a href="ukazka.html">ukazka.html</a></li>
-	</ul>
-</section>
+<!--section class="slide">
+	<h2>Řešení</h2>
+	<li><a href="reseni.html">http://opensource.seznam.cz/CVUT/KAJ/cviceni/04/reseni.html</a></li>
+</section-->
 
 <section class="slide">
 	<h2>Prostor pro otázky</h2>
 </section>
 
 <footer>
+	<a href="mailto:ondrej.zara@firma.seznam.cz"></a>
 	<a href="mailto:zdenek.vlach@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
+	<a href="mailto:petr.hurtak@firma.seznam.cz">petr.hurtak@firma.seznam.cz</a>
 </footer>
 
 <script type="text/javascript">

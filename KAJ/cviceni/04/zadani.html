@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Keyboard</title>
+        <style>
+            body, html { height:100%; font-family: Arial; }
+            div {
+                background: red; width:200px; height:200px; position:absolute; top:20px; left:40px;
+                border-radius: 50%;
+                box-sizing: border-box;
+                text-align: center;
+                padding-top:80px;
+                font-size: 20px;
+                font-weight: bold;
+            }
+
+            div a {
+                color: white;
+                text-decoration: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div> <a href="http://www.seznam.cz">SEZNAM</a></div>
+        <script>
+            // create M class via prototype or ES6 class
+            // constructor params x,y - initial position of red circle on page
+
+            // 1. write code for moving circle on page via keyboard keys up, down, etc...
+
+            // 2. use handleEvent
+
+            // 3. log mouse position to console
+
+            // 4. show confirm before using link's href
+
+            // 5. stopPropagating on circle to avoid logging mouseposition, also investigate useCapture option
+
+            // 6. try create some Promise resolved, rejected
+
+            // 7. try async and await
+
+            var M = function (x,y) {
+
+            }
+
+            M.prototype._keydown = function (e) {
+
+            }
+
+            // move circle
+            M.prototype._move = function (dir, mv) {
+
+            }
+
+            // log mouse position
+            M.prototype._logPosition = function (e) {
+
+            }
+
+            // showConfirm for links
+            M.prototype._showConfirm = function (e) {
+
+            }
+
+            // handleEvent function look at constructor
+            M.prototype.handleEvent = function (e) {
+
+            }
+
+            var m = new M(100,100);
+
+        </script>
+    </body>
+</html>
