@@ -56,7 +56,7 @@
 
             // move circle
             M.prototype._move = function (dir, mv) {
-                this.elm.style[dir] = (this.elm.style[dir]) + mv) + 'px';
+                this.elm.style[dir] = (parseInt(this.elm.style[dir]) + mv) + 'px';
             }
 
             // log mouse position
