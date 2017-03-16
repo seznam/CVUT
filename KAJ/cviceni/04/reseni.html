@@ -32,32 +32,31 @@
                 document.body.addEventListener('keydown', this);
                 document.body.addEventListener('mousemove', this); // try set useCapture when stopPropagating on circle
 
-                var b = document.querySelector('div');
+                this.elm = document.querySelector('div');
                 // listener for stopping Propagation
-                b.addEventListener('mousemove', this._stop.bind(this)); // bind only for clearing timeout
-                b.style.top = y+'px';
-                b.style.left = x+'px';
+                this.elm.addEventListener('mousemove', this._stop.bind(this)); // bind only for clearing timeout
+                this.elm.style.top = y+'px';
+                this.elm.style.left = x+'px';
 
-                var l = b.querySelector("a");
-                l.addEventListener("click", this);
+                document.body.addEventListener("click", this);
+
                 this._step = 5;
                 this._tId = null;
             }
 
             M.prototype._keydown = function (e) {
-                var c = e.keyCode;
+                var c = e.code; //use new API in KeyboardEvent
                 switch(c) {
-                    case 38:  this._move('top', -this._step); break; // up
-                    case 40:  this._move('top', this._step); break; // down
-                    case 37:  this._move('left', -this._step); break; // left
-                    case 39:  this._move('left', this._step); break; // right
+                    case "ArrowUp":  this._move('top', -this._step); break; // up
+                    case "ArrowDown":  this._move('top', this._step); break; // down
+                    case "ArrowLeft":  this._move('left', -this._step); break; // left
+                    case "ArrowRight":  this._move('left', this._step); break; // right
                 }
             }
 
             // move circle
             M.prototype._move = function (dir, mv) {
-                var b = document.querySelector('div');
-                b.style[dir] = (parseInt(b.style[dir]) + mv) + 'px';
+                this.elm.style[dir] = (parseInt(b.style[dir]) + mv) + 'px';
             }
 
             // log mouse position
@@ -79,7 +78,7 @@
 
             M.prototype._stop = function (e) {
                 e.stopPropagation();
-                // clear interval if exists to avoi delayed printing of mouseposition
+                // clear interval if exists to avoid delayed printing of mouseposition
                 if (this._tId != null) {
 
                     clearTimeout(this._tId);
@@ -119,13 +118,25 @@
             p2.then(message => {console.log(message)}, error => {console.log(error)});
 
 
+            // download and show code of page
             var downloader = new Promise((resolve, reject) => {
                 fetch(document.location.href)
                     .then(response => response.text(), () => {reject("error fetching")})
                     .then(text => {resolve(text)}, () => {reject("error tranforming")});
             })
 
-            downloader.then(text => console.log(text), error => {console.log(error)});
+            // download and show code of page
+            var downloader1 = function () {
+                var p = new Promise((resolve, reject) => {
+                fetch(document.location.href)
+                    .then(response => response.text(), () => {reject("error fetching")})
+                    .then(text => {resolve(text)}, () => {reject("error tranforming")});
+                })
+                return p;
+            }
+
+            var d = downloader1().then(message => {console.log(message)});
+            console.log(d);
 
             // downloader to async and await
             var dwn = async function () {
