@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 05</title>
+</head>
+<body>
+    <section>
+        <h2>Star Wars</h2>
+        <ul id="star-wars"></ul>
+
+        <h2>Mapy</h2>
+        <ul id="mapy"></ul>
+
+    </section>
+    <section>
+        <h2>Chat</h2>
+        <p>
+          <textarea id="chat" rows="10" cols="40"></textarea>
+        </p>
+        <p>
+            <input type="text" id="chat-input">
+        </p>
+    </section>
+
+    <script>
+        /*
+            urls:
+                HTTP API with JSON response of StarWars characters
+                    https://swapi.co/api/people/
+                HTTP API with XML response of places matching given query
+                    https://api.mapy.cz/geocode?query=prdel
+                WebSocket API with text messages
+                    ws://salty-peak-74076.herokuapp.com/
+        */
+
+        //
+        // Star Wars
+        //
+
+        const starWars = document.querySelector('#star-wars');
+
+        //
+        // Request with classic XMLHttpRequest
+        //
+        var request = new XMLHttpRequest();
+        request.addEventListener('load', e => {
+            const data = e.target.responseText;
+            const dataJson = JSON.parse(e.target.responseText);
+            buildStarWars(dataJson);
+        });
+        request.addEventListener('error', e => {
+            console.log(e);
+        });
+        request.open('GET', 'https://swapi.co/api/people/');
+        request.send();
+
+        //
+        // Request with our own promisified wrapper around XMLHttpRequest
+        //
+        // function myRequest (url) {
+        //     return new Promise((resolve, reject) => {
+        //         var request = new XMLHttpRequest();
+        //         request.addEventListener('load', e => {
+        //             resolve(e);
+        //         });
+        //         request.addEventListener('error', e => {
+        //             reject(e);
+        //         });
+        //         request.open('GET', url);
+        //         request.send();
+        //     })
+        // }
+        // myRequest('https://swapi.co/api/people/')
+        //     .then(e => {
+        //         const data = e.target.responseText;
+        //         const dataJson = JSON.parse(e.target.responseText);
+        //         buildStarWars(dataJson);
+        //     })
+        //     .catch(e => {
+        //         console.log(e);
+        //     });
+
+        //
+        // Request with fetch API
+        //
+        // fetch('https://swapi.co/api/people/')
+        //     .then(res => res.json())
+        //     .then(buildStarWars)
+        //     .catch(e => console.log(e));
+
+        function buildStarWars (data) {
+            data.results.forEach(item => {
+                const li = document.createElement('li');
+                li.appendChild(document.createTextNode(item.name));
+                starWars.appendChild(li);
+            })
+        }
+
+        //
+        // Mapy.cz
+        //
+
+        fetch('https://api.mapy.cz/geocode?query=praha')
+            .then(res => res.text())
+            .then(buildMapy)
+            .catch(e => console.log(e));
+
+        function buildMapy (data) {
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(data, 'text/xml');
+            Array.from(doc.querySelectorAll('item')).forEach(item => {
+                const title = item.getAttribute('title')
+
+                const li = document.createElement('li');
+                li.appendChild(document.createTextNode(title));
+                document.querySelector('#mapy').appendChild(li);
+
+            })
+        }
+
+        //
+        // WebSockets chat
+        //
+
+        const textarea = document.querySelector('#chat');
+        const ws = new WebSocket('ws://salty-peak-74076.herokuapp.com/');
+
+        ws.onopen = e => {
+            textarea.value += '[connected to chat]\n';
+        }
+
+        ws.onerror = e => {
+            console.log(e);
+            textarea.value += '[error]\n';
+        }
+
+        ws.onmessage = e => {
+            textarea.value += e.data + '\n';
+        }
+
+        const input = document.querySelector('#chat-input');
+        input.onkeydown = e => {
+            if (e.keyCode !== 13) return;
+
+            const chatMessage = e.target.value;
+            if (!chatMessage) return;
+
+            e.target.value = '';
+            ws.send(chatMessage);
+        }
+
+    </script>
+
+</body>
+</html>
