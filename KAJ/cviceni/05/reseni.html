@@ -46,7 +46,7 @@
         var request = new XMLHttpRequest();
         request.addEventListener('load', e => {
             const data = e.target.responseText;
-            const dataJson = JSON.parse(e.target.responseText);
+            const dataJson = JSON.parse(data);
             buildStarWars(dataJson);
         });
         request.addEventListener('error', e => {
@@ -74,7 +74,7 @@
         // myRequest('https://swapi.co/api/people/')
         //     .then(e => {
         //         const data = e.target.responseText;
-        //         const dataJson = JSON.parse(e.target.responseText);
+        //         const dataJson = JSON.parse(data);
         //         buildStarWars(dataJson);
         //     })
         //     .catch(e => {
