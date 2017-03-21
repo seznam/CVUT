@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>FILE INFO</title>
+		<meta charset="utf8">
+		<style>
+			#panel		{ height: 50px; background: #ecec00;}
+			#info 		{ border: 1px solid #a0a0a0; white-space: pre; font-family: monospace; margin-bottom: 20px; }
+
+			img 		{ float:left; padding: 5px; margin: 5px; border-radius: 10px; box-shadow: 2px 2px 1px #dedede, -2px -2px 1px #b0b0b0; width:200px; }
+		</style>
+	</head>
+
+	<body>
+		<div id="panel"></div>
+		<div id="info"></div>
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		<script>
+			var Info = function () {
+				this.inf = document.querySelector("#info");
+				this.pnl = document.querySelector("#panel");
+				this.pnl.addEventListener("drop", this._drop.bind(this));
+				this.pnl.addEventListener("dragover", this._dragover.bind(this));
+
+			}
+
+			Info.prototype._dragover = function (e) {
+				e.preventDefault();
+			}			
+
+			Info.prototype._drop = function (e) {
+				e.preventDefault();
+				var files = e.dataTransfer.files;
+				console.log(files);
+				if (files.length > 0) {
+					this._showInfo(files);
+				}
+			}
+
+			Info.prototype._showInfo = function (files) {
+				for (var i = 0; i < files.length; i++) {
+					var f = files[i];
+					var r = "JMENO: " + f.name + " / TYPE:" + f.type + " / SIZE:" + Math.round(f.size/1024) + "kB \n";
+					this.inf.innerHTML += r;
+
+					if (f.type.match(/image\/.+/) != null) {
+						var fr = new FileReader();
+						fr.addEventListener("load", this._writeImg.bind(this));
+					    fr.readAsDataURL(f);
+					}
+				}
+			}
+
+			Info.prototype._writeImg = function _writeImg (e) {
+				console.log(e);
+				var img = new Image();
+				img.src = e.target.result;
+				document.body.appendChild(img);
+			}
+
+			var i = new Info();
+
+		</script>
+
+	</body>
+</html>
