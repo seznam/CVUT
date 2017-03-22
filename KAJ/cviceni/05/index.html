@@ -9,13 +9,13 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>Tvorba klientských aplikací v JavaScriptu</title>
+		<title>Ajax, XHR, HTTP a jejich kamarádi</title>
 	<body>
 
 <h1>Tvorba klientských aplikací v JavaScriptu</h1>
 
 <section class="slide">
-	<h2>Media queries a CSS transformace</h2>
+	<h2>Ajax, XHR, HTTP a jejich kamarádi - cvičení</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -27,88 +27,81 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li>Media queries - opakovaní</li>
-		<li>Media queries - tvorba</li>
-		<li>CSS transformace - opakování</li>
-		<li>CSS transformace - 2D</li>
-		<li>CSS transformace - 3D</li>
-		<li>CSS transformace - kůl menu</li>
+		<li>TEST!!! bude :)</li>
+		<li>XMLHttpRequest</li>
+		<li>Promise a XMLHttpRequest</li>
+		<li>Fetch</li>
+		<li>Websocket chat</li>
 	</ol>
 </section>
 
 <section class="slide">
-	<h2>Opakování MQ</h2>
+	<h2>TEST</h2>
 	<ul class="sections">
-		<li>K čemu slouží media queries?</li>
-		<li>Jak je zapíšete?</li>
-		<li>Z jakých částí se media queries skládají?</li>
+		<li>
+			povinný
+		</li>
+		<li>prišítí týden</li>
+		<li>cca na 10 - 15 minut</li>
+		<li>bez PC, jen s psacími potřebami</li>
+		<li>max 10b. min 5b.</li>
+		<li>obsah probraná témata z cvičení a přednášek</li>
+		<li>jeden opravný termín pro ty co nenapíší</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Užitečné odkazy</h2>
+	<h2>XMLHttpRequest - opakování</h2>
 	<ul class="sections">
-		<li><a href="http://loripsum.net/#info">http://loripsum.net/#info</a></li>
-		<li><a href="http://jsfiddle.net/koko/wcJvu/3/">http://jsfiddle.net/koko/wcJvu/3/</a></li>
+		<li>
+			Co víte o XMLHttpRequestu?
+		</li>
+		<li>metody, callback, stavy, asynchroní vs synchroní, formáty odpovědi</li>
+		<li><em>Úkol:</em> Použijte SW api a vypište všechny postavy</li>
+		<li>https://swapi.co/api/people/</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Media queries</h2>
+	<h2>XMLHttpRequest - promise</h2>
 	<ul class="sections">
-		<li><em>Úkol: </em>Navrhněte stránku s hlavičkou, menu vpravo a tělem článku, odstavecky budou na střídačku vlevo a vpravo</li>
-		<li><em>Úkol II: </em>Pro rozlišení menší než 1024 zmenšete font, odstavce budou pod sebou</li>
-		<li><em>Úkol III: </em>Pro rozlišení menší než 640 zmenšete font více a menu přesuňte z pravé strany nad článek</li>
-<!--		<li><em>Řešení: </em><a href="http://jsfiddle.net/koko/UdCPE/">http://jsfiddle.net/koko/UdCPE/</a></li> -->
+		<li>
+			<em>Úkol I:</em> Pokuste se nativní XMLHttpRequest upravit tak aby vracel promise
+		</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Opakování - CSS transformace</h2>
+	<h2>Fetch</h2>
 	<ul class="sections">
-		<li>K čemu slouží CSS transformace?</li>
-		<li>Jak je zapíšete?</li>
-		<li>Jaké znáte příklady	trasformačních funkcí?</li>
+		<li>O co jde?</li>
+		<li><em>Úkol:</em> Pomocí Mapy API zjišťujte informace o zadaném místě a vypisujte do stránky</li>
+		<li>https://api.mapy.cz/geocode?query=</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>CSS 2D transformace</h2>
+	<h2>Websocket</h2>
 	<ul class="sections">
-		<li><em>Úkol:</em> Na předchozí stránce s media queries. Při najetí na ovládací prvek se celý text článku <!-- začne plynule zmenšovat (po dobu 2s - CSS transitions)--> zmenší, při odjetí z ovládacího prvku se text zvětší</li>
-	</ul>
-</section>
-<!--
-<section class="slide">
-	<h2>CSS 2D transformace</h2>
-	<ul class="sections">
-		<li><em>Úkol:</em> Vemte sexy checkbox z minulého cvičení <a href="http://jsfiddle.net/koko/xudouuh7/">http://jsfiddle.net/koko/xudouuh7/</a> a animujte změnu stavu (posun, barvu pozadí), tak aby byla plynulá</li>
-		<li><em>Řešení: </em> <a href="http://jsfiddle.net/koko/xudouuh7/8/">http://jsfiddle.net/koko/xudouuh7/8/</a></li>
-	</ul>
-</section>
--->
-<section class="slide">
-	<h2>CSS 3D transformace</h2>
-	<ul class="sections">
-		<li><em>Úkol:</em> Vytvořte za pomoci html a css - 3d kostku <a href="http://jsfiddle.net/koko/n7zz8syx/">http://jsfiddle.net/koko/n7zz8syx/</a></li>
-		<li><em>Úkol II:</em> Kostkou za pomoci ovládacího prvku rotujte kolem y a z os</li>
-<!--		<li><em>Řešení: </em> <a href="http://jsfiddle.net/koko/24xjrbmo/">http://jsfiddle.net/koko/24xjrbmo/</a></li> -->
+		<li>O co jde?</li>
+		<li><em>Úkol:</em> Za pomoci WebSocket API vytvořte jednouduchou aplikaci chatu, která bude umět posílat zprávy a zobrazovat je</li>
+		<li>ws://salty-peak-74076.herokuapp.com/</li>
 	</ul>
 </section>
 
-<section class="slide">
-	<h2>Dokumenty</h2>
-	<ul class="sections">
-		<li><a href="ukazka.html">ukazka.html</a></li>
-	</ul>
-</section>
+<!--section class="slide">
+	<h2>Řešení</h2>
+	<li><a href="reseni.html">http://opensource.seznam.cz/CVUT/KAJ/cviceni/04/reseni.html</a></li>
+</section-->
 
 <section class="slide">
 	<h2>Prostor pro otázky</h2>
 </section>
 
 <footer>
+	<a href="mailto:ondrej.zara@firma.seznam.cz"></a>
 	<a href="mailto:zdenek.vlach@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
+	<a href="mailto:petr.hurtak@firma.seznam.cz">petr.hurtak@firma.seznam.cz</a>
 </footer>
 
 <script type="text/javascript">
