@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title></title>
+        <style>
+            body { font-size: 14px; font-family: Arial, sans-serif; color: #000; background-color: #fff; }
+            /*
+                1. Vyrobte horizontalni menu, ktere bude tvoreno tmave sedymi obdelniky s bilym textem
+                2. Menu pro sirku stranky mene nez 420px prestylujte pomoci mediaqueries tak aby byly polozky serazeny pod sebou
+                3. Vyrobte burger spoustec menu, ktery jej bude v malem rozliseni ukazovat a schovavat (na kliknuti)
+                4. U polozek ktere maji atribut data-state new, vypisujte hodnotu atributu pred odkaz
+                5. Ocislujte jednotlive polozky pomoci css generatoru
+                6. U pozadi polozek stridejte barvu pozadi
+                7. Volitelne vyzkousejte vlastni font
+
+            */
+        </style>
+    </head>
+    <body>
+        <label id="burger" for="burgerControl"></label><input type="checkbox" id="burgerControl" />
+        <menu id="menu">
+            <ul>
+                <li><a href="#prvni" data-state="new!" class="link">Prvni</a></li>
+                <li><a href="#druhy" class="link">Druhy</a></li>
+                <li><a href="#treti" class="link">Treti</a></li>
+                <li><a href="#ctvrty" class="link">Ctvrty</a></li>
+                <li><a href="#paty" class="link">Paty</a></li>
+            </ul>
+        </menu>
+
+        <article>
+            <input type="checkbox" id="chk1" />
+            <label for="chk1"></label>
+        </article>
+    </body>
+</html>
