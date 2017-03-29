@@ -4,7 +4,13 @@
         <meta charset="utf-8">
         <title></title>
         <style>
-            body { font-size: 14px; font-family: Arial, sans-serif; color: #000; background-color: #fff; }
+            body {
+                font-size: 14px;
+                font-family: Arial, sans-serif;
+                color: #000;
+                background-color: #fff;
+            }
+
             /*
                 1. Vyrobte horizontalni menu, ktere bude tvoreno tmave sedymi obdelniky s bilym textem
                 2. Menu pro sirku stranky mene nez 420px prestylujte pomoci mediaqueries tak aby byly polozky serazeny pod sebou
@@ -13,13 +19,16 @@
                 5. Ocislujte jednotlive polozky pomoci css generatoru
                 6. U pozadi polozek stridejte barvu pozadi
                 7. Volitelne vyzkousejte vlastni font
-
             */
         </style>
     </head>
     <body>
-        <label id="burger" for="burgerControl"></label><input type="checkbox" id="burgerControl" />
-        <menu id="menu">
+        <section>
+            <label id="burger" for="burgerControl"></label>
+            <input type="checkbox" id="burgerControl" />
+        </section>
+
+        <nav id="menu">
             <ul>
                 <li><a href="#prvni" data-state="new!" class="link">Prvni</a></li>
                 <li><a href="#druhy" class="link">Druhy</a></li>
@@ -27,7 +36,7 @@
                 <li><a href="#ctvrty" class="link">Ctvrty</a></li>
                 <li><a href="#paty" class="link">Paty</a></li>
             </ul>
-        </menu>
+        </nav>
 
         <article>
             <input type="checkbox" id="chk1" />
