@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 07</title>
+
+    <style>
+        /*
+            Flexbox cheatsheet
+                https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+        */
+
+        /*
+            Phone/Mobile styles
+            - Hide side menu
+            - Change order - put content before main menu only with CSS
+            - Switch from column layout (main menu | content | side menu) to row layouut
+        */
+    </style>
+</head>
+<body>
+
+    <div class="page">
+        <header>
+            <!--
+                - 100% width
+                - 200px height
+                - center content horizontally and vertically
+            -->
+            Header
+        </header>
+        <section>
+            <!--
+                - 100% width
+                - height is the rest of the page (viewport height - header - footer)
+                  or more if there is lots of content inside
+                - 400px min height
+            -->
+            <nav>
+                <!--
+                    - 1em padding
+                    - content width
+                    - height the rest
+                -->
+                Main menu
+            </nav>
+            <main>
+                <!--
+                    - 1em padding
+                    - width the rest
+                    - height the rest
+                -->
+                <h3>Page content</h3>
+
+                <div class="images">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                </div>
+            </main>
+            <aside>
+                <!--
+                    - 1em padding
+                    - 200px width includind the 1em padding
+                    - height the rest
+                -->
+                Side menu
+            </aside>
+        </section>
+        <footer>
+            <!--
+                - 100% width
+                - 200px height
+                - footer is sticky
+                - center content horizontally and vertically
+            -->
+            Footer
+        </footer>
+    </div>
+
+</body>
+</html>
