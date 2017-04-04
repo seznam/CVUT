@@ -1,0 +1,34 @@
+/* checkbox */
+@cudlik: #ac0000;
+@label-bck: #efefef;
+
+article {
+  label[for=chk1] {
+      overflow: hidden;
+      width: 100px;
+      height: 10px;
+      background: @label-bck;
+      position: relative;
+      display: block;
+
+      &::before {
+        position: absolute;
+        content: " ";
+        display:block;
+        width: 10px;
+        height: 10px;
+        background: @cudlik;
+        left: 0;
+        right: auto;
+      }
+  }
+
+  input {
+    display: none;
+
+    &:checked + label::before {
+      left:auto;
+      right:0;
+    }
+  }
+}
