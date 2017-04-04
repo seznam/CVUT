@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Lecture 07</title>
+
+    <style>
+        body {
+            margin: 0;
+        }
+
+        .page {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+        .page header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            height: 100px;
+            background: lightblue;
+        }
+        .page section {
+            display: flex;
+            flex-grow: 1;
+            min-height: 400px;
+        }
+        .page section nav {
+            background: lightsalmon;
+            padding: 1em;
+            white-space: nowrap;
+        }
+        .page section main {
+            background: lightgreen;
+            flex-grow: 1;
+            padding: 1em;
+        }
+        .page section main .images {
+            display: flex;
+            flex-wrap: wrap;
+        }
+        .page section main .images img {
+            margin: 8px;
+        }
+        .page section aside {
+            background: lightgoldenrodyellow;
+            width: 200px;
+            padding: 1em;
+            box-sizing: border-box;
+        }
+        .page footer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 100px;
+            background: lightcoral;
+        }
+
+        /*
+            Phone/Mobile styles
+            - Hide side menu
+            - Change order - put content before main menu only with CSS
+            - Switch from column layout (main menu | content | side menu) to row layouut
+        */
+        @media (max-width: 700px) {
+            .page section {
+                flex-direction: column;
+            }
+            .page section nav {
+                order: 2;
+            }
+            .page section main {
+                order: 1;
+            }
+            .page section aside {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="page">
+        <header>
+            <!--
+                - 100% width
+                - 200px height
+                - center content horizontally and vertically
+            -->
+            Header
+        </header>
+        <section>
+            <!--
+                - 100% width
+                - height is the rest of the page (viewport height - header - footer)
+                  or more if there is lots of content inside
+                - 400px min height
+            -->
+            <nav>
+                <!--
+                    - 1em padding
+                    - content width
+                    - height the rest
+                -->
+                Main menu
+            </nav>
+            <main>
+                <!--
+                    - 1em padding
+                    - width the rest
+                    - height the rest
+                -->
+                <h3>Page content</h3>
+
+                <div class="images">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                    <img src="http://satyr.io/100x100/white" width="100" height="100">
+                </div>
+            </main>
+            <aside>
+                <!--
+                    - 1em padding
+                    - 200px width includind the 1em padding
+                    - height the rest
+                -->
+                Side menu
+            </aside>
+        </section>
+        <footer>
+            <!--
+                - 100% width
+                - 200px height
+                - footer is sticky
+                - center content horizontally and vertically
+            -->
+            Footer
+        </footer>
+    </div>
+
+</body>
+</html>
