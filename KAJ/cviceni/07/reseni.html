@@ -33,13 +33,19 @@
             white-space: nowrap;
         }
         .page section main {
-            background: lightgreen;
+            display: flex;
             flex-grow: 1;
+            flex-direction: column;
+            background: lightgreen;
             padding: 1em;
         }
         .page section main .images {
             display: flex;
             flex-wrap: wrap;
+            flex-grow: 1;
+            align-items: center;
+            align-content: center;
+            justify-content: center;
         }
         .page section main .images img {
             margin: 8px;
@@ -116,9 +122,12 @@
                     - width the rest
                     - height the rest
                 -->
-                <h3>Page content</h3>
+                <h1>Page content</h1>
 
                 <div class="images">
+                    <!--
+                        - align images horizontally and vertically
+                    -->
                     <img src="http://satyr.io/100x100/white" width="100" height="100">
                     <img src="http://satyr.io/100x100/white" width="100" height="100">
                     <img src="http://satyr.io/100x100/white" width="100" height="100">
