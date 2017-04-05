@@ -248,12 +248,37 @@
 </section>
 
 <section class="slide">
+	<h2>CSS3 Flexible Box: pořadí</h2>
+	<ul>
+		<li>Vlastnost <code>order</code> pro změnu pořadí v prvků</li>
+		<li>Podobný princip jako u <code>z-index</code></li>
+		<li>Dovoluje zachovat obsah první</li>
+		<li>Často v kombinaci s media queries</li>
+		<li><a href="http://jsfiddle.net/ondras/tGK7p/">Ukázka</a></li>
+	</ul>
+</section>
+
+<section class="slide">
 	<h2>CSS3 Flexible Box: další vlastnosti</h2>
 	<ul>
 		<li><code>align-items</code> a <code>align-self</code> pro zarovnání v kolmé ose (<em>cross axis</em>)</li>
-		<li><code>order</code> pro změnu pořadí v prvků</li>
 		<li><code>flex-wrap</code> pro povolení/zakázání zalamování</li>
-		<li><a href="http://jsfiddle.net/ondras/tGK7p/">Ukázka</a></li>
+	</ul>
+</section>
+		
+<section class="slide">
+	<h2>CSS3 Flexible Box: patička</h2>
+	<ul>
+		<li>Velmi obvyklý požadavek: patička na spodu, i když je málo obsahu</li>
+		<li><a href="https://jsfiddle.net/fLwn0w1w/">Řešení na jsfiddle.net</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS3 Flexible Box: další čtení</h2>
+	<ul>
+		<li><a href="https://css-tricks.com/snippets/css/a-guide-to-flexbox/">A Complete Guide to Flexbox</a></li>
+		<li><a href="http://the-echoplex.net/flexyboxes/">Flexbox Generator</a></li>
 	</ul>
 </section>
 
@@ -263,6 +288,7 @@
 		<li>Definice vlastního písma</li>
 		<li>Podporováno od IE 4 (!)</li>
 		<li>Nutnost dodat soubor(y) s definicí písma</li>
+		<li>Pozor na CORS</li>
 		<li>Vhodné pro typografii, dříve pro ideogramy (nyní lépe SVG)</li>
 	</ul>
 </section>
@@ -284,7 +310,7 @@ body {
 	<ul>
 		<li>EOT proprietární od Microsoftu</li>
 		<li>TTF, OTF</li>
-		<li>WOFF: Web Open Font Format</li>
+		<li>WOFF / WOFF2: Web Open Font Format</li>
 		<li>Více info viz caniuse.com</li>
 	</ul>
 </section>
@@ -300,12 +326,23 @@ body {
 </section>
 
 <section class="slide">
+	<h2>CSS @font-face &ndash; FOUT</h2>
+	<ul>
+		<li><a href="http://paulirish.com/2009/fighting-the-font-face-fout/" title="Flash Of Unstyled Text">Flash Of Unstyled Text</a></li>
+		<li>Co má prohlížeč dělat, než se písmo načte?</li>
+		<li>Čekat vs. zkusit jiné?</li>
+		<li>Velký problém u HTML canvasu (později v semestru)</li>
+		<li>Budoucnost: <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API">Font Loading API</a></li>
+	</ul>
+</section>
+
+<section class="slide">
 	<h2>CSS @font-face &ndash; poznámky</h2>
 	<ul>
+		<li>Vlastní písma navyšují objem přenášených dat</li>
+		<li>Kvalita písma je často subjektivní</li>
 		<li>Odlišné renderování v různých prohlížečích a operačních systémech</li>
 		<li><a target="_blank" href="http://www.google.com/webfonts">Google Web Fonts</a></li>
-		<li>Problematika <a href="http://paulirish.com/2009/fighting-the-font-face-fout/" title="Flash Of Unstyled Text">FOUT</a></li>
-		<li>Budoucnost: <a href="https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API">Font Loading API</a></li>
 	</ul>
 </section>
 
