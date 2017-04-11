@@ -100,6 +100,34 @@
                     background-color: #333333;
                 }
             }
+
+            body.blur > *:not(.modal) {
+                filter: blur(3px);
+                transition: filter 0.5s ease;
+            }
+
+            .modal {
+                display: none;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                min-height: 100%;
+                background-color: rgba(0, 0, 0, 0.1);
+                z-index: 99;
+                justify-content: center;
+                align-items: center;
+            }
+
+            .modal-content {
+                border-radius: 5px;
+                background: white;
+                margin: 32px;
+                padding: 16px;
+                max-width: 800px;
+                width: 800px;
+                min-height: 500px;
+            }
         </style>
     </head>
     <body>
@@ -119,6 +147,39 @@
             <label for="chk1"></label>
         </section>
 
+        <button class="modal-button">
+            Modal show
+        </button>
 
+        <div class="modal">
+            <div class="modal-content">
+                <button class="modal-button">
+                    Close
+                </button>
+                <p>Modal content</p>
+            </div>
+        </div>
+
+        <script>
+            var modalVisible = false;
+
+            var modalButtons = document.querySelectorAll('.modal-button');
+            var modal = document.querySelector('.modal');
+
+            for (let i = 0; i < modalButtons.length; i++) {
+                modalButtons[i].addEventListener('click', toggleModalState)
+            }
+
+            function toggleModalState () {
+                modalVisible = !modalVisible;
+                if (modalVisible) {
+                    document.body.classList.add('blur');
+                    modal.style.display = 'flex';
+                } else {
+                    document.body.classList.remove('blur');
+                    modal.style.display = 'none';
+                }
+            }
+        </script>
     </body>
 </html>
