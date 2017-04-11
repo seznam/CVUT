@@ -101,6 +101,8 @@
                 }
             }
 
+            /* Modal */
+
             body.blur > *:not(.modal) {
                 filter: blur(3px);
                 transition: filter 0.5s ease;
@@ -128,6 +130,35 @@
                 width: 800px;
                 min-height: 500px;
             }
+
+            /* Sprite animations */
+
+            .sprite-wrapper {
+                background: lightblue;
+                width: 768px;
+                overflow: hidden;
+                margin-top: 8px;
+            }
+
+            .sprite {
+                width: 256px;
+                height: 256px;
+                background-image: url('sprite.png');
+                background-position: 0 0;
+                background-repeat: no-repeat;
+                animation:
+                    run  0.5s infinite steps(5),
+                    move 2.5s infinite linear;
+                transform: translateX(-100%);
+            }
+
+            @keyframes run {
+                100% { background-position: -1281px 0; }
+            }
+            @keyframes move {
+                100% { transform: translateX(300%); }
+            }
+
         </style>
     </head>
     <body>
@@ -159,6 +190,11 @@
                 <p>Modal content</p>
             </div>
         </div>
+
+        <section class="sprite-wrapper">
+            <div class="sprite">
+            </div>
+        </section>
 
         <script>
             var modalVisible = false;
