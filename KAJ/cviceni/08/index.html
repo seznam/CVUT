@@ -9,13 +9,14 @@
 		<script src="../../common/js/slides2.js" type="text/javascript"></script>
 		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
-		<title>Tvorba klientských aplikací v JavaScriptu</title>
-	<body>
+		<title>CSS transitions, animations, efekty - cvičení</title>
+	</head>
+<body>
 
 <h1>Tvorba klientských aplikací v JavaScriptu</h1>
 
 <section class="slide">
-	<h2>XHR</h2>
+	<h2>CSS transitions, animations, efekty - cvičení</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -27,104 +28,70 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
-		<li class="section">Opakování</li>
-		<li>XHR - XML</li>
-		<li>XHR - JSON</li>
-		<li>Upload souboru (obrázku)</li>
+		<li>Oprava testu</li>
+		<li>Transitions</li>
+		<li>Animations</li>
+		<li>Efekty</li>
 	</ol>
 </section>
 
 <section class="slide">
-	<h2>Opakování</h2>
+	<h2>Test</h2>
 	<ul class="sections">
-		<li>K čemu slouží XHR?</li>
-		<li>Jak se použije XHR?</li>
-		<li>Co je to CORS?</li>
+		<li>Opravujeme!!!</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>CORS</h2>
+	<h2>Transitions + animations</h2>
 	<ul class="sections">
-		<li>
-			Požadavek skrze domény
-		</li>
-		<li>
-<pre data-syntax="js">
-var client = new XMLHttpRequest()
-client.open("GET", "http://example.com/hello")
-client.onreadystatechange = function() { /* do something */ }
-client.send()
-</pre>
-		</li>
-		<li>
-<pre data-syntax="js">
-Access-Control-Allow-Origin: http://hello-world.example
-Access-Control-Max-Age: 3628800
-Access-Control-Allow-Methods: PUT, DELETE
-</pre>
-		</li>
+		<li>Co o nich víte?</li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/transition">https://developer.mozilla.org/en-US/docs/Web/CSS/transition</a></li>
+		<li><a href="https://developer.mozilla.org/en-US/docs/Web/CSS/animation">https://developer.mozilla.org/en-US/docs/Web/CSS/animation</a></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>HR - JSON</h2>
+	<h2>Menu</h2>
 	<ul class="sections">
-		<li>
-			Co je JSON?
-		</li>
-		<li>
-			Jaký rozdíl je mezi JSON a JSONP?
-		</li>
-		<li>
-			<em>Úkol:</em> Napište aplikaci, která bude obsahovat textové políčko a button. 
-			Do políčka se vyplní hledaná fráze a po stisku tlačítka se odešle dotaz na server seznamáckého našeptávače.
-			Odpověd (ve formátu JSON) ze serveru se vypíše do divu který je na stránce.
-		</li>
-		<li>http://search.seznam.cz/suggest/fulltext?phrase=xxx&amp;result=json&amp;highlight=0&amp;count=10</li>
-		<li><a href="http://jsfiddle.net/koko/wGph2/">http://jsfiddle.net/koko/wGph2/</a></li>
+        <li><em>Úkol: Upravte responsivní menu z předchozího cvičení tak, aby jeho zobrazení bylo animované (menu vyjede z levé strany)</em> </li>
+        <li><em>Úkol: </em> Custom radio button upravte tak aby vypadal k světu ( kulaté rohy, stíny) a změnu stavu animujte</li>
+		<li><a href="zadani.html">zadani.html</a></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>HR - XML</h2>
+	<h2>Modal window</h2>
 	<ul class="sections">
-		<li>
-			Co je XML?
-		</li>
-		<li>
-			<em>Úkol:</em> Napište aplikaci, která bude obsahovat textové políčko a button. 
-			Do políčka se vyplní hledaná fráze a po stisku tlačítka se odešle dotaz na server seznamáckého našeptávače.
-			Odpověd (ve formátu XML) ze serveru se vypíše do divu který je na stránce.
-		</li>
-		<li>http://search.seznam.cz/suggest/fulltext?phrase=xxx&amp;result=xml&amp;highlight=0&amp;count=10</li>
-		<li><a href="http://jsfiddle.net/koko/cHE9D/">http://jsfiddle.net/koko/cHE9D/</a></li>
+        <li><em>Úkol: Vyrobte modalní okno, jehož zobrazení bude animované (zoom), a na zbytek stránky aplikujte animovaný filtr rozostření</em> </li>
+		<li><a href="zadani.html">zadani.html</a></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>HR - File upload</h2>
+	<h2>Animace pomocí sprite</h2>
 	<ul class="sections">
-		<li>
-			<em>Úkol:</em> Napište aplikaci, která odešle na server soubor.
-		</li>
-		<li>
-<pre data-syntax="js">
-var file = e.dataTransfer.files[0]; // z eventy drop
-
-var xhr = new XMLHttpRequest()
-xhr.open("POST", "/upload", true);
-xhr.setRequestHeader("X-FILENAME", file.name);
-xhr.send(file);
-</pre>
-		</li>
+        <li><em>Úkol: </em>Vyrobte pomocí sprite, chodícího panáčka ( sprite najděte na síti)</li>
+		<li><a href="zadani.html">zadani.html</a></li>
 	</ul>
 </section>
 
-<section class="slide">
-	<h2>Ukázky</h2>
+<section>
+    <h2>Flex game</h2>
+    <li><a href="http://flexboxfroggy.com/">http://flexboxfroggy.com/</a> otestujte si své znalosti Flex CSS</li>
+</section>
+
+<!--section class="slide">
+	<h2>Řešení</h2>
 	<ul>
-		<li><a href="ukazka.zip">ukazka.zip</a></li>
+		<li><a href="reseni.html">reseni.html</a></li>
+	</ul>
+</section-->
+
+<section class="slide">
+	<h2>Řešení</h2>
+	<ul class="sections">
+		<li><a href="reseni.html">reseni.html</a></li>
 	</ul>
 </section>
 
