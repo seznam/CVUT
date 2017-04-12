@@ -40,6 +40,7 @@
             #menu {
                 display: block;
             }
+
             #menu {
                 display: inline-block;
                 margin: 0;
@@ -67,24 +68,19 @@
                     display: inline-block;
                 }
 
-                /* new */
                 #burger + input[type=checkbox]:checked + #menu {
                     transform: translateX(0);
+                    transition: transform .5s ease-out;
                 }
 
                 #menu {
                     counter-reset: item;
-                    /* new */
-                    display: block;
+                    display:block;
                     position: absolute;
                     /* hide menu to left */
                     transform: translateX(-200px);
                     z-index: 99;
-
-                    /* transition for transform */
-                    transition: transform .5s ease-out;
                 }
-
                 #menu li {
                     display: block;
                     border-top:1px solid #fff;
@@ -105,11 +101,12 @@
 
             body.blur > *:not(.modal) {
                 filter: blur(3px);
-                transition: filter 0.5s ease;
+                transition: filter .5s ease;
             }
 
             .modal {
-                display: none;
+                display: flex;
+                visibility: hidden;
                 position: absolute;
                 left: 0;
                 top: 0;
@@ -120,6 +117,9 @@
                 justify-content: center;
                 align-items: center;
             }
+            .modal.flexBox {
+                visibility: visible;
+            }
 
             .modal-content {
                 border-radius: 5px;
@@ -129,6 +129,11 @@
                 max-width: 800px;
                 width: 800px;
                 min-height: 500px;
+                transform: scale(0);
+                transition: transform 1s ease;
+            }
+            .modal.flexBox .modal-content {
+                transform: scale(1);
             }
 
             /* Sprite animations */
@@ -210,10 +215,12 @@
                 modalVisible = !modalVisible;
                 if (modalVisible) {
                     document.body.classList.add('blur');
-                    modal.style.display = 'flex';
+                    //modal.style.display = 'flex';
+                    modal.classList.add('flexBox');
                 } else {
                     document.body.classList.remove('blur');
-                    modal.style.display = 'none';
+                    //modal.style.display = 'none';
+                    modal.classList.remove('flexBox');
                 }
             }
         </script>
