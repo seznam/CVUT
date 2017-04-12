@@ -110,6 +110,7 @@
             }
 
             .sprite {
+                /* sprite has 6 frames, each is 256x256. Total width is 256 * 6 = 1536px */
                 width: 256px;
                 height: 256px;
                 background-image: url('sprite.png'); /* http://seznam.github.io/CVUT/KAJ/cviceni/08/sprite.png */
@@ -122,7 +123,7 @@
             }
 
             @keyframes run {
-                100% { background-position: -1281px 0; }
+                100% { background-position: -1280px 0; }
             }
             @keyframes move {
                 100% { transform: translateX(300%); }
