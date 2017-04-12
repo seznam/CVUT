@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Lecture 08</title>
+
+        <link rel="stylesheet/less" type="text/css" href="checkbox.less" />
+        <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
+
+        <style type="text/css"></style>
+    </head>
+    <body>
+        <label id="burger" for="burgerControl"></label><input type="checkbox" id="burgerControl" />
+        <menu id="menu">
+            <ul>
+                <li><a href="#prvni" data-state="new!" class="link">Prvni</a></li>
+                <li><a href="#druhy" class="link">Druhy</a></li>
+                <li><a href="#treti" class="link">Treti</a></li>
+                <li><a href="#ctvrty" class="link">Ctvrty</a></li>
+                <li><a href="#paty" class="link">Paty</a></li>
+            </ul>
+        </menu>
+
+        <section class="checkbox">
+            <input type="checkbox" id="chk1" />
+            <label for="chk1"></label>
+        </section>
+
+        <button class="modal-button">
+            Modal show
+        </button>
+
+        <div class="modal">
+            <div class="modal-content">
+                <button class="modal-button">
+                    Close
+                </button>
+                <p>Modal content</p>
+            </div>
+        </div>
+
+        <section class="sprite-wrapper">
+            <div class="sprite">
+            </div>
+        </section>
+
+        <script>
+            var modalVisible = false;
+
+            var modalButtons = document.querySelectorAll('.modal-button');
+            var modal = document.querySelector('.modal');
+
+            // v cyklu navesit posluchace a vyrobit toggle fci
+            for (let i = 0; i < modalButtons.length; i++) {
+                modalButtons[i].addEventListener('click', toggleModalState)
+            }
+
+            function toggleModalState () {
+                modalVisible = !modalVisible;
+                if (modalVisible) {
+                    document.body.classList.add('blur');
+                    modal.classList.add('flexBox');
+                } else {
+                    document.body.classList.remove('blur');
+                    modal.classList.remove('flexBox');
+                }
+            }
+        </script>
+    </body>
+</html>
