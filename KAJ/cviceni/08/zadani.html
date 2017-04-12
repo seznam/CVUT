@@ -7,7 +7,79 @@
         <link rel="stylesheet/less" type="text/css" href="../06/checkbox.less" />
         <script src="http://cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
 
-        <style type="text/css"></style>
+        <style type="text/css">
+        body { font-size: 14px; font-family: Arial, sans-serif; color: #000; background-color: #fff; }
+            .link {
+                display: inline-block;
+                padding: 5px 20px;
+                text-decoration: none;
+                color: #fefefe;
+            }
+            #burger {
+                overflow: hidden;
+                width: 0;
+                height: 0;
+            }
+            #burger::before {
+                content: "\2630";
+                background-color: #111111;
+                color: #efefef;
+                padding: 3px 20px 4px 20px;
+                display: inline-block;
+                cursor: pointer;
+                display: none;
+            }
+            #burger + input[type=checkbox] {
+                display: none;
+            }
+            #burger + input[type=checkbox]:checked + #menu {
+                display: block;
+            }
+            #menu {
+                display: block;
+            }
+            #menu {
+                display: inline-block;
+                margin: 0;
+                padding: 0;
+            }
+            #menu ul {
+                margin:0;
+                padding: 0;
+            }
+            #menu li {
+                display: inline-block;
+                list-style-type: none;
+                background-color: #111111;
+                margin: 0;
+                padding: 0;
+            }
+            #menu li a::before {
+                content: attr(data-state)" ";
+                color:#ac0000;
+            }
+            /* schovame menu a polozky natahneme */
+            @media all and (max-width: 420px) {
+                #burger::before {
+                    display: inline-block;
+                }
+                #menu {
+                    counter-reset: item;
+                    display: none;
+                }
+                #menu li {
+                    display: block;
+                    border-top:1px solid #fff;
+                }
+                #menu li a::after {
+                    counter-increment: item;
+                    content: " poradi: " counter(item);
+                    color: #00ac00;
+                #menu li:nth-child(2n) {
+                    background-color: #333333;
+                }
+            }
+        </style>
     </head>
     <body>
         <label id="burger" for="burgerControl"></label><input type="checkbox" id="burgerControl" />
