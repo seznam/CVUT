@@ -4,62 +4,135 @@
         <meta charset="utf-8">
         <title>Lecture 08</title>
 
-        <style type="text/css">
-            /* Side menu */
+        <link rel="stylesheet/less" type="text/css" href="checkbox.less" />
+        <script src="//cdnjs.cloudflare.com/ajax/libs/less.js/2.7.2/less.min.js"></script>
 
-            .menu {
-                position: fixed;
-                right: 0;
-                top: 0;
-                height: 100%;
-                width: 200px;
-                background-color: cornsilk;
+        <style type="text/css">
+            body { font-size: 14px; font-family: Arial, sans-serif; color: #000; background-color: #fff; }
+
+            .link {
+                display: inline-block;
+                padding: 5px 20px;
+                text-decoration: none;
+                color: #fefefe;
+            }
+
+            #burger {
+                overflow: hidden;
+                width: 0;
+                height: 0;
+            }
+
+            #burger::before {
+                content: "\2630";
+                background-color: #111111;
+                color: #efefef;
+                padding: 5px 20px 5px 20px;
+                display: inline-block;
+                cursor: pointer;
+                display: none;
+            }
+
+            #burger + input[type=checkbox] {
+                display: none;
+            }
+
+            #menu {
+                display: block;
+            }
+
+            #menu {
+                display: inline-block;
+                margin: 0;
+                padding: 0;
+            }
+            #menu ul {
+                margin:0;
+                padding: 0;
+            }
+            #menu li {
+                display: inline-block;
+                list-style-type: none;
+                background-color: #111111;
+                margin: 0;
+                padding: 0;
+            }
+            #menu li a::before {
+                content: attr(data-state)" ";
+                color:#ac0000;
+            }
+
+            /* schovame menu a polozky natahneme */
+            @media all and (max-width: 500px) {
+                #burger::before {
+                    display: inline-block;
+                }
+
+                #burger + input[type=checkbox]:checked + #menu {
+                    transform: translateX(0);
+                    transition: transform .5s ease-out;
+                }
+
+                #menu {
+                    counter-reset: item;
+                    display:block;
+                    position: absolute;
+                    /* hide menu to left */
+                    transform: translateX(-200px);
+                    z-index: 99;
+                }
+                #menu li {
+                    display: block;
+                    border-top:1px solid #fff;
+                }
+
+                #menu li a::after {
+                    counter-increment: item;
+                    content: " poradi: " counter(item);
+                    color: #00ac00;
+                }
+
+                #menu li:nth-child(2n) {
+                    background-color: #333333;
+                }
             }
 
             /* Modal */
 
-            body.modal-visible .page-wrapper {
-                filter: blur(3px), grayscale(100%);
+            body.blur > *:not(.modal) {
+                filter: blur(3px) grayscale(100%);
                 transition: filter .5s ease;
-            }
-            body.modal-visible {
-                overflow: hidden;
             }
 
             .modal {
                 display: flex;
                 visibility: hidden;
-                position: fixed;
+                position: absolute;
                 left: 0;
                 top: 0;
                 width: 100%;
-                height: 100%;
+                min-height: 100%;
+                background-color: rgba(0, 0, 0, 0.1);
+                z-index: 99;
                 justify-content: center;
                 align-items: center;
-                overflow: auto;
-                padding: 16px;
-                box-sizing: border-box;
-                z-index: 99;
-
-                background-color: rgba(0, 0, 0, 0.1);
             }
-            body.modal-visible .modal {
+            .modal.flexBox {
                 visibility: visible;
             }
 
             .modal-content {
-                margin: auto;
-                padding: 16px;
-                width: 800px;
-                max-width: 800px;
-                min-height: 500px;
-                transform: scale(0);
-
-                transition: transform 1s ease;
                 border-radius: 5px;
                 background: white;
+                margin: 32px;
+                padding: 16px;
+                max-width: 800px;
+                width: 800px;
+                min-height: 500px;
+                transform: scale(0);
+                transition: transform 1s ease;
             }
-            body.modal-visible .modal-content {
+            .modal.flexBox .modal-content {
                 transform: scale(1);
             }
 
@@ -75,7 +148,7 @@
             .sprite {
                 width: 256px;
                 height: 256px;
-                background-image: url('sprite2.png');
+                background-image: url('sprite.png');
                 background-position: 0 0;
                 background-repeat: no-repeat;
                 animation:
@@ -90,65 +163,48 @@
             @keyframes move {
                 100% { transform: translateX(300%); }
             }
+
         </style>
     </head>
     <body>
+        <label id="burger" for="burgerControl"></label><input type="checkbox" id="burgerControl" />
+        <menu id="menu">
+            <ul>
+                <li><a href="#prvni" data-state="new!" class="link">Prvni</a></li>
+                <li><a href="#druhy" class="link">Druhy</a></li>
+                <li><a href="#treti" class="link">Treti</a></li>
+                <li><a href="#ctvrty" class="link">Ctvrty</a></li>
+                <li><a href="#paty" class="link">Paty</a></li>
+            </ul>
+        </menu>
 
-        <div class="page-wrapper">
+        <section class="checkbox">
+            <input type="checkbox" id="chk1" />
+            <label for="chk1"></label>
+        </section>
 
-            <h2>Menu</h2>
-
-            <input type="checkbox" id="burgerControl">
-            <label id="burger" for="burgerControl">Show/Hide Menu</label>
-
-            <nav class="menu">
-                <ul>
-                    <li>Prvni</li>
-                    <li>Druhy</li>
-                    <li>Treti</li>
-                    <li>Ctvrty</li>
-                    <li>Paty</li>
-                </ul>
-            </nav>
-
-            <hr>
-
-            <h2>Modal</h2>
-
-            <button class="modal-button">
-                Modal show
-            </button>
-
-            <hr>
-
-            <h2>Sprite animations</h2>
-
-            <section class="sprite-wrapper">
-                <div class="sprite">
-                </div>
-            </section>
-
-            <hr>
-
-            <h2>Lots of text to see how modal and side menu works with that</h2>
-
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim ullam, officiis voluptatibus. Maxime numquam, obcaecati odio modi voluptas, dolores maiores deserunt explicabo eligendi ut debitis saepe similique pariatur ducimus quidem.</p>
-        </div>
+        <button class="modal-button">
+            Modal show
+        </button>
 
         <div class="modal">
             <div class="modal-content">
                 <button class="modal-button">
                     Close
                 </button>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim ullam, officiis voluptatibus. Maxime numquam, obcaecati odio modi voluptas, dolores maiores deserunt explicabo eligendi ut debitis saepe similique pariatur ducimus quidem.</p>
+                <p>Modal content</p>
             </div>
         </div>
+
+        <section class="sprite-wrapper">
+            <div class="sprite">
+            </div>
+        </section>
 
         <script>
             var modalVisible = false;
 
             var modalButtons = document.querySelectorAll('.modal-button');
-            var pageWrapper = document.querySelectorAll('.page-wrapper');
             var modal = document.querySelector('.modal');
 
             for (let i = 0; i < modalButtons.length; i++) {
@@ -158,12 +214,15 @@
             function toggleModalState () {
                 modalVisible = !modalVisible;
                 if (modalVisible) {
-                    document.body.classList.add('modal-visible');
+                    document.body.classList.add('blur');
+                    //modal.style.display = 'flex';
+                    modal.classList.add('flexBox');
                 } else {
-                    document.body.classList.remove('modal-visible');
+                    document.body.classList.remove('blur');
+                    //modal.style.display = 'none';
+                    modal.classList.remove('flexBox');
                 }
             }
         </script>
-
     </body>
 </html>
