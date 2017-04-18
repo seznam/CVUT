@@ -5,14 +5,54 @@
         <title>Lecture 08</title>
 
         <style>
+            section {
+                display: inline-block;
+            }
+
             svg {
                 background: lightblue;
+                width: 500px;
+                height: 500px;
             }
         </style>
     </head>
     <body>
 
-        <svg width="500" height="500"></svg>
+        <h1>SVG Paint</h1>
+        <ul>
+            <li>LMB &ndash; draw</li>
+            <li>Ctrl + LMB &ndash; new path + draw</li>
+            <li>Shift + LMB &ndash; clear</li>
+        </ul>
+
+        <section>
+            <h2>Line</h2>
+            <svg id="svg1"></svg>
+        </section>
+
+        <br>
+
+        <section>
+            <h2>Quadratic</h2>
+            <svg id="svg2"></svg>
+        </section>
+
+        <section>
+            <h2>Quadratic + reflection</h2>
+            <svg id="svg3"></svg>
+        </section>
+
+        <br>
+
+        <section>
+            <h2>Bezier</h2>
+            <svg id="svg4"></svg>
+        </section>
+
+        <section>
+            <h2>Bezier + reflection</h2>
+            <svg id="svg5"></svg>
+        </section>
 
         <script>
             /*
@@ -36,12 +76,13 @@
             */
 
             class SvgPaint {
-                constructor () {
-                    this.svg = document.querySelector('svg')
+                constructor (target, curveType, reflection) {
+                    this.svg = document.querySelector(target)
+                    this.curveType = curveType
+                    this.reflection = reflection
 
-                    this.curveType = 'line'
-                    this.counter = 0
-                    this.partialD = ''
+                    this.pathCounter = 0
+                    this.partialCoords = []
 
                     this.svg.addEventListener('click', e => this.clickHandler(e))
                     this.createPath()
@@ -51,6 +92,17 @@
                     const x = e.offsetX
                     const y = e.offsetY
 
+                    if (e.ctrlKey) {
+                        this.createPath()
+                        this.draw(x, y)
+                    } else if (e.shiftKey) {
+                        this.clear()
+                    } else {
+                        this.draw(x, y)
+                    }
+                }
+
+                draw (x, y) {
                     let d = this.path.getAttributeNS(null, 'd')
                     if (!d) {
                         d = `M ${x} ${y}`
@@ -59,32 +111,66 @@
                             case 'line':
                                 d += ` L ${x} ${y}`
                                 break
-                            case 'bezier':
-                                let type = this.counter % 3
-                                switch (type) {
-                                    case 0:
-                                        this.partialD += ` C ${x} ${y}`
-                                        break
+                            case 'quadratic':
+                                this.partialCoords.push(x + ' ' + y)
+                                switch (this.pathCounter + 1) {
                                     case 1:
-                                        this.partialD += `, ${x} ${y}`
-                                    case 2:
-                                        this.partialD += `, ${x} ${y}`
-                                        d += this.partialD
-                                        this.partialD = ''
-                                        this.counter = -1
                                         break
+                                    case 2:
+                                        d += ' Q ' + this.partialCoords.join(', ')
+                                        this.partialCoords = []
+                                        if (!this.reflection) {
+                                            this.pathCounter = -1
+                                        }
+                                        break
+                                    default:
+                                        d += ' T ' + this.partialCoords.join(', ')
+                                        this.partialCoords = []
                                 }
-                                this.counter++
+                                this.pathCounter++
+                                break
+                            case 'bezier':
+                                this.partialCoords.push(x + ' ' + y)
+
+                                switch (this.pathCounter + 1) {
+                                    case 1:
+                                    case 2:
+                                        break
+                                    case 3:
+                                        d += ' C ' + this.partialCoords.join(', ')
+                                        this.partialCoords = []
+                                        if (!this.reflection) {
+                                            this.pathCounter = -1
+                                        }
+                                        break
+                                    default:
+                                        if (this.pathCounter % 2 === 0) {
+                                            d += ' S ' + this.partialCoords.join(', ')
+                                            this.partialCoords = []
+                                        }
+                                }
+                                this.pathCounter++
                                 break
                         }
-
                     }
 
+                    console.log('')
+                    console.log('pathCounter', this.pathCounter)
+                    console.log('partialCoords', this.partialCoords)
+                    console.log('d', d)
+
                     this.path.setAttributeNS(null, 'd', d)
-                    this.createCircle(x, y)
+                    this.drawCircle(x, y)
                 }
 
-                createCircle (x, y) {
+                clear () {
+                    this.svg.innerHTML = ''
+                    this.pathCounter = 0
+                    this.partialCoords = []
+                    this.createPath()
+                }
+
+                drawCircle (x, y) {
                     const circle = document.createElementNS('http://www.w3.org/2000/svg', "circle");
                     circle.setAttributeNS(null, 'cx', x)
                     circle.setAttributeNS(null, 'cy', y)
@@ -101,10 +187,16 @@
 
                     this.svg.appendChild(path)
                     this.path = path
+                    this.pathCounter = 0
+                    this.partialCoords = []
                 }
             }
 
-            new SvgPaint()
+            new SvgPaint('#svg1', 'line')
+            new SvgPaint('#svg2', 'quadratic', false)
+            new SvgPaint('#svg3', 'quadratic', true)
+            new SvgPaint('#svg4', 'bezier', false)
+            new SvgPaint('#svg5', 'bezier', true)
 
         </script>
 
