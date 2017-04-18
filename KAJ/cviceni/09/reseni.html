@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Lecture 08</title>
+
+        <style>
+            svg {
+                background: lightblue;
+            }
+        </style>
+    </head>
+    <body>
+
+        <svg width="500" height="500"></svg>
+
+        <script>
+            /*
+                Docs
+                    Positions
+                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Positions
+                    Basics
+                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes
+                    Paths
+                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+                    Fills and strokes
+                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes
+
+                Excercises
+                    1. Take a look a the docs
+                    2. Draw some basic shapes
+                    3. Play with "viewbox"
+                    4. Draw line paths
+                    5. Draw bezier paths
+                    6. Create SVG painter
+            */
+
+            class SvgPaint {
+                constructor () {
+                    this.svg = document.querySelector('svg')
+
+                    this.curveType = 'line'
+                    this.counter = 0
+                    this.partialD = ''
+
+                    this.svg.addEventListener('click', e => this.clickHandler(e))
+                    this.createPath()
+                }
+
+                clickHandler (e) {
+                    const x = e.offsetX
+                    const y = e.offsetY
+
+                    let d = this.path.getAttributeNS(null, 'd')
+                    if (!d) {
+                        d = `M ${x} ${y}`
+                    } else {
+                        switch (this.curveType) {
+                            case 'line':
+                                d += ` L ${x} ${y}`
+                                break
+                            case 'bezier':
+                                let type = this.counter % 3
+                                switch (type) {
+                                    case 0:
+                                        this.partialD += ` C ${x} ${y}`
+                                        break
+                                    case 1:
+                                        this.partialD += `, ${x} ${y}`
+                                    case 2:
+                                        this.partialD += `, ${x} ${y}`
+                                        d += this.partialD
+                                        this.partialD = ''
+                                        this.counter = -1
+                                        break
+                                }
+                                this.counter++
+                                break
+                        }
+
+                    }
+
+                    this.path.setAttributeNS(null, 'd', d)
+                    this.createCircle(x, y)
+                }
+
+                createCircle (x, y) {
+                    const circle = document.createElementNS('http://www.w3.org/2000/svg', "circle");
+                    circle.setAttributeNS(null, 'cx', x)
+                    circle.setAttributeNS(null, 'cy', y)
+                    circle.setAttributeNS(null, 'r', '2.5')
+                    circle.setAttributeNS(null, 'fill', 'red')
+                    this.svg.appendChild(circle)
+                }
+
+                createPath () {
+                    const path = document.createElementNS('http://www.w3.org/2000/svg',"path");
+                    path.setAttributeNS(null, 'stroke', 'black')
+                    path.setAttributeNS(null, 'stroke-width', '5px')
+                    path.setAttributeNS(null, 'fill', 'transparent')
+
+                    this.svg.appendChild(path)
+                    this.path = path
+                }
+            }
+
+            new SvgPaint()
+
+        </script>
+
+    </body>
+</html>
+
