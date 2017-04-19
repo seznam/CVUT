@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+
+ <html>
+     <head>
+         <meta charset="utf-8" />
+            <title>
+                AUDIO A VIDEO - Oscilator
+            </title>
+     </head>
+
+     <body>
+     	<script>
+     		(function () {
+	     		const audioCtx = new window.AudioContext(); // vyrobim audio context
+
+	     		// vyrobim node oscilator a gain
+	     		let oscillator = audioCtx.createOscillator();
+				const gainNode = audioCtx.createGain();
+
+				// zapojim gain do oscilatoru a gain dam na vystup
+				oscillator.connect(gainNode);
+				gainNode.connect(audioCtx.destination); // zesilovac pripojime na vystup
+
+				const maxFreq = 6000;
+				const maxVol = 0.05;
+
+                let actucalFreq = 0;
+                let actucalVol = 0;
+
+				const WIDTH = window.innerWidth;
+				const HEIGHT = window.innerHeight;
+
+				let initialFreq = actucalFreq = 3000;
+				let initialVol = actucalVol = 0.001;
+				let oscillatorRun = false;
+
+				// nastavime hodnoty oscilatoru
+				function initOscillator (type, freq, cent) {
+					oscillator.type = type || 'sine';
+					oscillator.frequency.value = freq || initialFreq; // pocatecni frekvence
+					//oscillator.detune.value = cent || 100; // hodnota v centech
+					oscillator.start(0);
+					oscillatorRun = true;
+				}
+
+				initOscillator();
+
+				/*oscillator.onended = function() {
+				  console.log('Oscilator vypnut!');
+				}*/
+
+				gainNode.gain.value = initialVol;
+
+				// posun kurzoru po strance bude nastavovat hlasitost (vertikalni smer) a frekvenci (horizontalni smer)
+				function update(e) {
+				    const curX = e.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
+				    const curY = e.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
+				    actucalFreq = oscillator.frequency.value = (curX/WIDTH) * maxFreq;
+				    actucalVol = gainNode.gain.value = (curY/HEIGHT) * maxVol;
+				}
+
+				// vypinani a zapinani
+				function toggle (e) {
+					if(oscillatorRun) {
+						oscillator.disconnect(gainNode);
+						oscillator.stop(0);  // vypnuti znamena zruseni oscilatoru
+						oscillatorRun = false;
+					} else {
+						oscillatorRun = true;
+						oscillator = audioCtx.createOscillator();
+						oscillator.connect(gainNode);
+						initOscillator(null, actucalFreq);
+						gainNode.gain.value = actucalVol;
+					}
+				}
+
+				document.addEventListener("click", toggle);
+				document.addEventListener("mousemove", update);
+			})();
+     	</script>
+
+     </body>
+</html>

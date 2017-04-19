@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Lecture 08</title>
+
+        <style>
+            section {
+                display: inline-block;
+            }
+
+            svg {
+                background: lightblue;
+                width: 500px;
+                height: 500px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <h1>SVG Paint</h1>
+        <ul>
+            <li>LMB &ndash; draw</li>
+            <li>Ctrl + LMB &ndash; new path + draw</li>
+            <li>Shift + LMB &ndash; clear</li>
+        </ul>
+
+        <section>
+            <h2>Line</h2>
+            <svg id="svg1"></svg>
+        </section>
+
+        <br>
+
+        <section>
+            <h2>Quadratic</h2>
+            <svg id="svg2"></svg>
+        </section>
+
+        <section>
+            <h2>Quadratic + reflection</h2>
+            <svg id="svg3"></svg>
+        </section>
+
+        <br>
+
+        <section>
+            <h2>Bezier</h2>
+            <svg id="svg4"></svg>
+        </section>
+
+        <section>
+            <h2>Bezier + reflection</h2>
+            <svg id="svg5"></svg>
+        </section>
+
+        <script>
+            /*
+                Docs
+                    Positions
+                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Positions
+                    Basics
+                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes
+                    Paths
+                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+                    Fills and strokes
+                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes
+                    SVG path dom
+                        https://www.w3.org/TR/SVG/paths.html#__svg__SVGPathElement__createSVGPathSegArcAbs
+
+                Excercises
+                    1. Take a look a the docs
+                    2. Draw some basic shapes
+                    3. Play with "viewbox"
+                    4. Draw line paths
+                    5. Draw bezier paths
+                    6. Create SVG painter class
+                        a. That paints lines with path
+                        b. That is able to create new paths with ctrl+LMB
+                        c. That is able to create clear itself with shift+LMB
+            */
+
+            class SvgPaint {
+
+            }
+
+            new SvgPaint('#svg1', 'line');
+            new SvgPaint('#svg2', 'quadratic', false);
+            new SvgPaint('#svg3', 'quadratic', true);
+            new SvgPaint('#svg4', 'bezier', false);
+            new SvgPaint('#svg5', 'bezier', true);
+        </script>
+
+
+
+        <script>
+            /*
+                WEBAUDIO
+
+                Docs
+                    https://developer.mozilla.org/cs/docs/Web/API/AudioContext
+                    https://developer.mozilla.org/en-US/docs/Web/API/GainNode
+                    https://developer.mozilla.org/en-US/docs/Web/API/OscillatorNode
+
+                Excercises
+                    1. Create THEREMIN - https://www.youtube.com/watch?v=K6KbEnGnymk
+                    2. Mousemove - vertical - volume, horizontal - frequency
+                    3. MouseClick - start/stop
+            */
+        </script>
+
+    </body>
+</html>
