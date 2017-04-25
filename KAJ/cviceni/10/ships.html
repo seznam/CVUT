@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Shooter</title>
+	</head>
+	<style media="screen">
+		canvas {
+			background: #efefef;
+			border: 3px groove black;
+			box-shadow: 2px 2px 3px #a0a0a0;
+			cursor: crosshair;
+		}
+	</style>
+	<body>
+		<canvas width="800" height="400"></canvas>
+		<script type="text/javascript">
+			// some constanst
+			const canvas = document.querySelector('canvas');
+			const ctx = canvas.getContext('2d');
+			const WIDTH = canvas.offsetWidth;
+			const HEIGHT = canvas.offsetHeight;
+
+			const backgroundImg = new Image();
+			backgroundImg.src = "space.jpg";
+
+			const shipImg = new Image(); // size 128x128
+			shipImg.src = "spaceship_sprite.png";
+
+			// prepare array with ballons objects
+			let objects = [
+				{ x:30, y:HEIGHT, speed:1 },
+				{ x:80, y:HEIGHT, speed:.5 },
+				{ x:150, y:HEIGHT, speed:.3 },
+				{ x:200, y:HEIGHT, speed:.6 },
+				{ x:300, y:HEIGHT, speed:.8 },
+				{ x:450, y:HEIGHT, speed:2 },
+				{ x:600, y:HEIGHT, speed:1 },
+				{ x:700, y:HEIGHT, speed:.3 },
+				{ x:800, y:HEIGHT, speed:1.5 }
+			]
+
+			// catch mouseclicks on canvas
+			canvas.addEventListener("click", handleClick);
+
+
+			// get pixel color where user has clicked
+			// try to detect ship
+			function handleClick(e) {
+				detectShip(e);
+			}
+
+			// detect hit of spaceship - by dimensions
+			// with sound version
+			function detectShip(e) {
+				const explSound = new Audio("explosion.mp3");
+				explSound.load();
+				const missSound = new Audio("miss.mp3");
+				missSound.load();
+
+				const x = e.offsetX;
+				const y = e.offsetY;
+				objects = objects.filter(ship => {
+					if ((ship.x < x && x < ship.x + shipImg.width) &&
+						(ship.y < y && y < ship.y + shipImg.height)
+					) {
+						console.log("Hit");
+						explSound.play();
+						return false;
+					} else {
+						console.log("Miss");
+						missSound.play();
+						return true;
+					}
+				})
+			}
+
+			// function drawing objects to canvas
+			// draw stars
+			function drawBackground () {
+				ctx.drawImage(backgroundImg , 0,0);
+			}
+
+			// draw space ship
+			function moveShip (ship, dt) {
+				ship.y -= dt * ship.speed;
+				ctx.drawImage(shipImg, ship.x, ship.y);
+			}
+
+			let T = performance.now();
+			const speed = .1;
+			// main animation function
+			function draw (timestamp) {
+				const dt = (timestamp - T) * speed;
+				T = timestamp;
+				ctx.clearRect(0, 0, WIDTH, HEIGHT);
+
+				drawBackground();
+
+				objects.forEach(ship => {
+					moveShip(ship, dt);
+				});
+
+				requestAnimationFrame(draw);
+			}
+			requestAnimationFrame(draw);
+		</script>
+	</body>
+</html>

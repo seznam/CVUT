@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Shooter</title>
+	</head>
+	<style media="screen">
+		canvas {
+			background: #efefef;
+			border: 3px groove black;
+			box-shadow: 2px 2px 3px #a0a0a0;
+			cursor: crosshair;
+		}
+	</style>
+	<body>
+		<canvas width="800" height="400"></canvas>
+		<script type="text/javascript">
+			// some constanst
+			const canvas = document.querySelector('canvas');
+			const ctx = canvas.getContext('2d');
+			const WIDTH = canvas.offsetWidth;
+			const HEIGHT = canvas.offsetHeight;
+			const speed = .1;
+
+			//const backgroundImg = new Image();
+			//backgroundImg.src = "space.jpg";
+
+			//const shipImg = new Image(); // size 128x128
+			//shipImg.src = "spaceship_sprite.png";
+
+			// prepare array with ballons objects
+			let objects = [
+				{ x:30, y:HEIGHT, r:30, color:"174,16,232,255", speed:1 },
+				{ x:80, y:HEIGHT, r:40, color:"255,242,61,255", speed:.5 },
+				{ x:150, y:HEIGHT, r:10, color:"226,132,24,255", speed:.3 },
+				{ x:200, y:HEIGHT, r:80, color:"150,200,30,255", speed:.6 },
+				{ x:300, y:HEIGHT, r:40, color:"100,100,100,255", speed:.8 },
+				{ x:450, y:HEIGHT, r:50, color:"226,132,24,255", speed:2 },
+				{ x:600, y:HEIGHT, r:20, color:"90,100,200,255", speed:1 },
+				{ x:700, y:HEIGHT, r:10, color:"200,90,100,255", speed:.3 },
+				{ x:800, y:HEIGHT, r:40, color:"100,150,200,255", speed:1.5 }
+			]
+
+
+			/*
+				1. study
+					- CheatSheet https://simon.html5.org/dump/html5-canvas-cheat-sheet.html
+					- MDN Canvas https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+
+				2. create shooter game
+					- use objects array to render circles (balloons) arc to canvas
+					- make them moving form bottom to top with various speed
+					- add event listener to catch mouse click position
+					- calculate if there is any balloon (by color)
+					- make it hide
+
+				3. optional ships shooter
+					- transform balloons to star ships
+					- calculate if there is any balloon (by position and dimension)
+					- add sounds
+			*/
+
+			// catch mouseclicks on canvas
+
+
+			// get pixel color where user has clicked
+			// try to detect balloon
+			function handleClick(e) {
+
+			}
+
+			// detect balloon hit - by color
+			function detectballoon(e) {
+
+			}
+
+			// move objects upwards
+			function moveBalloon (balloon, dt) {
+
+			}
+
+
+			function draw (timestamp) {
+
+			}
+			requestAnimationFrame(draw);
+		</script>
+	</body>
+</html>

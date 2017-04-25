@@ -11,10 +11,10 @@
 				var ctx = canvas.getContext('2d');
 				var img = e.target;
 				ctx.drawImage(img,0,0);
-		
+
 				var imageData = ctx.getImageData(0, 0, img.width, img.height);
 				var data = imageData.data;
-		
+
 				for(var i = 0; i < data.length; i += 4) {
 				  // cervena
 				  data[i] = 255 - data[i];
@@ -23,37 +23,37 @@
 				  // modra
 				  data[i + 2] = 255 - data[i + 2];
 				}
-		
+
 				// prepis puvodni obrazek
 				ctx.putImageData(imageData,0,0);
       		}
-      		
+
       		function grayscale(e) {
 				var canvas = document.querySelector('canvas');
 				var ctx = canvas.getContext('2d');
 				var img = e.target;
 				ctx.drawImage(img,0,0);
-		
+
 				var imageData = ctx.getImageData(0, 0, img.width, img.height);
 				var data = imageData.data;
-		
+
 				for(var i = 0; i < data.length; i += 4) {
 				  // cervena
 				  var p = Math.round((data[i] + data [i+1] + data[i+2])/3)
-				  
-				  
+
+
 				  data[i] = p;
 				  // zelena
 				  data[i + 1] = p;
 				  // modra
 				  data[i + 2] = p;
 				}
-		
+
 				// prepis puvodni obrazek
 				ctx.putImageData(imageData,0,0);
-				
+
 				var dataURL = canvas.toDataURL();
-				
+
 				var link = document.createElement('a');
 				link.innerHTML = 'uloz';
 				link.download = 'obrazek';
@@ -63,7 +63,7 @@
 
 			var image = new Image();
 			image.addEventListener('load',grayscale);
-      		image.src = 'drah.jpg';
+      		image.src = 'meda.jpg';
 		</script>
 	</body>
 </html>

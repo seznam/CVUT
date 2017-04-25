@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Shooter</title>
+	</head>
+	<style media="screen">
+		canvas {
+			background: #efefef;
+			border: 3px groove black;
+			box-shadow: 2px 2px 3px #a0a0a0;
+			cursor: crosshair;
+		}
+	</style>
+	<body>
+		<canvas width="800" height="400"></canvas>
+		<script type="text/javascript">
+			// some constanst
+			const canvas = document.querySelector('canvas');
+			const ctx = canvas.getContext('2d');
+			const WIDTH = canvas.offsetWidth;
+			const HEIGHT = canvas.offsetHeight;
+			const speed = .1;
+
+			// prepare array with ballons objects
+			let objects = [
+				{ x:30, y:HEIGHT, r:30, color:"174,16,232,255", speed:1 },
+				{ x:80, y:HEIGHT, r:40, color:"255,242,61,255", speed:.5 },
+				{ x:150, y:HEIGHT, r:10, color:"226,132,24,255", speed:.3 },
+				{ x:200, y:HEIGHT, r:80, color:"150,200,30,255", speed:.6 },
+				{ x:300, y:HEIGHT, r:40, color:"100,100,100,255", speed:.8 },
+				{ x:450, y:HEIGHT, r:50, color:"226,132,24,255", speed:2 },
+				{ x:600, y:HEIGHT, r:20, color:"90,100,200,255", speed:1 },
+				{ x:700, y:HEIGHT, r:10, color:"200,90,100,255", speed:.3 },
+				{ x:800, y:HEIGHT, r:40, color:"100,150,200,255", speed:1.5 }
+			]
+
+			// catch mouseclicks on canvas
+			canvas.addEventListener("click", handleClick);
+
+			// get pixel color where user has clicked
+			// try to detect balloon
+			function handleClick(e) {
+				detectballoon(e);
+			}
+
+			// detect balloon hit - by color
+			// no sound
+			function detectballoon(e) {
+				const pixel = ctx.getImageData(e.offsetX, e.offsetY,1,1);
+				if(pixel.data.reduce( (total, current)  => total + current, 0) == 0) {
+					console.log("Missed");
+				} else {
+					console.log("Hit!");
+					objects = objects.filter(balloon => {
+						return !(balloon.color == pixel.data.join(","));
+					})
+				}
+			}
+
+			// move objects upwards
+			function moveBalloon (balloon, dt) {
+				ctx.beginPath();
+				balloon.y -= dt * balloon.speed;
+				ctx.arc(balloon.x, balloon.y, balloon.r, 0, 2*Math.PI, true);
+				ctx.fillStyle = `rgba(${balloon.color})`;
+				ctx.fill();
+				ctx.closePath();
+			}
+
+			let T = performance.now();
+			// main animation function
+			function draw (timestamp) {
+				const dt = (timestamp - T) * speed;
+				T = timestamp;
+				ctx.clearRect(0, 0, WIDTH, HEIGHT);
+				objects.forEach(balloon => {
+					moveBalloon(balloon, dt);
+				});
+
+				requestAnimationFrame(draw);
+			}
+			requestAnimationFrame(draw);
+		</script>
+	</body>
+</html>
