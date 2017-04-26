@@ -19,62 +19,66 @@
 			const ctx = canvas.getContext('2d');
 			const WIDTH = canvas.offsetWidth;
 			const HEIGHT = canvas.offsetHeight;
-			const speed = .1;
+			const speedMultiplier = 0.1;
 
 			// prepare array with ballons objects
 			let objects = [
-				{ x:30, y:HEIGHT, r:30, color:"174,16,232,255", speed:1 },
-				{ x:80, y:HEIGHT, r:40, color:"255,242,61,255", speed:.5 },
-				{ x:150, y:HEIGHT, r:10, color:"226,132,24,255", speed:.3 },
-				{ x:200, y:HEIGHT, r:80, color:"150,200,30,255", speed:.6 },
-				{ x:300, y:HEIGHT, r:40, color:"100,100,100,255", speed:.8 },
-				{ x:450, y:HEIGHT, r:50, color:"226,132,24,255", speed:2 },
-				{ x:600, y:HEIGHT, r:20, color:"90,100,200,255", speed:1 },
-				{ x:700, y:HEIGHT, r:10, color:"200,90,100,255", speed:.3 },
-				{ x:800, y:HEIGHT, r:40, color:"100,150,200,255", speed:1.5 }
+				{ x: 30,  y: HEIGHT, r: 30, color: [174,  16, 232], speed: 0.1 },
+				{ x: 80,  y: HEIGHT, r: 40, color: [255, 242,  61], speed: 0.5 },
+				{ x: 150, y: HEIGHT, r: 10, color: [226, 132,  24], speed: 0.3 },
+				{ x: 200, y: HEIGHT, r: 80, color: [150, 200,  30], speed: 0.6 },
+				{ x: 300, y: HEIGHT, r: 40, color: [100, 100, 100], speed: 0.8 },
+				{ x: 450, y: HEIGHT, r: 50, color: [226, 132,  24], speed: 2   },
+				{ x: 600, y: HEIGHT, r: 20, color: [ 90, 100, 200], speed: 1   },
+				{ x: 700, y: HEIGHT, r: 10, color: [200,  90, 100], speed: 0.3 },
+				{ x: 800, y: HEIGHT, r: 40, color: [100, 150, 200], speed: 1.5 }
 			]
 
 			// catch mouseclicks on canvas
 			canvas.addEventListener("click", handleClick);
 
-			// get pixel color where user has clicked
 			// try to detect balloon
 			function handleClick(e) {
-				detectballoon(e);
-			}
+				// get pixel color where user has clicked
+				const pixel = ctx.getImageData(e.offsetX, e.offsetY, 1, 1);
+				const totalHits = pixel.data.reduce((totalHits, current) => totalHits + current, 0);
 
-			// detect balloon hit - by color
-			// no sound
-			function detectballoon(e) {
-				const pixel = ctx.getImageData(e.offsetX, e.offsetY,1,1);
-				if(pixel.data.reduce( (total, current)  => total + current, 0) == 0) {
-					console.log("Missed");
-				} else {
-					console.log("Hit!");
-					objects = objects.filter(balloon => {
-						return !(balloon.color == pixel.data.join(","));
-					})
-				}
+				objects = objects.filter(balloon => {
+					const x = e.offsetX
+					const y = e.offsetY
+
+					const clickDistanceFromObject = Math.sqrt(
+						Math.abs(x - balloon.x) ** 2 +
+						Math.abs(y - balloon.y) ** 2
+					)
+
+					const clickedInsideObject = clickDistanceFromObject <= balloon.r
+					return !clickedInsideObject
+				})
 			}
 
 			// move objects upwards
-			function moveBalloon (balloon, dt) {
+			function renderBalloon (balloon, dt) {
 				ctx.beginPath();
-				balloon.y -= dt * balloon.speed;
-				ctx.arc(balloon.x, balloon.y, balloon.r, 0, 2*Math.PI, true);
-				ctx.fillStyle = `rgba(${balloon.color})`;
+				balloon.y -= dt * balloon.speed * speedMultiplier;
+				ctx.arc(balloon.x, balloon.y, balloon.r, 0, 2 * Math.PI, true);
+				ctx.fillStyle = `rgb(${balloon.color[0]}, ${balloon.color[1]}, ${balloon.color[2]})`;
 				ctx.fill();
 				ctx.closePath();
 			}
 
-			let T = performance.now();
 			// main animation function
+			let t = null;
 			function draw (timestamp) {
-				const dt = (timestamp - T) * speed;
-				T = timestamp;
+				if (!t) {
+					t = timestamp;
+				}
+				const dt = timestamp - t;
+				t = timestamp;
+
 				ctx.clearRect(0, 0, WIDTH, HEIGHT);
 				objects.forEach(balloon => {
-					moveBalloon(balloon, dt);
+					renderBalloon(balloon, dt);
 				});
 
 				requestAnimationFrame(draw);

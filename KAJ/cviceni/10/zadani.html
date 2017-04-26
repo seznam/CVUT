@@ -14,71 +14,59 @@
 	<body>
 		<canvas width="800" height="400"></canvas>
 		<script type="text/javascript">
-			// some constanst
-			const canvas = document.querySelector('canvas');
-			const ctx = canvas.getContext('2d');
-			const WIDTH = canvas.offsetWidth;
-			const HEIGHT = canvas.offsetHeight;
-			const speed = .1;
-
-			//const backgroundImg = new Image();
-			//backgroundImg.src = "space.jpg";
-
-			//const shipImg = new Image(); // size 128x128
-			//shipImg.src = "spaceship_sprite.png";
-
-			// prepare array with ballons objects
-			let objects = [
-				{ x:30, y:HEIGHT, r:30, color:"174,16,232,255", speed:1 },
-				{ x:80, y:HEIGHT, r:40, color:"255,242,61,255", speed:.5 },
-				{ x:150, y:HEIGHT, r:10, color:"226,132,24,255", speed:.3 },
-				{ x:200, y:HEIGHT, r:80, color:"150,200,30,255", speed:.6 },
-				{ x:300, y:HEIGHT, r:40, color:"100,100,100,255", speed:.8 },
-				{ x:450, y:HEIGHT, r:50, color:"226,132,24,255", speed:2 },
-				{ x:600, y:HEIGHT, r:20, color:"90,100,200,255", speed:1 },
-				{ x:700, y:HEIGHT, r:10, color:"200,90,100,255", speed:.3 },
-				{ x:800, y:HEIGHT, r:40, color:"100,150,200,255", speed:1.5 }
-			]
-
-
 			/*
 				1. study
 					- CheatSheet https://simon.html5.org/dump/html5-canvas-cheat-sheet.html
 					- MDN Canvas https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
 
 				2. create shooter game
-					- use objects array to render circles (balloons) arc to canvas
+					- use objects array to render ships to canvas
 					- make them moving form bottom to top with various speed
 					- add event listener to catch mouse click position
-					- calculate if there is any balloon (by color)
-					- make it hidden
-
-				3. optional ships shooter
-					- transform balloons to star ships
-					- calculate if there is any ship (by position and dimension)
+					- calculate if ship was clicked
+					- destroy ship with click
 					- add sounds
 			*/
 
+			// global config
+			const speedMultiplier = 0.1;
+
+			// some constanst
+			const canvas = document.querySelector('canvas');
+			const ctx = canvas.getContext('2d');
+			const WIDTH = canvas.offsetWidth;
+			const HEIGHT = canvas.offsetHeight;
+
+			// game state
+			let objects = [
+				{ x: 30, y:HEIGHT, speed: 1.0 },
+				{ x: 80, y:HEIGHT, speed: 0.5 },
+				{ x:150, y:HEIGHT, speed: 0.3 },
+				{ x:200, y:HEIGHT, speed: 0.6 },
+				{ x:300, y:HEIGHT, speed: 0.8 },
+				{ x:450, y:HEIGHT, speed: 2.0 },
+				{ x:600, y:HEIGHT, speed: 1.0 },
+				{ x:700, y:HEIGHT, speed: 0.3 },
+				{ x:800, y:HEIGHT, speed: 1.5 }
+			]
+
 			// catch mouseclicks on canvas
+			canvas.addEventListener("click", handleClick);
 
-
-			// get pixel color where user has clicked
-			// try to detect balloon
+			// detect hit of spaceship - by dimensions
 			function handleClick(e) {
-
 			}
 
-			// detect balloon hit - by color
-			function detectballoon(e) {
-
+			// function drawing objects to canvas
+			// draw stars
+			function drawBackground () {
 			}
 
-			// move objects upwards
-			function moveBalloon (balloon, dt) {
-
+			// draw space ship
+			function drawShip (ship, dt) {
 			}
 
-
+			// main animation function
 			function draw (timestamp) {
 
 			}
