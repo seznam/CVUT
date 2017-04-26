@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Shooter</title>
+	</head>
+	<style media="screen">
+		canvas {
+			border: 3px groove black;
+			box-shadow: 2px 2px 3px #a0a0a0;
+			cursor: crosshair;
+		}
+	</style>
+	<body>
+		<canvas width="800" height="400"></canvas>
+		<script type="text/javascript">
+			// some constanst
+			const canvas = document.querySelector('canvas');
+			const ctx = canvas.getContext('2d');
+			const WIDTH = canvas.offsetWidth;
+			const HEIGHT = canvas.offsetHeight;
+
+			const video = document.createElement("video");
+			if (navigator.mediaDevices === undefined) {
+				navigator.mediaDevices = {};
+			}
+
+			const backgroundImg = new Image();
+			backgroundImg.src = "space.jpg";
+
+			navigator.mediaDevices.getUserMedia({ audio: true, video: true })
+			.then(function(stream) {
+			  // Older browsers may not have srcObject
+			  if ("srcObject" in video) {
+				video.srcObject = stream;
+			  } else {
+				// Avoid using this in new browsers, as it is going away.
+				video.src = window.URL.createObjectURL(stream);
+			  }
+			  video.onloadedmetadata = function(e) {
+				video.play();
+				requestAnimationFrame(draw);
+			  };
+			})
+			.catch(function(err) {
+			  console.log(err.name + ": " + err.message);
+			});
+
+			// function drawing objects to canvas
+			// draw stars
+			function drawVideo () {
+				//drawBackground();
+				ctx.drawImage(video, 200, 70, 320, 240);
+				//grayscale();
+				key();
+
+			}
+
+			function key () {
+				const keyColor = [254, 254, 254];
+				let imageData = ctx.getImageData(0, 0, video.videoWidth, video.videoHeight);
+				let data = imageData.data;
+
+				for(let i = 0; i < data.length; i += 4) {
+					const dist = Math.sqrt(Math.pow(data[i] - keyColor[0],2) +
+					Math.pow(data[i+1] - keyColor[1],2) +
+					Math.pow(data[i+2] - keyColor[2],2));
+
+					if(dist < 100) {
+						data[i+3] = 0;
+					}
+				}
+
+				// prepis puvodni obrazek
+				ctx.putImageData(imageData,0,0);
+			}
+
+			// function drawing objects to canvas
+			// draw stars
+			function drawBackground () {
+				ctx.drawImage(backgroundImg , 0,0);
+			}
+
+			function grayscale () {
+				let imageData = ctx.getImageData(0, 0, video.videoWidth, video.videoHeight);
+				let data = imageData.data;
+
+				for(let i = 0; i < data.length; i += 4) {
+				  // cervena
+				  let p = Math.round((data[i] + data [i+1] + data[i+2])/3)
+
+
+				  data[i] = p;
+				  // zelena
+				  data[i + 1] = p;
+				  // modra
+				  data[i + 2] = p;
+				}
+
+				// prepis puvodni obrazek
+				ctx.putImageData(imageData,0,0);
+			}
+
+			let T = performance.now();
+
+			// main animation function
+			function draw (timestamp) {
+				ctx.clearRect(0, 0, WIDTH, HEIGHT);
+				drawVideo();
+				requestAnimationFrame(draw);
+			}
+		</script>
+	</body>
+</html>
