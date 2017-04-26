@@ -8,6 +8,7 @@
 			border: 3px groove black;
 			box-shadow: 2px 2px 3px #a0a0a0;
 			cursor: crosshair;
+			background: url(space.jpg) no-repeat 0 0;
 		}
 	</style>
 	<body>
@@ -20,12 +21,6 @@
 			const HEIGHT = canvas.offsetHeight;
 
 			const video = document.createElement("video");
-			if (navigator.mediaDevices === undefined) {
-				navigator.mediaDevices = {};
-			}
-
-			const backgroundImg = new Image();
-			backgroundImg.src = "space.jpg";
 
 			navigator.mediaDevices.getUserMedia({ audio: true, video: true })
 			.then(function(stream) {
@@ -49,9 +44,7 @@
 			// draw stars
 			function drawVideo () {
 				ctx.drawImage(video, 200, 70, 320, 240);
-				//grayscale();
 				key();
-
 			}
 
 			function key () {
@@ -64,27 +57,19 @@
 					Math.pow(data[i+1] - keyColor[1],2) +
 					Math.pow(data[i+2] - keyColor[2],2));
 
-					if(dist < 100) {
+					if(dist < 150) {
 						data[i+3] = 0;
 					}
 				}
-
 				// prepis puvodni obrazek
 				ctx.putImageData(imageData,0,0);
 			}
-
-			// function drawing objects to canvas
-			// draw stars
-			function drawBackground () {
-				ctx.drawImage(backgroundImg , 0,0);
-			}
-
+			
 			let T = performance.now();
 
 			// main animation function
 			function draw (timestamp) {
 				ctx.clearRect(0, 0, WIDTH, HEIGHT);
-				drawBackground();
 				drawVideo();
 				requestAnimationFrame(draw);
 			}
