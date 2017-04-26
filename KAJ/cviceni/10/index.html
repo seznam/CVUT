@@ -15,7 +15,7 @@
 <h1>Tvorba klientských aplikací v JavaScriptu</h1>
 
 <section class="slide">
-	<h2>Canvas - rastrové kreslící plátno</h2>
+	<h2>Canvas</h2>
 	<ul>
 		<li>Webová interaktivní prezentace</li>
 		<li>"?" zobrazí krátkou nápovědu</li>
@@ -25,144 +25,31 @@
 </section>
 
 <section class="slide">
-	<h2>Obsah</h2>
-	<ol>
-		<li>Canvas - opakovaní</li>
-		<li>Canvas - jednoduché kreslení</li>
-		<li>Canvas - práce s pixely</li>
-		<li>Canvas - animace</li>
-		<li>Canvas - sprite</li>
-	</ol>
+	<h2>Canvas</h2>
+    <ul>
+        <li><a href="zadani.html">zadani.html</a></li>
+		<li>
+			<a href="https://simon.html5.org/dump/html5-canvas-cheat-sheet.html">https://simon.html5.org/dump/html5-canvas-cheat-sheet.html</a>
+		</li>
+		<li>
+			<a href="https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API">https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API</a>
+		</li>
+        <li><em>Úkol: </em> Vytvořte jednoduchou střílečku pomocí canvasu</li>
+        <li><em>Úkol: </em> Přidejte do hry obrázky a zvuky</li>
+    </ul>
 </section>
 
 <section class="slide">
-	<h2>Canvas - opakovaní</h2>
-	<ul class="sections">
-		<li>
-			Co to je?
-		</li>
-		<li>
-			Do jakých kontextů se můžu přepnout?
-		</li>
-		<li>
-			Je to rastrové nebo vektorové? Jak tam něco nakreslím (API)?
-		</li>
-
-		<li>
-			Jak je to s událostmi (myš)?
-		</li>
-		</li>
-	</ul>
-</section>
-
-
-<section class="slide">
-	<h2>Canvas - něco si nakresleme</h2>
-	<ul class="sections">
-		<li>
-			Jak nakreslíte čáru, vyplníte plochu, nastavíte šířku linky, .... ?
-		</li>
-		<li>
-			<a href="http://www.webmastersucks.com/uploads/HTML5_Canvas_Cheat_Sheet.png">bez taháku ani ránu</a>
-		</li>
-		<li>
-			<em>Úkol I:</em> Nakreslete základní tvary (linku, kruh, ...) v canvasu, obtáhněte jej.
-		</li>
-		<li>
-			<a href="http://jsfiddle.net/koko/hGeVQ/">http://jsfiddle.net/koko/hGeVQ/</a>
-		</li>
-
-		<li>
-<pre data-syntax="js">
-var ctx = canvas.getContext("2d");
-
-    ctx.beginPath();
-    ctx.moveTo(50, 50);
-    ctx.lineTo(210, 50);
-</pre>
-		</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Canvas - práce s pixely</h2>
-	<ul class="sections">
-		<li>
-			Jak se dostanu k pixelům obrázku?
-		</li>
-		<li>
-			<em>Úkol I:</em> Do canvasu vykreslete barevný obrázek, který trasformujete na černobílý a pak inverzní (nabídněte k uložení).
-		</li>
-		<li>
-			<pre data-syntax="js">
-var imageData = ctx.getImageData(0, 0, img.width, img.height);
-var data = imageData.data;
-for(var i = 0; i < data.length; i += 4) {
-  var p = Math.round((data[i] + data [i+1] + data[i+2])/3)
-  data[i] = p; //cervena
-  data[i + 1] = p; // zelena
-  data[i + 2] = p; // modra
-}
-ctx.putImageData(imageData,0,0);
-			</pre>
-		</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Canvas - kreslení a animace</h2>
-	<ul class="sections">
-		<li>
-			Jak něco animovat?
-		</li>
-		<li>
-			<em>Úkol I:</em> Nakreslete srdce, které bude tlouct :)
-		</li>
-		<li>
-			<a href="http://jsfiddle.net/koko/B7s5e/">http://jsfiddle.net/koko/B7s5e/</a>
-		</li>
-		<li>
-			<pre data-syntax="js">
-var t = Date.now();
-x += (T - t) * speed;
-T = t;
-			</pre>
-		</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Canvas - sprite</h2>
-	<ul class="sections">
-		<li>
-			<em>Úkol I:</em> Nakreslete chodícího paňácu :)
-		</li>
-		<li>
-			<a href="http://jsfiddle.net/VLe3G/17/">http://jsfiddle.net/koko/VLe3G/</a>
-		</li>
-		<li>
-			<pre data-syntax="js">
- ctx.clearRect(0,0,400,400);
- ctx.drawImage(i,step,0,200,400,0,0,200,400);
-			</pre>
-		</li>
-	</ul>
-</section>
-
-<section class="slide">
-	<h2>Podklady</h2>
-	<ul class="sections">
-		<li>
-			<a href="ukazka.zip">ukazka.zip</a>
-		</li>
+	<h2>Řešení</h2>
+	<ul>
+		<li><a href="baloons.html">baloons.html</a></li>
+		<li><a href="ships.html">ships.html</a></li>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>Prostor pro otázky</h2>
 </section>
-
-
 
 <footer>
 	<a href="mailto:zdenek.vlach@firma.seznam.cz">zdenek.vlach@firma.seznam.cz</a>
@@ -176,4 +63,3 @@ T = t;
 
 </body>
 </html>
-
