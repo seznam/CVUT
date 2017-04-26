@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>Shooter</title>
+		<title>Webrtc</title>
 	</head>
 	<style media="screen">
 		canvas {
@@ -48,7 +48,6 @@
 			// function drawing objects to canvas
 			// draw stars
 			function drawVideo () {
-				//drawBackground();
 				ctx.drawImage(video, 200, 70, 320, 240);
 				//grayscale();
 				key();
@@ -80,31 +79,12 @@
 				ctx.drawImage(backgroundImg , 0,0);
 			}
 
-			function grayscale () {
-				let imageData = ctx.getImageData(0, 0, video.videoWidth, video.videoHeight);
-				let data = imageData.data;
-
-				for(let i = 0; i < data.length; i += 4) {
-				  // cervena
-				  let p = Math.round((data[i] + data [i+1] + data[i+2])/3)
-
-
-				  data[i] = p;
-				  // zelena
-				  data[i + 1] = p;
-				  // modra
-				  data[i + 2] = p;
-				}
-
-				// prepis puvodni obrazek
-				ctx.putImageData(imageData,0,0);
-			}
-
 			let T = performance.now();
 
 			// main animation function
 			function draw (timestamp) {
 				ctx.clearRect(0, 0, WIDTH, HEIGHT);
+				drawBackground();
 				drawVideo();
 				requestAnimationFrame(draw);
 			}
