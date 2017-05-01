@@ -1,14 +1,7 @@
-<!-- "ostatni", + URL, + dragdrop -->
 <!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
-		<script src="../../common/js/oz.js" type="text/javascript"></script>
-		<script src="../../common/js/slides2.js" type="text/javascript"></script>
-		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
 		<title>Další JavaScriptová API</title>
 	<body>
@@ -28,12 +21,13 @@
 <section class="slide">
 	<h2>Obsah</h2>
 	<ol>
+		<li>Drag'n'Drop</li>
 		<li>Geolocation</li>
 		<li>Web Storage</li>
 		<li>File API</li>
 		<li>History API</li>
 		<li>Web Workers</li>
-		<li>Ostatní</li>
+		<li>&ndash; a další</li>
 	</ol>
 </section>
 
@@ -59,21 +53,20 @@
 
 <section class="slide">
 	<h2>Drag'n'Drop: práce s dataTransfer</h2>
-<pre data-syntax="js">
-div.addEventListener("dragstart", function(e) {
+<code class="block" data-syntax="js">div.addEventListener("dragstart", function(e) {
 	e.dataTransfer.setData("text/plain", "http://www.seznam.cz");
 	e.dataTransfer.setDragImage(image, offsetX, offsetY);
 	e.dataTransfer.effectAllowed = "copyMove";
 	e.dataTransfer.dropEffect = "copy";
 });
-</pre>
+</code>
 </section>
 
 <section class="slide">
 	<h2>Drag'n'Drop: tažení</h2>
 	<ul>
 		<li>Události <code>dragenter</code>, <code>dragover</code>, <code>dragleave</code></li>
-		<li>Pokud má být nad prvkem tažení ukončitelné, je nutné událost "preventovat" (<code>preventDefault()</code>)</li>
+		<li>Pokud má být nad prvkem tažení ukončitelné, je nutné událost <em>preventovat</em> (<code>preventDefault()</code>)</li>
 	</ul>
 </section>
 
@@ -99,8 +92,7 @@ div.addEventListener("dragstart", function(e) {
 
 <section class="slide">
 	<h2>Geolocation: API</h2>
-	<pre data-syntax="js">
-var ok = function(position) {
+	<code class="block" data-syntax="js">var ok = function(position) {
 	alert([position.coords.latitude, position.coords.longitude]);
 }
 
@@ -109,7 +101,7 @@ var error = function(e) {
 }
 
 navigator.geolocation.getCurrentPosition(ok, error);
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -133,15 +125,14 @@ navigator.geolocation.getCurrentPosition(ok, error);
 
 <section class="slide">
 	<h2>Web Storage: ukázka</h2>
-	<pre data-syntax="js">
-localStorage.setItem("a", "b");
+	<code class="block" data-syntax="js">localStorage.setItem("a", "b");
 
 localStorage.length == 1;
 localStorage.key(0) == "a";
 localStorage.getItem("a") == "b";
 
 localStorage.removeItem("a");
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -153,6 +144,27 @@ localStorage.removeItem("a");
 		<li>Slabé API s ohledem na kapacitu</li>
 		<li><code>sessionStorage</code> je oddělené úložiště, trvanlivé jen do zavření prohlížeče</li>
 	</ul>
+</section>
+
+<section class="slide">
+	<h2>URL</h2>
+	<ul>
+		<li>Globální objekt zastřešující dvě různá API</li>
+		<li>Statická metoda <code>URL.createObjectURL</code> pro vytvoření URL <em>blobu</em></li>
+		<li>Funkce <code>URL</code> pro parsování řetězců</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Práce s konstruktorem URL</h2>
+	<code class="block" data-syntax="js">var base = "http://www.seznam.cz/";
+var url = new URL("/a/b.cde?x=y#123", base);
+
+url.href;   // http://www.seznam.cz/a/b.cde?x=y#123
+url.origin; // http://www.seznam.cz
+url.hash;   // #123
+// ... a mnohé další
+</code>
 </section>
 
 <section class="slide">
@@ -174,9 +186,21 @@ localStorage.removeItem("a");
 </section>
 
 <section class="slide">
+	<h2>File API: náhled obrázku</h2>
+	<code class="block" data-syntax="js">var input = document.createElement("input");
+input.type = "file";
+
+input.onchange = function(e) {
+	var file = input.files[0];
+	var url = URL.createObjectURL(file);
+	// url = "blob:........"
+	image.src = url;
+}</code>
+</section>
+
+<section class="slide">
 	<h2>File API: objekt FileReader</h2>
-<pre data-syntax="js">
-var fr = new FileReader();
+<code class="block" data-syntax="js">var fr = new FileReader();
 fr.addEventListener("load", function(e) {
 	alert(e.target.result);
 });
@@ -185,7 +209,7 @@ fr.readAsText(file);
 /* fr.readAsDataURL(file); */
 /* fr.readAsArrayBuffer(file); */
 /* fr.readAsBinaryString(file); */
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -229,44 +253,41 @@ fr.readAsText(file);
 
 <section class="slide">
 	<h2>Web Workers</h2>
-<pre data-syntax="js">
-var worker = new Worker("script.js");
+<code class="block" data-syntax="js">var worker = new Worker("script.js");
 
 /* obsah souboru je nyní vykonáván v odděleném vlákně */
 
 worker.terminate();
-</pre>
+</code>
 </section>
 
 <section class="slide">
 	<h2>Web Workers: komunikace s workerem</h2>
-<pre data-syntax="js">
-var worker = new Worker("script.js");
+<code class="block" data-syntax="js">var worker = new Worker("script.js");
 
 worker.postMessage({nejaka:"data"});
 
 worker.onmessage = function(e) {
 	alert(e.data);
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
 	<h2>Web Workers: komunikace z workeru</h2>
-<pre data-syntax="js">
-onmessage = function(e) {
+<code class="block" data-syntax="js">onmessage = function(e) {
 	/* přišla data zvenčí */
 
 	postMessage(/* ... */); /* posílám data ven */
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
 	<h2>Web Workers: izolace</h2>
 	<ul>
 		<li>Žádné window, žádný document</li>
-		<li>importScripts, XMLHttpRequest, Worker</li>
+		<li>importScripts, XMLHttpRequest/fetch, Worker</li>
 		<li>setTimeout, setInterval</li>
 		<li>To je vše!</li>
 	</ul>
@@ -307,8 +328,7 @@ onmessage = function(e) {
 
 <section class="slide">
 	<h2>Fullscreen API</h2>
-	<pre data-syntax="js">
-var elem = document.querySelector("#myvideo");
+	<code class="block" data-syntax="js">var elem = document.querySelector("#myvideo");
 
 if (elem.requestFullscreen) {
 	elem.requestFullscreen();
@@ -319,13 +339,12 @@ if (elem.requestFullscreen) {
 } else if (elem.webkitRequestFullscreen) {
 	elem.webkitRequestFullscreen();
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
 	<h2>Fullscreen API</h2>
-	<pre data-syntax="js">
-if (document.exitFullscreen) {
+	<code class="block" data-syntax="js">if (document.exitFullscreen) {
 	document.exitFullscreen();
 } else if (document.msExitFullscreen) {
 	document.msExitFullscreen();
@@ -334,7 +353,7 @@ if (document.exitFullscreen) {
 } else if (document.webkitExitFullscreen) {
 	document.webkitExitFullscreen();
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -348,15 +367,14 @@ if (document.exitFullscreen) {
 
 <section class="slide">
 	<h2>FormData</h2>
-	<pre data-syntax="js">
-var fd = new FormData( [form] );
+	<code class="block" data-syntax="js">var fd = new FormData( [form] );
 
 fd.append("key1", "value");
 fd.append("key2", file, "filename");
 
 var blob = new Blob([data...]);
 fd.append("key3", blob);
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -371,35 +389,33 @@ fd.append("key3", blob);
 
 <section class="slide">
 	<h2>IndexedDB</h2>
-	<pre data-syntax="js">
-indexedDB.open("eshop").onsuccess = function(e) {
+	<code class="block" data-syntax="js">var r = indexedDB.open("mojeDB", 1);
+r.onupgradeneeded = function(e) {
 	var db = e.target.result;
-	db.createObjectStore("item");
+	var r = db.createObjectStore("tabulka", {autoIncrement:true});
 }
 
-indexedDB.open("eshop").onsuccess = function(e) {
-	var store = e.result.objectStore("item");
-	var item = { name: "Sample", price: 100 };
-	store.add(item);
+r.onsuccess = function(e) {
+	var db = e.target.result;
+	var t = db.transaction(["tabulka"], "readwrite");
+	var r = t.objectStore("tabulka").add({some:"data"});
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
 	<h2>IndexedDB</h2>
-	<pre data-syntax="js">
-indexedDB.open("eshop").onsuccess = function(e) {
-	var store = e.result.objectStore("item");
-	var request = store.openCursor();
+	<code class="block" data-syntax="js">var r = indexedDB.open("mojeDB", 1);
 
-	request.onsuccess = function(e) {
-		var cursor = e.result;
-		if (!cursor) { return; }
-		alert(JSON.stringify(cursor.value));
-		cursor.continue();
+r.onsuccess = function(e) {
+	var db = e.target.result;
+	var t = db.transaction(["tabulka"], "readonly");
+	var r = t.objectStore("tabulka").get(1);
+	r.onsuccess = function(e) {
+		console.log(e.target.result); // {some: "data"}
 	}
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -411,9 +427,10 @@ indexedDB.open("eshop").onsuccess = function(e) {
 	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
 </footer>
 
-<script type="text/javascript">
-	Syntax.all();
-	new Presentation();
+<script src="../../jsslides/v3/slides/slides3.js"></script>
+<script>
+	Slides.modules.skin = "cvut";
+	Slides.modules.numbering = false;
 </script>
 
 </body>
