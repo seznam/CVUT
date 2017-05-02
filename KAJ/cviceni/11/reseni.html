@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Lecture 11</title>
+
+		<style>
+			section {
+				display: none;
+			}
+			section.is-visible {
+				display: block;
+			}
+			#set-url {
+				width: 100%;
+				max-width: 500px;
+			}
+		</style>
+	</head>
+	<body>
+
+		<h1>GEO, History API, Local Storage</h1>
+
+		<nav>
+			<ul>
+				<li><a href="#history">History API</a></li>
+				<li><a href="#geo">GEO API</a></li>
+			</ul>
+		</nav>
+
+		<hr>
+
+		<section data-route="#history">
+			<h2>Set URL</h2>
+			<form id="set-url-form">
+				<input type="text" id="set-url"></input>
+				<button>Change URL</button>
+			</form>
+
+			<h2>History entries</h2>
+			<ul id="history-entries"></ul>
+		</section>
+
+		<section data-route="#geo">
+			<h2>GEO API</h2>
+
+			<button id="get-geo">Request GEO data</button>
+		</section>
+
+
+		<script type="text/javascript">
+			/*
+				History API
+					https://developer.mozilla.org/en-US/docs/Web/API/History_API
+
+				GEO API
+					https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
+			*/
+			function route () {
+				const pages = document.querySelectorAll('[data-route]');
+				const hash = window.location.hash;
+
+				let pageFound = false;
+				for (const page of pages) {
+					const pageUrl = page.getAttribute('data-route');
+
+					if (pageUrl === hash)  {
+						page.classList.add('is-visible');
+					} else {
+						page.classList.remove('is-visible');
+					}
+				}
+
+				historyEntries.push(window.location.href);
+				renderHistoryEntries(historyEntries);
+				localStorage.setItem('historyEntries', JSON.stringify(historyEntries));
+			}
+
+			function renderHistoryEntries (historyEntries) {
+				const target = document.querySelector('#history-entries');
+				target.innerHTML = '';
+				for (const entry of historyEntries) {
+					const li = document.createElement('li');
+					li.innerHTML = entry;
+					target.appendChild(li);
+				}
+			}
+
+			let historyEntries = JSON.parse(localStorage.getItem('historyEntries')) || [];
+			route();
+
+			window.addEventListener('popstate', e => {
+				route();
+			});
+
+			document.querySelector('#set-url-form').addEventListener('submit', e => {
+				e.preventDefault();
+				const newUrl = e.target.querySelector('#set-url').value;
+				window.history.pushState(null, null, newUrl);
+			});
+
+			document.querySelector('#get-geo').addEventListener('click', e => {
+				e.preventDefault();
+				navigator.geolocation.getCurrentPosition(data => {
+					console.log(data);
+				}, err => {
+					console.log(err);
+				});
+			})
+		</script>
+	</body>
+</html>
+
