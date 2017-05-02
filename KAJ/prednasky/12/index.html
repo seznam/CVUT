@@ -1,14 +1,7 @@
-<!-- css grid, FIXME co dalsiho? -->
 <!doctype html>
 <html>
 	<head>
 		<meta charset="utf-8" />
-		<link rel="stylesheet" type="text/css" href="../../common/syntax/syntax.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/slides2.css" />
-		<link rel="stylesheet" type="text/css" href="../../common/css/skin/cvut/skin.css" />
-		<script src="../../common/js/oz.js" type="text/javascript"></script>
-		<script src="../../common/js/slides2.js" type="text/javascript"></script>
-		<script src="../../common/syntax/syntax.js" type="text/javascript"></script>
 		<meta name="viewport" content="width=device-width,user-scalable=0" />
 		<title>Bleeding edge</title>
 	<body>
@@ -30,16 +23,96 @@
 	<ol>
 		<li>CSS: Grid</li>
 		<li>CSS: Custom Properties</li>
-		<li>JS: WebRTC</li>
 		<li>JS: Web Notifications</li>
 		<li>JS: Web Components</li>
 	</ol>
 </section>
 
 <section class="slide">
+	<h2>CSS Grid</h2>
+	<ul>
+		<li>CSS Flexbox definuje <em>jednorozměrný</em> layout</li>
+		<li>CSS Grid je korespondující technologie pro <em>dvourozměrný</em> layout</li>
+		<li>Novinka, nicméně rychlá adopce</li>
+		<li>Ohromné množství nových konceptů a vlastností</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS Grid &ndash; koncepty</h2>
+	<ul>
+		<li>Rodič má <code>display: grid</code></li>
+		<li>Přímí potomci jsou rozmístěni <em>na mřížce</em></li>
+		<li>Existuje několik variant definice mřížky</li>
+		<li>Potomci se mohou překrývat či zabírat mnoho polí mřížky</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS Grid &ndash; terminologie</h2>
+	<ul>
+		<li><em>Grid track</em> je sloupec či řádka mřížky</li>
+		<li><em>Grid line</em> je (neviditelná) čára mezi tracky</li>
+		<li>Jednotka <em>fr</em> je jeden díl nerozděleného místa (paralela s <code>flex</code>)</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>CSS Grid &ndash; definice mřížky</h2>
+	<ul>
+		<li>Tracky lze definovat explicitně, nebo automaticky podle počtu potomků</li>
+		<li><em>Grid line</em> je (neviditelná) čára mezi tracky</li>
+		<li>Jednotka <em>fr</em> je jeden díl nerozděleného místa (paralela s <code>flex</code>)</li>
+	</ul>
+
+	<code class="block" data-syntax="css">.parent {
+	grid-template-columns: 500px 1fr 2fr;
+	grid-template-rows: first-line 1fr second-line 1fr third-line;
+}</code>
+</section>
+
+<section class="slide">
+	<h2>CSS Grid &ndash; definice ploch</h2>
+	<ul>
+		<li>Alternativně lze tracky definovat <em>vizuálně</em> pomocí pojmenovaných ploch</li>
+	</ul>
+
+	<code class="block" data-syntax="css">.parent {
+	grid-template-areas:
+		"....... header  header"
+		"sidebar content content";
+}</code>
+</section>
+
+<section class="slide">
+	<h2>CSS Grid &ndash; pozicování na mřížce</h2>
+	<ul>
+		<li>Pomocí pojmenovaných ploch</li>
+		<li>Pomocí tracků</li>
+		<li>Pomocí (pojmenovaných) grid lines</li>
+		<li>Výchozí rozměr je jedna buňka mřížky</li>
+	</ul>
+
+	<code class="block" data-syntax="css">.child {
+	grid-column-start: 1; 
+	grid-column-end: 4; 
+	grid-row: 2; 
+	grid-area: sidebar;
+}</code>
+</section>
+
+<section class="slide">
+	<h2>CSS Grid &ndash; ostatní</h2>
+	<ul>
+		<li><a href="http://gridbyexample.com/">Grid by Example</a></li>
+		<li><a href="https://www.mozilla.org/en-US/developer/css-grid/">Web Firefoxu o Gridu</a></li>
+		<li>Firefox devtools Grid Highlighter</li>
+	</ul>
+</section>
+
+<section class="slide">
 	<h2>CSS3 Custom Properties</h2>
-	<pre data-syntax="css">
-body {
+	<code class="block" data-syntax="css">body {
 	--main-bg-color: brown;
 }
 
@@ -51,7 +124,7 @@ a {
 	/* default value */
 	background-color: var(--main-bg-color, red);
 }
-</pre>
+</code>
 </section>
 
 <section class="slide">
@@ -99,41 +172,42 @@ a {
 		<li>Souhrnný termín pro čtveřici oddělených standardů</li>
 		<li>Fungují nezávisle, ale jsou cíleně navrhovány pro společné použití</li>
 		<li>Silně experimentální</li>
+		<li>Do roku ~2016 verze 0, od roku ~2016 znatelně odlišná verze 1; <a href="https://hayato.io/2016/shadowdomv1/">výčet rozdílů</a></li>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>Web Components: &lt;template&gt;</h2>
-	<ul>
-		<li><pre data-syntax="xml">&lt;template&gt;
+	<code class="block" data-syntax="xml">&lt;template&gt;
 	&lt;div class="person"&gt;&lt;img /&gt;&lt;/div&gt;
 	&lt;script&gt;new Person(...)&lt;/script&gt;
 &lt;/template&gt;
-</pre></li>
+</code>
+	<ul>
 		<li>Dle slov autorů <em>něco jako chytřejší &lt;script type="custom"&gt;</em></li>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>Web Components: &lt;template&gt;</h2>
+	<code class="block" data-syntax="js">var template = document.querySelector("template");
+var parent = document.body;
+
+parent.appendChild(template.content.cloneNode(true));</code>
 	<ul>
 		<li>"Mrtvý" prvek; má DOM, ale nevykonávají se skripty a nestahují se externí média</li>
 		<li>DOM API: template má vlastnost <code>content</code>, což je DocumentFragment</li>
-		<li><pre data-syntax="js">var template = document.querySelector("template");
-var parent = document.body;
-
-parent.appendChild(template.content.cloneNode(true));</pre></li>
 		<li>Vnitřek template musí být parsovatelné HTML, ale jeho forma není předepsaná</li>
 	</ul>
 </section>
 
 <section class="slide">
 	<h2>Web Components: HTML imports</h2>
-	<ul>
-		<li><pre data-syntax="xml">&lt;head&gt;
+	<code class="block" data-syntax="xml">&lt;head&gt;
 	&lt;link rel="import" href="/path/to/stuff.html" /&gt;
 &lt;/head&gt;
-</pre></li>
+</code>
+	<ul>
 		<li>Paralela pro CSS <code>@import</code></li>
 		<li>Podléhá CORS</li>
 		<li>Prohlížeč inteligentně deduplikuje</li>
@@ -144,7 +218,7 @@ parent.appendChild(template.content.cloneNode(true));</pre></li>
 	<h2>Web Components: HTML imports</h2>
 	<ul>
 		<li>Každý importovaný soubor tvoří samostatný DOM dokument</li>
-		<li>Na rozdíl od &lt;template&gt; je živý a skripty v něm se vykonávají</li>
+		<li>Na rozdíl od <code>&lt;template&gt;</code> je živý a skripty v něm se vykonávají</li>
 		<li>Importovaný obsah se nikam automaticky nepřipojuje</li>
 		<li>Rodič (ručně) připojuje importovaný obsahu (či naopak)</li>
 	</ul>
@@ -161,42 +235,44 @@ parent.appendChild(template.content.cloneNode(true));</pre></li>
 
 <section class="slide">
 	<h2>Web Components: Custom Elements</h2>
-	<pre data-syntax="xml">&lt;szn-map x="..." y="..." controls="keyboard mouse zoom pan" /&gt;</pre>
-	<pre data-syntax="js">var map1 = new SznMap({x:..., y:..., control: ...});
+	<p>
+	<code class="block" data-syntax="xml">&lt;szn-map x="..." y="..." controls="keyboard mouse zoom pan" /&gt;</code>
+	</p><p>
+	<code class="block" data-syntax="js">var map1 = new SznMap({x:..., y:..., control: ...});
 var map2 = document.createElement("szn-map");
 
 document.body.appendChild(map1);
 map1.appendChild(map2);
-</pre>
+</code></p>
 </section>
 
 <section class="slide">
-	<h2>Web Components: Custom Elements &ndash; registerElement</h2>
+	<h2>Web Components: Custom Elements &ndash; define</h2>
 	<ul>
-		<li>JS API tvořeno jedinou funkcí: <br/> <code data-syntax="js">var SznMap = document.registerElement("szn-map", descriptor);</code></li>
+		<li>JS API tvořeno jedinou funkcí: <br/> <code data-syntax="js">customElements.define("szn-map", SznMap);</code></li>
 		<li>Vlastní značky musí mít v názvu pomlčku (dopředná kompatibilita)</li>
 		<li>Značka s pomlčkou v názvu je tzv. <em>unresolved element</em> (<code>instanceof HTMLElement</code>), dokud nedojde k registraci</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Web Components: Custom Element descriptor</h2>
+	<h2>Web Components: Custom Element class</h2>
 	<ul>
-		<li>Deskriptor (druhý parametr <code>registerElement</code>) popisuje chování značky</li>
-		<li>Musí obsahovat klíč <em>prototype</em>, definující prototyp JS API nové značky</li>
-		<li>Může obsahovat klíč <em>extends</em>, string s názvem rozšiřované značky</li>
+		<li>Třída (druhý parametr <code>customElements.define</code>) popisuje chování značky</li>
+		<li>Rozšiřuje (<code>extends</code>) nějakou existující HTML značku</li>
+		<li>Může obsahovat tzv. <em>lifecycle callbacks</em></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Web Components: Custom Element callbacky</h2>
-	<ul>
-		<li>V prototypu značky lze definovat callbacky životního cyklu značky</li>
-		<li><code>createdCallback</code> vykonán ve chvíli vzniku značky (či její registrace)</li>
-		<li><code>attachedCallback</code> vykonán po připnutí do stromu</li>
-		<li><code>detachedCallback</code> vykonán po odepnutí ze stromu</li>
-		<li><code>attributeChangedCallback</code> vykonán při změně (přidání, odebrání) atributu</li>
-	</ul>
+	<h2>Web Components: filecycle callbacks</h2>
+	<code class="block" data-syntax="js">class MyElements extends HTMLElement {
+	constructor() { super(); }
+	attributeChangedCallback(name, oldValue, newValue) {}
+	connectedCallback() {}
+	disconnectedCallback () {}
+	adoptedCallback() {}
+}</code>
 </section>
 
 <section class="slide">
@@ -227,8 +303,8 @@ map1.appendChild(map2);
 	<ul>
 		<li>Nová HTML značka užitečná jen pro Shadow DOM</li>
 		<li>Určuje místo, do kterého se připnou prvky zvenčí umístěné do Shadow host</li>
-		<li>Uživatel appenduje do Shadow host, renderer vykresluje do &lt;slot&gt;</li>
-		<li>Jeden Shadow DOM může mít více značek &lt;slot&gt;</li>
+		<li>Uživatel appenduje do Shadow host, renderer vykresluje do <code>&lt;slot&gt;</code></li>
+		<li>Jeden Shadow DOM může mít více značek <code>&lt;slot&gt;</code></li>
 		<li><a href="http://w3c.github.io/webcomponents/assets/images/distribution.svg" target="_blank">Obrázek</a></li>
 	</ul>
 </section>
@@ -243,9 +319,10 @@ map1.appendChild(map2);
 	<a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
 </footer>
 
-<script type="text/javascript">
-	Syntax.all();
-	new Presentation();
+<script src="../../jsslides/v3/slides/slides3.js"></script>
+<script>
+	Slides.modules.skin = "cvut";
+	Slides.modules.numbering = false;
 </script>
 
 </body>
