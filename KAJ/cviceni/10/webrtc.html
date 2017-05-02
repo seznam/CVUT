@@ -48,7 +48,7 @@
 			}
 
 			function key () {
-				const keyColor = [254, 254, 254];
+				const keyColor = [201, 201, 129];
 				let imageData = ctx.getImageData(0, 0, video.videoWidth, video.videoHeight);
 				let data = imageData.data;
 
@@ -64,7 +64,7 @@
 				// prepis puvodni obrazek
 				ctx.putImageData(imageData,0,0);
 			}
-			
+
 			let T = performance.now();
 
 			// main animation function
