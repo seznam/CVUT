@@ -79,9 +79,9 @@
 			}
 
 			// draw space ship
-			function drawShip (ship, dt) {
+			function drawShip (ship, dt, t) {
 				ship.y -= dt * ship.speed * speedMultiplier;
-				ship.x += Math.sin(Math.PI * t / 1000) * ship.speed;
+				ship.x += Math.sin(t / 300) * ship.speed;
 				ctx.drawImage(shipImg, ship.x, ship.y);
 			}
 
@@ -96,7 +96,7 @@
 				ctx.clearRect(0, 0, WIDTH, HEIGHT);
 				drawBackground();
 				objects.forEach(ship => {
-					drawShip(ship, dt);
+					drawShip(ship, dt, t);
 				});
 
 				requestAnimationFrame(draw);
