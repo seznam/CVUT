@@ -77,7 +77,7 @@
 				historyEntries.push(window.location.href);
 				renderHistoryEntries(historyEntries);
 				localStorage.setItem('historyEntries', JSON.stringify(historyEntries));
-				document.title = location.hash
+				document.title = window.location.hash
 			}
 
 			function renderHistoryEntries (historyEntries) {
@@ -101,7 +101,7 @@
 				e.preventDefault();
 				const newUrl = e.target.querySelector('#set-url').value;
 				window.history.pushState(null, null, newUrl);
-				document.title = location.hash
+				document.title = window.location.hash
 			});
 
 			document.querySelector('#get-geo').addEventListener('click', e => {
