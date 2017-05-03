@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>Lecture 11</title>
+
+		<style>
+			section {
+				display: none;
+			}
+			section.is-visible {
+				display: block;
+			}
+			#set-url {
+				width: 100%;
+				max-width: 500px;
+			}
+		</style>
+	</head>
+	<body>
+
+		<h1>GEO, History API, Local Storage</h1>
+
+		<nav>
+			<ul>
+				<li><a href="#history">History API</a></li>
+				<li><a href="#geo">GEO API</a></li>
+			</ul>
+		</nav>
+
+		<hr>
+
+		<section data-route="#history">
+			<h2>Set URL</h2>
+			<form id="set-url-form">
+				<input type="text" id="set-url"></input>
+				<button>Change URL</button>
+			</form>
+
+			<h2>History entries</h2>
+			<ul id="history-entries"></ul>
+		</section>
+
+		<section data-route="#geo">
+			<h2>GEO API</h2>
+
+			<button id="get-geo">Request GEO data</button>
+		</section>
+
+
+		<script type="text/javascript">
+			/*
+				LocalStorage
+					https://developer.mozilla.org/en/docs/Web/API/Window/localStorage
+
+				History API
+					https://developer.mozilla.org/en-US/docs/Web/API/History_API
+
+				GEO API
+					https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
+			*/
+
+            /*
+                1. Routovani podle hashe v url
+                2. Vyzkousejte si history.pushState / history.replaceState
+                3. Vyzkousejte praci s GEO API
+            */
+
+		</script>
+	</body>
+</html>
+
