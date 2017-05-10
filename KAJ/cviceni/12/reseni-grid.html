@@ -6,7 +6,53 @@
             CSS Grid
         </title>
         <style>
+            /* 1st variant */
 
+            .container {
+                height: 100vh;
+                min-height: 100vh;
+                display: grid;
+                /* define grid */
+                grid-template-rows: 100px auto 50px;
+                grid-template-columns: 300px 2fr 10% 10%;
+                /* space between cells */
+                grid-gap: 10px 5px;
+            }
+
+            .box {
+                display: grid;
+                background: #bebebe;
+                border-radius: 10px;
+                padding: 10px;
+                justify-content: center;
+                align-content: center;
+            }
+
+            header.box {
+                grid-column: 1 / last-column;
+                /*  same like code up
+                    grid-column-start: 1;
+                    grid-column-end: last-column;
+                */
+
+                /* move header to second line (tells cell where to starts and ends)
+                    grid-row: 2 / last-line;
+                */
+                background:#ec0000;
+            }
+
+            footer.box {
+                display: grid;
+                grid-column-start: 1;
+                grid-column-end: last-column;
+
+                /* aligns content inside
+                align-self: end;
+                justify-self: end;
+                */
+
+                background: #88ec55;
+            }
 
             /* 2nd variant AREAS */
             .container {
