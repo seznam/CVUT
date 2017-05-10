@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Custom CSS</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+            }
+            :root {
+                --color: #ac0000;
+                --width: 3px;
+            }
+            .box {
+                margin: 10px;
+                padding: 10px;
+                text-align: center;
+                border-style: solid;
+                border-width: var(--width);
+                color: var(--color);
+                border-color: var(--color);
+                background: #dedede;
+            }
+            .box::before {
+                content: --val;
+            }
+        </style>
+    </head>
+    <body>
+        <label>Tloustka:
+            <input type="range" min="0" value="20" id="ctrlW"/>
+        </label>
+        <label>Tloustka:
+            <input type="color" id="ctrlC"/>
+        </label>
+
+        <div class="box">KOKO</div>
+
+
+        <script>
+            const div = document.querySelector("div");
+            const divStyles = window.getComputedStyle(div);
+
+
+            const ctrlWidth = document.querySelector("#ctrlW");
+            ctrlWidth.value = parseInt(divStyles.getPropertyValue("--width"));
+
+            const ctrlColor = document.querySelector("#ctrlC");
+            ctrlColor.value = divStyles.getPropertyValue("--color").trim();
+            console.log(divStyles.getPropertyValue("--color"));
+
+            ctrlWidth.addEventListener("input", e => {
+                div.style.setProperty("--width", `${e.target.value}px`);
+            })
+
+            ctrlColor.addEventListener("input", e => {
+                div.style.setProperty("--color", e.target.value);
+            })
+        </script>
+    </body>
+</html>
