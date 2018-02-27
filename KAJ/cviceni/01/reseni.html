@@ -115,29 +115,6 @@
         var todoListEl = document.querySelector('.todo-list')
         // createHtmlWithCreateElement(state.todos, todoListEl);
         createHtmlWithStrings(state.todos, todoListEl);
-
-        //
-        // Handle main input
-        //
-
-        var inputEl = document.querySelector('.new-todo');
-        inputEl.addEventListener('keyup', function (event) {
-            var KEY_ENTER = 13;
-            if (event.keyCode !== KEY_ENTER) {
-                return;
-            }
-
-            // Update app state
-            var todo = {
-                text: inputEl.value,
-                completed: false
-            };
-            state.todos.push(todo);
-
-            // Update html
-            inputEl.value = '';
-            createHtmlWithStrings(state.todos, todoListEl);
-        })
     </script>
 
 </body>

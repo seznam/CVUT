@@ -120,24 +120,37 @@
         // Handle main input
         //
 
-        var inputEl = document.querySelector('.new-todo');
-        inputEl.addEventListener('keyup', function (event) {
-            var KEY_ENTER = 13;
-            if (event.keyCode !== KEY_ENTER) {
-                return;
-            }
+        // TODO
 
-            // Update app state
-            var todo = {
-                text: inputEl.value,
-                completed: false
-            };
-            state.todos.push(todo);
+        //
+        // Prototype expansion
+        //
 
-            // Update html
-            inputEl.value = '';
-            createHtmlWithStrings(state.todos, todoListEl);
-        })
+        // Add method on Object prototype. This method will modify the object
+        // and add current timestamp to it. All created objects inherit from
+        // Object prototype and will have this method.
+        Object.prototype.addTimestamp = function () {
+            this.timestamp = Date.now();
+        }
+        // You should generally avoid modifying prototypes of basic JavaScript
+        // objects, see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+        // But it can be sometimes useful, for example, if we want to polyfill
+        // some language feature to older browsers.
+
+        //
+        // Handle filters
+        //
+
+        var filters = {
+            all: document.querySelector('#filter-all'),
+            active: document.querySelector('#filter-active'),
+            completed: document.querySelector('#filter-completed')
+        };
+
+        for (var filterName in filters) {
+            // TODO
+        }
+
     </script>
 
 </body>
