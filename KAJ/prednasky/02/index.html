@@ -171,7 +171,7 @@ fun == obj1.fun == obj2.fun
 	<h2>Pilíř 2: Klíčové slovo <em>this</em></h2>
 	<ul>
 		<li>Pokud je při volání před názvem funkce tečka, hodnota this je objekt vlevo</li>
-		<li>Jinak je this globální jmenný prostor</li>
+		<li>Jinak je this globální jmenný prostor (změna v ES6!)</li>
 		<li>This lze explicitně určit</li>
 	</ul>
 	<code class="block" data-syntax="js">var fun = function() { alert(this); }
@@ -370,6 +370,11 @@ setTimeout(bar.foo.bind(bar), 100);
     }
 }
 </code>
+</section>
+
+<section class="slide">
+	<h2>Bonus (další)</h2>
+	<p><a href="https://leaverou.github.io/talks/intro/#context-quiz">Context quiz</a></p>
 </section>
 
 <section class="slide">
