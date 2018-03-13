@@ -377,21 +377,26 @@ return promise;
 </section>
 
 <section class="slide">
-	<h2>Hudba budoucnosti: async/await</h2>
+	<h2>Žhavá novinka: async/await</h2>
 	<ul>
 		<li>Novinka z ES2017</li>
 		<li>Nadstavba nad Promises</li>
 		<li>Asynchronní funkce stále vracejí Promise</li>
 		<li>Konzument může na hodnotu čekat blokujícím způsobem</li>
+		<li><a href="http://ondras.zarovi.cz/slides/2018/async-await/">Přednáška o async/await</a></li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>Hudba budoucnosti: async/await</h2>
+	<h2>Žhavá novinka: async/await</h2>
 	<code class="block" data-syntax="js">async function getData() {
-	let data = await fetch(...); // vrací Promise
-	let processed = process(data);
-	return processed;            // implicitně obaleno do Promise
+	try {
+		let data = await fetch(...); // vrací Promise
+		let processed = process(data);
+		return processed;            // implicitně obaleno do Promise
+	} catch (e) {
+		// Promise rejection
+	}
 }</code>
 </section>
 
