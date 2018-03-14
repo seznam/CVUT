@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //
+        // Helper functions
+        //
+
+        function getData (error) {
+            const date = new Date()
+            const res = `${date.toLocaleTimeString()}.${date.getMilliseconds()}`
+            if (!error) {
+                return res
+            } else {
+                throw new Error(res)
+            }
+        }
+        
+        function getCbData(delay, error, doneCb) {
+        }
+
+        function getPromiseData (delay, error) {
+        }
+
+        /*
+        Synchronous functions
+            - Call them
+            - Try to catch errors thrown by them
+
+        Event Listeners
+            - addEventListener
+            - pub/sub
+
+        Callbacks
+            - setTimeout
+            - done
+            - error handling
+            - getCbData function
+            - excercise:
+                ok -> ok -> error
+
+        Promises
+            - fetch
+                fetch('https://swapi.co/api/people/')
+                    .then(res => res.json())
+                    .then(res => console.log(res))
+                    .catch(e => console.log(e));
+                - then/catch
+                - then(null, errHandler)
+            - new Promise((resolve, reject) => {})
+            - excercise:
+                ok -> error -> ok -> error -> catch handler
+                        ^ recover from error
+            - Promise.all/race
+            - excercise:
+                ok ------------- +              ok -- +
+                error (recover)  + ALL -> ok -> ok -- + -> RACE -> END
+                ok ------------- +
+
+        Async/Await
+            - async await
+            - try/catch
+            - excercise:
+                ok ------------- +                         ok -- +
+                error (recover)  + ALL -> err (recover) -> ok -- + -> RACE -> END
+                ok ------------- +
+        */
+
+    </script>
+
+</body>
+</html>
