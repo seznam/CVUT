@@ -173,7 +173,7 @@ document.body.addEventListener("click", func, false);
 	<h2>Posluchače událostí</h2>
 	<p>Varianta 1: posluchač je funkce</p>
 	<code class="block" data-syntax="js">window.addEventListener("load", function(e) {
-	alert(e.target == this);
+	alert(e.currentTarget == this);
 });</code>
 	<ul>
 		<li><code>this</code> je prvek, na kterém je posluchač zavěšen (nikoliv ten, kde událost vznikla)</li>
