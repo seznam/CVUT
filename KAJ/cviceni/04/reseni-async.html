@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        //
+        // Helper functions
+        //
+
+        function getData (error) {
+            const date = new Date()
+            const res = `${date.toLocaleTimeString()}.${date.getMilliseconds()}`
+            if (!error) {
+                return res
+            } else {
+                throw new Error(res)
+            }
+        }
+
+        function getPromiseData (delay, error) {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    let result = null
+                    try {
+                        result = getData(error)
+                    } catch(e) {
+                        reject(e)
+                        return
+                    }
+
+                    return resolve(result)
+                }, delay)
+            })
+        }
+
+        function getCbData(delay, error, doneCb) {
+            setTimeout(() => {
+                let result = null
+                try {
+                    result = getData(error)
+                } catch(e) {
+                    doneCb(e, null)
+                    return
+                }
+
+                return doneCb(null, result)
+            }, delay)
+        }
+
+        //
+        // Main functions
+        //
+
+        function callbacks() {
+            getCbData(500, false, (err, res) => {
+                console.log(res)
+
+                getCbData(500, false, (err, res) => {
+                    console.log(res)
+
+                    getCbData(500, true, (err, res) => {
+                        if (err) {
+                            console.log(err)
+                            return
+                        }
+
+                        console.log(err)
+                    })
+                })
+            })
+        }
+
+        function promises () {
+            getPromiseData(500)
+                .then(res => {
+                    console.log("then1")
+                    return getPromiseData(500)
+                })
+                .then(res => {
+                    console.log("then2")
+                    return getPromiseData(500, true)
+                })
+                .then(null, res => {
+                    console.log("catch1")
+                    throw res
+                })
+                .then(res => {
+                    console.log("then3")
+                    return getPromiseData(500)
+                })
+                .catch(res => {
+                    console.log("catch posledni")
+                })
+        }
+
+        function promiseAll () {
+            const data1 = getPromiseData(500)
+                .catch(e => {
+                    return "catch"
+                })
+
+            const data2 = getPromiseData(1000)
+
+            Promise.all([data1, data2])
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(e => {
+                    console.log(e)
+                })
+        }
+
+        function promisesAdvanced () {
+            Promise.all([
+                getPromiseData(500),
+                getPromiseData(500, true).catch(e => {
+                    return "catch"
+                }),
+                getPromiseData(1000),
+            ]).then(res => {
+                console.log(res)
+                return getPromiseData(500)
+            }).then(res => {
+                console.log(res)
+                return Promise.all([
+                    getPromiseData(500),
+                    getPromiseData(500),
+                ])
+            }).then(res => {
+                console.log(res)
+            })
+        }
+
+        async function asyncAwait () {
+            let res = null
+            try {
+                res = await getPromiseData(500)
+            } catch (e) {
+                console.log(e)
+                return
+            }
+
+            console.log(res)
+        }
+
+        async function asyncAwaitAdwanced () {
+            const res = await Promise.all([
+                getPromiseData(500),
+                getPromiseData(500, true).catch(e => {
+                    return "catch"
+                }),
+                getPromiseData(1000),
+            ])
+            console.log(res)
+
+            let res2 = null
+            try {
+                res2 = await getPromiseData(500, true)
+            } catch (e) {
+                res2 = "catch"
+            }
+            console.log(res2)
+
+            const res3 = await Promise.all([
+                getPromiseData(500),
+                getPromiseData(500),
+            ])
+            console.log(res3)
+        }
+
+        //
+        // Test stuff here
+        //
+
+        // callbacks()
+        // promises()
+        // promiseAll()
+        // promisesAdvanced()
+        // asyncAwait()
+        // asyncAwaitAdwanced()
+
+        /*
+        Synchronous functions
+            - Call them
+            - Try to catch errors thrown by them
+
+        Event Listeners
+            - addEventListener
+            - pub/sub
+
+        Callbacks
+            - setTimeout
+            - done
+            - error handling
+            - getCbData function
+            - excercise:
+                ok -> ok -> error
+
+        Promises
+            - fetch
+                fetch('https://swapi.co/api/people/')
+                    .then(res => res.json())
+                    .then(res => console.log(res))
+                    .catch(e => console.log(e));
+                - then/catch
+                - then(null, errHandler)
+            - new Promise((resolve, reject) => {})
+            - excercise:
+                ok -> error -> ok -> error -> catch handler
+                        ^ recover from error
+            - Promise.all/race
+            - excercise:
+                ok ------------- +              ok -- +
+                error (recover)  + ALL -> ok -> ok -- + -> RACE -> END
+                ok ------------- +
+
+        Async/Await
+            - async await
+            - try/catch
+            - excercise:
+                ok ------------- +                         ok -- +
+                error (recover)  + ALL -> err (recover) -> ok -- + -> RACE -> END
+                ok ------------- +
+        */
+
+    </script>
+
+</body>
+</html>
