@@ -68,12 +68,7 @@
             }
 
             getTodos () {
-                return this._todos.filter(todo => {
-                    // The .bind(this) is no longer needed because we used arrow function
-                    // An arrow function expression has a shorter syntax than a
-                    // function expression and does not bind its own this, arguments,
-                    // super, or new.target. These function expressions cannot be used
-                    // as constructors.
+                return this._todos.filter((todo) => {
                     if (this._filter === 'all') {
                         return true;
                     } else if (this._filter === 'completed') {
@@ -130,7 +125,7 @@
         function createHtmlWithStrings (todos, targetEl) {
             targetEl.innerHTML = '';
 
-            const todosHtmlArray = todos.map(todo => {
+            const todosHtmlArray = todos.map((todo) => {
                 const html = `
                     <li>
                       <input class="toggle" type="checkbox" ${ todo.completed ? 'checked' : '' }>
@@ -159,9 +154,8 @@
         //
 
         const inputEl = document.querySelector('.new-todo');
-        inputEl.addEventListener('keyup', event => {
-            const KEY_ENTER = 13;
-            if (event.keyCode !== KEY_ENTER) {
+        inputEl.addEventListener('keyup', (event) => {
+            if (event.key !== "Enter") {
                 return;
             }
 
@@ -202,19 +196,10 @@
             completed: document.querySelector('#filter-completed')
         };
 
-        for (const filterName in filters) {
-            // Without hasOwnProperty check, we would also be iterating over addTimestamp method
-            if (filters.hasOwnProperty(filterName)) {
-                const filterEl = filters[filterName];
-
-                // Because we are using `const filterName` instead of `var filterName`
-                // and const/let is block scoped instead of function scoped
-                // we can pass the value directly to the asynchronous event listener
-                // without capturing it in iife as we did in previous lecture.
-                filterEl.addEventListener('click', () => {
-                    filtersClick(filterName);
-                });
-            }
+        for (const [filterName, filterEl] of Object.entries(filters)) {
+            filterEl.addEventListener('click', () => {
+                filtersClick(filterName);
+            });
         }
 
         function filtersClick (newFilterType) {
@@ -224,11 +209,8 @@
             // createHtmlWithCreateElement functions.
 
             // Remove 'selected' class on all filter buttons
-            for (const key in filters) {
-                if (filters.hasOwnProperty(key)) {
-                    const filter = filters[key];
-                    filter.classList.remove('selected');
-                }
+            for (const [filterName, filterEl] of Object.entries(filters)) {
+                filterEl.classList.remove('selected');
             }
 
             // Add 'selected' class to clicked filter button
@@ -240,6 +222,11 @@
             // Render todos view
             createHtmlWithCreateElement(state.getTodos(), todoListEl);
         }
+
+        // EXCERCISES: Finish remaining features
+        //      1. Remove todo button
+        //      2. Checking/Unchecking of todo
+        //      3. Clear completed button
 
     </script>
 
