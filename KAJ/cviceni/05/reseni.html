@@ -16,7 +16,7 @@
     <section>
         <h2>Chat</h2>
         <p>
-          <textarea id="chat" rows="10" cols="40"></textarea>
+          <textarea id="chat" rows="10" cols="40" readonly></textarea>
         </p>
         <p>
             <input type="text" id="chat-input">
@@ -43,7 +43,7 @@
         //
         // Request with classic XMLHttpRequest
         //
-        var request = new XMLHttpRequest();
+        const request = new XMLHttpRequest();
         request.addEventListener('load', e => {
             const data = e.target.responseText;
             const dataJson = JSON.parse(data);
@@ -60,7 +60,7 @@
         //
         // function myRequest (url) {
         //     return new Promise((resolve, reject) => {
-        //         var request = new XMLHttpRequest();
+        //         const request = new XMLHttpRequest();
         //         request.addEventListener('load', e => {
         //             resolve(e);
         //         });
@@ -115,7 +115,6 @@
                 const li = document.createElement('li');
                 li.appendChild(document.createTextNode(title));
                 document.querySelector('#mapy').appendChild(li);
-
             })
         }
 
@@ -141,7 +140,7 @@
 
         const input = document.querySelector('#chat-input');
         input.onkeydown = e => {
-            if (e.keyCode !== 13) return;
+            if (e.key !== "Enter") return;
 
             const chatMessage = e.target.value;
             if (!chatMessage) return;
@@ -149,8 +148,6 @@
             e.target.value = '';
             ws.send(chatMessage);
         }
-
     </script>
-
 </body>
 </html>
