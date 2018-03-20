@@ -61,8 +61,8 @@
 	<h2>XMLHttpRequest API</h2>
 	<code class="block" data-syntax="js">var xhr = new XMLHttpRequest();
 
-xhr.onreadystatechange = /* ... */;
 xhr.addEventListener("readystatechange", /* ... */);
+xhr.addEventListener("load", /* ... */);
 
 xhr.open(metoda, url, async);
 xhr.send(data);
@@ -75,7 +75,7 @@ xhr.send(data);
 		<li>Lze použít jakoukoliv HTTP metodu</li>
 		<li>Synchronní požadavek blokuje vykreslovací vlákno</li>
 		<li>URL požadavku podstupuje kontrolu <em>originu</em> (viz dále)</li>
-		<li>Použití <code>onreadystatechange</code> vs. <code>addEventListener</code> jako u běžných DOM událostí</li>
+		<li>Použití <code>onload</code> vs. <code>addEventListener</code> jako u běžných DOM událostí</li>
 	</ul>
 </section>
 
@@ -116,7 +116,7 @@ xhr.send(data);
 </section>
 
 <section class="slide">
-	<h2>Origin a CORS</h2>
+	<h2>Sandbox, Origin a CORS</h2>
 	<ul>
 		<li>XHR nelze poslat na jakékoliv URL</li>
 		<li>Kvůli bezpečnosti!</li>
@@ -125,18 +125,18 @@ xhr.send(data);
 </section>
 
 <section class="slide">
-	<h2>Origin a CORS: potenciální riziko</h2>
+	<h2>Cross-domain požadavky: potenciální riziko</h2>
 	<code class="block" data-syntax="js">var xhr = new XMLHttpRequest();
 xhr.open("get", "http://gmail.com/", true);
 xhr.send();
 
-xhr.onreadystatechange = function() {
+xhr.onload = function() {
 	alert(this.responseText);
 }</code>
 </section>
 
 <section class="slide">
-	<h2>Origin a CORS: omezení originem</h2>
+	<h2>Sandbox: omezení originem</h2>
 	<ul>
 		<li>XHR jsou v základu omezeny jen na URL se stejným <em>originem</em></li>
 		<li>origin = schema + host + port</li>
@@ -144,7 +144,7 @@ xhr.onreadystatechange = function() {
 </section>
 
 <section class="slide">
-	<h2>Cross-origin bez XHR?</h2>
+	<h2>Cross-domain bez XHR?</h2>
 	<ul>
 		<li>Odbočka pro zvídavé</li>
 		<li><code data-syntax="xml">&lt;img src="http://gmail.com/" /&gt;</code></li>
@@ -158,7 +158,7 @@ xhr.onreadystatechange = function() {
 	<h2>CORS: technika pro cross-origin XHR</h2>
 	<ul>
 		<li>Cross Origin Resource Sharing</li>
-		<li>Skvělá podpora prohlížečů</li>
+		<li>Oslabuje sandbox tam, kde to nepředstavuje riziko</li>
 		<li>Myšlenka: zeptat se backendu, jestli je ochoten takovýto požadavek přijmout</li>
 		<li>Pokud ne (default), odpověď se zahodí</li>
 		<li>Pokud ano, odpověď se vrátí</li>
@@ -270,7 +270,7 @@ mojeFunkce({name: "jan", data: [3, 4, true]});
 <section class="slide">
 	<h2>fetch()</h2>
 	<ul>
-		<li>Nové, právě standardizované rozhraní</li>
+		<li>Nové, nedávno standardizované rozhraní</li>
 		<li>Podobné jako XMLHttpRequest, ale jednodušší</li>
 		<li>Asynchronní řízení pomocí <em>Promises</em></li>
 		<li>K dispozici je <a href="https://github.com/github/fetch">polyfill</a></li>
@@ -295,6 +295,15 @@ mojeFunkce({name: "jan", data: [3, 4, true]});
 		console.log("Error", err);
 	});
 </code>
+</section>
+
+<section class="slide">
+	<h2>fetch vs XHR</h2>
+	<ul>
+		<li>Chybí <code>timeout</code> &rArr; lze implementovat ručně pomocí <code>setTimeout</code> a <code>abort()</code></li>
+		<li>Chybí <code>abort()</code> &rArr; problém celého konceptu Promises</li>
+		<li>Objekt <code>AbortController</code> má výhledově řešit přerušitelné Promises</li>
+	</ul>
 </section>
 
 <section class="slide">
