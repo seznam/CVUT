@@ -18,17 +18,19 @@
     </head>
     <body>
 
-        <h1>SVG Paint</h1>
+        <h2>Test</h2>
+
+        <svg>
+        </svg>
+
+        <h2>SVG Paint</h2>
         <ul>
-            <li>Left mouse button &ndash; draw</li>
+            <li>LMB &ndash; draw</li>
             <li>Ctrl/Cmd + Left mouse button &ndash; new path + draw</li>
             <li>Shift + Left mouse button &ndash; clear</li>
         </ul>
 
-        <section>
-            <h2>Line</h2>
-            <svg id="svg1"></svg>
-        </section>
+        <svg id="svg1"></svg>
 
         <script>
             /*
@@ -39,6 +41,8 @@
                         https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes
                     Paths
                         https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+                    Bezier curves
+                        https://en.wikipedia.org/wiki/B%C3%A9zier_curve
                     Fills and strokes
                         https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes
 
@@ -50,7 +54,8 @@
                         - use path element
                         - try to create it with createElementNS and setAttributeNS
                     5. Draw bezier paths
-                    6. Create SVG painter class
+                    6. Draw smiley face
+                    7. Create SVG painter class
                         a. Listen on svg wrapper click events
                         b. Draw circle at the position of each click
                         c. Draw svg path where user clicked
