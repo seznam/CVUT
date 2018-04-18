@@ -18,42 +18,31 @@
     </head>
     <body>
 
-        <h1>SVG Paint</h1>
+        <h2>Test</h2>
+
+        <svg viewbox="0 0 200 200">
+            <circle cx="100" cy="100" r="80" fill="yellow"></circle>
+            <circle cx="70" cy="70" r="10" fill="black"></circle>
+            <circle cx="130" cy="70" r="10" fill="black"></circle>
+            <path
+                d="M 50 120 Q 100 180 150 120"
+                fill="transparent"
+                stroke="black"
+                stroke-width="8"
+                stroke-linejoin="round"
+                stroke-linecap="round"
+            ></path>
+        </svg>
+
+        <h2>SVG Paint</h2>
         <ul>
             <li>LMB &ndash; draw</li>
-            <li>Ctrl + LMB &ndash; new path + draw</li>
-            <li>Shift + LMB &ndash; clear</li>
+            <li>Ctrl/Cmd + Left mouse button &ndash; new path + draw</li>
+            <li>Shift + Left mouse button &ndash; clear</li>
             <li>Take a look inside the browser console</li>
         </ul>
 
-        <section>
-            <h2>Line</h2>
-            <svg id="svg1"></svg>
-        </section>
-
-        <br>
-
-        <section>
-            <h2>Quadratic</h2>
-            <svg id="svg2"></svg>
-        </section>
-
-        <section>
-            <h2>Quadratic + reflection</h2>
-            <svg id="svg3"></svg>
-        </section>
-
-        <br>
-
-        <section>
-            <h2>Bezier</h2>
-            <svg id="svg4"></svg>
-        </section>
-
-        <section>
-            <h2>Bezier + reflection</h2>
-            <svg id="svg5"></svg>
-        </section>
+        <svg id="svg1"></svg>
 
         <script>
             /*
@@ -64,6 +53,8 @@
                         https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes
                     Paths
                         https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+                    Bezier curves
+                        https://en.wikipedia.org/wiki/B%C3%A9zier_curve
                     Fills and strokes
                         https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes
 
@@ -75,134 +66,83 @@
                         - use path element
                         - try to create it with createElementNS and setAttributeNS
                     5. Draw bezier paths
-                    6. Create SVG painter class
-                        a. That paints lines with path
-                        b. That is able to create new paths with ctrl+LMB
-                        c. That is able to create clear itself with shift+LMB
+                    6. Draw smiley face
+                    7. Create SVG painter class
+                        a. Listen on svg wrapper click events
+                        b. Draw circle at the position of each click
+                        c. Draw svg path where user clicked
+                        d. Create new path with ctrl/cmd + left mouse button
+                        e. Clear svg with shift + left mouse button
             */
 
             class SvgPaint {
-                constructor (target, curveType, reflection) {
+                constructor(target) {
                     this.svg = document.querySelector(target);
-                    this.curveType = curveType;
-                    this.reflection = reflection;
+                    this.svgNs = "http://www.w3.org/2000/svg";
 
-                    this.pathCounter = 0;
-                    this.partialCoords = [];
-
-                    this.svg.addEventListener('click', e => this.clickHandler(e));
-                    this.createPath();
+                    this.svg.addEventListener("click", e => this.clickHandler(e));
                 }
 
-                clickHandler (e) {
+                clickHandler(e) {
                     const x = e.offsetX;
                     const y = e.offsetY;
 
-                    if (e.ctrlKey) {
+                    if (e.ctrlKey || e.metaKey) {
                         this.createPath();
                         this.draw(x, y);
                     } else if (e.shiftKey) {
                         this.clear();
                     } else {
+                        if (!this.path) {
+                            this.createPath();
+                        }
                         this.draw(x, y);
                     }
                 }
 
-                draw (x, y) {
-                    let d = this.path.getAttributeNS(null, 'd');
+                draw(x, y) {
+                    let d = this.path.getAttributeNS(null, "d");
                     if (!d) {
                         d = `M ${x} ${y}`;
                     } else {
-                        switch (this.curveType) {
-                            case 'line':
-                                d += ` L ${x} ${y}`;
-                                break;
-                            case 'quadratic':
-                                this.partialCoords.push(x + ' ' + y);
-                                switch (this.pathCounter + 1) {
-                                    case 1:
-                                        break;
-                                    case 2:
-                                        d += ' Q ' + this.partialCoords.join(', ');
-                                        this.partialCoords = [];
-                                        if (!this.reflection) {
-                                            this.pathCounter = -1;
-                                        }
-                                        break
-                                    default:
-                                        d += ' T ' + this.partialCoords.join(', ');
-                                        this.partialCoords = [];
-                                }
-                                this.pathCounter++;
-                                break
-                            case 'bezier':
-                                this.partialCoords.push(x + ' ' + y);
-
-                                switch (this.pathCounter + 1) {
-                                    case 1:
-                                    case 2:
-                                        break;
-                                    case 3:
-                                        d += ' C ' + this.partialCoords.join(', ');
-                                        this.partialCoords = [];
-                                        if (!this.reflection) {
-                                            this.pathCounter = -1;
-                                        }
-                                        break
-                                    default:
-                                        if (this.pathCounter % 2 === 0) {
-                                            d += ' S ' + this.partialCoords.join(', ');
-                                            this.partialCoords = [];
-                                        }
-                                }
-                                this.pathCounter++;
-                                break;
-                        }
+                        d += ` L ${x} ${y}`;
                     }
 
-                    console.log('');
-                    console.log('pathCounter', this.pathCounter);
-                    console.log('partialCoords', this.partialCoords);
-                    console.log('d', d);
+                    console.log("");
+                    console.log("d", d);
 
-                    this.path.setAttributeNS(null, 'd', d);
+                    this.path.setAttributeNS(null, "d", d);
                     this.drawCircle(x, y);
                 }
 
-                clear () {
-                    this.svg.innerHTML = '';
-                    this.pathCounter = 0;
-                    this.partialCoords = [];
-                    this.createPath();
+                clear() {
+                    this.svg.innerHTML = "";
+                    this.path = null;
                 }
 
-                drawCircle (x, y) {
-                    const circle = document.createElementNS('http://www.w3.org/2000/svg', "circle");
-                    circle.setAttributeNS(null, 'cx', x);
-                    circle.setAttributeNS(null, 'cy', y);
-                    circle.setAttributeNS(null, 'r', '2.5');
-                    circle.setAttributeNS(null, 'fill', 'red');
+                drawCircle(x, y) {
+                    const circle = document.createElementNS(this.svgNs, "circle");
+                    circle.setAttributeNS(null, "cx", x);
+                    circle.setAttributeNS(null, "cy", y);
+                    circle.setAttributeNS(null, "r", "2");
+                    circle.setAttributeNS(null, "fill", "red");
                     this.svg.appendChild(circle);
                 }
 
-                createPath () {
-                    const path = document.createElementNS('http://www.w3.org/2000/svg',"path");
-                    path.setAttributeNS(null, 'stroke', 'black');
-                    path.setAttributeNS(null, 'stroke-width', '5px');
-                    path.setAttributeNS(null, 'fill', 'transparent');
+                createPath() {
+                    const path = document.createElementNS(this.svgNs, "path");
+                    path.setAttributeNS(null, "stroke", "black");
+                    path.setAttributeNS(null, "stroke-width", "6px");
+                    path.setAttributeNS(null, "stroke-linejoin", "round");
+                    path.setAttributeNS(null, "fill", "transparent");
 
                     this.svg.appendChild(path);
                     this.path = path;
-                    this.pathCounter = 0;
-                    this.partialCoords = [];
                 }
             }
 
-            new SvgPaint('#svg1', 'line');
-            new SvgPaint('#svg2', 'quadratic', false);
-            new SvgPaint('#svg3', 'quadratic', true);
-            new SvgPaint('#svg4', 'bezier', false);
-            new SvgPaint('#svg5', 'bezier', true);
+            new SvgPaint("#svg1");
+
         </script>
 
     </body>

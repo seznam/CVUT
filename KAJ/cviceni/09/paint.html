@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Lecture 09</title>
+
+        <style>
+            section {
+                display: inline-block;
+            }
+
+            svg {
+                background: lightblue;
+                width: 500px;
+                height: 500px;
+            }
+        </style>
+    </head>
+    <body>
+
+        <h1>SVG Paint</h1>
+        <ul>
+            <li>LMB &ndash; draw</li>
+            <li>Ctrl/Cmd + Left mouse button &ndash; new path + draw</li>
+            <li>Shift + Left mouse button &ndash; clear</li>
+            <li>Take a look inside the browser console</li>
+        </ul>
+
+        <section>
+            <h2>Line</h2>
+            <svg id="svg1"></svg>
+        </section>
+
+        <br>
+
+        <section>
+            <h2>Quadratic</h2>
+            <svg id="svg2"></svg>
+        </section>
+
+        <section>
+            <h2>Quadratic + reflection</h2>
+            <svg id="svg3"></svg>
+        </section>
+
+        <br>
+
+        <section>
+            <h2>Bezier</h2>
+            <svg id="svg4"></svg>
+        </section>
+
+        <section>
+            <h2>Bezier + reflection</h2>
+            <svg id="svg5"></svg>
+        </section>
+
+        <script>
+            /*
+                Docs
+                    Positions
+                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Positions
+                    Basics
+                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes
+                    Paths
+                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+                    Bezier curves
+                        https://en.wikipedia.org/wiki/B%C3%A9zier_curve
+                    Fills and strokes
+                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes
+
+                Excercises
+                    1. Take a look a the docs
+                    2. Draw some basic shapes
+                    3. Play with "viewbox"
+                    4. Draw line paths
+                        - use path element
+                        - try to create it with createElementNS and setAttributeNS
+                    5. Draw bezier paths
+                    6. Create SVG painter class
+                        a. Listen on svg wrapper click events
+                        b. Draw circle at the position of each click
+                        c. Draw svg path where user clicked
+                        d. Create new path with ctrl/cmd + left mouse button
+                        e. Clear svg with shift + left mouse button
+            */
+
+            class SvgPaint {
+                constructor (target, curveType, reflection) {
+                    this.svg = document.querySelector(target);
+                    this.curveType = curveType;
+                    this.reflection = reflection;
+
+                    this.pathCounter = 0;
+                    this.partialCoords = [];
+
+                    this.svg.addEventListener('click', e => this.clickHandler(e));
+                    this.createPath();
+                }
+
+                clickHandler (e) {
+                    const x = e.offsetX;
+                    const y = e.offsetY;
+
+                    if (e.ctrlKey) {
+                        this.createPath();
+                        this.draw(x, y);
+                    } else if (e.shiftKey) {
+                        this.clear();
+                    } else {
+                        this.draw(x, y);
+                    }
+                }
+
+                draw (x, y) {
+                    let d = this.path.getAttributeNS(null, 'd');
+                    if (!d) {
+                        d = `M ${x} ${y}`;
+                    } else {
+                        switch (this.curveType) {
+                            case 'line':
+                                d += ` L ${x} ${y}`;
+                                break;
+                            case 'quadratic':
+                                this.partialCoords.push(x + ' ' + y);
+                                switch (this.pathCounter + 1) {
+                                    case 1:
+                                        break;
+                                    case 2:
+                                        d += ' Q ' + this.partialCoords.join(', ');
+                                        this.partialCoords = [];
+                                        if (!this.reflection) {
+                                            this.pathCounter = -1;
+                                        }
+                                        break
+                                    default:
+                                        d += ' T ' + this.partialCoords.join(', ');
+                                        this.partialCoords = [];
+                                }
+                                this.pathCounter++;
+                                break
+                            case 'bezier':
+                                this.partialCoords.push(x + ' ' + y);
+
+                                switch (this.pathCounter + 1) {
+                                    case 1:
+                                    case 2:
+                                        break;
+                                    case 3:
+                                        d += ' C ' + this.partialCoords.join(', ');
+                                        this.partialCoords = [];
+                                        if (!this.reflection) {
+                                            this.pathCounter = -1;
+                                        }
+                                        break
+                                    default:
+                                        if (this.pathCounter % 2 === 0) {
+                                            d += ' S ' + this.partialCoords.join(', ');
+                                            this.partialCoords = [];
+                                        }
+                                }
+                                this.pathCounter++;
+                                break;
+                        }
+                    }
+
+                    console.log('');
+                    console.log('pathCounter', this.pathCounter);
+                    console.log('partialCoords', this.partialCoords);
+                    console.log('d', d);
+
+                    this.path.setAttributeNS(null, 'd', d);
+                    this.drawCircle(x, y);
+                }
+
+                clear () {
+                    this.svg.innerHTML = '';
+                    this.pathCounter = 0;
+                    this.partialCoords = [];
+                    this.createPath();
+                }
+
+                drawCircle (x, y) {
+                    const circle = document.createElementNS('http://www.w3.org/2000/svg', "circle");
+                    circle.setAttributeNS(null, 'cx', x);
+                    circle.setAttributeNS(null, 'cy', y);
+                    circle.setAttributeNS(null, 'r', '2.5');
+                    circle.setAttributeNS(null, 'fill', 'red');
+                    this.svg.appendChild(circle);
+                }
+
+                createPath () {
+                    const path = document.createElementNS('http://www.w3.org/2000/svg',"path");
+                    path.setAttributeNS(null, 'stroke', 'black');
+                    path.setAttributeNS(null, 'stroke-width', '5px');
+                    path.setAttributeNS(null, 'fill', 'transparent');
+
+                    this.svg.appendChild(path);
+                    this.path = path;
+                    this.pathCounter = 0;
+                    this.partialCoords = [];
+                }
+            }
+
+            new SvgPaint('#svg1', 'line');
+            new SvgPaint('#svg2', 'quadratic', false);
+            new SvgPaint('#svg3', 'quadratic', true);
+            new SvgPaint('#svg4', 'bezier', false);
+            new SvgPaint('#svg5', 'bezier', true);
+        </script>
+
+    </body>
+</html>
+
