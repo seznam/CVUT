@@ -359,7 +359,7 @@ var draw = function() {
 <section class="slide">
 	<h2>WebRTC: getUserMedia</h2>
 	<ul>
-		<li><code>navigator.getUserMedia()</code></li>
+		<li><code>navigator.mediaDevices.getUserMedia()</code></li>
 		<li>Nejlépe podporovaná komponenta WebRTC</li>
 		<li>Přístup ke kameře a mikrofonu</li>
 		<li>Prefixované varianty</li>
@@ -369,8 +369,7 @@ var draw = function() {
 <section class="slide">
 	<h2>WebRTC: getUserMedia</h2>
 	<code class="block" data-syntax="js">var ok = function(stream) {
-	var url = window.URL.createObjectURL(stream);
-	video.src = url;
+	video.srcObject = stream;
 	video.play();
 }
 
@@ -378,9 +377,10 @@ var error = function(e) {
 	alert(e);
 }
 
-navigator.getUserMedia({audio:true, video:true}, ok, error);
+var options = {audio:true, video:true};
+navigator.mediaDevices.getUserMedia(options).then(ok, error);
 </code>
-	<p><a target="_blank" href="http://jsfiddle.net/ondras/6fgu4/">Ukázka</a></p>
+	<p><a target="_blank" href="https://jsfiddle.net/smap/6fgu4/15/">Ukázka</a></p>
 </section>
 
 <section class="slide">
