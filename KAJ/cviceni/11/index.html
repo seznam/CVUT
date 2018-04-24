@@ -27,9 +27,9 @@
 <section class="slide">
 <h2>OBSAH</h2>
     <ul>
-        <li>TEST</li>
+        <li>Test</li>
         <li>Semestrální práce</li>
-        <li>Ke studiu</li>
+        <li>Informace k sem. práci</li>
         <li>Úkol</li>
     </ul>
 </section>
@@ -37,10 +37,8 @@
 <section class="slide">
 	<h2>TEST</h2>
     <ul>
-        <li>Kdy? <b class="section"> 10. 5. 2017</b></li>
-        <li>Forma? <b class="section">4 otázky po dvou a třech bodech, maximum: 10; minimum: 5</b></li>
+        <li>Kdy? <b class="section"> 9. 5. 2018</b></li>
         <li>Čas na vypracování? <b class="section">10&ndash;15 minut</b></li>
-        <li>Kdy se dozvím výsledek? <b class="section"> za týden z tabulky</b></li>
         <li>Co když nezískám alespoň pět bodů? <b class="section">bude oprava za 14 dní</b></li>
     </ul>
 </section>
@@ -48,9 +46,9 @@
 <section class="slide">
 	<h2>Semestrální práce</h2>
 	<ul class="sections">
-		<li>Termín odevzdání: <b>11. 6. 2017 - 23:59:59</b></li>
+		<li>Termín odevzdání: <b>10. 6. 2018 - 23:59:59</b></li>
 		<li>Penalizace: <b>za každý den po termínu odevzdání 2 body srážka</b></li>
-		<li>Jak odevzdat semestrální práci? <b>Vyplním formulář <a href="https://docs.google.com/forms/d/e/1FAIpQLSdOMDR8ZssvVfbrLi8NSYpehTfgwUYNRhprPzDRt0b-qoq0VQ/viewform">https://docs.google.com/forms/d/e/1FAIpQLSdOMDR8ZssvVfbrLi8NSYpehTfgwUYNRhprPzDRt0b-qoq0VQ/viewform</a></b></li>
+		<li>Jak odevzdat semestrální práci? <b>Vyplním formulář, který dostanu emailem.</b></li>
 		<li><a href="https://docs.google.com/spreadsheet/ccc?key=0AhqsjMGVS260dERMV2dnVXRxQ05DQnRNLUpYODNLZkE&usp=sharing">odkaz na tabulku hodnocení</a></li>
 	</ul>
 </section>
@@ -59,31 +57,31 @@
 	<h2>Aplikace</h2>
 	<ul class="sections">
 		<li>
-			Bude zaznamenávat na uživatelovo přání polohu a případně vypisovat uložené souřadnice
+			Bude zaznamenávat na uživatelovy přístupy, vypisovat je a bude zobrazovat obrazky, které na stránku p
 		</li>
 		<li>
 			Dvě "stránky"
 		</li>
 		<li>
-			Použijeme GEO API a History API a LocalStorage
+			Použijeme File API, File Reader API, Drag'n'Drop, History API a LocalStorage
 		</li>
 	</ul>
 </section>
 
 <section class="slide">
-	<h2>GEO API</h2>
+	<h2>File API, FileReader API</h2>
 	<ul class="sections">
 		<li>
-			Jak se dostanu k aktulání poloze zařízení?
+			Jak pracuji se soubory v JS?
 		</li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Drag'n'Drop API</h2>
+	<ul class="sections">
 		<li>
-			navigator.geolocation
-		</li>
-		<li>
-			navigator.geolocation.getCurrentPosition(callback, error)
-		</li>
-		<li>
-			Callback funkce má jako parametr objekt s vlastností coords
+			Jak reagovat a naprogramovat akce využívající přetahování objektů pomocí myši?
 		</li>
 	</ul>
 </section>
@@ -94,15 +92,6 @@
 		<li>
 			Jak,co a kolik MB dat můžu uložit do LS?
 		</li>
-		<li>
-			5MB
-		</li>
-		<li>
-			window.localStorage: key, getItem, setItem, removeItem, length
-		</li>
-		<li>
-			ukládám dvojci klíč - hodnota (řetězce)
-		</li>
 	</ul>
 </section>
 
@@ -111,20 +100,6 @@
 	<ul class="sections">
 		<li>
 			Jak můžu zapisovat do historie prohlížeče?
-		</li>
-
-		<li>
-			window.history.pushState(stateObj,title,url)<br>
-			window.history.replaceState(stateObj,title,url)
-
-		</li>
-
-		<li>
-			Jak můžu reagovat na kliknutí na šipky zpět a dopředu v browseru?
-		</li>
-
-		<li>
-			window.onpopstate = function(event) { /** něco vykonej **/ }
 		</li>
 	</ul>
 </section>
