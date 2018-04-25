@@ -5,46 +5,55 @@
 		<title>Lecture 11</title>
 
 		<style>
+			body {
+				font-family: Arial, sans-serif;
+			}
 			section {
 				display: none;
 			}
 			section.is-visible {
 				display: block;
 			}
-			#set-url {
-				width: 100%;
-				max-width: 500px;
+			#dnd {
+				height:70px;
+				border-radius: 50px;
+				border: 2px dotted #a0a0a0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			#dnd::before {
+				content: "D'n'D here!";
+				color: #2e2e2e;
 			}
 		</style>
 	</head>
 	<body>
 
-		<h1>GEO, History API, Local Storage</h1>
+		<h1>My cool app</h1>
 
 		<nav>
 			<ul>
-				<li><a href="#history">History API</a></li>
-				<li><a href="#geo">GEO API</a></li>
+				<li><a href="#accesslog">Log</a></li>
+				<li><a href="#imageinfo">Image Info</a></li>
 			</ul>
 		</nav>
 
 		<hr>
 
-		<section data-route="#history">
-			<h2>Set URL</h2>
-			<form id="set-url-form">
-				<input type="text" id="set-url"></input>
-				<button>Change URL</button>
-			</form>
+		<section data-route="#accesslog">
+			<h2>Log</h2>
 
 			<h2>History entries</h2>
 			<ul id="history-entries"></ul>
 		</section>
 
-		<section data-route="#geo">
-			<h2>GEO API</h2>
+		<section data-route="#imageinfo">
+			<h2>Image Info</h2>
 
-			<button id="get-geo">Request GEO data</button>
+			<div id="dnd"></div>
+			<ul id="imgInfo"></ul>
+			<div id="imgCnt"></div>
 		</section>
 
 
@@ -56,15 +65,26 @@
 				History API
 					https://developer.mozilla.org/en-US/docs/Web/API/History_API
 
-				GEO API
-					https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
+				File API
+					https://developer.mozilla.org/en-US/docs/Web/API/File
+
+				Filereader API
+					https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+				
+				Drag'n'Drop API
+					https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+
 			*/
 
             /*
                 1. Routovani podle hashe v url
                 2. Vyzkousejte si history.pushState / history.replaceState
-                3. Vyzkousejte praci s GEO API
+                3. Vyzkousejte praci s File API a Drag'n'Drop
             */
+			
+			// run
+			new MyApp();
+
 		</script>
 	</body>
 </html>

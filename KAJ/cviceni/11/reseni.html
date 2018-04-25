@@ -5,46 +5,55 @@
 		<title>Lecture 11</title>
 
 		<style>
+			body {
+				font-family: Arial, sans-serif;
+			}
 			section {
 				display: none;
 			}
 			section.is-visible {
 				display: block;
 			}
-			#set-url {
-				width: 100%;
-				max-width: 500px;
+			#dnd {
+				height:70px;
+				border-radius: 50px;
+				border: 2px dotted #a0a0a0;
+				display: flex;
+				justify-content: center;
+				align-items: center;
+			}
+			#dnd::before {
+				content: "D'n'D here!";
+				color: #2e2e2e;
 			}
 		</style>
 	</head>
 	<body>
 
-		<h1>GEO, History API, Local Storage</h1>
+		<h1>My cool app</h1>
 
 		<nav>
 			<ul>
-				<li><a href="#history">History API</a></li>
-				<li><a href="#geo">GEO API</a></li>
+				<li><a href="#accesslog">Log</a></li>
+				<li><a href="#imageinfo">Image Info</a></li>
 			</ul>
 		</nav>
 
 		<hr>
 
-		<section data-route="#history">
-			<h2>Set URL</h2>
-			<form id="set-url-form">
-				<input type="text" id="set-url"></input>
-				<button>Change URL</button>
-			</form>
+		<section data-route="#accesslog">
+			<h2>Log</h2>
 
 			<h2>History entries</h2>
 			<ul id="history-entries"></ul>
 		</section>
 
-		<section data-route="#geo">
-			<h2>GEO API</h2>
+		<section data-route="#imageinfo">
+			<h2>Image Info</h2>
 
-			<button id="get-geo">Request GEO data</button>
+			<div id="dnd"></div>
+			<ul id="imgInfo"></ul>
+			<div id="imgCnt"></div>
 		</section>
 
 
@@ -56,63 +65,123 @@
 				History API
 					https://developer.mozilla.org/en-US/docs/Web/API/History_API
 
-				GEO API
-					https://developer.mozilla.org/en-US/docs/Web/API/Geolocation/getCurrentPosition
+				File API
+					https://developer.mozilla.org/en-US/docs/Web/API/File
+
+				Filereader API
+					https://developer.mozilla.org/en-US/docs/Web/API/FileReader
+				
+				Drag'n'Drop API
+					https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
+
 			*/
-			function route () {
-				const pages = document.querySelectorAll('[data-route]');
-				const hash = window.location.hash;
 
-				let pageFound = false;
-				for (const page of pages) {
-					const pageUrl = page.getAttribute('data-route');
+            /*
+                1. Routovani podle hashe v url
+                2. Vyzkousejte si history.pushState / history.replaceState
+                3. Vyzkousejte praci s File API a Drag'n'Drop
+            */
 
-					if (pageUrl === hash)  {
-						page.classList.add('is-visible');
-					} else {
-						page.classList.remove('is-visible');
+			class MyApp {
+				constructor() {
+					this.pages = document.querySelectorAll("section");
+					
+					// first run
+					this.route();
+					
+					// listen on url and history change
+					window.addEventListener('popstate', e => {
+						this.route();
+					});
+					
+					// get stored data
+					this.log = JSON.parse(localStorage.getItem("log")) || [];
+					this.logVisit();
+					this.showLog();
+					
+					const dnd = document.querySelector("#dnd");
+					dnd.addEventListener("drop", e => this.showImg(e));
+					dnd.addEventListener("dragover", e => e.preventDefault());
+				}
+				
+				// switch screens
+				route() {
+					const hash = window.location.hash;
+
+					switch(hash) {
+						case "#accesslog": this.changePage(hash) ;break;
+						case "#imageinfo": this.changePage(hash); break;
+						default: this.changePage("#accesslog"); break;
+					}
+
+					document.title = window.location.hash
+				}
+
+				changePage (section) {
+					this.pages.forEach(page => {
+						if (page.getAttribute("data-route") == section) {
+							page.classList.add("is-visible");
+						} else {
+							page.classList.remove("is-visible")
+						}
+					})
+				}
+				
+				// store actual date
+				logVisit () {
+					const date = new Date().toLocaleString("cs-CS");
+					this.log.push(date);
+					localStorage.setItem("log", JSON.stringify(this.log));
+				}
+				
+				// write to page all stored items
+				showLog () {
+					const target = document.querySelector('#history-entries');
+
+					for (const date of this.log) {
+						const li = document.createElement('li');
+						li.innerHTML = date;
+						target.appendChild(li);
 					}
 				}
+				
+				// load and show image for disk
+				showImg (e) {
+					e.preventDefault();
+					const files = e.dataTransfer.files;
+					
+					const imgCnt = document.querySelector("#imgCnt");
+					const imgInfo = document.querySelector("#imgInfo");
+					
+					for (const f of files) {
+						if (f.type.indexOf("image") != -1) {
+							const fr = new FileReader();
+							fr.addEventListener("load", e => {
+								const i = new Image();
+								i.addEventListener("load", e=> {
+									i.width = Math.min (i.naturalWidth, window.innerWidth-20);
+								})
+								i.src = fr.result;
+								imgCnt.appendChild(i);
 
-				historyEntries.push(window.location.href);
-				renderHistoryEntries(historyEntries);
-				localStorage.setItem('historyEntries', JSON.stringify(historyEntries));
-				document.title = window.location.hash
-			}
-
-			function renderHistoryEntries (historyEntries) {
-				const target = document.querySelector('#history-entries');
-				target.innerHTML = '';
-				for (const entry of historyEntries) {
-					const li = document.createElement('li');
-					li.innerHTML = entry;
-					target.appendChild(li);
+								const li = document.createElement('li');
+								li.innerHTML = 
+								`type: ${f.type} \n
+								 size: ${f.size} \n
+								 name: ${f.name}
+								`;
+								imgInfo.appendChild(li);
+							})
+							fr.readAsDataURL(f);
+						}
+					}
 				}
+				
 			}
+			
+			// run
+			new MyApp();
 
-			let historyEntries = JSON.parse(localStorage.getItem('historyEntries')) || [];
-			route();
-
-			window.addEventListener('popstate', e => {
-				route();
-			});
-
-			document.querySelector('#set-url-form').addEventListener('submit', e => {
-				e.preventDefault();
-				const newUrl = e.target.querySelector('#set-url').value;
-				window.history.pushState(null, null, newUrl);
-				document.title = window.location.hash
-			});
-
-			document.querySelector('#get-geo').addEventListener('click', e => {
-				e.preventDefault();
-				navigator.geolocation.getCurrentPosition(data => {
-					console.log(data);
-				}, err => {
-					console.log(err);
-				});
-			})
 		</script>
 	</body>
 </html>
-
