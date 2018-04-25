@@ -20,8 +20,11 @@
 					- MDN Canvas https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
 
 				2. create shooter game
-					- use objects array to render ships to canvas
-					- make them moving form bottom to top with various speed
+					- draw background
+					- start drawing with request animation frame
+					- use ships array and render ships to canvas
+					- make them moving from bottom to top with various speed
+					- when they fly out of the screen, reposition them to the bottom
 					- add event listener to catch mouse click position
 					- calculate if ship was clicked
 					- destroy ship with click
@@ -38,7 +41,7 @@
 			const HEIGHT = canvas.offsetHeight;
 
 			// game state
-			let objects = [
+			let ships = [
 				{ x: 30, y:HEIGHT, speed: 1.0 },
 				{ x: 80, y:HEIGHT, speed: 0.5 },
 				{ x:150, y:HEIGHT, speed: 0.3 },
@@ -49,28 +52,6 @@
 				{ x:700, y:HEIGHT, speed: 0.3 },
 				{ x:800, y:HEIGHT, speed: 1.5 }
 			]
-
-			// catch mouseclicks on canvas
-			canvas.addEventListener("click", handleClick);
-
-			// detect hit of spaceship - by dimensions
-			function handleClick(e) {
-			}
-
-			// function drawing objects to canvas
-			// draw stars
-			function drawBackground () {
-			}
-
-			// draw space ship
-			function drawShip (ship, dt) {
-			}
-
-			// main animation function
-			function draw (timestamp) {
-
-			}
-			requestAnimationFrame(draw);
 		</script>
 	</body>
 </html>

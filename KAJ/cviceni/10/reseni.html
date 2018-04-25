@@ -14,12 +14,29 @@
 	<body>
 		<canvas width="800" height="800"></canvas>
 		<script type="text/javascript">
+			/*
+				1. study
+					- CheatSheet https://simon.html5.org/dump/html5-canvas-cheat-sheet.html
+					- MDN Canvas https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+
+				2. create shooter game
+					- draw background
+					- start drawing with request animation frame
+					- use ships array and render ships to canvas
+					- make them moving from bottom to top with various speed
+					- when they fly out of the screen, reposition them to the bottom
+					- add event listener to catch mouse click position
+					- calculate if ship was clicked
+					- destroy ship with click
+					- add sounds
+			*/
+
 			// global config
 			const speedMultiplier = 0.1;
 
 			// some constanst
-			const canvas = document.querySelector('canvas');
-			const ctx = canvas.getContext('2d');
+			const canvas = document.querySelector("canvas");
+			const ctx = canvas.getContext("2d");
 			const WIDTH = canvas.offsetWidth;
 			const HEIGHT = canvas.offsetHeight;
 
@@ -36,24 +53,26 @@
 			// game state
 			let t = null;
 			let objects = [
-				{ x: 30, y:HEIGHT, speed: 1.0 },
-				{ x: 80, y:HEIGHT, speed: 0.5 },
-				{ x:150, y:HEIGHT, speed: 0.3 },
-				{ x:200, y:HEIGHT, speed: 0.6 },
-				{ x:300, y:HEIGHT, speed: 0.8 },
-				{ x:450, y:HEIGHT, speed: 2.0 },
-				{ x:600, y:HEIGHT, speed: 1.0 },
-				{ x:700, y:HEIGHT, speed: 0.3 },
-				{ x:800, y:HEIGHT, speed: 1.5 }
-			]
+				{ x: 30, y: HEIGHT, speed: 1.0 },
+				{ x: 80, y: HEIGHT, speed: 0.5 },
+				{ x:150, y: HEIGHT, speed: 0.3 },
+				{ x:200, y: HEIGHT, speed: 0.6 },
+				{ x:300, y: HEIGHT, speed: 0.8 },
+				{ x:450, y: HEIGHT, speed: 2.0 },
+				{ x:600, y: HEIGHT, speed: 1.0 },
+				{ x:650, y: HEIGHT, speed: 0.3 },
+				{ x:700, y: HEIGHT, speed: 1.5 }
+			];
 
 			// catch mouseclicks on canvas
 			canvas.addEventListener("click", handleClick);
 
 			// detect hit of spaceship - by dimensions
 			function handleClick(e) {
-				soundMiss.load();
-				soundExplosion.load();
+				soundMiss.pause();
+				soundMiss.currentTime = 0;
+				soundExplosion.pause();
+				soundExplosion.currentTime = 0;
 
 				const x = e.offsetX;
 				const y = e.offsetY;
@@ -61,15 +80,13 @@
 					if ((x >= ship.x && x <= ship.x + shipImg.width) &&
 						(y >= ship.y && y <= ship.y + shipImg.height)
 					) {
-						console.log("Hit");
 						soundExplosion.play();
 						return false;
 					} else {
-						console.log("Miss");
 						soundMiss.play();
 						return true;
 					}
-				})
+				});
 			}
 
 			// function drawing objects to canvas
@@ -80,7 +97,11 @@
 
 			// draw space ship
 			function drawShip (ship, dt, t) {
-				ship.y -= dt * ship.speed * speedMultiplier;
+				if (ship.y < -shipImg.height) {
+					ship.y = HEIGHT;
+				} else {
+					ship.y -= dt * ship.speed * speedMultiplier;
+				}
 				ship.x += Math.sin(t / 300) * ship.speed;
 				ctx.drawImage(shipImg, ship.x, ship.y);
 			}
