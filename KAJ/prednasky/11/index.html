@@ -86,7 +86,7 @@
 		<li>Asynchronní</li>
 		<li>Polohu zjišťuje prohlížeč nedefinovanými mechanismy</li>
 		<li>GPS, IP, Názvy wifi AP, &hellip;</li>
-		<li>Google Chrome: <strong>jen po HTTPS!</strong></li>
+		<li><del>Google Chrome:</del> <strong>jen po HTTPS!</strong></li>
 	</ul>
 </section>
 
@@ -297,7 +297,12 @@ worker.onmessage = function(e) {
 	<h2>Web Workers: závěr</h2>
 	<ul>
 		<li>Výpočet ve workeru může trvat libovolně dlouho</li>
-		<li>Data jsou při předávání klonována (netřeba řešit synchronizaci)</li>
+		<li>Data jsou při předávání klonována (netřeba řešit synchronizaci)
+			<ul>
+				<li>Alternativa: <em>Transferrable</em></li>
+				<li><del>Alternativa: <em>SharedArrayBuffer</em></del></li>
+			</ul>
+		</li>
 		<li>Vhodné tam, kde jsou třeba náročné výpočty</li>
 		<li>Ideálně málo vstupních i výstupních dat</li>
 		<li><a href="https://developer.mozilla.org/en-US/docs/Web/Demos_of_open_web_technologies#Unclassified">Ukázky</a></li>
