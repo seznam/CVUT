@@ -126,10 +126,11 @@ navigator.geolocation.getCurrentPosition(ok, error);
 <section class="slide">
 	<h2>Web Storage: ukázka</h2>
 	<code class="block" data-syntax="js">localStorage.setItem("a", "b");
+// též localStorage.a, localStorage["a"]
 
 localStorage.length == 1;
 localStorage.key(0) == "a";
-localStorage.getItem("a") == "b";
+localStorage.getItem("a") == "b";   
 
 localStorage.removeItem("a");
 </code>
@@ -138,9 +139,11 @@ localStorage.removeItem("a");
 <section class="slide">
 	<h2>Web Storage: další info</h2>
 	<ul>
-		<li>Problém s anonymním režimem</li>
-		<li>Ukládají se dvojice řetězců (klíč-hodnota)</li>
-		<li>Storage je sdílena všemi skripty na doméně</li>
+		<li>Problém s anonymním režimem (aktuálně Safari)</li>
+		<li>Ukládají se <strong>jen</strong> dvojice řetězců (klíč-hodnota)</li>
+		<li>Storage je sdílena všemi skripty na doméně
+			<ul>Událost <code>storage</code> při změně; lze použít/zneužít pro komunikaci tab-tab</ul>
+		</li>
 		<li>Slabé API s ohledem na kapacitu</li>
 		<li><code>sessionStorage</code> je oddělené úložiště, trvanlivé jen do zavření prohlížeče</li>
 	</ul>
@@ -160,9 +163,10 @@ localStorage.removeItem("a");
 	<code class="block" data-syntax="js">var base = "http://www.seznam.cz/";
 var url = new URL("/a/b.cde?x=y#123", base);
 
-url.href;   // http://www.seznam.cz/a/b.cde?x=y#123
-url.origin; // http://www.seznam.cz
-url.hash;   // #123
+url.href;          // http://www.seznam.cz/a/b.cde?x=y#123
+url.origin;        // http://www.seznam.cz
+url.hash;          // #123
+url.searchParams;  // instanceof URLSearchParams
 // ... a mnohé další
 </code>
 </section>
@@ -364,7 +368,7 @@ if (elem.requestFullscreen) {
 <section class="slide">
 	<h2>FormData</h2>
 	<ul>
-		<li>Automatická serializace key-value dat do x-www-form-urlencoded</li>
+		<li>Automatická serializace key-value dat tvaru <em>jako z HTML formuláře</em></li>
 		<li>Možno předat do <code>XMLHttpRequest::send()</code></li>
 		<li>Možno postavit nad existujícím formulářem</li>
 	</ul>
