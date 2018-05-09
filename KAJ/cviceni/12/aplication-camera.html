@@ -11,115 +11,108 @@
 		<canvas width="300" height="300"></canvas>
 	
 		<script>
-			var Cam = function () {
-				navigator.getUserMedia = ( navigator.getUserMedia ||
-					navigator.webkitGetUserMedia ||
-					navigator.mozGetUserMedia ||
-					navigator.msGetUserMedia);
-				
-				this._video = document.querySelector('video');
-				this._canvas = document.querySelector('canvas');
-				this._cntxt = this._canvas.getContext('2d');
-				this._getMedia();
-				this._helper = document.createElement('canvas');
-				this._helpercontext = this._helper.getContext('2d');
-				this.fps = Cam.FPS/1000;
-			}
-			Cam.FPS = 120;
-			
-			Cam.prototype._getMedia = function () {
-			
-				navigator.getUserMedia (
-					// co chceme za media
-					{
-					  video: true,
-					  audio: false
-					},
-					// OK callBack
-					this._okCallback.bind(this),
-					// errorCallback
-					this._koCallBack.bind(this)
+			class Cam {
+				constructor() {
+					this._video = document.querySelector('video');
+					this._canvas = document.querySelector('canvas');
+					this._cntxt = this._canvas.getContext('2d');
+					this._getMedia();
+					this._helper = document.createElement('canvas');
+					this._helpercontext = this._helper.getContext('2d');
+					this.fps = 250/1000;
+				}
 
-				);
-			}
-			
-			Cam.prototype._okCallback = function (localMediaStream) {
-				this._video.addEventListener('play', this._onCanPlayT.bind(this));
-				this._video.addEventListener('loadedmetadata', this._setSize.bind(this));
-				this._video.src = window.URL.createObjectURL(localMediaStream);
-				
-			}
-			
-			Cam.prototype._koCallBack = function (error) {
-				console.log("Ou chyba se stala: " + error);
-			}
-			
-			Cam.prototype._setSize = function (e) {
-				this._w = this._video.offsetWidth;
-				this._canvas.width = this._video.offsetWidth;
-				this._helper.width = this._video.offsetWidth;
-				this._h = this._video.offsetHeight;
-				this._canvas.height = this._video.offsetHeight;
-				this._helper.height = this._video.offsetHeight;
-			}
-			
-			Cam.prototype._onCanPlayT = function (e) {
-				setTimeout(this._onCanPlay.bind(this),500)
-			}
-			
-			Cam.prototype._onCanPlay = function (e) {
-				this._setSize(e);
-				this.start = null;
-				window.requestAnimationFrame(this._drawToCanvas.bind(this));
-			}
-			
-			Cam.prototype._drawToCanvas = function (timestamp) {
-				var progress = 0;
-				if (this._video.paused) { return 0; }
-				
-				if (this.start === null) {this.start = timestamp;}
-				progress = timestamp - this.start;
-				
-				if (progress < this.fps) {
+				_getMedia() {
+					navigator.mediaDevices.getUserMedia (
+						// co chceme za media
+						{
+						video: true,
+						audio: false
+						}
+					).then(
+						// OK callBack
+						this._okCallback.bind(this),
+						// errorCallback
+						this._koCallBack.bind(this))
+				}
+
+				_okCallback(localMediaStream) {
+					this._video.addEventListener('play', this._onCanPlayT.bind(this));
+					this._video.addEventListener('loadedmetadata', this._setSize.bind(this));
+					this._video.src = window.URL.createObjectURL(localMediaStream);
+					
+				}
+
+				_koCallBack(error) {
+					console.log("Ou chyba se stala: " + error);
+				}
+
+				_setSize(e) {
+					this._w = this._video.offsetWidth;
+					this._canvas.width = this._video.offsetWidth;
+					this._helper.width = this._video.offsetWidth;
+					this._h = this._video.offsetHeight;
+					this._canvas.height = this._video.offsetHeight;
+					this._helper.height = this._video.offsetHeight;
+				}
+
+				_onCanPlayT(e) {
+					setTimeout(this._onCanPlay.bind(this),500)
+				}
+
+				_onCanPlay(e) {
+					this._setSize(e);
+					this.start = null;
 					window.requestAnimationFrame(this._drawToCanvas.bind(this));
-					return 0;
-				} else {
-					progress = 0;
-					this.start = timestamp;
 				}
-				
-				
-				//this._cntxt.clearRect(0,0,300,300);	
-				this._helpercontext.drawImage(this._video, 0, 0, this._w, this._h);
-				this._invertPic();
-				//this._grayPic();
-				
-				window.requestAnimationFrame(this._drawToCanvas.bind(this));
-			}
-			
-			Cam.prototype._invertPic = function (e) {
-				var d = this._helpercontext.getImageData(0,0,this._w, this._h);
-				var data = d.data
-				for (var i = 0; i < d.data.length; i += 4) {
-					data[i] = 255 - data[i];
-					data[i+1] = 255 - data[i+1];
-					data[i+2] = 255 - data[i+2];
+
+				_drawToCanvas(timestamp) {
+					let progress = 0;
+					if (this._video.paused) { return 0; }
+					
+					if (this.start === null) {this.start = timestamp;}
+					progress = timestamp - this.start;
+					
+					if (progress < this.fps) {
+						window.requestAnimationFrame(this._drawToCanvas.bind(this));
+						return 0;
+					} else {
+						progress = 0;
+						this.start = timestamp;
+					}
+					
+					
+					//this._cntxt.clearRect(0,0,300,300);	
+					this._helpercontext.drawImage(this._video, 0, 0, this._w, this._h);
+					this._invertPic();
+					//this._grayPic();
+					
+					window.requestAnimationFrame(this._drawToCanvas.bind(this));
 				}
-				this._cntxt.putImageData(d,0,0);
-			}
-			
-			Cam.prototype._grayPic = function (e) {
-				var d = this._helpercontext.getImageData(0,0,this._w, this._h);
-				var data = d.data
-				for (var i = 0; i < d.data.length; i += 4) {
-				var  p = Math.floor((data[i] + data[i+1] + data[i+2]) /3)
-					data[i] = p;
-					data[i+1] = p;
-					data[i+2] = p;
+
+				_invertPic(e) {
+					let d = this._helpercontext.getImageData(0,0,this._w, this._h);
+					let data = d.data
+					for (let i = 0; i < d.data.length; i += 4) {
+						data[i] = 255 - data[i];
+						data[i+1] = 255 - data[i+1];
+						data[i+2] = 255 - data[i+2];
+					}
+					this._cntxt.putImageData(d,0,0);
 				}
-				this._cntxt.putImageData(d,0,0);
+				_grayPic(e) {
+					let d = this._helpercontext.getImageData(0,0,this._w, this._h);
+					let data = d.data
+					for (let i = 0; i < d.data.length; i += 4) {
+					let  p = Math.floor((data[i] + data[i+1] + data[i+2]) /3)
+						data[i] = p;
+						data[i+1] = p;
+						data[i+2] = p;
+					}
+					this._cntxt.putImageData(d,0,0);
+				}
 			}
-			
+
 			new Cam();
 		</script>
 	</body>
