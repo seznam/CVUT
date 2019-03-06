@@ -189,7 +189,7 @@
         };
 
         for (var filterName in filters) {
-            if (!filters.hasOwnProperty(filterName)) {
+            if (filters.hasOwnProperty(filterName)) {
                 var filterEl = filters[filterName];
 
                 (function (capturedFilterName) {
