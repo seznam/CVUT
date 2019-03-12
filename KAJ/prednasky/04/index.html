@@ -177,7 +177,7 @@ document.body.addEventListener("click", func, false);
 });</code>
 	<ul>
 		<li><code>this</code> je prvek, na kterém je posluchač zavěšen (nikoliv ten, kde událost vznikla)</li>
-		<li>Pokud chceme předat parametry nebo změnit this, použijeme <code>bind</code></li>
+		<li>Pokud chceme předat parametry nebo změnit this, použijeme <code>bind</code> (nebo <em>arrow function</em>)</li>
 	</ul>
 </section>
 
@@ -261,6 +261,21 @@ Animal.prototype.eat = function() {
 		<li><code>bind</code> pomůže</li>
 		<li><code class="block" data-syntax="js">var Animal = function() {
 	setTimeout(this.eat.bind(this), 3000);
+}
+
+Animal.prototype.eat = function() {
+	this.food += 3;
+}
+</code></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Zpožděné vykonávání: this v callbacku</h2>
+	<ul>
+		<li><code>arrow function</code> pomůže</li>
+		<li><code class="block" data-syntax="js">var Animal = function() {
+	setTimeout(() => this.eat(), 3000);
 }
 
 Animal.prototype.eat = function() {
