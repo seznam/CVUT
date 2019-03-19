@@ -144,17 +144,6 @@ xhr.onload = function() {
 </section>
 
 <section class="slide">
-	<h2>Cross-domain bez XHR?</h2>
-	<ul>
-		<li>Odbočka pro zvídavé</li>
-		<li><code data-syntax="xml">&lt;img src="http://gmail.com/" /&gt;</code></li>
-		<li><code data-syntax="xml">&lt;form method="post" action="http://gmail.com/sendEmail" /&gt;</code></li>
-		<li>Nelze získat data odpovědi</li>
-		<li>Formulářový útok je CSRF</li>
-	</ul>
-</section>
-
-<section class="slide">
 	<h2>CORS: technika pro cross-origin XHR</h2>
 	<ul>
 		<li>Cross Origin Resource Sharing</li>
@@ -181,6 +170,17 @@ xhr.onload = function() {
 		<li>Autor veřejného API by měl posílat <code>Access-Control-Allow-Origin</code></li>
 		<li>Nouzové řešení je server-side proxy (stejný origin)</li>
 		<li>Kompletní čtení na <a href="http://enable-cors.org/">http://enable-cors.org/</a></li>
+	</ul>
+</section>
+
+<section class="slide">
+	<h2>Cross-domain bez XHR?</h2>
+	<ul>
+		<li>Odbočka pro zvídavé</li>
+		<li><code data-syntax="xml">&lt;img src="http://gmail.com/" /&gt;</code></li>
+		<li><code data-syntax="xml">&lt;form method="post" action="http://gmail.com/sendEmail" /&gt;</code></li>
+		<li>Nelze získat data odpovědi</li>
+		<li>Formulářový útok je CSRF</li>
 	</ul>
 </section>
 
@@ -379,7 +379,7 @@ socket.onmessage = function(e) {
 		<li>Vlastní binární protokol</li>
 		<li>Komunikace začíná HTTP požadavkem s hlavičkou Upgrade</li>
 		<li>Zpětná kompatibilita s existujícími webovými servery</li>
-		<li>CORS</li>
+		<li><del>CORS</del></li>
 	</ul>
 </section>
 
