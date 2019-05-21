@@ -232,6 +232,15 @@ export const N = 8;
 </section>
 
 <section class="slide">
+	<h2>npm jako veřejný hosting?</h2>
+	<ul>
+		<li>GitHub (či jiné veřejné repozitáře) typicky nechtějí nabízet služby CDN</li>
+		<li>Pro on-line weby může být praktické <em>odkazovat</em> na knihovny</li>
+		<li><a href="https://www.jsdelivr.com/">jsDelivr</a>, <a href="https://www.jsdelivr.com/">jsDelivr</a></li>
+	</ul>
+</section>
+
+<section class="slide">
 	<h2>NPM: Pozor na tranzitivní závislosti</h2>
 	<code class="block" data-syntax="shell">$ create-react-app test
 added 1324 packages in 50.211s
@@ -242,6 +251,7 @@ $ ls -1 node_modules/ | wc -l
 $ du -sh
 200M	.
 </code>
+	<p><a href="https://thepracticaldev.s3.amazonaws.com/i/9i6bs4g6cx05jeagfhum.png">obrázek</a></p>
 </section>
 
 <section class="slide">
