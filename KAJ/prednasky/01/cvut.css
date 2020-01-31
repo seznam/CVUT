@@ -28,6 +28,7 @@ img {
 
 h1 code {
 	font-size: 100%;
+	line-height: 1;
 }
 
 .slide > * {

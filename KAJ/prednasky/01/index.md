@@ -30,7 +30,7 @@
 
   - "Moderní" webové technologie na klientu
   - HTML5, CSS3, JavaScript
-  - <a href="img/ppk.jpg"><img src="img/ppk.jpg" style="height:50vh"/></a>
+  - <a href="img/ppk.jpg"><img src="img/ppk.jpg" style="height:450px"/></a>
 
 
 ---
