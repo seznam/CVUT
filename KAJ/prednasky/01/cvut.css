@@ -1,5 +1,5 @@
 @import url(http://fonts.googleapis.com/css?family=Ubuntu:400,700&subset=latin,latin-ext);
-@import url(https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/github.min.css);
+@import url(https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.12.0/styles/atom-one-light.min.css);
 
 :root {
 	font-family: ubuntu, sans-serif;
