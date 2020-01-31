@@ -14,6 +14,6 @@ cat $F \
   | sed -e 's/&gt;/>/g' \
   | sed -e 's/<code>/`/g' \
   | sed -e 's/<section.*//g' \
-  | sed -e 's/<\/section.*//g' \
+  | sed -e 's/<\/section.*/---/g' \
   | sed -e 's/\s*<ul>//g' \
   | sed -e 's/\s*<\/ul>//g'

@@ -23,7 +23,11 @@ img {
 	color: var(--bg);
 	padding: 8px var(--padding-side);
 	margin: 0;
-	margin-bottom: 16px;
+}
+
+ul, ol, pre {
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
 }
 
 h1 code {
