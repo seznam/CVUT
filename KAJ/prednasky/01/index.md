@@ -1,6 +1,6 @@
-# KAJ
+# KAJ 1
 
-...
+Tvorba klientských aplikací v JavaScriptu
 
 ---
 
@@ -111,7 +111,7 @@ https://html.spec.whatwg.org/
 
 # Webové prohlížeče
 
-<table style="margin:0">
+<table style="margin-left:8px;margin-right:8px">
 	<thead>
 		<tr>
 			<td>Jméno</td><td>Verze</td><td>Renderer</td><td>JavaScript</td><td>Poznámka</td>
@@ -119,22 +119,22 @@ https://html.spec.whatwg.org/
 	</thead>
 	<tbody>
 		<tr>
-			<td>Mozilla Firefox</td><td>65</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
+			<td>Mozilla Firefox</td><td>72</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
 		</tr>
 		<tr>
-			<td>Google Chrome</td><td>72</td><td>Blink/WebKit</td><td>V8</td><td></td>
+			<td>Google Chrome</td><td>79</td><td>Blink/WebKit</td><td>V8</td><td></td>
 		</tr>
 		<tr>
-			<td>Apple Safari</td><td>12</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
+			<td>Apple Safari</td><td>13</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
 		</tr>
 		<tr>
 			<td>Microsoft Internet Explorer</td><td>11</td><td>Trident</td><td>Chakra</td><td>Zajímavý až od verze 9</td>
 		</tr>
 		<tr>
-			<td>Microsoft Edge</td><td>18</td><td>EdgeHTML</td><td>Chakra</td><td></td>
+			<td>Microsoft Edge</td><td>18/79</td><td>EdgeHTML/Blink</td><td>Chakra/V8</td><td></td>
 		</tr>
 		<tr>
-			<td>Opera</td><td>12/55</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
+			<td>Opera</td><td>12/64</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
 		</tr>
 	</tbody>
 </table>
