@@ -13,13 +13,13 @@
 # ES6
 
   - Formálně ECMAScript 2015, vžil se název ES6
-  - Nejnovější standardizovaná iterace jazyka
+  - Největší balík standardizovaných úprav od roku 1995
   - Dříve označováno jako *Harmony*
   - Vývoj zhruba 2008&ndash;2015
-  - V roce 2016 vznikla další verze ES7
-  - V roce 2017 vznikla další verze ES8
-  - V roce 2018 vznikla další verze ES9
-  - Aktuálně práce na ES10
+  - V roce 2016 vznikla další verze ES7 / ES2016
+  - V roce 2017 vznikla další verze ES8 / ES2017
+  - ...
+  - Aktuálně práce na ES2020
 
 ---
 
@@ -48,8 +48,8 @@ alert(x); // 1
   - Pokud má tělo funkce jediný příkaz, není třeba `return` ani závorky
 
 ```js
-var square = a => a*a;
-var add = (a, b) => a+b;
+let square = a => a*a;
+let add = (a, b) => a+b;
 
 // lexical this
 setTimeout( () => this.doStuff(), 1000 );
@@ -61,9 +61,9 @@ setTimeout( () => this.doStuff(), 1000 );
   - Zkrácená definice objektů
 
 ```js
-var x = 42;
+let x = 42;
 
-var obj = {
+let obj = {
 	x,                  // "x":42
 	y() { return x; },
 	["data_" + x]: x    // "data_42":42
@@ -80,9 +80,9 @@ var obj = {
   - Možnost vlastní interpolační funkce
 
 ```js
-var x = "world";
-var y = `hello ${x}`;
-var z = `this is a
+let x = "world";
+let y = `hello ${x}`;
+let z = `this is a
 			very long string`;
 
 // html je uživ. funkce, která dostane jednotlivé tokeny k naformátování
@@ -96,10 +96,10 @@ html`<div> ${unsafe} </div>`;
   - Snazší přístup k vlastnostem struktur a polí
 
 ```js
-var [a, b, c] = [1, 2, 3];
+let [a, b, c] = [1, 2, 3];
 
-var f = function() { return {x:42}; }
-var { x } = f();
+let f = function() { return {x:42}; }
+let { x } = f();
 ```
 
 ---
@@ -110,17 +110,17 @@ var { x } = f();
   - Převod (podmnožiny) parametrů na pole a zpět
 
 ```js
-var f = function(x, y = 12) {
+function f(x, y = 12) {
 	return x + y;
 }
 f(10); // 22
 
-var f = function(x, ...y) {
+function f(x, ...y) {
 	alert(y.length);
 }
 f(1, 2, 3); // 2
 
-var f = function(a, b, c) { return c; }
+function f(a, b, c) { return c; }
 f(...[1, 2, 3]); // 3
 ```
 
@@ -137,14 +137,13 @@ class B extends A {
 		this.x = x;
 	}
 
+	static f2() {}
 	get something() { /* .... */ }
 
 	f1() {
 		super.f1();
 		return this.x;
 	}
-
-	static f2() {}
 }
 ```
 
@@ -157,7 +156,7 @@ class B extends A {
 
 ```js
 // a.js
-export var A = function() {};
+export let A = function() {};
 export default function() {};
 
 // b.js
@@ -169,19 +168,19 @@ import myLocalName from "./a.js"; // default
 
 ---
 
-# {Weak,}{Map,Set}
+# {Weak,}{Map,Set} {}
 
   - Set: množina unikátních hodnot
   - Map: dvojice cokoliv-cokoliv
   - WeakMap, WeakSet: bez reference na objekt, bez iterovatelnosti
 
 ```js
-var s = new Set();
+let s = new Set();
 s.add("hello").add("goodbye").add("hello");
 s.size == 2;
 s.has("hello") == true;
 
-var m = new Map();
+let m = new Map();
 m.set("hello", 42);
 m.set(s, 34);
 m.get(s) == 34;
@@ -190,7 +189,8 @@ m.get(s) == 34;
 ---
 
 # &hellip;a to ještě není všechno.
-	<p style="text-align:center; height:70%"><img src="ready.jpg" style="height:100%"/></p>
+
+<p style="text-align:center; height:70%"><img src="ready.jpg" style="height:100%"/></p>
 
 ---
 
@@ -201,14 +201,14 @@ m.get(s) == 34;
 
 ```js
 (function() {
-	var moneyKey = Symbol("money");
+	let moneyKey = Symbol("money");
 	typeof(moneyKey) == "symbol";
 
-	var Person = function() {
+	let Person = function() {
 		this[moneyKey] = 10000;
 	}
 
-	var person = new Person();
+	let person = new Person();
 	person.money == undefined;
 
 	Object.getOwnPropertySymbols(person); // :-(
@@ -235,8 +235,18 @@ let fibonacci = {
 		}
 	}
 }
+```
 
-for (var n of fibonacci) {
+---
+
+# Iterators + for..of
+
+  - Programovatelná iterovatelnost
+  - Cokoliv, co má metodu `next` je iterátor
+  - Cokoliv, co má symbol `Symbol.iterator` je iterovatelné cyklem `for..of`
+
+```js
+for (let n of fibonacci) {
   if (n > 1000) break;
   console.log(n);
 }
@@ -251,15 +261,25 @@ for (var n of fibonacci) {
   - Klíčové slovo `yield` odpovídá přerušení po jedné iteraci
 
 ```js
-var generator = function*() {
-	var tmp = 1;
+let generator = function*() {
+	let tmp = 1;
 	while (true) {
 		tmp *= 3;
 		yield tmp;
 	}
 }
+```
 
-var iterator = generator();
+---
+
+# Generators
+
+  - Speciální druh funkce
+  - Návratovou hodnotou je iterátor
+  - Klíčové slovo `yield` odpovídá přerušení po jedné iteraci
+
+```js
+let iterator = generator();
 iterator.next().value; // 3, next() vrací i done:true/false
 iterator.next().value; // 9
 iterator.next().value; // 27
@@ -273,15 +293,15 @@ iterator.next().value; // 27
   - Čtení, zápis, volání, &hellip;
 
 ```js
-var obj = {};
+let obj = {};
 
-var interceptor = {
+let interceptor = {
 	get: function (receiver, name) {
 		return `Hello, ${name}!`;
 	}
 };
 
-var p = new Proxy(obj, interceptor);
+let p = new Proxy(obj, interceptor);
 p.world === "Hello, world!"
 ```
 
@@ -343,12 +363,12 @@ Object.assign(target, { source: "data" });
 
 # Ostatní
 
-		<li>Práce s Unicode znaky mimo BMP (tj. code points > 65535):
+  - Práce s Unicode znaky mimo BMP (tj. code points > 65535):
 			<span title="U+1F602 FACE WITH TEARS OF JOY">😂</span>,
 			<span title="U+1F4A9 PILE OF POO">💩</span>,
 			<span title="U+1F923 ROLLING ON THE FLOOR LAUGHING">🤣</span>,
 			<span title="U+1F953 BACON">🥓</span>,
-			&hellip;</li>
+			&hellip;
   - Subclassing vestavěných objektů (Array, Element, &hellip;)
   - Garantované Tail Call Optimisation
   - `new Promise((resolve, reject) => {}), Promise.all, Promise.race`
@@ -367,15 +387,13 @@ Object.assign(target, { source: "data" });
 # Transpilace ES 2015+
 
   - Proces konverze syntaxe ES 2015+ do ES5
-  - [Google Traceur Compiler](https://github.com/babel/babel">Babel</a>, <a href="https://github.com/google/traceur-compiler)
-  - Babel s nejlepší podporou
+  - [Babel](https://github.com/babel/babel), [Google Closure Compiler](https://developers.google.com/closure/compiler)
   - Pro některé novinky nutno dodat polyfilly
   - Problematická otázka ES 2015 modulů
 
 ---
 
 # Babel v praxi
-
 
   - Online hřiště na [http://babeljs.io/repl/](http://babeljs.io/repl/)
   - Ke stažení jako npm modul
@@ -385,8 +403,9 @@ Object.assign(target, { source: "data" });
 
 # Moduly v praxi
 
-  - Implementováno jen v [nejnovějších verzích](https://caniuse.com/#search=es6-module) prohlížečů
-  - Alternativa #1: *bundling* do jednoho souboru nástrojem [Rollup](http://rollupjs.org/)
+  - Implementováno jen v [novějších verzích](https://caniuse.com/#search=es6-module) prohlížečů
+  - Výdej produkčního kódu &ndash; počet HTTP požadavků?
+  - Alternativa #1: *bundling* do jednoho souboru, např. nástrojem [Rollup](http://rollupjs.org/)
   - Alternativa #2: *transpilace* do jiného (kompatibilnějšího) formátu modulů
 
 ---
@@ -410,7 +429,7 @@ Object.assign(target, { source: "data" });
 # ES 2017
 
   - `async/await`
-  - `String.prototype.pad{Start,End}`
+  - `String.prototype.pad{Start,End}` (respektuje LTR/RTL)
   - `SharedArrayBuffer, Atomics`
   - Funkcionální iterace objektů
 
@@ -427,9 +446,13 @@ Object.assign(target, { source: "data" });
 
 # ES 2019
 
-  - FIXME
+  - `Array.prototype.{flat,flatMap}` pro více FP
+  - `String.prototype.trim{Start,End}` (ES5 definuje jen `trim`)
+  - Stabilní chování `Array.prototype.sort`
+  - `try-catch` volitelně bez parametru
 
 ---
 
 # Prostor pro otázky
+
 ? { .questions }
