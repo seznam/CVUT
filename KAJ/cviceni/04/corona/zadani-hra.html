@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        body {
+            font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+        }
+
+        #playground {
+            border: 1px solid #a0a0a0;
+            width: 600px;
+            height: 500px;
+            position: relative;
+        }
+        #world {
+            position: absolute;
+            bottom: 0px;
+        }
+        #overlay {
+            position: absolute;
+            bottom: 0px;
+            height: 392px;
+            width: 200px;
+            background-color: rgba(255,0,0,.5);
+        }
+
+        #go {
+            position: relative;
+            top: 200px;
+            margin: 0 auto;
+            padding: 10px;
+            width:200px;
+            text-align: center;
+            border: 1px solid red;
+            background-color: #a00000;;
+            color: #fff;
+        }
+
+        #vir {
+            position: absolute;
+            top:150px;
+            left:300px;
+            background: url(Corona.png) no-repeat;
+            background-size: cover;
+            width: 80px;
+            height: 80px;
+        }
+        #ch {
+            position: absolute;
+            top:150px;
+            left:400px;
+            background: url(cr.png) no-repeat;
+            background-size: cover;
+            width: 50px;
+            height: 50px;
+        }
+    </style>
+</head>
+<body>
+    <h1>
+        Zadaní úkolu k domácímu vypracování
+    </h1>
+
+    <h2>Hra: Destroy the virus</h2>
+
+    <h3>Popis</h3>
+    <p>
+        Cílem je naprogramovat hru ve VanillaJS. A zaměřit se na procvičení:
+        <ul>
+            <li>události z klávesnice: keydown, keyup, keyCode, code, key</li>
+            <li>handleEvent objekt</li>
+            <li>setTimeout</li>
+            <li>setTimeout</li>
+            <li>Promise, then, fullfill, reject, resolve</li>
+            <li>async, await</li>
+            <li>e.stopPropagation, e.preventDefault, treti parametr funkce addEventListener useCapture</li>
+        </ul>
+    </p>
+    <div id='playground'>
+        <div id="info">
+            <button>New Game</button>
+            <button>Restart</button>
+            <input type="radio" name="" id=""> Klávesnice | <input type="radio" name="" id=""> Myš
+            <h4>Score: 20 | Viruses eleminated: 25 | Viruses missed: 5</h4>
+            
+        </div>
+        <img id="world" src="world-map.svg" width="600"></img>
+        <div id="overlay"></div>
+        <div id="ch"></div>
+        <div id=go>GAME OVER</div>
+        <div id="vir"></div>
+    </div>
+    <p>
+        Grafika viz výše nebo podobná. Jedná se o klasickou shoot'em all hru. Hráč se snaží sestřelit se náhodně objevující se viry (doba zobrazení 1s, nový se ukazuje po 2s, upravte dle potřeby),
+        buď pomocí klávesnice nebo pomocí myši. Za každý úspěsný sestřel je počítán plus jeden bod, za zmizený vir je minus jeden bod.
+    </p>
+    <p>
+        Ovládní buď myší: událost mousemove, screenX/Y vs clientX/Y <a href="https://developer.mozilla.org/en-US/docs/Web/API/MouseEvent/clientY">ClientY</a>
+        nebo pomoci klávecnice: ADWS, vlastnost <a href="https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/code">code</a> 
+    </p>
+    <p>
+        Ve spodní části je mapa světa, která se postupně zakrývá. Zakrývání je řízeno počtem zmizených virů (1 vir = plus 10px zakrytí).
+    </p>
+    <p>
+        Hra končí úplným zakrytím mapy, zobrazí se game over.
+    </p>
+    <p>
+        <strong>Možné variace, vylepšní a fantazii se meze nekladou.</strong>
+    </p>
+    <p>
+        Hra bude psána v ES6, pomocí Classes: 
+        Game - hlavní engine, Player - info o hráči (score, ovládání), Virus - zobrazování virů, World - mapa světa.
+    </p>
+    <p>
+        Promise použijte např při načítání obrázků, tak že obalíte onload událost na objektu Image.
+        Handle event při navěšení posluchačů.
+    </p>
+    <p>
+        Grafiku můžete použít z ukázky výše.
+    </p>
+
+
+</body>
+</html>
