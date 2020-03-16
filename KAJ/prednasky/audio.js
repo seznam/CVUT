@@ -1,3 +1,5 @@
+let cache = new Map();
+
 let button = document.createElement("button");
 document.body.appendChild(button);
 button.style = `
@@ -10,22 +12,45 @@ button.style = `
 	font-size: 120%;
 `;
 
-let current = new Audio();
-function sync(e) { button.textContent = current.paused ? "▶" : "⏸"; }
-
-current.addEventListener("play", sync);
-current.addEventListener("pause", sync);
-current.addEventListener("ended", sync);
+let current = null;
+function syncButton(e) {
+	if (!current) { return; }
+	button.textContent = current.paused ? "▶" : "⏸";
+}
 
 button.addEventListener("click", _ => (current.paused ? current.play() : current.pause()));
 
-window.addEventListener("slide-change", _ => {
-	const h = document.querySelector(".current h1[data-audio]");
-	button.hidden = !h;
-	if (!h) { return; }
+function syncAudio(index) {
+	let audio = cache.get(index);
+	button.hidden = !audio;
+	if (audio) {
+		current && current.pause();
+		current = audio;
+		current.currentTime = 0;
+		syncButton();
+		current.play();
+	}
+}
 
-	current.pause();
-	current.src = `audio/${h.dataset.audio}.m4a`;
-	current.play();
-	sync();
+window.addEventListener("slide-change", e => {
+	let index = e.detail.currentIndex;
+	if (cache.has(index)) {
+		syncAudio(index);
+	} else {
+		let a = new Audio();
+		a.addEventListener("canplay", _ => {
+			if (cache.has(index)) { return; }
+			cache.set(index, a);
+			syncAudio(index);
+		});
+		a.addEventListener("error", _ => {
+			if (cache.has(index)) { return; }
+			cache.set(index, null);
+			syncAudio(index);
+		});
+		a.addEventListener("play", syncButton);
+		a.addEventListener("pause", syncButton);
+		a.addEventListener("ended", syncButton);
+		a.src = `audio/${index.toString().padStart(2, "0")}.m4a`;
+	}
 });
