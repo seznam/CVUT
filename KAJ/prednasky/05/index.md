@@ -1,8 +1,8 @@
-# KAJ 05: Ajax, XHR, HTTP a jejich kamarádi
+# KAJ 05: Ajax, XHR, HTTP a jejich kamarádi {data-audio=1}
 
 ---
 
-# Obsah
+# Obsah {data-audio=2}
 
   1. XHR a HTTP
   1. CORS
@@ -12,7 +12,7 @@
 
 ---
 
-# Ajax &ndash; motivace
+# Ajax &ndash; motivace {data-audio=3}
 <p style="text-align: center; height:70%">
   <img style="height:100%; margin-right:1em" src="img/ajax1.jpg" alt="Ajax" />
   <img style="height:100%" src="img/ajax2.jpg" alt="Ajax" />
