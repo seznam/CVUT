@@ -1,71 +1,69 @@
 let cache = new Map();
 
-let button = document.createElement("button");
-button.id = "audio-button";
-document.body.appendChild(button);
-
 let current = null;
-function syncButton(e) {
-	if (!current) { return; }
-	button.textContent = current.paused ? "▶" : "⏸";
-}
-
-button.addEventListener("click", _ => (current.paused ? current.play() : current.pause()));
 
 function syncAudio(index) {
 	let audio = cache.get(index);
-	button.hidden = !audio;
-	if (audio) {
-		current && current.pause();
-		current = audio;
-		current.currentTime = 0;
-		syncButton();
-		current.play();
-	}
+	if (!audio) { return; }
+
+	document.querySelector(".slide.current").appendChild(audio);
+	current && current.pause();
+	current = audio;
+	current.currentTime = 0;
+	current.play();
 }
 
 window.addEventListener("slide-change", e => {
 	let index = e.detail.currentIndex;
-	if (cache.has(index)) {
+	if (cache.has(index)) { return syncAudio(index); }
+
+	let a = new Audio();
+	a.className = "voice";
+	a.controls = true;
+	a.addEventListener("canplay", _ => {
+		if (cache.has(index)) { return; }
+		cache.set(index, a);
 		syncAudio(index);
-	} else {
-		let a = new Audio();
-		a.addEventListener("canplay", _ => {
-			if (cache.has(index)) { return; }
-			cache.set(index, a);
-			syncAudio(index);
-		});
-		a.addEventListener("error", _ => {
-			if (cache.has(index)) { return; }
-			cache.set(index, null);
-			syncAudio(index);
-		});
-		a.addEventListener("play", syncButton);
-		a.addEventListener("pause", syncButton);
-		a.addEventListener("ended", syncButton);
-		a.src = `audio/${index.toString().padStart(2, "0")}.m4a`;
-	}
+	});
+	a.addEventListener("error", _ => {
+		if (cache.has(index)) { return; }
+		cache.set(index, null);
+		syncAudio(index);
+	});
+	a.src = `audio/${index.toString().padStart(2, "0")}.m4a`;
 });
 
 let style = document.createElement("style");
 style.textContent = `
-#audio-button {
-	position: fixed;
-	right: 8px;
-	top: 8px;
-	line-height: 1.5;
-	width: 1.5em;
-	padding: 0;
-	font-size: 120%;
+.voice {
+	position: absolute;
+	right: 0;
+	bottom: 0;
+	z-index: 1;
+	margin: 0;
+	width: 25%;
 }
 
-.slide:first-child.current ~ #audio-button {
+.voice-arrow {
+	position: absolute;
+	right: 15%;
+	top: 65%;
+	font-size: 300%;
+	color: red;
+	margin: 0;
+}
+
+.voice-arrow::before {
+	content: "🠯";
+}
+
+.slide:first-child.current .voice-arrow {
 	animation: pulse 1s infinite alternate ease-in-out;
 }
 
 @keyframes pulse {
-	from { box-shadow: none; }
-	to { box-shadow: 0 0 3px 3px red; }
+	from { opacity: 0; }
+	to { opacity: 1; }
 }
 `;
 document.head.appendChild(style);

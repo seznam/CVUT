@@ -1,7 +1,9 @@
 # KAJ 05: Ajax, XHR, HTTP a jejich kamarádi
 
 Pokud váš prohlížeč blokuje automatické spuštění zvukového komentáře,
-klikněte na audio-tlačítko vpravo nahoře!
+použijte ovladač přehrávání v pravé dolní části prezentace.
+
+{.voice-arrow}
 
 ---
 
