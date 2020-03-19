@@ -311,11 +311,8 @@ fetch("/nejaky/soubor.json")
   - Notifikace ze strany serveru
   - Persistentní spojení
   - Léta draftů
-  - <a id="demo" href="http://bit.ly/1lBDw4W">bit.ly/1lBDw4W</a>
-
-<style>
-  #demo { font-size: 200%; }
-</style>
+  - [Just Spaceships](https://ondras.zarovi.cz/games/just-spaceships/)
+  - [Railroad Ink](https://ondras.github.io/rri/)
 
 ---
 
