@@ -228,6 +228,7 @@ xhr.responseXML instanceof DOMDocument
   - Lze, ale historicky je obtížné (cross-browser)
   - U XMLHttpRequest 2 lze přes `responseType` a `send(binaryData)`
   - V JS dlouho nebyl vhodný datový typ pro práci s binárními daty
+  - [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer), [Typed Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray)
 
 ---
 
