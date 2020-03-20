@@ -4,6 +4,7 @@ body {
 	margin: 0;
 	font-size: 150%;
 	font-family: ubuntu, sans-serif;
+	line-height: 1.3;
 }
 
 footer:after {
@@ -35,7 +36,15 @@ body section:first-of-type h1:first-of-type {
 }
 
 section h2 {
-	font-size:130%;
+	font-size: 130%;
+}
+
+p {
+	margin: 0.5em 0;
+}
+
+h4 {
+	margin-bottom: 0.5em;
 }
 
 section > * {
