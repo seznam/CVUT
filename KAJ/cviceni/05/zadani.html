@@ -37,18 +37,34 @@
 
             Main tasks
                 1. Use XMLHttpRequest to create HTTP request and get data from StarWarsApi
-                2. Parse StarWars data
-                3. Render data into the DOM
-                4. Create promisified wrapper around XMLHttpRequest
-                5. Try to use fetch
-                6. Use async/await
+                    1. Parse StarWars data
+                    2. Transform the data into list of character names
+                        ["Luke Skywalker", "C-3PO", ...]
+                    3. Render character names into the list - <ul id="star-wars"></ul>
+                2. Create function that fetches data with XMLHttpRequest but exposes Promises interface.
+                    myRequest(url)
+                        .then(response => {
+                            // ok state
+                        })
+                        .catch(error => {
+                            // error states
+                        })
+
+                    1. For rendering the Star-Wars characters - switch from XMLHttpRequest to your "myRequest" function
+                3. Try to use browser's fetch API
+                    1. For rendering the Star-Wars characters - try to switch to browsers fetch API
+                4. Try to use async/await for interaction with
+                    1. myRequest
+                    2. fetch
 
             Bonus Tasks
                 1. Websocket chat
+                    1. Connect to WebSocket API
+                    2. When messages comes in, render it to the - <textarea id="chat">
+                    3. When user types in text in <input type="text" id="chat-input"> and presses enter, send the message to the chat
                 2. Mapy.cz API with XML response
+                    1. Fetch the data, the idea is the same, except we get XML instead of JSON as a response
         */
-
-
 
     </script>
 </body>
