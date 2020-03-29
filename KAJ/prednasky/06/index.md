@@ -174,22 +174,10 @@ img:nth-of-type(2n+0) { float: right; }
 # Selektorový jazyk &ndash; pseudotřídy
 
   - `:empty` = nemá-li potomky
+  - `:only-child` = je-li jediný potomek
 
 ```css
 li:empty { display: none; }
-```
-
----
-
-# Selektorový jazyk &ndash; pseudotřídy
-
-  - `:empty` = nemá-li potomky
-  - `:only-child` = je-li jediný potomek
-  - `:not()` = negace
-
-```css
-p:not(:target)        { opacity: 0.5; }
-input:not([required]) { color: blue; }
 ```
 
 ---
@@ -202,6 +190,17 @@ input:not([required]) { color: blue; }
 ```css
 p        { opacity: 0.5; }
 p:target { opacity: 1; }
+```
+
+---
+
+# Selektorový jazyk &ndash; pseudotřídy
+
+  - `:not()` = negace
+
+```css
+p:not(:target)        { opacity: 0.5; }
+input:not([required]) { color: blue; }
 ```
 
 ---
