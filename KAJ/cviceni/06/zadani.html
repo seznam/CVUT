@@ -4,41 +4,41 @@
         <meta charset="utf-8">
         <title>Lecture 06</title>
 
-        <style>
-            body {
-                font-size: 14px;
-                font-family: Arial, sans-serif;
-                color: #000;
-                background-color: #fff;
-            }
+        <style type="text/css">
 
-            /*
-                1. Vyrobte horizontalni menu, ktere bude tvoreno tmave sedymi obdelniky s bilym textem
-                2. Menu pro sirku stranky mene nez 420px prestylujte pomoci mediaqueries tak aby byly polozky serazeny pod sebou
-                3. Vyrobte burger spoustec menu, ktery jej bude v malem rozliseni ukazovat a schovavat (na kliknuti)
-                4. U polozek ktere maji atribut data-state new, vypisujte hodnotu atributu pred odkaz
-                5. Ocislujte jednotlive polozky pomoci css generatoru
-                6. U pozadi polozek stridejte barvu pozadi
-            */
         </style>
     </head>
     <body>
-        <input type="checkbox" id="burgerControl">
-        <label id="burger" for="burgerControl"></label>
+        <!--
+            1. Create horizontal menu with design you can see on reseni.html.
+            2. For page width smaller than 500px, change menu design from row to column (see reseni.html).
+            3. Style <input type="checkbox" id="burgerControl" />
+                1. You cannot style checkboxes, but you can have label connected to checkbox, style the label and hide the checkbox.
+                2. Make it visible only on page size smaller than 500px.
+                3. If checkbox is checked, make #menu visible, otherwise hide it, but only on smaller page sizes.
+            4. For items with "data-state" attribute, write value of this attribute into the page - use only CSS.
+            5. Add counter to menu items with CSS counters.
+            6. Make even menu items have different background.
 
+            7. Make custom design for checkbox like on reseni.html.
+        -->
+
+        <h2>Menu</h2>
+
+        <label id="menu-control" for="menu-control-input">Menu</label><input type="checkbox" id="menu-control-input" />
         <nav id="menu">
             <ul>
-                <li><a href="#prvni" data-state="new!" class="link">Prvni</a></li>
-                <li><a href="#druhy" class="link">Druhy</a></li>
-                <li><a href="#treti" class="link">Treti</a></li>
-                <li><a href="#ctvrty" class="link">Ctvrty</a></li>
-                <li><a href="#paty" class="link">Paty</a></li>
+                <li><a href="#first" data-state="new!">First</a></li>
+                <li><a href="#second">Second</a></li>
+                <li><a href="#third">Third</a></li>
+                <li><a href="#fourth">Fourth</a></li>
+                <li><a href="#fifth">Fifth</a></li>
             </ul>
         </nav>
 
-        <article>
-            <input type="checkbox" id="chk1" />
-            <label for="chk1"></label>
-        </article>
+        <h2>Custom Design Checkbox</h2>
+
+        <input id="custom-checkbox-input" type="checkbox">
+        <label id="custom-checkbox" for="custom-checkbox-input"></label>
     </body>
 </html>
