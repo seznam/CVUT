@@ -159,7 +159,6 @@ div {
 	-webkit-perspective: 500px;
 	perspective: 500px;
 }
-
 #parent div {
 	transform: rotateY(45deg);
 	-webkit-transform: rotateY(45deg);
