@@ -155,19 +155,19 @@ div {
 
 <div id="parent"><div></div></div>
 <style>
-	#parent {
-		-webkit-perspective: 500px;
-		perspective: 500px;
-	}
+#parent {
+	-webkit-perspective: 500px;
+	perspective: 500px;
+}
 
-	#parent div {
-		transform: rotateY(45deg);
-		-webkit-transform: rotateY(45deg);
-		width: 40%;
-		height: 150px;
-		background-color: red;
-		margin: auto;
-	}
+#parent div {
+	transform: rotateY(45deg);
+	-webkit-transform: rotateY(45deg);
+	width: 40%;
+	height: 150px;
+	background-color: red;
+	margin: auto;
+}
 </style>
 
 ```css
