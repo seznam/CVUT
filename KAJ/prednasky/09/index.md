@@ -23,6 +23,7 @@ Webová aplikace má k dispozici JS API, které informuje o stavu připojení.
 
 # App Cache
 
+  - Dnes již zastaralá, slepá cesta
   - Webová aplikace poskytuje tzv. *offline manifest*, výčet souborů pro použití offline
 ```html
 <html manifest="mysite.manifest">
@@ -76,13 +77,8 @@ JS API pro práci s offline cache
 
   - Modernější alternativa k AppCache
   - Konfigurace (AppCache) vs. logika (Service Worker)
+  - Zásadní komponenta konceptu PWA (Progressive Web Apps)
   - [Slabší podpora](http://caniuse.com/#feat=serviceworkers)
-
----
-
-# Jak funguje Service Worker
-
-<img src="img/serviceworker.jpg" style="width:90%" />
 
 ---
 
@@ -109,6 +105,7 @@ navigator.serviceWorker.register("/worker.js").then(function(reg) {
 ---
 
 # Service Worker &ndash; ukázka
+
 ```js
 self.addEventListener("install", function(event) {
 	console.log("SW (či jeho nová verze) nainstalován");
@@ -126,13 +123,39 @@ self.addEventListener("fetch", function(event) {
 
 ---
 
-# Service Worker &ndash; další využití
+# Service Worker &ndash; offline-first
+
+```js
+self.addEventListener("fetch", async e => {
+	const cache = await caches.open(CACHE_NAME);
+	const cached = await cache.match(e.request);
+
+	let response;
+	if (cached) {
+		response = cached;
+	} else {
+		response = await fetch(e.request);
+	}
+	e.respondWith(response);
+});
+```
+
+---
+
+# Service Worker &ndash; využití
 
   - Synchronizace dat na pozadí
   - Cachování
   - Preprocessing zdrojů na klientu
   - Šablonování
   - Pre-fetch
+
+---
+
+# Service Worker &ndash; odkazy
+
+  - https://serviceworke.rs/
+  - [sw.js](https://github.com/ondras/rri/blob/master/sw.js) pro hru [https://ondras.github.io/rri/](Railroad Ink)
 
 ---
 
