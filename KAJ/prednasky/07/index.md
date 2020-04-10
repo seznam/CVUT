@@ -236,7 +236,7 @@ div {
 
 # CSS3 Flexible Box: pořadí
 
-  - Vlastnost `order` pro změnu pořadí v prvků
+  - Vlastnost `order` pro změnu pořadí prvků
   - Podobný princip jako u `z-index`
   - Dovoluje zachovat obsah první
   - Často v kombinaci s media queries
