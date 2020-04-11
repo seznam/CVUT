@@ -304,6 +304,31 @@ var draw = function() {
 
 ---
 
+# Tipy a triky: Retina
+
+  - `window.devicePixelRatio > 1`
+  - Rozměry canvasu jsou v hardwarových pixelech, plochu ale zabírá v logických
+  - Prohlížeč před vykreslením canvas roztáhne na DPR-násobek
+  - Displeje s vysokou hustotou pixelů (*Retina*) mívají canvas rozostřný
+
+---
+
+# Tipy a triky: Retina
+
+```js
+let canvas = document.createElement("canvas");
+canvas.width = canvas.height = 600;
+canvas.style.width = canvas.style.height = "300px";
+
+let ctx = canvas.getContext("2d");
+ctx.scale(2, 2);
+
+ctx.fillText("Ahoj", 50, 50);
+// ctx...
+```
+
+---
+
 # WebGL
 
   - Akcelerovaná 3D grafika
