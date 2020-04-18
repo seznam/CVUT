@@ -226,7 +226,7 @@ self.addEventListener("fetch", async e => {
 
 ---
 
-# SVG <path> detailněji
+# SVG `<path>` detailněji
 
   - `M x y` &ndash; posun na absolutní pozici
   - `m dx dy` &ndash; posun o relativní pozici
@@ -264,7 +264,7 @@ self.addEventListener("fetch", async e => {
 
 ---
 
-# SVG <pattern>
+# SVG `<pattern>`
 
 <svg width="300" height="200" style="float:right">
 	<defs>
@@ -286,7 +286,7 @@ self.addEventListener("fetch", async e => {
 
 ---
 
-# SVG <marker>
+# SVG `<marker>`
 
 <svg width="300" height="200" style="float:right">
 	<defs>
@@ -378,8 +378,8 @@ text {
 
 ---
 
-
 # HTML5 Audio: JavaScriptové API
+
 ```js
 new Audio("song.mp3").play();
 ```
@@ -413,7 +413,6 @@ a.play();
   - [Ohňostroj](http://ondras.github.io/fireworks-webgl/), [Osciloskop](http://ondras.github.io/oscope/)
 
 ---
-
 
 # Web Audio API: generování zvuku
 
