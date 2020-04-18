@@ -155,7 +155,7 @@ self.addEventListener("fetch", async e => {
 # Service Worker &ndash; odkazy
 
   - https://serviceworke.rs/
-  - [sw.js](https://github.com/ondras/rri/blob/master/sw.js) pro hru [https://ondras.github.io/rri/](Railroad Ink)
+  - [sw.js](https://github.com/ondras/rri/blob/master/sw.js) pro hru [Railroad Ink](https://ondras.github.io/rri/)
 
 ---
 
