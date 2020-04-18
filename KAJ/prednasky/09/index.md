@@ -233,7 +233,7 @@ self.addEventListener("fetch", async e => {
   - `L x y (l dx dy)` &ndash; rovná čára
   - `Q x1 y1, x y` &ndash; kvadratická Bézierova křivka
   - `C x1 y1, x2 y2, x y` &ndash; kubická Bézierova křivka
-  - `A rx ry x-axis-rotation [large-arc-flag sweep-flag](img/arc.png" target="_blank) x y` &ndash; eliptická křivka
+  - <code>A rx ry x-axis-rotation [large-arc-flag sweep-flag](img/arc.png) x y</code> &ndash; eliptická křivka
   - `Z` &ndash; spojit se začátkem
 
 ---
