@@ -6,7 +6,7 @@
 
   1. Offline + Cache Manifest + Service Worker
   1. Scalable Vector Graphics
-  1. HTML <audio>
+  1. HTML &lt;audio&gt;
   1. Web Audio API
 
 ---
