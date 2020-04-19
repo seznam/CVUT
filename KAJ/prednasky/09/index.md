@@ -410,7 +410,7 @@ a.play();
   - Uzly = transformace zvuku
   - Přístup k právě přehrávaným datům (vizualizace)
   - Generování zvukového signálu
-  - [Ohňostroj](http://ondras.github.io/fireworks-webgl/), [Osciloskop](http://ondras.github.io/oscope/)
+  - [Ohňostroj](https://ondras.github.io/fireworks-webgl/), [Osciloskop](https://ondras.github.io/oscope/)
 
 ---
 
