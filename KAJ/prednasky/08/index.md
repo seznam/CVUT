@@ -347,7 +347,7 @@ div {
 
 # CSS efekty: barevné přechody
 
-  - Linární (opakující se) barevné přechody
+  - Lineární (opakující se) barevné přechody
   - Kruhové (opakující se) barevné přechody
   - Možno zadat více přechodů naráz
   - Respektuje zaoblené rohy
