@@ -196,7 +196,7 @@ ctx.fillStyle = p;
   - Canvas je ideální technologie pro animace a hry
   - Správná práce s canvasem je rychlá
   - Podstatné je dobré časování a množství překreslování
-  - [Ukázka](http://ondras.github.io/drago/game/)
+  - [Ukázka](https://ondras.github.io/drago/game/)
 
 ---
 
