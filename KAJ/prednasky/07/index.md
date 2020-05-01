@@ -183,8 +183,8 @@ div {
 
 # 3D CSS transformace
 
-  - [CSS Blockout](http://ondras.github.io/blockout/)
-  - [Rubikova kostka](http://ondras.zarovi.cz/demos/rubik/)
+  - [CSS Blockout](https://ondras.github.io/blockout/)
+  - [Rubikova kostka](https://ondras.github.io/rubik/)
 
 ---
 
