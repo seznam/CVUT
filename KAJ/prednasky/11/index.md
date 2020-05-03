@@ -2,7 +2,6 @@
 
 ---
 
-
 # Obsah
 
   1. Drag'n'Drop
@@ -124,7 +123,7 @@ localStorage.removeItem("a");
 
   - Problém s anonymním režimem (aktuálně Safari)
   - Ukládají se **jen** dvojice řetězců (klíč-hodnota)
-	- Storage je sdílena všemi skripty na doméně
+  - Storage je sdílena všemi skripty na doméně
     - Událost `storage` při změně; lze použít/zneužít pro komunikaci tab-tab
   - Slabé API s ohledem na kapacitu
   - `sessionStorage` je oddělené úložiště, trvanlivé jen do zavření prohlížeče
