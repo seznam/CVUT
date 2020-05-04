@@ -289,7 +289,7 @@ onmessage = function(e) {
 # Web Workers: závěr
 
   - Výpočet ve workeru může trvat libovolně dlouho
-	- Data jsou při předávání klonována (netřeba řešit synchronizaci)
+  - Data jsou při předávání klonována (netřeba řešit synchronizaci)
     - Alternativa: *Transferrable*
     - <del>Alternativa: *SharedArrayBuffer*</del>
   - Vhodné tam, kde jsou třeba náročné výpočty
