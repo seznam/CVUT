@@ -70,18 +70,30 @@
 
 				Filereader API
 					https://developer.mozilla.org/en-US/docs/Web/API/FileReader
-				
+
 				Drag'n'Drop API
 					https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
 
 			*/
 
-            /*
-                1. Routovani podle hashe v url
-                2. Vyzkousejte si history.pushState / history.replaceState
-                3. Vyzkousejte praci s File API a Drag'n'Drop
+			/*
+				1. Routing
+					- There will be two pages, each of them is already in the HTML as sections with data-route attribute
+					- Hide these pages by default with css or javascript
+					- Look at URL and decide which page to display, by default show the "accesslog" page
+						Look at History API link
+					- Re-render when browser URL changes, either by user clicking on link or by pressing browsers back/forward button
+						Look at popstate event on window and use addEventListener to listen on that event
+				2. LocalStorage
+					- Take a look at LocalStorage API
+					- In local storage - save every user access of website, when he comes to the page save the date he came
+					- On "accesslog" page display all of the dates he accessed the page
+				3. File API and Drag'n'Drop
+					- On second page use Drag and Drop API so user can drag and drop image to the rectangle
+					- When user drops image, use File Reader API to read and display name, size and type of image
             */
-			
+
+
 			// run
 			new MyApp();
 

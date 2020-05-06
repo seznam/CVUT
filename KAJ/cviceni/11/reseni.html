@@ -70,40 +70,51 @@
 
 				Filereader API
 					https://developer.mozilla.org/en-US/docs/Web/API/FileReader
-				
+
 				Drag'n'Drop API
 					https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
 
 			*/
 
-            /*
-                1. Routovani podle hashe v url
-                2. Vyzkousejte si history.pushState / history.replaceState
-                3. Vyzkousejte praci s File API a Drag'n'Drop
+			/*
+				1. Routing
+					- There will be two pages, each of them is already in the HTML as sections with data-route attribute
+					- Hide these pages by default with css or javascript
+					- Look at URL and decide which page to display, by default show the "accesslog" page
+						Look at History API link
+					- Re-render when browser URL changes, either by user clicking on link or by pressing browsers back/forward button
+						Look at popstate event on window and use addEventListener to listen on that event
+				2. LocalStorage
+					- Take a look at LocalStorage API
+					- In local storage - save every user access of website, when he comes to the page save the date he came
+					- On "accesslog" page display all of the dates he accessed the page
+				3. File API and Drag'n'Drop
+					- On second page use Drag and Drop API so user can drag and drop image to the rectangle
+					- When user drops image, use File Reader API to read and display name, size and type of image
             */
 
 			class MyApp {
 				constructor() {
 					this.pages = document.querySelectorAll("section");
-					
+
 					// first run
 					this.route();
-					
+
 					// listen on url and history change
 					window.addEventListener('popstate', e => {
 						this.route();
 					});
-					
+
 					// get stored data
 					this.log = JSON.parse(localStorage.getItem("log")) || [];
 					this.logVisit();
 					this.showLog();
-					
+
 					const dnd = document.querySelector("#dnd");
 					dnd.addEventListener("drop", e => this.showImg(e));
 					dnd.addEventListener("dragover", e => e.preventDefault());
 				}
-				
+
 				// switch screens
 				route() {
 					const hash = window.location.hash;
@@ -126,14 +137,14 @@
 						}
 					})
 				}
-				
+
 				// store actual date
 				logVisit () {
 					const date = new Date().toLocaleString("cs-CS");
 					this.log.push(date);
 					localStorage.setItem("log", JSON.stringify(this.log));
 				}
-				
+
 				// write to page all stored items
 				showLog () {
 					const target = document.querySelector('#history-entries');
@@ -144,15 +155,15 @@
 						target.appendChild(li);
 					}
 				}
-				
+
 				// load and show image for disk
 				showImg (e) {
 					e.preventDefault();
 					const files = e.dataTransfer.files;
-					
+
 					const imgCnt = document.querySelector("#imgCnt");
 					const imgInfo = document.querySelector("#imgInfo");
-					
+
 					for (const f of files) {
 						if (f.type.indexOf("image") != -1) {
 							const fr = new FileReader();
@@ -165,7 +176,7 @@
 								imgCnt.appendChild(i);
 
 								const li = document.createElement('li');
-								li.innerHTML = 
+								li.innerHTML =
 								`type: ${f.type} \n
 								 size: ${f.size} \n
 								 name: ${f.name}
@@ -176,9 +187,9 @@
 						}
 					}
 				}
-				
+
 			}
-			
+
 			// run
 			new MyApp();
 
