@@ -52,8 +52,6 @@
 # CSS Grid &ndash; definice mřížky
 
   - Tracky lze definovat explicitně, nebo automaticky podle počtu potomků
-  - *Grid line* je (neviditelná) čára mezi tracky
-  - Jednotka *fr* je jeden díl nerozděleného místa (paralela s `flex`)
 
 
 ```css
@@ -63,12 +61,18 @@
 }
 ```
 
+```css
+.parent {
+	grid-auto-rows: minmax(100px, auto);
+	grid-auto-columns: 0.5fr 3fr 1fr;
+}
+```
+
 ---
 
 # CSS Grid &ndash; definice ploch
 
   - Alternativně lze tracky definovat *vizuálně* pomocí pojmenovaných ploch
-
 
 ```css
 .parent {
@@ -89,7 +93,7 @@
 
 ```css
 .child {
-	grid-column-start: 1;
+	grid-column-start: nazev-grid-line;
 	grid-column-end: 4;
 	grid-row: 2;
 	grid-area: sidebar;
