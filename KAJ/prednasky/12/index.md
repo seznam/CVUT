@@ -208,10 +208,11 @@ parent.appendChild(template.content.cloneNode(true));
 
   - Paralela pro CSS `@import`
   - Podléhá CORS
-  - Prohlížeč inteligentně deduplikuje
+  - Zapouzdření libovolně objemné fcionality
+  - Widgety, komponenty aplikace, moduly, &hellip;
+  - Pravděpodobně slepá vývojová větev
 
 ---
-
 
 # Web Components: HTML imports
 
@@ -219,14 +220,6 @@ parent.appendChild(template.content.cloneNode(true));
   - Na rozdíl od `<template>` je živý a skripty v něm se vykonávají
   - Importovaný obsah se nikam automaticky nepřipojuje
   - Rodič (ručně) připojuje importovaný obsahu (či naopak)
-
----
-
-# Web Components: využití HTML imports
-
-  - Zapouzdření libovolně objemné fcionality
-  - Widgety, komponenty aplikace, moduly, &hellip;
-  - Vhodné i pro import čistě JS-based komponent
 
 ---
 
@@ -244,11 +237,18 @@ document.body.appendChild(map1);
 map1.appendChild(map2);
 ```
 
-[Ukázka](https://jsfiddle.net/ondras/o1kpw6jy/)
+---
+
+# Custom Elements: ukázky
+
+  - https://github.com/ondras/fixmetodo
+  - https://github.com/ondras/instant-button
+  - https://github.com/ondras/custom-range
+  - https://www.zdrojak.cz/clanky/custom-elements-v-praxi/
 
 ---
 
-# Web Components: Custom Elements &ndash; define
+# Custom Elements &ndash; define
 
   - JS API tvořeno jedinou funkcí: `customElements.define("szn-map", SznMap)`
   - Vlastní značky musí mít v názvu pomlčku (dopředná kompatibilita)
@@ -256,7 +256,7 @@ map1.appendChild(map2);
 
 ---
 
-# Web Components: Custom Element class
+# Custom Element class
 
   - Třída (druhý parametr `customElements.define`) popisuje chování značky
   - Rozšiřuje (`extends`) nějakou existující HTML značku
@@ -264,7 +264,7 @@ map1.appendChild(map2);
 
 ---
 
-# Web Components: filecycle callbacks
+# Custom Elements: lifecycle callbacks
 
 ```js
 class MyElements extends HTMLElement {
@@ -294,7 +294,7 @@ class MyElements extends HTMLElement {
   - Zvenčí shadow root není vidět
   - Omezení CSS a JS událostí
   - Připínání potomků do uzlu se shadow rootem způsobí jejich *(re)distribuci*
-  - [Speficikace](http://w3c.github.io/webcomponents/spec/shadow/index.html)
+  - [Dokumentace](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM)
 
 ---
 
