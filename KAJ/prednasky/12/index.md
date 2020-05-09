@@ -17,7 +17,7 @@
   - Odehrává se v Seznamu
   - Radlická 10, Praha 5
 	- Výsledkem zkoušky je skóre v intervalu `<−10, 10>` bodů
-  - První čtyř-termín: 28. 5. 2019 (9:00, 10:00, 11:00, 12:00)
+  - První čtyř-termín: 28. 5. 2020 (9:00, 10:00, 11:00, 12:00)
   - Celkem aktuálně 12 termínů
   - Další termíny budou vypsány jen v případě absolutní nouze
 
