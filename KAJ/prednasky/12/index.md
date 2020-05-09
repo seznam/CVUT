@@ -14,10 +14,10 @@
 
 # Zkouška!
 
-  - ??? Odehrává se v Seznamu ???
+  - Odehrává se v Seznamu
   - Radlická 10, Praha 5
 	- Výsledkem zkoušky je skóre v intervalu `<&minus;10, 10>` bodů
-  - První před-dvoj-termín: 20. 5. 2019 (11:00, 12:00)
+  - První čtyř-termín: 28. 5. 2019 (9:00, 10:00, 11:00, 12:00)
   - Celkem aktuálně 12 termínů
   - Další termíny budou vypsány jen v případě absolutní nouze
 
