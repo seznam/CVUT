@@ -270,7 +270,7 @@ map1.appendChild(map2);
 # Custom Elements: lifecycle callbacks
 
 ```js
-class MyElements extends HTMLElement {
+class MyElement extends HTMLElement {
 	constructor() { super(); }
 	attributeChangedCallback(name, oldValue, newValue) {}
 	connectedCallback() {}
