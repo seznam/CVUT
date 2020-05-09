@@ -64,7 +64,6 @@
 ```css
 .parent {
 	grid-auto-rows: minmax(100px, auto);
-	grid-auto-columns: 0.5fr 3fr 1fr;
 }
 ```
 
