@@ -17,8 +17,8 @@ Tvorba klientských aplikací v JavaScriptu
 # Co jsou JavaScriptové aplikace?
 
   - SPA – Single Page Application
-  - <a href="http://www.mapy.cz">www.mapy.cz</a>
-  - <a href="http://www.gmail.com">www.gmail.com</a>
+  - <a href="https://www.mapy.cz">www.mapy.cz</a>
+  - <a href="https://www.gmail.com">www.gmail.com</a>
   - <a href="https://epicport.com/en/ttd">OpenTTD online</a>
   - tato stránka
   - ...a mnohé další
@@ -49,7 +49,7 @@ Tvorba klientských aplikací v JavaScriptu
 # Podklady a materiály
 
   - <a href="https://developer.mozilla.org/">https://developer.mozilla.org/</a>
-  - <a href="http://caniuse.com/">http://caniuse.com/</a>
+  - <a href="https://caniuse.com/">http://caniuse.com/</a>
   - Google
   - <del>Stack Overflow</del>
   - <a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
@@ -119,22 +119,22 @@ https://html.spec.whatwg.org/
 	</thead>
 	<tbody>
 		<tr>
-			<td>Mozilla Firefox</td><td>72</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
+			<td>Mozilla Firefox</td><td>85</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
 		</tr>
 		<tr>
-			<td>Google Chrome</td><td>79</td><td>Blink/WebKit</td><td>V8</td><td></td>
+			<td>Google Chrome</td><td>88</td><td>Blink/WebKit</td><td>V8</td><td></td>
 		</tr>
 		<tr>
-			<td>Apple Safari</td><td>13</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
+			<td>Apple Safari</td><td>14</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
 		</tr>
 		<tr>
 			<td>Microsoft Internet Explorer</td><td>11</td><td>Trident</td><td>Chakra</td><td>Zajímavý až od verze 9</td>
 		</tr>
 		<tr>
-			<td>Microsoft Edge</td><td>18/79</td><td>EdgeHTML/Blink</td><td>Chakra/V8</td><td></td>
+			<td>Microsoft Edge</td><td>18/88</td><td>EdgeHTML/Blink</td><td>Chakra/V8</td><td></td>
 		</tr>
 		<tr>
-			<td>Opera</td><td>12/64</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
+			<td>Opera</td><td>12/72</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
 		</tr>
 	</tbody>
 </table>
@@ -285,12 +285,12 @@ for (var p in data) {
 ```js
 var data = [15, "babicka", true];
 
-/* anonymni funkce */
+// anonymni funkce
 data.forEach(function(item, index) {
 	console.log(item); // 15, "babicka", true
 });
 
-/* pojmenovana funkce */
+// pojmenovana funkce
 function log(item, index) {
 	console.log(index);
 }
@@ -363,10 +363,10 @@ alert(document);           // [object HTMLDocument]
 ```js
 var p = document.querySelector("p");
 
-/* HTML parser, pozor na XSS! */
+// HTML parser, pozor na XSS!
 p.innerHTML = "<strong>toto je test</strong>";
 
-/* jen text */
+// jen text
 p.textContent = "<strong>toto je test</strong>";
 ```
 
