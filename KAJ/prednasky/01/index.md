@@ -55,10 +55,23 @@ Tvorba klientských aplikací v JavaScriptu
 
 ---
 
+# Sylabus předmětu
+
+![](img/sylabus.png){style="height:600px"}
+
+---
+
+# Web předmětu
+
+  - Stránky předmětu na <a href="http://cvut.seznam.cz/">cvut.seznam.cz</a>
+  - (Nové) pořadí témat: JS, síť, CSS, multimédia
+
+---
+
 # Podklady a materiály
 
   - <a href="https://developer.mozilla.org/">https://developer.mozilla.org/</a>
-  - <a href="https://caniuse.com/">http://caniuse.com/</a>
+  - <a href="https://caniuse.com/">https://caniuse.com/</a>
   - Google
   - <del>Stack Overflow</del>
   - <a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
@@ -76,20 +89,8 @@ Tvorba klientských aplikací v JavaScriptu
 
 ---
 
-# Sylabus předmětu
-
-![](img/sylabus.png){style="height:600px"}
-
----
-
-# Web předmětu
-
-  - Stránky předmětu na <a href="http://cvut.seznam.cz/">cvut.seznam.cz</a>
-  - (Nové) pořadí témat: JS, síť, CSS, multimédia
-
----
-
 # Standard HTML5
+
 https://html.spec.whatwg.org/
 
   - ![](img/w3c.png) + ![](img/whatwg.png) (**W**eb **H**ypertext **A**pplication **T**echnology **W**orking **G**roup)
