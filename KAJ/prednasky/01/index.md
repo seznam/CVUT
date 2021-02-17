@@ -35,7 +35,6 @@ Tvorba klientských aplikací v JavaScriptu
 
 ---
 
-
 # Organizace
 
   - Klasifikovaný zápočet či zkouška
@@ -43,6 +42,16 @@ Tvorba klientských aplikací v JavaScriptu
   - Přednášky: RNDr. Ondřej Žára, Seznam.cz
   - Cvičení: Bc. Zdeněk Vlach, Seznam.cz
   - Cvičení: Bc. Petr Huřťák, <del>Seznam.cz</del>
+
+---
+
+# 😷 Organizace 😷
+
+  - Nikdo neví
+  - Plán:
+    - přednášky na Teams a/nebo se zvukovým doprovodem
+    - cvičení na Teams
+    - zkouška prezenčně
 
 ---
 
@@ -56,25 +65,22 @@ Tvorba klientských aplikací v JavaScriptu
 
 ---
 
-
 # Kniha
 
 <img style="height:600px;float:right;margin-right:0;" src="https://cdn.albatrosmedia.cz/Images/Product/29109959?31092A68D952319080880FFA2781041B" />
 
   - JavaScript – Programátorské techniky a webové technologie
-  - Vydává <a href="http://www.albatrosmedia.cz/tituly/29109959/java-script/">cpress.cz</a>
+  - Vydává <a href="https://www.albatrosmedia.cz/tituly/29109959/java-script/">cpress.cz</a>
   - Určeno pro zájemce o JavaScript po absolvování základního kurzu
   - Povětšinou jen JS, méně DOM rozhraní
 
 ---
-
 
 # Sylabus předmětu
 
 ![](img/sylabus.png){style="height:600px"}
 
 ---
-
 
 # Web předmětu
 
@@ -158,7 +164,6 @@ https://html.spec.whatwg.org/
   - Časté aktualizace = snazší rozhodování
 
 ---
-
 
 # Webové prohlížeče: co kdo umí
 
@@ -268,7 +273,6 @@ for (var p in data) {
 
 ---
 
-
 # JS: funkcionální iterace
 
   - Přístup známý z tzv. funkcionálního programování
@@ -278,7 +282,6 @@ for (var p in data) {
   - Kompletní <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Iteration_methods">dokumentace na MDN</a>
 
 ---
-
 
 # JS: funkcionální iterace I
 
