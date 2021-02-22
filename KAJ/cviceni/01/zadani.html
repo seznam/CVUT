@@ -42,7 +42,7 @@
 
         var state = {
             todos: [
-                { text: 'Hi', completed: true  },
+                { text: 'Hi', completed: true },
                 { text: 'Hello', completed: false },
                 { text: 'Hi there!', completed: true },
             ],
@@ -52,13 +52,15 @@
         // Tasks
         // 1. Create simple element and append it to the page
         //      1. Target element with `document.querySelector`
-        //      2. Create element with `document.createElement`
-        //      3. Learn about `document.innerHTML` and `Element.textContent`
+        //      2. Learn about `document.innerHTML` and `Element.textContent`
+        //      3. Create element with `document.createElement`
         //      4. Append the element to another element `Element.appendChild`
-        // 2. Render to following template into the page with:
-        //      1. string approach (innerHTML)
-        //      2. create element approach
-        //      3. make sure to use `state.todos` and project the `text` and `completed` state properties into rendered templates
+        // 2. Render to following template into the page
+        //      1. Choose API (innerHTML or createElement)
+        //      2. Target this element: <ul class="todo-list"></ul>
+        //      3. Render basic template into the element
+        //      4. Make sure to use `state.todos` and project the `text` and `completed`
+        //          state properties into rendered templates
 
         /*
             Template:
