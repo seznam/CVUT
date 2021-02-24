@@ -18,7 +18,7 @@
 
   - Interpret v každém prohlížeči
   - Pro nováčka obtížný: jazyk samotný vs. DOM
-  - Jazyk stále vyvíjen (ES5&rArr;ES6&rArr;ES7), vznikají nové verze
+  - Jazyk stále vyvíjen (ES5&rArr;ES6&rArr;ES7&rArr;ES2017&rArr;ES2018&rArr;&hellip;), vznikají nové verze
   - Neexistuje koncept tříd (obtížné porovnání s C++, Java, &hellip;)
 
 ---
@@ -287,7 +287,6 @@ ch.hi(); /* "hello" */
 
 ---
 
-
 # Obohacování prototypů
 
 ```js
@@ -298,8 +297,19 @@ String.prototype.lpad = function(what, length) {
   return padding + this;
 }
 ```
+
 ---
 
+# Obohacování prototypů
+
+```js
+Array.prototype.random = function() {
+  var index = Math.random()*this.length;
+  return this[Math.floor(index)];
+}
+```
+
+---
 
 # ...
 
