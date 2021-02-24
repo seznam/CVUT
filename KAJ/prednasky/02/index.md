@@ -336,7 +336,7 @@ f2() /* "bar" */
 
   - Funkce/metoda `bind` vrací novou funkci
   - V nové funkci je `this` napevno definováno ve chvíli volání `bind`
-  - `bind` umí ještě další věci, ale toto je nejdůležitější
+  - `bind` může kromě *zafixování* `this` rovnou obdobně nastavit i některé parametry
   - Úkol: vyrobte `bind`
 
 ---
