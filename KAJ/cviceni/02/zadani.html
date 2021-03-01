@@ -53,15 +53,6 @@
         // Prepare todos html
         //
 
-        /*
-            Template example:
-            <li>
-                <input class="toggle" type="checkbox" checked>
-                <label>aaa</label>
-                <button class="destroy"></button>
-            </li>
-        */
-
         function createHtmlWithCreateElement (todos, targetEl) {
             targetEl.innerHTML = ''
 
@@ -121,6 +112,18 @@
         //
 
         // TODO
+        // 1. Prototype expansion
+        // 2. Create class with prototypes called `State`
+        //      1. Constructor takes `initialTodos` and `initialFilter`
+        //      2. Implement addTodo method
+        //      3. Implement setFilter method
+        //      4. Implement getTodos method
+        // 3. Implement adding todos
+        //      1. Query for main input element
+        //      2. Use `addEventListener` for handling user events
+        // 4. Implement filters
+        //      1. Listen on filter buttons clicks
+        //      2. When user clicks filters button, use setFilter on state and re-render app
 
         //
         // Prototype expansion
