@@ -1,9 +1,9 @@
-# KAJ 03: ES 2015, historie a transpilace
+# KAJ 03: ES 2015+, historie a transpilace
 
 ---
 
 # Obsah
-  1. Jak si stojí ES 2015
+  1. Jak si stojí ES 2015+
   1. Novinky ES 2015: syntaxe
   1. Novinky ES 2015: rozšíření ES5
   1. Kde a jak si to lze vyzkoušet?
@@ -19,7 +19,7 @@
   - V roce 2016 vznikla další verze ES7 / ES2016
   - V roce 2017 vznikla další verze ES8 / ES2017
   - ...
-  - Aktuálně práce na ES2020
+  - Aktuálně práce na ES2021
 
 ---
 
@@ -54,6 +54,7 @@ let add = (a, b) => a+b;
 // lexical this
 setTimeout( () => this.doStuff(), 1000 );
 ```
+
 ---
 
 # Enhanced object literals
@@ -87,6 +88,8 @@ let z = `this is a
 
 // html je uživ. funkce, která dostane jednotlivé tokeny k naformátování
 html`<div> ${unsafe} </div>`;
+
+randomize`Hello, ${["mr", "ms", "mrs"]}. ${firstnames} ${lastnames}`;
 ```
 
 ---
@@ -370,12 +373,12 @@ Object.assign(target, { source: "data" });
 			<span title="U+1F953 BACON">🥓</span>,
 			&hellip;
   - Subclassing vestavěných objektů (Array, Element, &hellip;)
-  - Garantované Tail Call Optimisation
+  - ~~Garantované Tail Call Optimisation~~
   - `new Promise((resolve, reject) => {}), Promise.all, Promise.race`
 
 ---
 
-# Jak zkoušet ES 2015+?
+# Jak pracovat s ES 2015+?
 
   - [Compatibility table](https://kangax.github.io/compat-table/es6/)
   - Pro něco lze polyfill (`Array.from`, `Promise`, &hellip;)
@@ -450,6 +453,15 @@ Object.assign(target, { source: "data" });
   - `String.prototype.trim{Start,End}` (ES5 definuje jen `trim`)
   - Stabilní chování `Array.prototype.sort`
   - `try-catch` volitelně bez parametru
+
+---
+
+# ES 2020
+
+  - dynamický `import()`
+  - BigInt, celá čísla s neomezenou velikostí
+  - Optional chaining (`a?.b?.c`)
+  - Operátor `??` (*nullish coalescing*)
 
 ---
 
