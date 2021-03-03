@@ -10,6 +10,15 @@
 
 ---
 
+# Standardizační proces
+
+  - Zaštiťuje [TC39](https://tc39.es/)
+  - Návrhy na vylepšení může podat kdokoliv
+  - Konkrétní návrh prochází čtyřmi fázemi standardizace (s pomocí tzv. *šampiona*)
+  - Valná většina novinek přidávaných v posledních letech vzešla z požadavků a nápadů vývojářů
+
+---
+
 # ES6
 
   - Formálně ECMAScript 2015, vžil se název ES6
