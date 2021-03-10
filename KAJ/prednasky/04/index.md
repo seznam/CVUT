@@ -24,7 +24,7 @@
 
 # Události: opáčko
 ```js
-var func = function(e) {
+let func = function(e) {
 	alert("...");
 }
 document.body.addEventListener("click", func, false);
@@ -181,8 +181,8 @@ window.addEventListener("load", obj);
 # Event loop
 
 ```js
-var scheduledJS = "";
-var listeners = [];
+let scheduledJS = "";
+let listeners = [];
 
 while (1) {
 	eval(scheduledJS); /* TADY se vykoná JS */
@@ -190,7 +190,7 @@ while (1) {
 	if (!listeners.length) break;
 
 	/* počkat, než bude čas na nejbližší posluchač */
-	var currentListener = waitFor(listeners);
+	let currentListener = waitFor(listeners);
 
 	/* naplánovat jej */
 	scheduledJS = listeners[currentListener];
@@ -202,7 +202,7 @@ while (1) {
 
 # Zpožděné vykonávání
 
-  - Je řada způsobů, jak "naplánovat" zpožděné vykonání kódu
+  - Je řada způsobů, jak *naplánovat* zpožděné vykonání kódu
   - XMLHttpRequest, addEventListener
   - timeout, interval
 ```js
@@ -219,7 +219,7 @@ setInterval( function() { /* ... */ }, 100);
 Pokud někam předávám funkci, s jakým `this` bude volána?
 
 ```js
-var Animal = function() {
+function Animal() {
 	setTimeout(this.eat, 3000);
 }
 
@@ -235,7 +235,7 @@ Animal.prototype.eat = function() {
 `bind` pomůže
 
 ```js
-var Animal = function() {
+function Animal() {
 	setTimeout(this.eat.bind(this), 3000);
 }
 
@@ -251,7 +251,7 @@ Animal.prototype.eat = function() {
 `arrow function` pomůže
 
 ```js
-var Animal = function() {
+function Animal() {
 	setTimeout(() => this.eat(), 3000);
 }
 
@@ -297,8 +297,8 @@ requestAnimationFrame(function() {
 # Promises: ukázka
 
 ```js
-var getData = function() {
-	var promise = new Promise();
+function getData() {
+	let promise = new Promise();
 	/* ... */
 	return promise;
 }
@@ -313,8 +313,8 @@ getData().then(
 
 # Promises: doplnění
 
-  - Promise se může nacházet ve stavech "pending", "fulfilled", "rejected"
-  - Fulfilled/rejected == "resolved"
+  - Promise se může nacházet ve stavech *pending*, *fulfilled*, *rejected*
+  - Fulfilled/rejected == *resolved*
   - Tvůrce promise ji mění, konzument jen poslouchá (`then`)
   - Vyrobit lze již naplněnou promise: `Promise.resolve(123)`
   - Volání `then()` vrací novou promise (‽) &rArr; řetězení
@@ -327,8 +327,8 @@ getData().then(
 ```js
 getData().catch(console.error); // jako .then(null, console.error)
 
-var p1 = getData();
-var p2 = getData();
+let p1 = getData();
+let p2 = getData();
 
 Promise.all([p1, p2]).then( ... );  // parametr callbacku je pole hodnot
 Promise.race([p1, p2]).then( ... ); // první s hodnotou
@@ -347,8 +347,8 @@ Promise.race([p1, p2]).then( ... ); // první s hodnotou
 # Promises: tvorba a změna stavu
 
 ```js
-var promise = new Promise(function(resolve, reject) {
-	/* funkce dodaná tvůrcem Promise */
+let promise = new Promise(function(resolve, reject) {
+	// funkce dodaná tvůrcem Promise
 	if (...) {
 		resolve(value);
 	} else {
