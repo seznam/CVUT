@@ -46,7 +46,7 @@ použijte ovladač přehrávání v pravé dolní části prezentace.
 # XMLHttpRequest API
 
 ```js
-var xhr = new XMLHttpRequest();
+let xhr = new XMLHttpRequest();
 
 xhr.addEventListener("readystatechange", /* ... */);
 xhr.addEventListener("load", /* ... */);
@@ -111,7 +111,7 @@ xhr.send(data);
 # Cross-domain požadavky: potenciální riziko
 
 ```js
-var xhr = new XMLHttpRequest();
+let xhr = new XMLHttpRequest();
 xhr.open("get", "http://gmail.com/", true);
 xhr.send();
 
@@ -331,7 +331,7 @@ fetch("/nejaky/soubor.json")
 # Web Sockets: klientská část
 
 ```js
-var socket = new WebSocket("ws://server.tld:1234/");
+let socket = new WebSocket("ws://server.tld:1234/");
 
 socket.onopen = function(e) {
 	socket.send("data");
