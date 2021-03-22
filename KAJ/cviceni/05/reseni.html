@@ -6,8 +6,8 @@
 </head>
 <body>
     <section>
-        <h2>Star Wars</h2>
-        <ul id="star-wars"></ul>
+        <h2>Users</h2>
+        <ul id="users"></ul>
     </section>
 
     <section>
@@ -28,19 +28,19 @@
     <script>
         /*
             urls:
-                HTTP API with JSON response of StarWars characters
-                    https://swapi.co/api/people/
+                HTTP API with JSON response of Users characters
+                    https://jsonplaceholder.typicode.com/users
                 WebSocket API with text messages
                     ws://salty-peak-74076.herokuapp.com/
                 HTTP API with XML response of places matching given query
                     https://api.mapy.cz/geocode?query=praha
 
             Main tasks
-                1. Use XMLHttpRequest to create HTTP request and get data from StarWarsApi
-                    1. Parse StarWars data
-                    2. Transform the data into list of character names
-                        ["Luke Skywalker", "C-3PO", ...]
-                    3. Render character names into the list - <ul id="star-wars"></ul>
+                1. Use XMLHttpRequest to create HTTP request and get data from API
+                    1. Parse Users data
+                    2. Transform the data into list of names
+                        ["Leanne Graham", "Ervin Howell", ...]
+                    3. Render character names into the list - <ul id="users"></ul>
                 2. Create function that fetches data with XMLHttpRequest but exposes Promises interface.
                     myRequest(url)
                         .then(response => {
@@ -50,9 +50,9 @@
                             // error states
                         })
 
-                    1. For rendering the Star-Wars characters - switch from XMLHttpRequest to your "myRequest" function
+                    1. For rendering the users - switch from XMLHttpRequest to your "myRequest" function
                 3. Try to use browser's fetch API
-                    1. For rendering the Star-Wars characters - try to switch to browsers fetch API
+                    1. For rendering the users - try to switch to browsers fetch API
                 4. Try to use async/await for interaction with
                     1. myRequest
                     2. fetch
@@ -67,16 +67,16 @@
         */
 
         //
-        // Star Wars
+        // Users
         //
 
-        function renderStarWars(data) {
-            const starWarsEl = document.querySelector("#star-wars");
+        function renderUsers(data) {
+            const targetEl = document.querySelector("#users");
 
-            for (const item of data.results) {
+            for (const item of data) {
                 const li = document.createElement("li");
                 li.appendChild(document.createTextNode(item.name));
-                starWarsEl.appendChild(li);
+                targetEl.appendChild(li);
             }
         }
 
@@ -87,12 +87,12 @@
         request.addEventListener("load", e => {
             const data = e.target.responseText;
             const dataJson = JSON.parse(data);
-            renderStarWars(dataJson);
+            renderUsers(dataJson);
         });
         request.addEventListener("error", e => {
             console.log(e);
         });
-        request.open("GET", "https://swapi.co/api/people/");
+        request.open("GET", "https://jsonplaceholder.typicode.com/users");
         request.send();
 
         //
@@ -113,11 +113,11 @@
             });
         }
 
-        // myRequest("https://swapi.co/api/people/")
+        // myRequest("https://jsonplaceholder.typicode.com/users")
         //     .then(e => {
         //         const data = e.target.responseText;
         //         const dataJson = JSON.parse(data);
-        //         renderStarWars(dataJson);
+        //         renderUsers(dataJson);
         //     })
         //     .catch(e => {
         //         console.log(e);
@@ -127,9 +127,9 @@
         // Request with fetch API
         //
 
-        // fetch("https://swapi.co/api/people/")
+        // fetch("https://jsonplaceholder.typicode.com/users")
         //     .then(res => res.json())
-        //     .then(renderStarWars)
+        //     .then(renderUsers)
         //     .catch(e => console.log(e));
 
         //
