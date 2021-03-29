@@ -44,7 +44,7 @@
                 color: red;
             }
 
-            @media all and (max-width: 500px) {
+            @media all and (max-width: 700px) {
                 #menu-control {
                     display: inline-block;
                 }
@@ -69,7 +69,7 @@
 
             #custom-checkbox {
                 overflow: hidden;
-                width: 80px;
+                width: 60px;
                 height: 30px;
                 border-radius: 30px;
                 background: lightblue;
@@ -80,14 +80,14 @@
 
             #custom-checkbox::before {
                 position: absolute;
-                content: " ";
+                content: "";
                 display:block;
                 width: 30px;
                 height: 30px;
                 border-radius: 50%;
                 background: red;
                 left: 0;
-                right: auto;
+                transition: all 0.2s ease;
             }
 
             #custom-checkbox-input {
@@ -95,8 +95,8 @@
             }
 
             #custom-checkbox-input:checked + #custom-checkbox::before {
-                left: auto;
-                right: 0;
+                left: 100%;
+                transform: translateX(-100%);
                 background: green;
             }
 
@@ -105,7 +105,7 @@
     <body>
         <!--
             1. Create horizontal menu with design you can see on reseni.html.
-            2. For page width smaller than 500px, change menu design from row to column (see reseni.html).
+            2. For page width smaller than 700px, change menu design from row to column (see reseni.html).
             3. Style <input type="checkbox" id="burgerControl" />
                 1. You cannot style checkboxes, but you can have label connected to checkbox, style the label and hide the checkbox.
                 2. Make it visible only on page size smaller than 500px.
@@ -113,7 +113,6 @@
             4. For items with "data-state" attribute, write value of this attribute into the page - use only CSS.
             5. Add counter to menu items with CSS counters.
             6. Make even menu items have different background.
-
             7. Make custom design for checkbox like on reseni.html.
         -->
 
@@ -122,11 +121,11 @@
         <label id="menu-control" for="menu-control-input">Menu</label><input type="checkbox" id="menu-control-input" />
         <nav id="menu">
             <ul>
-                <li><a href="#first" data-state="new!">First</a></li>
-                <li><a href="#second">Second</a></li>
-                <li><a href="#third">Third</a></li>
-                <li><a href="#fourth">Fourth</a></li>
-                <li><a href="#fifth">Fifth</a></li>
+                <li><a href="" data-state="data state attribute">First</a></li>
+                <li><a href="">Second</a></li>
+                <li><a href="">Third</a></li>
+                <li><a href="">Fourth</a></li>
+                <li><a href="">Fifth</a></li>
             </ul>
         </nav>
 
