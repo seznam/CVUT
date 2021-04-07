@@ -421,9 +421,9 @@ filter: contrast(175%) brightness(3%);
 
 [Ukazatel načítání](https://jsfiddle.net/wk3y941x/)
 
-[Lea Verou: CSS3 Patterns](http://lea.verou.me/css3patterns/)
+[Lea Verou: CSS3 Patterns](https://lea.verou.me/css3patterns/)
 
-[Prezentace bez JS](http://ondras.zarovi.cz/demos/nojs/)
+[Prezentace bez JS](https://ondras.github.io/pure-css-slides/)
 
 [Stín a přechod jako dekorace textu](http://www.shadycharacters.co.uk/)
 
