@@ -167,7 +167,7 @@ self.addEventListener("fetch", async e => {
   - Rozšířený pro vektorovou grafiku
   - DOM, události, stylování
   - Horší výkon v porovnání s `<canvas>`
-  - [ukázka mapa](http://ondras.zarovi.cz/demos/hex/?f=cr.emap), [ukázka hodiny](clock/), [ukázka akordy](https://observablehq.com/@ondras/chords)
+  - [ukázka mapa](https://ondras.github.io/hex-maps/?f=cr.emap), [ukázka hodiny](clock/), [ukázka akordy](https://observablehq.com/@ondras/chords)
 
 ---
 
