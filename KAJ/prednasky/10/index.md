@@ -75,8 +75,8 @@
 # Co je to canvas: v JS
 
 ```js
-var canvas = document.querySelector("canvas");
-var context = canvas.getContext("2d");
+let canvas = document.querySelector("canvas");
+let context = canvas.getContext("2d");
 context.namalujNecoPekneho();
 ```
 
@@ -140,7 +140,7 @@ ctx.textBaseline = "bottom";
 
 ctx.fillText("Ahoj", x, y);
 ctx.strokeText("Ahoj", x, y);
-var w = ctx.measureText("A").width;
+let w = ctx.measureText("A").width;
 ```
 
 ---
@@ -148,7 +148,7 @@ var w = ctx.measureText("A").width;
 # Malování: po pixelech
 
 ```js
-var data = ctx.getImageData(x, y, w, h);
+let data = ctx.getImageData(x, y, w, h);
 /* data.data.length == w*h*4 */
 
 data.data[0] = 100; /* R */
@@ -166,13 +166,14 @@ ctx.putImageData(data, 0, 0);
 # Malování: barevné přechody a vzory
 
 ```js
-var g = ctx.createLinearGradient(0, 0, 100, 100);
+let g = ctx.createLinearGradient(0, 0, 100, 100);
 g.addColorStop(0, "red");
 g.addColorStop(1, "blue");
 ctx.fillStyle = g;
 
-var p = ctx.createPattern(image);
-var p = ctx.createPattern(canvas);
+let p;
+p = ctx.createPattern(image);
+p = ctx.createPattern(canvas);
 ctx.fillStyle = p;
 ```
 
@@ -186,7 +187,7 @@ ctx.fillStyle = p;
   - `ctx.rotate(Math.PI/2)`
   - `ctx.translate(dx, dy)`
 
-[Ukázka](http://ondras.zarovi.cz/demos/space-filling/)
+[Ukázka](https://ondras.github.io/space-filling-curves/)
 
 ---
 
@@ -203,7 +204,7 @@ ctx.fillStyle = p;
 # Animace a časování: varianta 1
 
 ```js
-var x = 0;
+let x = 0;
 while (true) {
 	ctx.clearRect();
 	x += 3;
@@ -216,8 +217,8 @@ while (true) {
 
 # Animace a časování: varianta 2
 ```js
-var x = 0;
-var draw = function() {
+let x = 0;
+let draw = function() {
 	ctx.clearRect();
 	x += 3;
 	ctx.drawRect(x, 0, 10, 10);
@@ -231,8 +232,8 @@ setInterval(draw, 1000/30);
 # Animace a časování: varianta 3
 
 ```js
-var x = 0;
-var draw = function() {
+let x = 0;
+let draw = function() {
 	ctx.clearRect();
 	x += 3;
 	ctx.drawRect(x, 0, 10, 10);
@@ -247,11 +248,11 @@ draw();
 # Animace a časování: varianta 4
 
 ```js
-var T = Date.now();
-var speed = 0.1;
+let T = Date.now();
+let speed = 0.1;
 
-var draw = function() {
-	var t = Date.now();
+let draw = function() {
+	let t = Date.now();
 	x += (T - t) * speed;
 	T = t;
 	/* ... */
@@ -262,7 +263,7 @@ var draw = function() {
 
 # Komunikace s dalšími prvky: export
 
-  - `var data = canvas.toDataURL("image/png")`
+  - `let data = canvas.toDataURL("image/png")`
   - Technika *data URI* představuje reprezentaci dat přímo v řetězci URI
   - Možno nastavit např. jako src obrázku
   - [Ukázka](http://ondras.github.io/photo/)
@@ -386,16 +387,16 @@ ctx.fillText("Ahoj", 50, 50);
 # WebRTC: getUserMedia
 
 ```js
-var ok = function(stream) {
+let ok = function(stream) {
 	video.srcObject = stream;
 	video.play();
 }
 
-var error = function(e) {
+let error = function(e) {
 	alert(e);
 }
 
-var options = {audio:true, video:true};
+let options = {audio:true, video:true};
 navigator.mediaDevices.getUserMedia(options).then(ok, error);
 ```
 
