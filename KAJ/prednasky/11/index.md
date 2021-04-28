@@ -74,11 +74,11 @@ div.addEventListener("dragstart", function(e) {
 # Geolocation: API
 
 ```js
-var ok = function(position) {
+let ok = function(position) {
 	alert([position.coords.latitude, position.coords.longitude]);
 }
 
-var error = function(e) {
+let error = function(e) {
 	alert(e.message);
 }
 
@@ -142,8 +142,8 @@ localStorage.removeItem("a");
 # Práce s konstruktorem URL
 
 ```js
-var base = "http://www.seznam.cz/";
-var url = new URL("/a/b.cde?x=y#123", base);
+let base = "http://www.seznam.cz/";
+let url = new URL("/a/b.cde?x=y#123", base);
 
 url.href;          // http://www.seznam.cz/a/b.cde?x=y#123
 url.origin;        // http://www.seznam.cz
@@ -174,12 +174,12 @@ url.searchParams;  // instanceof URLSearchParams
 # File API: náhled obrázku
 
 ```js
-var input = document.createElement("input");
+let input = document.createElement("input");
 input.type = "file";
 
 input.onchange = function(e) {
-	var file = input.files[0];
-	var url = URL.createObjectURL(file);
+	let file = input.files[0];
+	let url = URL.createObjectURL(file);
 	// url = "blob:........"
 	image.src = url;
 }
@@ -190,7 +190,7 @@ input.onchange = function(e) {
 # File API: objekt FileReader
 
 ```js
-var fr = new FileReader();
+let fr = new FileReader();
 fr.addEventListener("load", function(e) {
 	alert(e.target.result);
 });
@@ -242,7 +242,7 @@ fr.readAsText(file);
 # Web Workers
 
 ```js
-var worker = new Worker("script.js");
+let worker = new Worker("script.js");
 
 /* obsah souboru je nyní vykonáván v odděleném vlákně */
 
@@ -254,7 +254,7 @@ worker.terminate();
 # Web Workers: komunikace s workerem
 
 ```js
-var worker = new Worker("script.js");
+let worker = new Worker("script.js");
 
 worker.postMessage({nejaka:"data"});
 
@@ -320,7 +320,7 @@ onmessage = function(e) {
 # Fullscreen API
 
 ```js
-var elem = document.querySelector("#myvideo");
+let elem = document.querySelector("#myvideo");
 
 if (elem.requestFullscreen) {
 	elem.requestFullscreen();
@@ -362,12 +362,12 @@ if (document.exitFullscreen) {
 # FormData
 
 ```js
-var fd = new FormData( [form] );
+let fd = new FormData( [form] );
 
 fd.append("key1", "value");
 fd.append("key2", file, "filename");
 
-var blob = new Blob([data...]);
+let blob = new Blob([data...]);
 fd.append("key3", blob);
 ```
 
@@ -385,16 +385,16 @@ fd.append("key3", blob);
 # IndexedDB
 
 ```js
-var r = indexedDB.open("mojeDB", 1);
+let r = indexedDB.open("mojeDB", 1);
 r.onupgradeneeded = function(e) {
-	var db = e.target.result;
-	var r = db.createObjectStore("tabulka", {autoIncrement:true});
+	let db = e.target.result;
+	let r = db.createObjectStore("tabulka", {autoIncrement:true});
 }
 
 r.onsuccess = function(e) {
-	var db = e.target.result;
-	var t = db.transaction(["tabulka"], "readwrite");
-	var r = t.objectStore("tabulka").add({some:"data"});
+	let db = e.target.result;
+	let t = db.transaction(["tabulka"], "readwrite");
+	let r = t.objectStore("tabulka").add({some:"data"});
 }
 ```
 
@@ -403,12 +403,12 @@ r.onsuccess = function(e) {
 # IndexedDB
 
 ```js
-var r = indexedDB.open("mojeDB", 1);
+let r = indexedDB.open("mojeDB", 1);
 
 r.onsuccess = function(e) {
-	var db = e.target.result;
-	var t = db.transaction(["tabulka"], "readonly");
-	var r = t.objectStore("tabulka").get(1);
+	let db = e.target.result;
+	let t = db.transaction(["tabulka"], "readonly");
+	let r = t.objectStore("tabulka").get(1);
 	r.onsuccess = function(e) {
 		console.log(e.target.result); // {some: "data"}
 	}
