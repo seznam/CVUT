@@ -6,7 +6,7 @@
 	<style media="screen">
 		canvas {
 			background: #efefef;
-			border: 3px groove black;
+			border: 3px solid black;
 			box-shadow: 2px 2px 3px #a0a0a0;
 			cursor: crosshair;
 		}
@@ -16,8 +16,22 @@
 		<script type="text/javascript">
 			/*
 				1. study
-					- CheatSheet https://simon.html5.org/dump/html5-canvas-cheat-sheet.html
 					- MDN Canvas https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API
+						- fillRect
+						- drawImage
+						- clearRect
+					- CheatSheet https://simon.html5.org/dump/html5-canvas-cheat-sheet.html
+					- JS image handling
+						- https://developer.mozilla.org/en-US/docs/Web/API/HTMLImageElement/Image
+						- const image = new Image()
+						- image.src = 'image.src'
+						- image.addEventListener('load')
+					- JS sound handling
+						- https://developer.mozilla.org/en-US/docs/Web/API/HTMLAudioElement/Audio
+						- const sound = new Audio('audio-url.mp3')
+						- sound.play()
+						- sound.pause()
+						- sound.currentTime = 0
 
 				2. create shooter game
 					- draw background
