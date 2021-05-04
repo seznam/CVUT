@@ -2,7 +2,6 @@
 
 ---
 
-
 # Obsah
 
   1. CSS: Grid
@@ -12,13 +11,21 @@
 
 ---
 
+# Příští přednáška je poslední
+
+  - ...ale až za 14 dní
+  - téma bude zvoleno hlasováním
+  - odkaz na hlasovací formulář pošlu po dnešní přednášce
+
+---
+
 # Zkouška!
 
-  - Odehrává se v Seznamu
-  - Radlická 10, Praha 5
-	- Výsledkem zkoušky je skóre v intervalu `<−10, 10>` bodů
-  - První čtyř-termín: 28. 5. 2020 (9:00, 10:00, 11:00, 12:00)
-  - Celkem aktuálně 12 termínů
+  - Odehrává se *doufejme* v Seznamu
+    - Radlická 10, Praha 5
+  - Výsledkem zkoušky je skóre v intervalu `<−10, 10>` bodů
+  - První před-čtyř-termín: 21. 5. 2021 (9:00, 10:00, 11:00, 12:00)
+  - Celkem 16 termínů
   - Další termíny budou vypsány jen v případě absolutní nouze
 
 ---
@@ -150,7 +157,7 @@ a {
   - Zobrazení upozornění na úrovni OS
   - Spolupráce s notifikačním systémem OS
   - Agresivní; nutný souhlas uživatele
-  - `var notification = new Notification(title, options)`
+  - `let notification = new Notification(title, options)`
 
 ---
 
@@ -159,7 +166,7 @@ a {
   - Options: jazyk, tělíčko, ikona
   - Notifikace generuje události, lze ji programově zavřít
   - Souhlas uživatele lze získat asynchronním voláním `Notification.requestPermission`
-  - [Ukázka na MDN](https://developer.mozilla.org/en/docs/Web/API/notification)
+  - [Ukázka](https://davidwalsh.name/demo/notifications-api.php)
 
 ---
 
@@ -189,8 +196,8 @@ a {
 # Web Components: &lt;template&gt;
 
 ```js
-var template = document.querySelector("template");
-var parent = document.body;
+let template = document.querySelector("template");
+let parent = document.body;
 
 parent.appendChild(template.content.cloneNode(true));
 ```
@@ -233,8 +240,8 @@ parent.appendChild(template.content.cloneNode(true));
 ```
 
 ```js
-var map1 = new SznMap({x:..., y:..., control: ...});
-var map2 = document.createElement("szn-map");
+let map1 = new SznMap({x:..., y:..., control: ...});
+let map2 = document.createElement("szn-map");
 
 document.body.appendChild(map1);
 map1.appendChild(map2);
@@ -307,7 +314,7 @@ class MyElement extends HTMLElement {
   - Určuje místo, do kterého se připnou prvky zvenčí umístěné do Shadow host
   - Uživatel appenduje do Shadow host, renderer vykresluje do `<slot>`
   - Jeden Shadow DOM může mít více značek `<slot>`
-  - [Obrázek](http://w3c.github.io/webcomponents/assets/images/distribution.svg)
+  - [Obrázek](https://assets.hongkiat.com/uploads/html-template-slow-tag-shadow-dom/slot-diagram.jpg)
 
 ---
 
