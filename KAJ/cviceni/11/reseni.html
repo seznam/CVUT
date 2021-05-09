@@ -8,14 +8,8 @@
 			body {
 				font-family: Arial, sans-serif;
 			}
-			section {
-				display: none;
-			}
-			section.is-visible {
-				display: block;
-			}
 			#dnd {
-				height:70px;
+				height: 70px;
 				border-radius: 50px;
 				border: 2px dotted #a0a0a0;
 				display: flex;
@@ -41,14 +35,14 @@
 
 		<hr>
 
-		<section data-route="accesslog">
+		<section hidden data-route="accesslog">
 			<h2>Log</h2>
 
 			<h2>History entries</h2>
 			<ul id="history-entries"></ul>
 		</section>
 
-		<section data-route="imageinfo">
+		<section hidden data-route="imageinfo">
 			<h2>Image Info</h2>
 
 			<div id="dnd"></div>
@@ -56,7 +50,7 @@
 			<div id="imgCnt"></div>
 		</section>
 
-		<section data-route="404">
+		<section hidden data-route="404">
 			<h2>Not found</h2>
 			<p>Unknown page</p>
 		</section>
@@ -159,12 +153,12 @@
 				}
 
 				pageShow() {
-					this.pageElement.classList.add("is-visible");
+					this.pageElement.removeAttribute("hidden");
 					document.title = this.title
 				}
 
 				pageHide() {
-					this.pageElement.classList.remove("is-visible")
+					this.pageElement.setAttribute("hidden", "hidden");
 				}
 			}
 
