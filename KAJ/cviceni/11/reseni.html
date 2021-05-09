@@ -34,21 +34,21 @@
 
 		<nav>
 			<ul>
-				<li><a href="#accesslog">Log</a></li>
-				<li><a href="#imageinfo">Image Info</a></li>
+				<li><a data-route-link href="?page=accesslog">Log</a></li>
+				<li><a data-route-link href="?page=imageinfo">Image Info</a></li>
 			</ul>
 		</nav>
 
 		<hr>
 
-		<section data-route="#accesslog">
+		<section data-route="accesslog">
 			<h2>Log</h2>
 
 			<h2>History entries</h2>
 			<ul id="history-entries"></ul>
 		</section>
 
-		<section data-route="#imageinfo">
+		<section data-route="imageinfo">
 			<h2>Image Info</h2>
 
 			<div id="dnd"></div>
@@ -56,143 +56,219 @@
 			<div id="imgCnt"></div>
 		</section>
 
+		<section data-route="404">
+			<h2>Not found</h2>
+			<p>Unknown page</p>
+		</section>
 
 		<script type="text/javascript">
 			/*
-				LocalStorage
-					https://developer.mozilla.org/en/docs/Web/API/Window/localStorage
-
+				URL
+					https://developer.mozilla.org/en-US/docs/Web/API/URL
+				URLSearchParams
+					https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
 				History API
 					https://developer.mozilla.org/en-US/docs/Web/API/History_API
 
+				LocalStorage
+					https://developer.mozilla.org/en/docs/Web/API/Window/localStorage
+
 				File API
 					https://developer.mozilla.org/en-US/docs/Web/API/File
-
 				Filereader API
 					https://developer.mozilla.org/en-US/docs/Web/API/FileReader
-
 				Drag'n'Drop API
 					https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
-
 			*/
 
 			/*
-				1. Routing
-					- There will be two pages, each of them is already in the HTML as sections with data-route attribute
-					- Hide these pages by default with css or javascript
-					- Look at URL and decide which page to display, by default show the "accesslog" page
-						Look at History API link
-					- Re-render when browser URL changes, either by user clicking on link or by pressing browsers back/forward button
-						Look at popstate event on window and use addEventListener to listen on that event
-				2. LocalStorage
+				1. Page class
+					- Implement page class that takes
+						- page `key` parameter
+						- page `title` parameter
+					- By the key parameter, it finds the page element and stores it
+					- Implements pageShow and pageHide methods that shows/hides the pages
+				2. Router class
+					- That takes
+						- list of page instances
+						- default page (page key)
+					- Does initial routing based on window.location.href and decides which page to show
+						- Takes into account the `?page=something` query parameter
+						- Takes into account the the default page
+						- Otherwise returns 404 page
+					- Does routing on `popstate` event
+					- Does routing on click on `a` elements with `data-route-link` attribute
+					- On each routing it hides previous page, shows current page
+				3. LocalStorage page
 					- Take a look at LocalStorage API
 					- In local storage - save every user access of website, when he comes to the page save the date he came
 					- On "accesslog" page display all of the dates he accessed the page
-				3. File API and Drag'n'Drop
+				4. File API and Drag'n'Drop page
 					- On second page use Drag and Drop API so user can drag and drop image to the rectangle
 					- When user drops image, use File Reader API to read and display name, size and type of image
             */
 
-			class MyApp {
-				constructor() {
-					this.pages = document.querySelectorAll("section");
+			class Router {
+				constructor({pages, defaultPage}) {
+					this.pages = pages;
+					this.defaultPage = defaultPage;
+					this.currentPage = null
 
 					// first run
-					this.route();
+					this.route(window.location.href);
 
-					// listen on url and history change
+					// listen on url changes from user clicking back button
 					window.addEventListener('popstate', e => {
-						this.route();
+						this.route(window.location.href);
 					});
 
-					// get stored data
+					// listen on url changes from user clicks
+ 					window.addEventListener('click', e => {
+						const element = e.target
+						if (element.nodeName === 'A' && element.getAttribute('data-route-link')) {
+							e.preventDefault();
+							this.route(element.href);
+							window.history.pushState(null, null, element.href)
+						}
+					});
+				}
+
+				route(urlString) {
+					const url = new URL(urlString)
+					const page = url.searchParams.get('page')
+
+					if (this.currentPage) {
+						this.currentPage.pageHide()
+					}
+
+					const page404 = this.pages.find(p => p.key === '404')
+					const pageInstanceMatched = this.pages.find(p => p.key === (page ?? this.defaultPage))
+					const currentPage = pageInstanceMatched ?? page404
+
+					this.currentPage = currentPage
+					this.currentPage.pageShow()
+				}
+
+			}
+
+			class Page {
+				constructor({key, title}) {
+					this.pageElement = document.querySelector(`section[data-route="${key}"]`)
+					this.title = title
+					this.key = key
+				}
+
+				pageShow() {
+					this.pageElement.classList.add("is-visible");
+					document.title = this.title
+				}
+
+				pageHide() {
+					this.pageElement.classList.remove("is-visible")
+				}
+			}
+
+
+			class PageLog extends Page {
+				constructor(settings) {
+					super(settings)
+
+					this.log = [];
+				}
+
+				pageShow() {
+					super.pageShow()
+
 					this.log = JSON.parse(localStorage.getItem("log")) || [];
 					this.logVisit();
 					this.showLog();
-
-					const dnd = document.querySelector("#dnd");
-					dnd.addEventListener("drop", e => this.showImg(e));
-					dnd.addEventListener("dragover", e => e.preventDefault());
 				}
 
-				// switch screens
-				route() {
-					const hash = window.location.hash;
-
-					switch(hash) {
-						case "#accesslog": this.changePage(hash) ;break;
-						case "#imageinfo": this.changePage(hash); break;
-						default: this.changePage("#accesslog"); break;
-					}
-
-					document.title = window.location.hash
-				}
-
-				changePage (section) {
-					this.pages.forEach(page => {
-						if (page.getAttribute("data-route") == section) {
-							page.classList.add("is-visible");
-						} else {
-							page.classList.remove("is-visible")
-						}
-					})
-				}
-
-				// store actual date
 				logVisit () {
 					const date = new Date().toLocaleString("cs-CS");
 					this.log.push(date);
 					localStorage.setItem("log", JSON.stringify(this.log));
 				}
 
-				// write to page all stored items
 				showLog () {
 					const target = document.querySelector('#history-entries');
 
+					target.innerHTML = ''
 					for (const date of this.log) {
 						const li = document.createElement('li');
 						li.innerHTML = date;
 						target.appendChild(li);
 					}
 				}
+			}
 
-				// load and show image for disk
-				showImg (e) {
+			class PageImage extends Page {
+				constructor(settings) {
+					super(settings)
+
+					this.log = null;
+				}
+
+				pageShow() {
+					const dnd = document.querySelector("#dnd");
+					dnd.addEventListener("drop", this.onDrop);
+					dnd.addEventListener("dragover", this.onDragOver);
+
+					super.pageShow()
+				}
+
+				pageHide() {
+					dnd.removeEventListener("drop", this.onDrop);
+					dnd.removeEventListener("dragover", this.onDragOver);
+
+					super.pageHide()
+				}
+
+				onDragOver (e) {
+					e.preventDefault();
+				}
+
+				onDrop (e) {
 					e.preventDefault();
 					const files = e.dataTransfer.files;
 
-					const imgCnt = document.querySelector("#imgCnt");
+					const imgContent = document.querySelector("#imgCnt");
 					const imgInfo = document.querySelector("#imgInfo");
+					imgInfo.innerHTML = ''
 
 					for (const f of files) {
-						if (f.type.indexOf("image") != -1) {
-							const fr = new FileReader();
-							fr.addEventListener("load", e => {
-								const i = new Image();
-								i.addEventListener("load", e=> {
-									i.width = Math.min (i.naturalWidth, window.innerWidth-20);
-								})
-								i.src = fr.result;
-								imgCnt.appendChild(i);
-
-								const li = document.createElement('li');
-								li.innerHTML =
-								`type: ${f.type} \n
-								 size: ${f.size} \n
-								 name: ${f.name}
-								`;
-								imgInfo.appendChild(li);
-							})
-							fr.readAsDataURL(f);
+						if (!f.type.includes("image")) {
+							continue
 						}
+
+						const fr = new FileReader();
+						fr.addEventListener("load", e => {
+							const i = new Image();
+							i.addEventListener("load", e=> {
+								i.width = Math.min (i.naturalWidth, window.innerWidth-20);
+							})
+							i.src = fr.result;
+							imgContent.appendChild(i);
+
+							const li = document.createElement('li');
+							li.innerText = `type: ${f.type} | size: ${f.size} | name: ${f.name}`
+							imgInfo.appendChild(li);
+						})
+						fr.readAsDataURL(f);
 					}
 				}
-
 			}
 
-			// run
-			new MyApp();
+			class PageNotFound extends Page {}
 
+			new Router({
+				pages: [
+					new PageLog({key: 'accesslog', title: 'Access log'}),
+					new PageImage({key: 'imageinfo', title: 'Image info'}),
+					new PageNotFound({key: '404', title: 'Page not found'})
+				],
+				defaultPage: 'accesslog'
+			});
 		</script>
 	</body>
 </html>
