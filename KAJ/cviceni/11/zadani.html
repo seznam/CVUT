@@ -28,32 +28,14 @@
 
 		<nav>
 			<ul>
-				<li><a data-route-link href="?page=accesslog">Log</a></li>
-				<li><a data-route-link href="?page=imageinfo">Image Info</a></li>
+				<li><a href="?page=accesslog">Log</a></li>
+				<li><a href="?page=imageinfo">Image Info</a></li>
 			</ul>
 		</nav>
 
 		<hr>
 
-		<section hidden data-route="accesslog">
-			<h2>Log</h2>
-
-			<h2>History entries</h2>
-			<ul id="history-entries"></ul>
-		</section>
-
-		<section hidden data-route="imageinfo">
-			<h2>Image Info</h2>
-
-			<div id="dnd"></div>
-			<ul id="imgInfo"></ul>
-			<div id="imgCnt"></div>
-		</section>
-
-		<section hidden data-route="404">
-			<h2>Not found</h2>
-			<p>Unknown page</p>
-		</section>
+		<main id="content"></main>
 
 		<script type="text/javascript">
 			/*
@@ -76,12 +58,35 @@
 			*/
 
 			/*
+			Page templates
+
+				accesslog
+					<h2>Log</h2>
+
+					<h2>History entries</h2>
+					<ul id="history-entries"></ul>
+
+				imageinfo
+					<h2>Image Info</h2>
+
+					<div id="dnd"></div>
+					<ul id="imgInfo"></ul>
+					<div id="imgCnt"></div>
+
+				404
+					<h2>Not found</h2>
+					<p>Unknown page</p>
+
+			*/
+
+			/*
 				1. Page class
 					- Implement page class that takes
 						- page `key` parameter
 						- page `title` parameter
 					- By the key parameter, it finds the page element and stores it
 					- Implements pageShow and pageHide methods that shows/hides the pages
+					- Implement render method to render the HTML
 				2. Router class
 					- That takes
 						- list of page instances
@@ -90,9 +95,8 @@
 						- Takes into account the `?page=something` query parameter
 						- Takes into account the the default page
 						- Otherwise returns 404 page
+					- Does routing on click on `a` elements
 					- Does routing on `popstate` event
-					- Does routing on click on `a` elements with `data-route-link` attribute
-					- On each routing it hides previous page, shows current page
 				3. LocalStorage page
 					- Take a look at LocalStorage API
 					- In local storage - save every user access of website, when he comes to the page save the date he came
@@ -102,13 +106,21 @@
 					- When user drops image, use File Reader API to read and display name, size and type of image
             */
 
-			class Router {}
+			class Router {
+			}
 
-			class Page {}
+			class Page {
+			}
 
-			class PageLog extends Page {}
-			class PageImage extends Page {}
-			class PageNotFound extends Page {}
+
+			class PageLog extends Page {
+			}
+
+			class PageImage extends Page {
+			}
+
+			class PageNotFound extends Page {
+			}
 
 			new Router({
 				pages: [
