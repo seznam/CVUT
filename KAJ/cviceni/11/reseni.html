@@ -124,7 +124,7 @@
 					// listen on url changes from user clicks
  					window.addEventListener('click', e => {
 						const element = e.target
-						if (element.nodeName === 'A' && element.getAttribute('data-route-link')) {
+						if (element.nodeName === 'A') {
 							e.preventDefault();
 							this.route(element.href);
 							window.history.pushState(null, null, element.href)
