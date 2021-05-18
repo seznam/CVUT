@@ -111,9 +111,30 @@ speechSynthesis.speak(utterance);
 
 - Rozpoznávání odesláním kamsi do cloudu
 - Možnost/nutnost zadat jazyk
-- [Demo](https://jsfiddle.net/214d3qme/2/)
+- [Demo](https://jsfiddle.net/ondras/4ovmyxz9/)
 - Jen Chrome+Edge+Safari
 - Jen prefixovaná varianta
+
+---
+
+# Web Speech &ndash; Recognition
+
+```js
+const SR = window.SpeechRecognition || window.webkitSpeechRecognition
+let r = new SR()
+
+r.lang = "cs"
+r.interimResults = false
+r.maxAlternatives = 1
+r.start()
+
+r.addEventListener("speechend", e => r.stop())
+
+r.addEventlistener("result", e => {
+	let alt = event.results[0][0]
+	console.log(alt.transcript, alt.confidence)
+})
+```
 
 ---
 
@@ -170,6 +191,44 @@ window.addEventListener("devicemotion", e => {
 - [Demo](https://jsfiddle.net/uccpaLd3/)
 - [`type`](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/type)
 - [`effectiveType`](https://developer.mozilla.org/en-US/docs/Web/API/NetworkInformation/effectiveType)
+
+---
+
+# Gamepad API
+
+- Čtení stavu připojených herních ovladačů
+- Není řízeno událostmi (!), s výjimkou připojení a odpojení ovladače
+- https://developer.mozilla.org/en-US/docs/Web/API/Gamepad_API/Using_the_Gamepad_API
+
+```js
+let gp = navigator.getGamepads()[0]
+
+console.log(gp.buttons.length)
+console.log(gp.buttons[0].value])  // 0..1
+
+console.log(gp.axes.length)
+console.log(gp.axes[0])  // -1..1
+```
+
+---
+
+# File System Access API
+
+- Několikátý pokus o standard
+  - Dříve: `Filesystem`, `FileSystem`, `File and Directory Entries`
+- Fakticky není nikde kompletně implementováno
+- https://developer.mozilla.org/en-US/docs/Web/API/File_System_Access_API
+- Čtení, zápis, iterace
+- Taktéž *Origin Private File System*
+
+```js
+async function getFile() {
+	let [fileHandle] = await window.showOpenFilePicker()
+	if (fileHandle.kind == "file") {
+		return fileHandle.getFile()
+	}
+}
+```
 
 ---
 
