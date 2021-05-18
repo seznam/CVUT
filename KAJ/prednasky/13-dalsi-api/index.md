@@ -141,9 +141,11 @@ r.addEventlistener("result", e => {
 # Web Midi
 
 - Přístup k MIDI I/O zařízením
-- Čtení MIDI událostí
-- Generování MIDI událostí
-- [Demo](https://webaudiodemos.appspot.com/midi-synth/index.html)
+- Užitečné pravděpodobně jen pro hudebníky
+	- Čtení MIDI událostí (kompozice, nahrávání)
+	- Generování MIDI událostí (přehrávání, řízení)
+- Minimální API, fakticky realizované jednou událostí (`midimessage`) a jednou metodou (`send()`)
+- https://www.w3.org/TR/webmidi/
 
 ---
 
@@ -174,7 +176,6 @@ r.addEventlistener("result", e => {
 window.addEventListener("deviceorientation", e => {
 	console.log(`${event.alpha} : ${event.beta} : ${event.gamma}`)
 })
-
 
 window.addEventListener("devicemotion", e => {
 	const a = e.acceleration
