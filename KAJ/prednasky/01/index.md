@@ -385,6 +385,38 @@ input.id = "foo";
 
 ---
 
+# DOM: "nové" rozhraní ParentNode
+
+...i DOM prochází průběžnou modernizací.
+
+```js
+let p = document.querySelector("p");
+
+let strong = document.createElement("strong");
+p.append("AAA", strong, "BBB");
+
+p.prepend(strong, "test");
+
+console.log(p.children); // pouze značky, nikoliv text
+```
+
+---
+
+# DOM: "nové" rozhraní ChildNode
+
+```js
+let p1 = document.querySelector("p");
+p1.remove();
+
+let p2 = document.querySelector("p");
+p2.replaceWith(p1, "test");
+
+p2.before("AAA", "BBB", p3);
+p2.after("AAA", "BBB", p3);
+```
+
+---
+
 # DOM: práce s atributem `class`
 
 ```js
