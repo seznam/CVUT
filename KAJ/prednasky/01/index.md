@@ -37,21 +37,11 @@ Tvorba klientských aplikací v JavaScriptu
 
 # Organizace
 
-  - Klasifikovaný zápočet či zkouška
+  - Zkouška
   - Semestrální práce
   - Přednášky: RNDr. Ondřej Žára, Seznam.cz
   - Cvičení: Bc. Zdeněk Vlach, Seznam.cz
   - Cvičení: Bc. Petr Huřťák, <del>Seznam.cz</del>
-
----
-
-# 😷 Organizace 😷
-
-  - Nikdo neví
-  - Plán:
-    - přednášky na Teams a/nebo se zvukovým doprovodem
-    - cvičení na Teams
-    - zkouška prezenčně
 
 ---
 
@@ -86,6 +76,7 @@ Tvorba klientských aplikací v JavaScriptu
   - Vydává <a href="https://www.albatrosmedia.cz/tituly/29109959/java-script/">cpress.cz</a>
   - Určeno pro zájemce o JavaScript po absolvování základního kurzu
   - Povětšinou jen JS, méně DOM rozhraní
+  - Psáno v době ES5 (2014): z dnešního pohledu je syntaxe jazyka zastaralá
 
 ---
 
@@ -126,22 +117,22 @@ https://html.spec.whatwg.org/
 	</thead>
 	<tbody>
 		<tr>
-			<td>Mozilla Firefox</td><td>85</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
+			<td>Mozilla Firefox</td><td>97</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
 		</tr>
 		<tr>
-			<td>Google Chrome</td><td>88</td><td>Blink/WebKit</td><td>V8</td><td></td>
+			<td>Google Chrome</td><td>98</td><td>Blink/WebKit</td><td>V8</td><td></td>
 		</tr>
 		<tr>
-			<td>Apple Safari</td><td>14</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
+			<td>Apple Safari</td><td>15</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
 		</tr>
 		<tr>
 			<td>Microsoft Internet Explorer</td><td>11</td><td>Trident</td><td>Chakra</td><td>Zajímavý až od verze 9</td>
 		</tr>
 		<tr>
-			<td>Microsoft Edge</td><td>18/88</td><td>EdgeHTML/Blink</td><td>Chakra/V8</td><td></td>
+			<td>Microsoft Edge</td><td>18/98</td><td>EdgeHTML/Blink</td><td>Chakra/V8</td><td></td>
 		</tr>
 		<tr>
-			<td>Opera</td><td>12/72</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
+			<td>Opera</td><td>12/83</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
 		</tr>
 	</tbody>
 </table>
@@ -191,7 +182,7 @@ https://html.spec.whatwg.org/
 
 ```js
 if (!("onhashchange" in window)) {
-	var oldHash = window.hash;
+	let oldHash = window.hash;
 	setInterval(function() {
 		if (window.hash == oldHash) return;
 		oldHash = window.hash;
@@ -232,13 +223,13 @@ Více info v [kompletní dokumentaci](https://developer.mozilla.org/en-US/docs/W
 # JS: iterace struktur/objektů
 
 ```js
-var data = {
+let data = {
 	jmeno: "Eva",
 	prijmeni: "Stará",
 	vek: 74
 };
 
-for (var p in data) {
+for (let p in data) {
 	console.log(p); // "jmeno", "prijmeni", "vek"
 }
 ```
@@ -248,16 +239,16 @@ for (var p in data) {
 # JS: iterace polí
 
 ```js
-var data = [15, "babicka", true];
+let data = [15, "babicka", true];
 
 // spravne
-for (var i=0; i<data.length; i++) {
+for (let i=0; i<data.length; i++) {
 	console.log(i); // 0, 1, 2
 	console.log(data[i]); // 15, "babicka", true
 }
 
 // spatne – ale proc?
-for (var p in data) {
+for (let p in data) {
 	console.log(p); // 0, 1, 2
 }
 ```
@@ -287,7 +278,7 @@ for (var p in data) {
 # JS: funkcionální iterace I
 
 ```js
-var data = [15, "babicka", true];
+let data = [15, "babicka", true];
 
 // anonymni funkce
 data.forEach(function(item, index) {
@@ -306,13 +297,13 @@ data.forEach(log); // 0, 1, 2
 # JS: funkcionální iterace II
 
 ```js
-var data = [1, 2, 3];
+let data = [1, 2, 3];
 
 function square(x) { return x*x; }
-var data2 = data.map(square); // 1, 4, 9
+let data2 = data.map(square); // 1, 4, 9
 
 function odd(x) { return x % 2; }
-var data3 = data.filter(odd); // 1, 3
+let data3 = data.filter(odd); // 1, 3
 ```
 
 ---
@@ -320,7 +311,7 @@ var data3 = data.filter(odd); // 1, 3
 # JS: funkcionální iterace III
 
 ```js
-var data = [1, 2, 3];
+let data = [1, 2, 3];
 
 function odd(x) { return x % 2; }
 data.every(odd);  // false
@@ -345,7 +336,7 @@ data.reduce(add); // 6
 # JS: IIFE
 ```js
 (function(){
-	var document = "test"; // lokalni promenna
+	let document = "test"; // lokalni promenna
 	alert(document);       // "test"
 })();
 
@@ -365,7 +356,7 @@ alert(document);           // [object HTMLDocument]
 # DOM: úpravy podstromu
 
 ```js
-var p = document.querySelector("p");
+let p = document.querySelector("p");
 
 // HTML parser, pozor na XSS!
 p.innerHTML = "<strong>toto je test</strong>";
@@ -379,15 +370,15 @@ p.textContent = "<strong>toto je test</strong>";
 # DOM: tvorba nových prvků
 
 ```js
-var p = document.querySelector("p");
+let p = document.querySelector("p");
 
-var strong = document.createElement("strong");
+let strong = document.createElement("strong");
 p.appendChild(strong);
 
-var text = document.createTextNode("toto je test");
+let text = document.createTextNode("toto je test");
 p.appendChild(text);
 
-var input = document.createElement("input");
+let input = document.createElement("input");
 input.type = "number";
 input.id = "foo";
 ```
@@ -397,7 +388,7 @@ input.id = "foo";
 # DOM: práce s atributem `class`
 
 ```js
-var p = document.querySelector("p");
+let p = document.querySelector("p");
 
 p.className = "class1";
 
