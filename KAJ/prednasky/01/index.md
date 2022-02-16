@@ -99,7 +99,7 @@ https://html.spec.whatwg.org/
   - Editor Ian Hickson
   - Aktuálně <del><em>Working Draft</em></del> <em>Recommendation</em>
   - <em>Living standard</em>
-  - téměř 9MB textu, 85k řádek
+  - téměř 12MB textu, 88k řádek
   - Vývoj pomocí mailinglistu <a href="mailto:whatwg@whatwg.org">whatwg@whatwg.org</a>
   - <em>Dozorčí rada</em> (WHATWG members)
   - 2004 – <del>2022</del> 2014
