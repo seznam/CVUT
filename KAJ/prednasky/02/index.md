@@ -30,11 +30,11 @@
   - Předávané hodnotou
 
 ```js
-var a = 3;
-var b = 0.1 + 0.2;
-var c = "ahoj" + 'ahoj';
-var e = null;
-var f = undefined;
+let a = 3;
+let b = 0.1 + 0.2;
+let c = "ahoj" + 'ahoj';
+let e = null;
+let f = undefined;
 ```
 ---
 
@@ -46,11 +46,11 @@ var f = undefined;
   - Předávané odkazem
 
 ```js
-var a = {};               /* prázdný objekt */
-var b = {c:3, "d":"hi"};
-var e = [a, b];           /* pole o dvou položkách */
-var f = function() {};
-var g = /^.*/;            /* regulární výraz */
+let a = {};               // prázdný objekt
+let b = {c:3, "d":"hi"};
+let e = [a, b];           // pole o dvou položkách
+let f = function() {};
+let g = /^.*/;            // regulární výraz
 ```
 ---
 
@@ -62,8 +62,8 @@ var g = /^.*/;            /* regulární výraz */
   - *Type coercion*
 
 ```js
-var a = 1 + "dva";
-var b = {} + {};
+let a = 1 + "dva";
+let b = {} + {};
 if (0 == "") { /* ... */ }
 if (undefined == null)  { /* ... */ }
 if (undefined === null) { /* ... */ }
@@ -78,8 +78,8 @@ if (undefined === null) { /* ... */ }
   - Pole je též objekt
 
 ```js
-var pole1 = [3, 2, 1];
-var pole2 = [];
+let pole1 = [3, 2, 1];
+let pole2 = [];
 
 pole1.length == 3;
 pole1[1]     == 2;
@@ -95,7 +95,7 @@ pole2.push(pole1);
   - Funkce je též objekt
 
 ```js
-var add = function(a, b) { return a+b; }
+let add = function(a, b) { return a+b; }
 add.c = 123;
 add(add.c, add["c"]);
 ```
@@ -109,8 +109,8 @@ add(add.c, add["c"]);
   - Proměnná existuje v rámci své funkce a všech jejích podfunkcí
 
 ```js
-var outer = function(a, b) {
-	var inner = function(x) { return 2*x; }
+let outer = function(a, b) {
+	let inner = function(x) { return 2*x; }
 	return a + inner(b);
 }
 ```
@@ -123,13 +123,13 @@ var outer = function(a, b) {
   - Vznikne *uzávěra*
 
 ```js
-var outer = function(a, b) {
-	var inner = function() { return 2*b; }
+let outer = function(a, b) {
+	let inner = function() { return 2*b; }
 	return a + inner();
 }
 
-var outer = function(a, b) {
-	var inner = function() { return 2*b; }
+let outer = function(a, b) {
+	let inner = function() { return 2*b; }
 	return inner;
 }
 ```
@@ -142,14 +142,14 @@ var outer = function(a, b) {
   - Zásadní rozdíl oproti jiným: hodnota je určena při volání
 
 ```js
-var fun = function() { alert(this); }
-fun(); /* ? */
+let fun = function() { alert(this); }
+fun();  // ?
 
-var obj1 = { fun:fun };
-var obj2 = { fun:fun };
+let obj1 = { fun:fun };
+let obj2 = { fun:fun };
 
-obj1.fun(); /* this == obj1 */
-obj2.fun(); /* this == obj2 */
+obj1.fun();  // this == obj1
+obj2.fun();  // this == obj2
 
 fun == obj1.fun == obj2.fun
 ```
@@ -163,13 +163,13 @@ fun == obj1.fun == obj2.fun
   - This lze explicitně určit
 
 ```js
-var fun = function() { alert(this); }
+let fun = function() { alert(this); }
 
-var obj1 = {};
-var obj2 = {};
+let obj1 = {};
+let obj2 = {};
 
-fun.call(obj1, arg1, ...);    /* this == obj1 */
-fun.apply(obj2, [arg1, ...]); /* this == obj2 */
+fun.call(obj1, arg1, ...);     // this == obj1
+fun.apply(obj2, [arg1, ...]);  // this == obj2
 ```
 ---
 
@@ -178,16 +178,16 @@ fun.apply(obj2, [arg1, ...]); /* this == obj2 */
 
   - Dva objekty je možno provázat
 ```js
-var obj1 = { klic:"hodnota" }; var obj2 = {};
+let obj1 = { klic:"hodnota" }; let obj2 = {};
 obj2.vazba = obj1;
-alert(obj2.vazba.klic); /* "hodnota" */
+alert(obj2.vazba.klic);  // "hodnota"
 ```
   - Existuje speciální neviditelná vazba, zvaná "prototype link"
   - Použije se při přístupu k neexistujícím vlastnostem
 ```js
-var obj1 = { klic:"hodnota" };
-var obj2 = Object.create(obj1);
-alert(obj2.klic); /* "hodnota" */
+let obj1 = { klic:"hodnota" };
+let obj2 = Object.create(obj1);
+alert(obj2.klic);  // "hodnota"
 
 obj2.__proto__ == obj1;
 ```
@@ -202,15 +202,15 @@ obj2.__proto__ == obj1;
   - Více prototype linků = prototype chain
 
 ```js
-var obj1 = { klic:"hodnota" };
-var obj2 = Object.create(obj1);
-var obj3 = Object.create(obj2);
+let obj1 = { klic:"hodnota" };
+let obj2 = Object.create(obj1);
+let obj3 = Object.create(obj2);
 obj3.klic = "jina hodnota";
 obj1.jinyKlic = "jeste jina hodnota";
 
-alert(obj2.klic);     /* "hodnota" */
-alert(obj3.klic);     /* "jina hodnota" */
-alert(obj3.jinyKlic); /* "jeste jina hodnota" */
+alert(obj2.klic);      // "hodnota"
+alert(obj3.klic);      // "jina hodnota"
+alert(obj3.jinyKlic);  // "jeste jina hodnota"
 ```
 ---
 
@@ -221,7 +221,6 @@ alert(obj3.jinyKlic); /* "jeste jina hodnota" */
 
 ---
 
-
 # Pilíř 3: Prototype chain
 
   - Neexistuje koncept tříd
@@ -230,7 +229,6 @@ alert(obj3.jinyKlic); /* "jeste jina hodnota" */
   - Objekt (instance) = objekty s prototypovým odkazem na rodiče
 
 ---
-
 
 # Operátor new
 
@@ -242,18 +240,17 @@ alert(obj3.jinyKlic); /* "jeste jina hodnota" */
 
 ---
 
-
 # Operátor new
 
 [diagram](img/prototype.svg)
 
 ```js
-var F = function() {
+let F = function() {
 	this.a = 1;
 }
 F.prototype.b = 2;
 
-var f = new F();
+let f = new F();
 f.c = 3;
 ```
 ---
@@ -268,20 +265,19 @@ f.c = 3;
 
 ---
 
-
 # Dědičnost pomocí prototypů
 
 [diagram](img/inheritance.svg)
 
 ```js
-var Parent = function() {}
+let Parent = function() {}
 Parent.prototype.hi = function() { return "hello"; }
 
-var Child = function() {}
+let Child = function() {}
 Child.prototype = Object.create(Parent.prototype);
 /* alternativně: Child.prototype = new Parent(); */
 
-var ch = new Child();
+let ch = new Child();
 ch.hi(); /* "hello" */
 ```
 
@@ -291,9 +287,9 @@ ch.hi(); /* "hello" */
 
 ```js
 String.prototype.lpad = function(what, length) {
-  var count = length - this.length;
-  var padding = "";
-  for (var i=0; i<count; i++) { padding += what; }
+  let count = length - this.length;
+  let padding = "";
+  for (let i=0; i<count; i++) { padding += what; }
   return padding + this;
 }
 ```
@@ -304,7 +300,7 @@ String.prototype.lpad = function(what, length) {
 
 ```js
 Array.prototype.random = function() {
-  var index = Math.random()*this.length;
+  let index = Math.random()*this.length;
   return this[Math.floor(index)];
 }
 ```
@@ -321,13 +317,13 @@ Array.prototype.random = function() {
 # bind
 
 ```js
-var f1 = function() { alert(this.name); }
-var foo = { name:"foo" }
-var bar = { name:"bar" }
-f1.call(foo); /* "foo" */
+let f1 = function() { alert(this.name); }
+let foo = { name:"foo" }
+let bar = { name:"bar" }
+f1.call(foo);  // "foo"
 
 var f2 = f1.bind(bar);
-f2() /* "bar" */
+f2()  // "bar"
 ```
 
 ---
@@ -341,12 +337,11 @@ f2() /* "bar" */
 
 ---
 
-
 # bind
 
 ```js
 Function.prototype.bind = function(newThis) {
-	var func = this;
+	let func = this;
 	return function() {
 		return func.apply(newThis, arguments);
 	}
@@ -354,19 +349,18 @@ Function.prototype.bind = function(newThis) {
 ```
 ---
 
-
 # bind &ndash; využití
 
 ```js
-var Obj = function() {}
+let Obj = function() {}
 Obj.prototype.foo = function() {}
 
-var bar = new Obj();
+let bar = new Obj();
 setTimeout(bar.foo, 100);
 
 setTimeout(bar.foo.bind(bar), 100);
 
-/* dtto addEventListener atp. */
+// dtto addEventListener atp.
 ```
 
 ---
@@ -378,7 +372,7 @@ Víte, co a proč udělá tato funkce?
 ```js
 function s(a) {
     while (a.length) {
-        var v = a.shift();
+        let v = a.shift();
         setTimeout(a.push.bind(a, v), v);
     }
 }
