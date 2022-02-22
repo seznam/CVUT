@@ -322,7 +322,7 @@ let foo = { name:"foo" }
 let bar = { name:"bar" }
 f1.call(foo);  // "foo"
 
-var f2 = f1.bind(bar);
+let f2 = f1.bind(bar);
 f2()  // "bar"
 ```
 
