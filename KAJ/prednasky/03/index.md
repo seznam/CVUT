@@ -28,7 +28,7 @@
   - V roce 2016 vznikla další verze ES7 / ES2016
   - V roce 2017 vznikla další verze ES8 / ES2017
   - ...
-  - Aktuálně práce na ES2021
+  - Aktuálně práce na ES2022
 
 ---
 
@@ -471,6 +471,16 @@ Object.assign(target, { source: "data" });
   - BigInt, celá čísla s neomezenou velikostí
   - Optional chaining (`a?.b?.c`)
   - Operátor `??` (*nullish coalescing*)
+
+---
+
+# ES 2021
+
+  - `Promise.any()`
+  - `String.prototype.replaceAll()`
+  - Podtržítkové oddělovače čísel
+  - GC API: `WeakRef`, `FinalizationRegistry`
+  - Operátory `&&=`, `||=`, `??=`
 
 ---
 
