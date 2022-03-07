@@ -18,7 +18,7 @@
 
   - Alternativní způsob řízení toku programu
   - *Event-based programming*
-  - `Až nastane X, udělej Y`
+  - *Až nastane X, udělej Y*
 
 ---
 
@@ -34,7 +34,7 @@ document.body.addEventListener("click", func, false);
 
 # Události: opáčko
 
-Co je na událostech zajimavého?
+Co je na událostech zajímavého?
 
   - Na jakých vznikají prvcích?
   - Jaké existují?
@@ -55,26 +55,25 @@ Co je na událostech zajimavého?
 
   - `keydown`, `keypress`, `keyup`
   - Modifikátory `ctrlKey`, `altKey`, `shiftKey`, `metaKey`
-  - Stisk a uvolnění obsahuje `keyCode`
-    - Identifikátor klávesy na klávesnici (int)
-    - Seznam na [https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode)
-  - Tištitelný keypress obsahuje `charCode`
-    - Unicode code point znaku (int)
-    - `String.fromCharCode` převede na znak
-
----
-
-# Události klávesnice
-
-  - Dělení na keydown/keypress se ukázalo jako nepraktické
-  - Dělení na tištitelné/netištitelné se ukázalo jako nepraktické
-  - Aktuálně probíhá implementace upraveného API, ve kterém je jen keydown/keyup
   - Vlastnost `key`
     - Identifikátor stisklé logické klávesy (string)
     - Seznam na [https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/key/Key_Values)
   - Vlastnost `code`
     - Identifikátor stisklé fyzické (hardwarové) klávesy
     - Stejná množina hodnot jako u `key`
+
+---
+
+# Události klávesnice
+
+Staré, zpětně kompatibilní API
+
+  - Stisk a uvolnění obsahuje `keyCode`
+    - Identifikátor klávesy na klávesnici (int)
+    - Seznam na [https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode](https://developer.mozilla.org/en-US/docs/Web/API/KeyboardEvent/keyCode)
+  - Tištitelný keypress obsahuje `charCode`
+    - Unicode code point znaku (int)
+    - `String.fromCharCode` převede na znak
 
 ---
 
@@ -157,8 +156,8 @@ window.addEventListener("load", function(e) {
 Varianta 2: posluchač je objekt
 
 ```js
-var obj = {
-	handleEvent: function(e) {
+let obj = {
+	handleEvent(e) {
 		alert(this == obj);
 	}
 }
@@ -185,14 +184,14 @@ let scheduledJS = "";
 let listeners = [];
 
 while (1) {
-	eval(scheduledJS); /* TADY se vykoná JS */
+	eval(scheduledJS);  // TADY se vykoná JS
 
 	if (!listeners.length) break;
 
-	/* počkat, než bude čas na nejbližší posluchač */
+	// počkat, než bude čas na nejbližší posluchač
 	let currentListener = waitFor(listeners);
 
-	/* naplánovat jej */
+	// naplánovat jej
 	scheduledJS = listeners[currentListener];
 	delete listeners[currentListener];
 }
@@ -268,7 +267,7 @@ Animal.prototype.eat = function() {
   - `requestAnimationFrame` je výrazně vhodnější alternativa
 ```js
 requestAnimationFrame(function() {
-	/* animujeme... */
+	// animujeme...
 });
 ```
   - Prohlížeč sám volí vhodnou délku časového kroku (zpravidla okolo 60 fps)
@@ -297,13 +296,13 @@ requestAnimationFrame(function() {
 # Promises: ukázka
 
 ```js
-function getData() {
+function getData(url) {
 	let promise = new Promise();
-	/* ... */
+	// ...
 	return promise;
 }
 
-getData().then(
+getData(url).then(
 	function(data) { alert(data); },
 	function(error) { alert(error); }
 );
@@ -325,13 +324,13 @@ getData().then(
 # Promises: další API
 
 ```js
-getData().catch(console.error); // jako .then(null, console.error)
+getData().catch(console.error);      // jako .then(null, console.error)
 
 let p1 = getData();
 let p2 = getData();
 
-Promise.all([p1, p2]).then( ... );  // parametr callbacku je pole hodnot
-Promise.race([p1, p2]).then( ... ); // první s hodnotou
+Promise.all([p1, p2]).then( ... );   // parametr callbacku je pole hodnot
+Promise.race([p1, p2]).then( ... );  // první s hodnotou
 ```
 ---
 
@@ -363,14 +362,15 @@ return promise;
 # Promises v praxi
 
   - Nacházíme se v období přechodu z callbacků na Promises
+    - &hellip;už asi 10 let
   - Stará API (`setTimeout`) požadují callbacky, nová (`fetch`) vrací Promise
   - Nový kód by měl vždy pracovat s Promises
 
 ---
 
-# Žhavá novinka: async/await
+# "Žhavá" novinka: async/await
 
-  - Novinka z ES2017
+  - ES2017
   - Nadstavba nad Promises
   - Asynchronní funkce stále vracejí Promise
   - Konzument může na hodnotu čekat blokujícím způsobem
@@ -378,18 +378,32 @@ return promise;
 
 ---
 
-# Žhavá novinka: async/await
+# "Žhavá" novinka: async/await
 
 ```js
-async function getData() {
+async function getData(url) {
 	try {
-		let data = await fetch(...); // vrací Promise
+		let data = await fetch(url);  // vrací Promise
 		let processed = process(data);
-		return processed;            // implicitně obaleno do Promise
+		return processed;             // implicitně obaleno do Promise
 	} catch (e) {
 		// Promise rejection
 	}
 }
+```
+
+---
+
+# "Žhavá" novinka: async/await
+
+```js
+let processed = await getData(url);  // toto lze jen v "async" funkci
+```
+
+```js
+getData(url).then(function(processed) {  // toto lze kdekoliv
+  // ...
+});
 ```
 
 ---
