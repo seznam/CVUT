@@ -1,15 +1,10 @@
 # KAJ 05: Ajax, XHR, HTTP a jejich kamarádi
 
-Pokud váš prohlížeč blokuje automatické spuštění zvukového komentáře,
-použijte ovladač přehrávání v pravé dolní části prezentace.
-
-{.voice-arrow}
-
 ---
 
 # Obsah
 
-  1. XHR a HTTP
+  1. XHR, fetch a HTTP
   1. CORS
   1. Transportní formáty
   1. Relevantní drobnosti
@@ -34,12 +29,11 @@ použijte ovladač přehrávání v pravé dolní části prezentace.
 
 ---
 
-# XMLHttpRequest
+# XMLHttpRequest / fetch
 
-  - XMLHttpRequest je alfou a omegou pro bohaté webové aplikace
+  - HTTP klient (XMLHttpRequest / fetch) je alfou a omegou pro bohaté webové aplikace
   - Možnost provést HTTP požadavek
   - Dočítání dat, odesílání informací
-  - V moderních prohlížečích není nutná žádná abstrakce
 
 ---
 
@@ -94,6 +88,78 @@ xhr.send(data);
 
 ---
 
+# fetch()
+
+  - Nové, "nedávno" standardizované rozhraní
+  - Podobné jako XMLHttpRequest, ale jednodušší
+  - Asynchronní řízení pomocí *Promises*
+  - K dispozici je [polyfill](https://github.com/github/fetch)
+
+---
+
+# fetch()
+
+```js
+fetch("/nejaky/soubor.json")
+	.then(function(response) {
+		if (response.status != 200) {
+			console.log("HTTP status", response.status);
+			return;
+		}
+
+		response.json().then(function(data) {
+			console.log(data);
+		});
+	})
+	.catch(function(err) {
+		console.log("Error", err);
+	});
+```
+
+---
+
+# fetch() a async/await
+
+```js
+try {
+  let response = await fetch("/nejaky/soubor.json")
+  if (response.status != 200) {
+    console.log("HTTP status", response.status)
+    return;
+  }
+
+  let data = await response.json()
+  console.log(data)
+} catch (err) {
+  console.log("Error", err)
+}
+```
+
+---
+
+# Konfigurace fetch()
+
+```js
+fetch(url,  {
+  method: "POST",
+  headers: { /* ... */ },
+  body: ...,
+  redirect: "follow",
+  signal: ...,
+  ...
+})
+```
+
+---
+
+# fetch vs XHR
+
+  - Chybí `timeout` &rArr; lze implementovat ručně pomocí `setTimeout` a `abort()`
+  - Chybí `abort()` &rArr; problém celého konceptu Promises
+  - Objekt `AbortController` má výhledově řešit přerušitelné Promises, zatím jen fetch
+
+---
+
 # Nuda!
 
 <p style="text-align: center;"><span></span><img src="img/unicorn.png" alt="" /></p>
@@ -102,7 +168,7 @@ xhr.send(data);
 
 # Sandbox, Origin a CORS
 
-  - XHR nelze poslat na jakékoliv URL
+  - XHR/fetch nelze poslat na jakékoliv URL
   - Kvůli bezpečnosti!
   - Protože součastí požadavku jsou cookies, HTTP autorizace, certifikáty&hellip;
 
@@ -124,16 +190,17 @@ xhr.onload = function() {
 
 # Sandbox: omezení originem
 
-  - XHR jsou v základu omezeny jen na URL se stejným *originem*
+  - HTTP požadavky jsou v základu omezeny jen na URL se stejným *originem*
   - origin = schema + host + port
 
 ---
 
-# CORS: technika pro cross-origin XHR
+# CORS: technika pro cross-origin HTTP
 
   - Cross Origin Resource Sharing
   - Oslabuje sandbox tam, kde to nepředstavuje riziko
   - Myšlenka: zeptat se backendu, jestli je ochoten takovýto požadavek přijmout
+    - resp. jestli souhlasí s *prozrazením* odpovědi do aplikačního JS
   - Pokud ne (default), odpověď se zahodí
   - Pokud ano, odpověď se vrátí
 
@@ -152,7 +219,7 @@ xhr.onload = function() {
 
   - Autor veřejného API by měl posílat `Access-Control-Allow-Origin`
   - Nouzové řešení je server-side proxy (stejný origin)
-  - Kompletní čtení na [http://enable-cors.org/](http://enable-cors.org/)
+  - Kompletní čtení na [https://enable-cors.org/](https://enable-cors.org/)
 
 ---
 
@@ -219,7 +286,6 @@ xhr.responseXML instanceof DOMDocument
 
   - Klíče musí být ohraničeny úvozovkami
   - `JSON.parse` a `JSON.stringify`
-  - `eval` jako zpětná kompatibilita
 
 ---
 
@@ -253,47 +319,58 @@ mojeFunkce({name: "jan", data: [3, 4, true]});
 
 ---
 
-# fetch()
+# Transportní formáty: GraphQL
 
-  - Nové, nedávno standardizované rozhraní
-  - Podobné jako XMLHttpRequest, ale jednodušší
-  - Asynchronní řízení pomocí *Promises*
-  - K dispozici je [polyfill](https://github.com/github/fetch)
+  - https://graphql.org/
+  - Jazyk pro popis, dotazování a úpravy (mutace) dat
+  - Facebook, zveřejněno 2015
 
----
-
-# fetch()
-
-```js
-fetch("/nejaky/soubor.json")
-	.then(function(response) {
-		if (response.status != 200) {
-			console.log("HTTP status", response.status);
-			return;
-		}
-
-		response.json().then(function(data) {
-			console.log(data);
-		});
-	})
-	.catch(function(err) {
-		console.log("Error", err);
-	});
+```graphql
+{
+  users {
+    id
+    name
+    salary
+    boss {
+      id
+      name
+    }
+  }
+}
 ```
 
 ---
 
-# fetch vs XHR
+# GraphQL
 
-  - Chybí `timeout` &rArr; lze implementovat ručně pomocí `setTimeout` a `abort()`
-  - Chybí `abort()` &rArr; problém celého konceptu Promises
-  - Objekt `AbortController` má výhledově řešit přerušitelné Promises, zatím jen fetch
+  - Značný odklon od předchozího populárního schématu (REST)
+  - Majitel grafu dat publikuje schéma (typy a závislosti)
+  - Dotaz definuje podmnožinu grafu
+  - Odpověď (vždy JSON) obsahuje jen vyjmenovaná pole
+
+---
+
+# GraphQL
+
+  - Introspekce! Viz např. https://graphql.org/swapi-graphql
+  - Dotazy jsou často velké &rArr; jakou volit HTTP metodu?
+  - Dotazy možno parametrizovat:
+
+```graphql
+{
+  users(id: 123) {
+    id
+    name
+    salary
+  }
+}
+```
 
 ---
 
 # Doplňkové informace #1
 
-  - Prohlížeče omezují počet současných XHR na stránku (zpravidla 4)
+  - Prohlížeče omezují počet současných spojení na doménu (zpravidla 4)
   - HTTP požadavek musí být iniciován klientem
   - Technika *long poll*/*comet*: pošlu HTTP požadavek; server odpoví, až bude mít data
   - Server takto může notifikovat, ale musí držet mnoho otevřených spojení
@@ -303,7 +380,7 @@ fetch("/nejaky/soubor.json")
 # Doplňkové informace #2
 
   - Velikost přenášených dat (a jejich formát a následné zpracování) může razantně ovlivňovat výkon aplikace
-  - Ladění XHR vždy ve spolupráci s vyvojářskými nástroji prohlížeče
+  - Ladění HTTP vždy ve spolupráci s vyvojářskými nástroji prohlížeče
   - V případě nouze wireshark/tcpdump
 
 ---
@@ -349,7 +426,7 @@ socket.onmessage = function(e) {
 
   - Ta nás nezajímá!
   - Nutný specializovaný software
-  - Knihovny pro řadu jazyků (PHP, Python, node.js, &hellip;)
+  - Knihovny pro řadu jazyků (PHP, Python, Node.js, &hellip;)
 
 ---
 
