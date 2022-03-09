@@ -344,6 +344,7 @@ mojeFunkce({name: "jan", data: [3, 4, true]});
 # GraphQL
 
   - Značný odklon od předchozího populárního schématu (REST)
+    - URL je jen jedno a není zajímavé
   - Majitel grafu dat publikuje schéma (typy a závislosti)
   - Dotaz definuje podmnožinu grafu
   - Odpověď (vždy JSON) obsahuje jen vyjmenovaná pole
