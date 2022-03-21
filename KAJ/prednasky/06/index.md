@@ -1,10 +1,5 @@
 # KAJ 06: CSS3
 
-Pokud váš prohlížeč blokuje automatické spuštění zvukového komentáře,
-použijte ovladač přehrávání v pravé dolní části prezentace.
-
-{.voice-arrow}
-
 ---
 
 # Obsah
