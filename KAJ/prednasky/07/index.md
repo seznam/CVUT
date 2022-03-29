@@ -5,6 +5,7 @@
 ---
 
 # Obsah
+
   1. 2D transformace
   1. 3D transformace
   1. CSS Flexible Box Module
@@ -242,7 +243,7 @@ div {
   - Podobný princip jako u `z-index`
   - Dovoluje zachovat obsah první
   - Často v kombinaci s media queries
-  - [Ukázka](http://jsfiddle.net/ondras/tGK7p/)
+  - [Ukázka](https://jsfiddle.net/ondras/c9uqz21b/)
 
 ---
 
@@ -265,6 +266,7 @@ div {
 
   - [A Complete Guide to Flexbox](https://css-tricks.com/snippets/css/a-guide-to-flexbox/)
   - [Flexbox Generator](http://the-echoplex.net/flexyboxes/)
+  - [Flexbox Froggy](https://flexboxfroggy.com/)
 
 ---
 
@@ -320,7 +322,20 @@ body {
   - Co má prohlížeč dělat, než se písmo načte?
   - Čekat vs. zkusit jiné?
   - Velký problém u HTML canvasu (později v semestru)
-  - Budoucnost: [Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API)
+  - [CSS Font Loading API](https://developer.mozilla.org/en-US/docs/Web/API/CSS_Font_Loading_API)
+
+---
+
+# CSS Font Loading API
+
+```js
+document.fonts.forEach(console.log);
+
+document.fonts.ready.then(...);
+
+let font = new FontFace("myFont", "url(...)");
+document.fonts.add(font);
+```
 
 ---
 
