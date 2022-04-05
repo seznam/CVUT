@@ -147,7 +147,7 @@ div.style.color = "blue";
 
 ```js
 div.style.color = "red";
-setTimeout(function() {
+setTimeout(() => {
 	div.style.color = "blue";
 }, 0);
 ```
@@ -358,15 +358,23 @@ div {
 # CSS efekty: barevné přechody
 
 ```css {id=example3}
-background-image: linear-gradient(45deg, red, yellow, green, blue, violet);
-```
-
-```css {id=example4}
-background-image: radial-gradient(red, yellow, rgb(30, 144, 255));
+background-image: linear-gradient(45deg, red, yellow, green, blue, violet)
 ```
 
 ```css {id=example5}
-repeating-linear-gradient(to right, #f88, #f88 5px, #fff 5px, #fff 10px);
+repeating-linear-gradient(to right, #f88, #f88 5px, #fff 5px, #fff 10px)
+```
+
+```css {id=example4}
+background-image: radial-gradient(red, yellow, rgb(30, 144, 255))
+```
+
+```css {id=example6}
+conic-gradient(violet, indigo, blue, green, yellow, orange, red, violet)
+```
+
+```css {id=example7}
+repeating-conic-gradient(red 0 10deg, orange 10deg 20deg)
 ```
 
 <style>
@@ -379,12 +387,18 @@ repeating-linear-gradient(to right, #f88, #f88 5px, #fff 5px, #fff 10px);
 	#example5 {
 		background-image: repeating-linear-gradient(to right, #f88, #f88 5px, white 5px, white 10px);
 	}
-	#example3, #example4, #example5 {
-		line-height: 80px;
+	#example6 {
+		background-image: conic-gradient(violet, indigo, blue, green, yellow, orange, red, violet);
+	}
+	#example7 {
+		background-image: repeating-conic-gradient(red 0 10deg, orange 10deg 20deg)
+	}
+	#example3, #example4, #example5, #example6, #example7 {
+		line-height: 120px;
 		text-align: center;
 		display: block;
 	}
-	#example3 div::before, #example4 div::before, #example5 div::before { display: none; }
+	#example3 div::before, #example4 div::before, #example5 div::before, #example6 div::before, #example7 div::before { display: none; }
 </style>
 
 ---
@@ -417,6 +431,14 @@ filter: contrast(175%) brightness(3%);
 
 ---
 
+# box-shadow vs. drop-shadow
+
+`box-shadow` je kolem celého boxu, `drop-shadow` respektuje průhlednost
+
+<img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/CVUT_znak.svg" width="30%" style="box-shadow: 0 0 15px red; filter: drop-shadow(0 0 15px green)">
+
+---
+
 # CSS efekty: ukázky
 
 [Ukazatel načítání](https://jsfiddle.net/wk3y941x/)
@@ -424,8 +446,6 @@ filter: contrast(175%) brightness(3%);
 [Lea Verou: CSS3 Patterns](https://lea.verou.me/css3patterns/)
 
 [Prezentace bez JS](https://ondras.github.io/pure-css-slides/)
-
-[Stín a přechod jako dekorace textu](http://www.shadycharacters.co.uk/)
 
 ---
 
