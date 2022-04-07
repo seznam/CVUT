@@ -56,12 +56,6 @@ images/large offline/sorry.jpg
 
 ---
 
-# App Cache
-
-lehce obskurní [ukázka](http://ondras.zarovi.cz/demos/morgan/), její [manifest](http://ondras.zarovi.cz/demos/morgan/morgan.manifest)
-
----
-
 # applicationCache API
 
 JS API pro práci s offline cache
@@ -385,10 +379,10 @@ new Audio("song.mp3").play();
 ```
 
 ```js
-var a = new Audio();
-a.canPlayType("audio/mpeg"); /* "", "maybe", "probably" */
-a.src = "song.mp3";
-a.addEventListener("timeupdate", function() { console.log(a.currentTime); }, false);
+let a = new Audio()
+a.canPlayType("audio/mpeg") /* "", "maybe", "probably" */
+a.src = "song.mp3"
+a.addEventListener("timeupdate", function() { console.log(a.currentTime); })
 a.play();
 ```
 
@@ -410,16 +404,16 @@ a.play();
   - Uzly = transformace zvuku
   - Přístup k právě přehrávaným datům (vizualizace)
   - Generování zvukového signálu
-  - [Ohňostroj](https://ondras.github.io/fireworks-webgl/), [Osciloskop](https://ondras.github.io/oscope/)
+  - [Ohňostroj](https://ondras.github.io/fireworks-webgl/), [Osciloskop](https://ondras.github.io/oscope/), [Noisecraft](https://noisecraft.app/529)
 
 ---
 
 # Web Audio API: generování zvuku
 
 ```js
-var ctx = new AudioContext();
+let ctx = new AudioContext();
 
-var oscillator = ctx.createOscillator();
+let oscillator = ctx.createOscillator();
 
 oscillator.frequency.value = 440;
 oscillator.connect(ctx.destination);
