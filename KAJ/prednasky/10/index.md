@@ -82,7 +82,7 @@ context.namalujNecoPekneho();
 
   - Malovací metody patří kontextu
   - Existuje též 3d kontext (WebGL) mimo rozsah předmětu
-  - [Canvas cheatsheet](http://www.webmastersucks.com/uploads/HTML5_Canvas_Cheat_Sheet.png)
+  - [Canvas cheatsheet](https://simon.html5.org/dump/html5-canvas-cheat-sheet.html)
 
 ---
 
@@ -301,7 +301,6 @@ let draw = function() {
   - Překreslení (mazání) celého canvasu je drahé
   - Pokud se vyplatí, je lepší mazat jen změněné části
   - Různé kreslící operace jsou různě drahé; nejlepší je `drawImage`
-  - [Benchmark](http://ondras.github.io/html5-animation-framework/benchmark.html)
 
 ---
 
@@ -335,7 +334,7 @@ ctx.fillText("Ahoj", 50, 50);
   - Akcelerovaná 3D grafika
   - Nové API HTML5 Canvasu
   - Kompatibilita API s OpenGL ES 2.0
-  - [Ukázka](https://developer.mozilla.org/en-US/demos/detail/bananabread)
+  - [Ukázka](https://github.com/cfoust/sour)
 
 ---
 
