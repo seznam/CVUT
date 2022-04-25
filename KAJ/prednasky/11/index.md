@@ -75,14 +75,14 @@ div.addEventListener("dragstart", function(e) {
 
 ```js
 let ok = function(position) {
-	alert([position.coords.latitude, position.coords.longitude]);
+	alert([position.coords.latitude, position.coords.longitude])
 }
 
 let error = function(e) {
-	alert(e.message);
+	alert(e.message)
 }
 
-navigator.geolocation.getCurrentPosition(ok, error);
+navigator.geolocation.getCurrentPosition(ok, error)
 ```
 
 ---
@@ -291,7 +291,7 @@ onmessage = function(e) {
   - Výpočet ve workeru může trvat libovolně dlouho
   - Data jsou při předávání klonována (netřeba řešit synchronizaci)
     - Alternativa: *Transferrable*
-    - <del>Alternativa: *SharedArrayBuffer*</del>
+    - Alternativa: *SharedArrayBuffer*
   - Vhodné tam, kde jsou třeba náročné výpočty
   - Ideálně málo vstupních i výstupních dat
   - [Ukázky](https://developer.mozilla.org/en-US/docs/Web/Demos_of_open_web_technologies#Unclassified)
