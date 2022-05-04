@@ -14,17 +14,17 @@
 # Příští přednáška je poslední
 
   - ...ale až za 14 dní
-  - téma bude zvoleno hlasováním
-  - odkaz na hlasovací formulář pošlu po dnešní přednášce
+  - téma bylo zvoleno hlasováním
+  - [výsledky](https://i.imgur.com/OTkQgi7.png)
 
 ---
 
 # Zkouška!
 
-  - Odehrává se *doufejme* v Seznamu
+  - Odehrává se v Seznamu
     - Radlická 10, Praha 5
   - Výsledkem zkoušky je skóre v intervalu `<−10, 10>` bodů
-  - První před-čtyř-termín: 21. 5. 2021 (9:00, 10:00, 11:00, 12:00)
+  - První před-čtyř-termín: 20. 5. 2021 (9:00, 10:00, 11:00, 12:00)
   - Celkem 16 termínů
   - Další termíny budou vypsány jen v případě absolutní nouze
 
@@ -173,7 +173,7 @@ a {
 
 # Web Components
 
-  - Souhrnný termín pro čtveřici oddělených standardů
+  - Souhrnný termín pro ~~čtveřici~~ trojici oddělených standardů
   - Fungují nezávisle, ale jsou cíleně navrhovány pro společné použití
   - Silně experimentální
   - Do roku ~2016 verze 0, od roku ~2016 znatelně odlišná verze 1; [výčet rozdílů](https://hayato.io/2016/shadowdomv1/)
@@ -210,26 +210,7 @@ parent.appendChild(template.content.cloneNode(true));
 
 # Web Components: HTML imports
 
-```html
-<head>
-	<link rel="import" href="/path/to/stuff.html" />
-</head>
-```
-
-  - Paralela pro CSS `@import`
-  - Podléhá CORS
-  - Zapouzdření libovolně objemné fcionality
-  - Widgety, komponenty aplikace, moduly, &hellip;
-  - Pravděpodobně slepá vývojová větev
-
----
-
-# Web Components: HTML imports
-
-  - Každý importovaný soubor tvoří samostatný DOM dokument
-  - Na rozdíl od `<template>` je živý a skripty v něm se vykonávají
-  - Importovaný obsah se nikam automaticky nepřipojuje
-  - Rodič (ručně) připojuje importovaný obsahu (či naopak)
+**Zrušeno**
 
 ---
 
@@ -243,8 +224,8 @@ parent.appendChild(template.content.cloneNode(true));
 let map1 = new SznMap({x:..., y:..., control: ...});
 let map2 = document.createElement("szn-map");
 
-document.body.appendChild(map1);
-map1.appendChild(map2);
+document.body.append(map1);
+map1.append(map2);
 ```
 
 ---
@@ -281,7 +262,7 @@ class MyElement extends HTMLElement {
 	constructor() { super(); }
 	attributeChangedCallback(name, oldValue, newValue) {}
 	connectedCallback() {}
-	disconnectedCallback () {}
+	disconnectedCallback() {}
 	adoptedCallback() {}
 }
 ```
