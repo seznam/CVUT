@@ -36,10 +36,10 @@
 						this._koCallBack.bind(this))
 				}
 
-				_okCallback(localMediaStream) {
+				_okCallback(stream) {
 					this._video.addEventListener('play', this._onCanPlayT.bind(this));
 					this._video.addEventListener('loadedmetadata', this._setSize.bind(this));
-					this._video.src = window.URL.createObjectURL(localMediaStream);
+					this._video.srcObject = stream;
 					
 				}
 
