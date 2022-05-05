@@ -127,7 +127,15 @@ let num = first([1, 2, 3])
 
 # Syntaxe a vlastnosti jazyka
 
-Externí typové deklarace FIXME
+Externí typové deklarace
+
+```ts
+declare function sum(a: number, b: number): number;
+```
+
+- Uložit do souboru `foo.d.ts`
+- Automaticky použito při načtení `foo.js`
+- Poskytnutí typů *bokem* tam, kde nemůžeme nebo nechceme zasahovat do existujícího kódu
 
 ---
 
@@ -202,6 +210,27 @@ $ tsc -p tsconfig.json
 - Stejná verze a konfigurace pro editor a kompilaci/bundling
 - Někdy obtížná spolupráce s knihovním kódem
 - Někdy obtížná spolupráce s různými formami modularizace (globals / require / import)
+
+---
+
+# Další implementace
+
+- TSC je velký a silný nástroj&hellip;
+- &hellip;a je také přiměřeně pomalý
+- Existují alternativní implementace pro TS kompilaci (nikoliv však pro typovou kontrolu)
+  - [ESBuild](https://esbuild.github.io/) (Go)
+  - [SWC](https://swc.rs/) (Rust)
+
+---
+
+# Deno
+
+- Server-side TypeScript
+- Kombinace V8 a SWC
+- "Přímé" vykonávání serverového TS kódu
+  - Alternativa: TSC + Node.js
+  - Řada dalších odlišností/vylepšení v porovnání s Node.js
+- https://deno.land/
 
 ---
 
