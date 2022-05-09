@@ -136,6 +136,7 @@ declare function sum(a: number, b: number): number;
 - Uložit do souboru `foo.d.ts`
 - Automaticky použito při načtení `foo.js`
 - Poskytnutí typů *bokem* tam, kde nemůžeme nebo nechceme zasahovat do existujícího kódu
+- Typicky pro externí knihovny
 
 ---
 
@@ -155,7 +156,8 @@ declare function sum(a: number, b: number): number;
   - jednorázová, typicky vyvolaná vývojářem
 - Komplilace
   - odstranění typových anotací
-  - volitelně transpilace
+  - **výjimečně** doplnění nového runtime kódu
+  - transpilace
 - Kontrola
   - průběžná, typicky iniciovaná editorem
   - API pro komunikaci editor &harr; tsc (Language Server)
@@ -166,7 +168,7 @@ declare function sum(a: number, b: number): number;
 
 TSC dává smysl i při psaní běžného JavaScriptu!
 
-- Silný systém typové inference
+- Silný systém **typové inference**
 - Alternativně podpora typování pomocí dokumentačních komentářů (JSDoc)
 - Ideální pro inkrementální zavádění TS
 
