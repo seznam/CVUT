@@ -11,6 +11,9 @@
   1. CSS Flexible Box Module
   1. Písma
 
+FIXME flex jen pokrocilejsi
+FIXME presunout sem grid
+
 ---
 
 # CSS transformace

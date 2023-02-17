@@ -2,6 +2,8 @@
 
 ---
 
+FIXME prihodit custom properties
+
 # Obsah
   1. Transitions
   1. Animations

@@ -2,6 +2,11 @@
 
 ---
 
+FIXME grid pryc
+FIXME predelat na web components
+FIXME css custom properties pryc
+FIXME zrusit notifikace
+
 # Obsah
 
   1. CSS: Grid

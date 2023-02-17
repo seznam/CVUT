@@ -138,6 +138,22 @@ f(...[1, 2, 3]); // 3
 
 ---
 
+# Spread v akci
+
+```js
+function build(data) {
+  let node = document.createElement("p")
+  node.classList.add(data.status)
+  node.append(data.text)
+}
+
+const DATA = [/* pole struktur */]
+
+parent.append(...DATA.map(build))
+```
+
+---
+
 # Classes
 
   - Nová syntaxe, staré chování (stále se jedná o prototypovou dědičnost)

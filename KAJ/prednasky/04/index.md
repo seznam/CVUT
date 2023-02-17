@@ -4,6 +4,9 @@
 
 # Obsah
 
+FIXME pointer events
+FIXME treti parametr objekt
+
   1. Události: opáčko
   1. Události: objekt události
   1. Události: capture a bubble
