@@ -250,7 +250,7 @@ alert(obj3.jinyKlic)  // "jeste jina hodnota"
 
 ---
 
-# Pilíř 3b: Operátor *new*
+# Pilíř 3+: Operátor *new*
 
 Jak vytvořit prototype link?
 
@@ -263,7 +263,7 @@ Jak vytvořit prototype link?
 
 ---
 
-# Pilíř 3b: Operátor *new*
+# Pilíř 3+: Operátor *new*
 
 Co *opravdu* dělá operátor `new`?
 
@@ -275,7 +275,7 @@ Co *opravdu* dělá operátor `new`?
 
 ---
 
-# Pilíř 3b: Operátor *new*
+# Pilíř 3+: Operátor *new*
 
 [diagram](img/prototype.svg)
 
@@ -290,7 +290,7 @@ f.c = 3
 ```
 ---
 
-# Pilíř 3b: Operátor *new*
+# Pilíř 3+: Operátor *new*
 
 Zkusme si to naimplementovat:
 
@@ -306,7 +306,7 @@ let f = myNew(F)
 
 ---
 
-# Pilíř 3b: Operátor *new*
+# Pilíř 3+: Operátor *new*
 
 Poznámky k použití `new`
 
