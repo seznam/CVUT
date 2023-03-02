@@ -434,6 +434,7 @@ Object.assign(target, { source: "data" });
   - Implementováno jen v [novějších verzích](https://caniuse.com/#search=es6-module) prohlížečů
   - Výdej produkčního kódu &ndash; počet HTTP požadavků?
   - Alternativa #1: *bundling* do jednoho souboru, např. nástrojem [Rollup](http://rollupjs.org/)
+  - FIXME zadna transpilace
   - Alternativa #2: *transpilace* do jiného (kompatibilnějšího) formátu modulů
 
 ---
