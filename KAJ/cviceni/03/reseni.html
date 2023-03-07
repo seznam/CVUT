@@ -37,50 +37,47 @@
 
     <script>
         //
-        // Predefined state
-        //
-
-        const initialState = {
-            todos: [
-                { text: 'Hi', completed: true  },
-                { text: 'Hello', completed: false },
-                { text: 'Hi there!', completed: true },
-            ],
-            filter: 'all'
-        };
-
-        //
         // Class containing state
         //
 
         class State {
+            #todos;
+            #filter;
+
             constructor (initialTodos, initialFilter) {
-                this._todos = initialTodos;
-                this._filter = initialFilter;
+                this.#todos = initialTodos;
+                this.#filter = initialFilter;
             }
 
             addTodo (todo) {
-                this._todos.push(todo);
+                this.#todos.push(todo);
             }
 
             setFilter (filter) {
-                this._filter = filter;
+                this.#filter = filter;
             }
 
             getTodos () {
-                return this._todos.filter((todo) => {
-                    if (this._filter === 'all') {
+                return this.#todos.filter((todo) => {
+                    if (this.#filter === 'all') {
                         return true;
-                    } else if (this._filter === 'completed') {
+                    } else if (this.#filter === 'completed') {
                         return todo.completed === true;
-                    } else if (this._filter === 'active') {
+                    } else if (this.#filter === 'active') {
                         return todo.completed === false;
                     }
                 });
             }
         }
 
-        const state = new State(initialState.todos, initialState.filter);
+        const state = new State(
+            [
+                { text: 'Hi', completed: true  },
+                { text: 'Hello', completed: false },
+                { text: 'Hi there!', completed: true },
+            ],
+            'all'
+        );
 
         //
         // Prepare todos html

@@ -37,19 +37,6 @@
 
     <script>
         //
-        // Predefined state
-        //
-
-        var initialState = {
-            todos: [
-                { text: 'Hi', completed: true  },
-                { text: 'Hello', completed: false },
-                { text: 'Hi there!', completed: true },
-            ],
-            filter: 'all'
-        };
-
-        //
         // Class containing state
         //
 
@@ -78,7 +65,14 @@
             }.bind(this));
         }
 
-        var state = new State(initialState.todos, initialState.filter);
+        var state = new State(
+            [
+                { text: 'Hi', completed: true  },
+                { text: 'Hello', completed: false },
+                { text: 'Hi there!', completed: true },
+            ],
+            'all'
+        );
 
         //
         // Prepare todos html
@@ -223,6 +217,7 @@
         // 1. var -> let/const
         //      1. Get rid of IIFE in filters sections
         // 2. New `class` syntax for State class
+        //      1. Use class private fields/methods
         // 3. Arrow functions
         //      1. Get rid of `.bind(this)` and use arrow functions
         // 4. Template strings
