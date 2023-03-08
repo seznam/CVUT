@@ -150,6 +150,7 @@ function build(data) {
   let node = document.createElement("p")
   node.classList.add(data.status)
   node.append(data.text)
+  return node
 }
 
 const DATA = [/* pole struktur */]
