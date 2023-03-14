@@ -4,9 +4,6 @@
 
 # Obsah
 
-FIXME pointer events
-FIXME treti parametr objekt
-
   1. Události: opáčko
   1. Události: objekt události
   1. Události: capture a bubble
@@ -26,11 +23,12 @@ FIXME treti parametr objekt
 ---
 
 # Události: opáčko
+
 ```js
 let func = function(e) {
-	alert("...");
+	alert("...")
 }
-document.body.addEventListener("click", func, false);
+document.body.addEventListener("click", func, false)
 ```
 
 ---
@@ -98,6 +96,18 @@ Staré, zpětně kompatibilní API
 
 ---
 
+# Pointer events
+
+Hybrid mezi `mouse` a `touch`. Společné pro myš, dotyk, stylus&hellip;
+
+  - `pointerdown`, `pointermove`, `pointerup`
+  - `pointerenter`, `pointerleave`
+  - žádný *click*
+  - `element.setPointCapture()`, `element.releasePointCapture()`
+  - komplementární [CSS vlastnost `pointer-events`](https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events)
+
+---
+
 # Události ostatní
 
   - `focus`, `blur`
@@ -110,7 +120,7 @@ Staré, zpětně kompatibilní API
 
 # Capture a bubble #1
 
-  - Třetí parametr pro `addEventListener` je *useCapture*
+  - Třetí parametr pro `addEventListener` je *useCapture*, nebo konfigurační objekt (viz dále)
   - Posluchače události jsou volány nejprve ve fázi capture, poté ve fázi bubble
   - Pořadí fází a volání viz [diagram](img/event.gif)
 
@@ -134,13 +144,39 @@ Staré, zpětně kompatibilní API
 
 ---
 
+# Konfigurační objekt
+
+Třetí parametr může být též objekt s vlastnostmi:
+
+  - `once`
+  - `capture`
+  - `passive`: slib, že posluchač nezavolá `preventDefault()`
+  - `signal`: instance funkce `AbortSignal`, použitelná k odebrání posluchače
+
+---
+
+# Odebrání posluchače pomocí AbortSignal
+
+...není zásadně užitečné, ale bude se hodit příště.
+
+```js
+let controller = new AbortController()
+node.addEventListener("click", f, {signal: controller.signal})
+
+/* ... */
+
+controller.abort()  // odebrani posluchace
+```
+
+---
+
 # Posluchače událostí
 
 Varianta 1: posluchač je funkce
 
 ```js
 window.addEventListener("load", function(e) {
-	alert(e.currentTarget == this);
+	alert(e.currentTarget == this)
 });
 ```
 
@@ -161,10 +197,10 @@ Varianta 2: posluchač je objekt
 ```js
 let obj = {
 	handleEvent(e) {
-		alert(this == obj);
+		alert(this == obj)
 	}
 }
-window.addEventListener("load", obj);
+window.addEventListener("load", obj)
 ```
 
   - `obj` musí mít metodu `handleEvent`
@@ -183,8 +219,8 @@ window.addEventListener("load", obj);
 # Event loop
 
 ```js
-let scheduledJS = "";
-let listeners = [];
+scheduledJS = "";  // inicializováno pomocí <script>
+listeners = [];
 
 while (1) {
 	eval(scheduledJS);  // TADY se vykoná JS
@@ -192,7 +228,7 @@ while (1) {
 	if (!listeners.length) break;
 
 	// počkat, než bude čas na nejbližší posluchač
-	let currentListener = waitFor(listeners);
+	currentListener = waitFor(listeners);
 
 	// naplánovat jej
 	scheduledJS = listeners[currentListener];
@@ -208,8 +244,8 @@ while (1) {
   - XMLHttpRequest, addEventListener
   - timeout, interval
 ```js
-setTimeout(  function() { /* ... */ }, 1000);
-setInterval( function() { /* ... */ }, 100);
+setTimeout(  function() { /* ... */ }, 1000)
+setInterval( function() { /* ... */ }, 100)
 ```
   - Pořadí určuje <del>lékař</del> prohlížeč, ale vždy nejprve v příští iteraci event loopu
 
@@ -222,11 +258,11 @@ Pokud někam předávám funkci, s jakým `this` bude volána?
 
 ```js
 function Animal() {
-	setTimeout(this.eat, 3000);
+	setTimeout(this.eat, 3000)
 }
 
 Animal.prototype.eat = function() {
-	this.food += 3;
+	this.food += 3
 }
 ```
 
@@ -238,11 +274,11 @@ Animal.prototype.eat = function() {
 
 ```js
 function Animal() {
-	setTimeout(this.eat.bind(this), 3000);
+	setTimeout(this.eat.bind(this), 3000)
 }
 
 Animal.prototype.eat = function() {
-	this.food += 3;
+	this.food += 3
 }
 ```
 
@@ -254,11 +290,11 @@ Animal.prototype.eat = function() {
 
 ```js
 function Animal() {
-	setTimeout(() => this.eat(), 3000);
+	setTimeout(() => this.eat(), 3000)
 }
 
 Animal.prototype.eat = function() {
-	this.food += 3;
+	this.food += 3
 }
 ```
 
@@ -300,14 +336,14 @@ requestAnimationFrame(function() {
 
 ```js
 function getData(url) {
-	let promise = new Promise();
+	let promise = new Promise()
 	// ...
-	return promise;
+	return promise
 }
 
 getData(url).then(
-	function(data) { alert(data); },
-	function(error) { alert(error); }
+	function(data) { alert(data) },
+	function(error) { alert(error) }
 );
 ```
 
@@ -320,20 +356,20 @@ getData(url).then(
   - Tvůrce promise ji mění, konzument jen poslouchá (`then`)
   - Vyrobit lze již naplněnou promise: `Promise.resolve(123)`
   - Volání `then()` vrací novou promise (‽) &rArr; řetězení
-  - Některé prohlížeče Promise nabízejí, pro jiné existují knihovny
+  - Promise je *jen* návrhový vzor, tj. lze doplnit pomocí Polyfillu
 
 ---
 
 # Promises: další API
 
 ```js
-getData().catch(console.error);      // jako .then(null, console.error)
+getData().catch(console.error)      // jako .then(null, console.error)
 
-let p1 = getData();
-let p2 = getData();
+let p1 = getData()
+let p2 = getData()
 
-Promise.all([p1, p2]).then( ... );   // parametr callbacku je pole hodnot
-Promise.race([p1, p2]).then( ... );  // první s hodnotou
+Promise.all([p1, p2]).then( ... )   // parametr callbacku je pole hodnot
+Promise.race([p1, p2]).then( ... )  // první s hodnotou
 ```
 ---
 
@@ -352,12 +388,12 @@ Promise.race([p1, p2]).then( ... );  // první s hodnotou
 let promise = new Promise(function(resolve, reject) {
 	// funkce dodaná tvůrcem Promise
 	if (...) {
-		resolve(value);
+		resolve(value)
 	} else {
-		reject(error);
+		reject(error)
 	}
 });
-return promise;
+return promise
 ```
 
 ---
@@ -386,9 +422,9 @@ return promise;
 ```js
 async function getData(url) {
 	try {
-		let data = await fetch(url);  // vrací Promise
-		let processed = process(data);
-		return processed;             // implicitně obaleno do Promise
+		let data = await fetch(url)  // vrací Promise
+		let processed = process(data)
+		return processed             // implicitně obaleno do Promise
 	} catch (e) {
 		// Promise rejection
 	}
@@ -400,7 +436,7 @@ async function getData(url) {
 # "Žhavá" novinka: async/await
 
 ```js
-let processed = await getData(url);  // toto lze jen v "async" funkci
+let processed = await getData(url)  // toto lze jen v "async" funkci
 ```
 
 ```js
