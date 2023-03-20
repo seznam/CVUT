@@ -1,187 +1,154 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lecture 04</title>
 </head>
 <body>
     <script>
         //
-        // Helper functions
+        // Data functions
         //
-
-        function getData(error) {
-            const date = new Date();
-            const res = `${date.toLocaleTimeString()}.${date.getMilliseconds()}`;
-            if (!error) {
-                return res;
-            } else {
-                throw new Error(res);
-            }
+        let counter = 0;
+        function getMockData() {
+            counter++;
+            return counter
         }
 
-        function getPromiseData(delay, error) {
+        function getDataSync() {
+            return getMockData()
+        }
+        function getDataErrorSync() {
+            throw new Error(`Something went wrong`);
+        }
+
+        function getDataCallback(doneCb) {
+            setTimeout(() => {
+                doneCb(null, getMockData());
+            }, 1000);
+        }
+
+        function getDataErrorCallback(doneCb) {
+            setTimeout(() => {
+                doneCb(new Error(`Something went wrong`), null);
+            }, 1000);
+        }
+
+        function getDataPromise() {
             return new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    let result = null;
-                    try {
-                        result = getData(error);
-                    } catch (e) {
-                        reject(e);
-                        return;
-                    }
-
-                    return resolve(result);
-                }, delay);
-            })
+                    resolve(getMockData());
+                }, 1000);
+            });
         }
-
-        function getCbData(delay, error, doneCb) {
-            setTimeout(() => {
-                let result = null
-                try {
-                    result = getData(error)
-                } catch (e) {
-                    doneCb(e, null)
-                    return
-                }
-
-                return doneCb(null, result)
-            }, delay)
+        function getDataErrorPromise() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    reject(new Error(`Something went wrong`));
+                }, 1000);
+            });
         }
 
         //
         // Main functions
         //
-
         function callbacks() {
-            getCbData(500, false, (err, res) => {
-                console.log(res)
+            getDataCallback((err1, res1) => {
+                if (err1) {
+                    console.log(err1);
+                    return;
+                }
+                console.log(res1);
 
-                getCbData(500, false, (err, res) => {
-                    console.log(res)
-
-                    getCbData(500, true, (err, res) => {
-                        if (err) {
-                            console.log(err)
-                            return
-                        }
-
-                        console.log(err)
-                    })
-                })
-            })
+                getDataCallback((err2, res2) => {
+                    if (err2) {
+                        console.log(err2);
+                        return;
+                    }
+                    console.log(res2);
+                });
+            });
         }
 
-        function promises() {
-            getPromiseData(500)
-                .then(res => {
-                    console.log("then1")
-                    return getPromiseData(500)
+        function promises1() {
+            getDataPromise()
+                .then((res1) => {
+                    console.log(res1);
+                    return getDataPromise();
                 })
-                .then(res => {
-                    console.log("then2")
-                    return getPromiseData(500, true)
-                })
-                .then(null, res => {
-                    console.log("catch1")
-                    throw res
-                })
-                .then(res => {
-                    console.log("then3")
-                    return getPromiseData(500)
-                })
-                .catch(res => {
-                    console.log("catch posledni")
+                .then((res2) => {
+                    console.log(res2);
                 })
         }
 
-        function promiseAll() {
-            const data1 = getPromiseData(500)
+        function promises2() {
+            getDataErrorPromise()
                 .catch(e => {
-                    return "catch"
+                    console.log(e);
+                    return "recovered"
                 })
-
-            const data2 = getPromiseData(1000)
-
-            Promise.all([data1, data2])
-                .then(res => {
-                    console.log(res)
+                .then((res1) => {
+                    console.log(res1);
+                    return getDataPromise();
                 })
-                .catch(e => {
-                    console.log(e)
+                .then((res2) => {
+                    console.log(res2);
                 })
         }
 
-        function promisesAdvanced() {
-            Promise.all([
-                getPromiseData(500),
-                getPromiseData(500, true).catch(e => {
-                    return "catch"
-                }),
-                getPromiseData(1000),
-            ]).then(res => {
-                console.log(res)
-                return getPromiseData(500)
-            }).then(res => {
-                console.log(res)
-                return Promise.all([
-                    getPromiseData(500),
-                    getPromiseData(500),
-                ])
-            }).then(res => {
-                console.log(res)
-            })
+        function promises3() {
+            const promise1 = getDataErrorPromise().catch((e) => {
+                return "recovered";
+            });
+            const promise2 = getDataPromise();
+
+            Promise.all([promise1, promise2])
+                .then((res) => {
+                    console.log(res);
+                })
         }
 
-        async function asyncAwait() {
-            let res = null
+        async function asyncAwait1() {
+            const res1 = await getDataPromise()
+            console.log(res1);
+            const res2 = await getDataPromise()
+            console.log(res2);
+        }
+
+        async function asyncAwait2() {
+            let res1 = null
             try {
-                res = await getPromiseData(500)
+                res1 = await getDataErrorPromise()
             } catch (e) {
-                console.log(e)
-                return
+                res1 = "recovered"
             }
-
-            console.log(res)
+            console.log(res1);
+            
+            const res2 = await getDataPromise()
+            console.log(res2);
         }
 
-        async function asyncAwaitAdvanced() {
-            const res = await Promise.all([
-                getPromiseData(500),
-                getPromiseData(500, true).catch(e => {
-                    return "catch"
-                }),
-                getPromiseData(1000),
+        async function asyncAwait3() {
+            const [res1, res2] = await Promise.all([
+                getDataErrorPromise().catch(e => "recovered"),
+                getDataPromise()
             ])
-            console.log(res)
-
-            let res2 = null
-            try {
-                res2 = await getPromiseData(500, true)
-            } catch (e) {
-                res2 = "catch"
-            }
-            console.log(res2)
-
-            const res3 = await Promise.all([
-                getPromiseData(500),
-                getPromiseData(500),
-            ])
-            console.log(res3)
+            
+            console.log(res1, res2);
         }
 
         //
         // Test stuff here
         //
 
-        // callbacks()
-        // promises()
-        // promiseAll()
-        // promisesAdvanced()
-        // asyncAwait()
-        // asyncAwaitAdvanced()
+        // callbacks() ;
+        // promises1()
+        // promises2()
+        // promises3()
+        // asyncAwait1()
+        // asyncAwait2()
+        // asyncAwait3()
 
         /*
         Synchronous functions
@@ -197,37 +164,42 @@
             - done
             - error handling
             - getCbData function
-            - excercise:
-                ok -> ok -> error
+            - excercise 1:
+                A ok -> B ok -> result A B     
+            - excercise 2:
+                A ok ------------- +       
+                B error (recover)  + -> result A B
 
         Promises
             - fetch
-                fetch('https://swapi.co/api/people/')
+                fetch('https://swapi.dev/api/people/')
                     .then(res => res.json())
                     .then(res => console.log(res))
                     .catch(e => console.log(e));
                 - then/catch
                 - then(null, errHandler)
             - new Promise((resolve, reject) => {})
-            - excercise:
-                ok -> error -> ok -> error -> catch handler
-                        ^ recover from error
+            - excercise 1:
+                A ok -> B ok -> result A B     
+            - excercise 2:
+                A error (recover) -> B ok -> result A B     
             - Promise.all/race
-            - excercise:
-                ok ------------- +              ok -- +
-                error (recover)  + ALL -> ok -> ok -- + -> RACE -> END
-                ok ------------- +
+            - excercise 3:
+                A ok ------------- +       
+                B error (recover)  + -> result A B
 
         Async/Await
             - async await
             - try/catch
-            - excercise:
-                ok ------------- +                         ok -- +
-                error (recover)  + ALL -> err (recover) -> ok -- + -> RACE -> END
-                ok ------------- +
+            - excercise 1:
+                A ok -> B ok -> result A B     
+            - excercise 2:
+                A error (recover) -> B ok -> result A B     
+            - excercise 3:
+                A ok ------------- +       
+                B error (recover)  + -> result A B
+
         */
-
     </script>
-
 </body>
 </html>

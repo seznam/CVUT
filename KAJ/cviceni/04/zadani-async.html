@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Lecture 04</title>
 </head>
 <body>
@@ -10,51 +10,86 @@
         //
         // Data functions
         //
-
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
+        let counter = 0;
+        function getMockData() {
+            counter++;
+            return counter
         }
 
-        function getData(error) {
-            if (!error) {
-                return 1
-            } else {
-                throw new Error("Error value")
-            }
+        function getDataSync() {
+            return getMockData()
+        }
+        function getDataErrorSync() {
+            throw new Error(`Something went wrong`);
         }
 
-        function getCbData(doneCb, error = false) {
-            const delay = getRandomInt(500, 3000)
+        function getDataCallback(doneCb) {
             setTimeout(() => {
-                doneCb(error ? "Error value" : null, !error ? 1 : null)
-            }, delay)
+                doneCb(null, getMockData());
+            }, 1000);
         }
 
-        function getPromiseData(error = false) {
+        function getDataErrorCallback(doneCb) {
+            setTimeout(() => {
+                doneCb(new Error(`Something went wrong`), null);
+            }, 1000);
+        }
+
+        function getDataPromise() {
             return new Promise((resolve, reject) => {
-                const delay = getRandomInt(500, 3000)
                 setTimeout(() => {
-                    if (error) {
-                        reject("Error value")
-                    } else {
-                        resolve(1)
-                    }
-                }, delay)
-            })
+                    resolve(getMockData());
+                }, 1000);
+            });
+        }
+        function getDataErrorPromise() {
+            return new Promise((resolve, reject) => {
+                setTimeout(() => {
+                    reject(new Error(`Something went wrong`));
+                }, 1000);
+            });
         }
 
         //
-        // Tasks functions
+        // Main functions
         //
+        function callbacks() {
+        }
+
+        function promises1() {
+        }
+
+        function promises2() {
+        }
+
+        function promises3() {
+        }
+
+        async function asyncAwait1() {
+        }
+
+        async function asyncAwait2() {
+        }
+
+        async function asyncAwait3() {
+        }
+
+        //
+        // Test stuff here
+        //
+
+        // callbacks() ;
+        // promises1()
+        // promises2()
+        // promises3()
+        // asyncAwait1()
+        // asyncAwait2()
+        // asyncAwait3()
 
         /*
-
         Synchronous functions
             - Call them
             - Try to catch errors thrown by them
-
-        Browser Event Loop
-            https://www.youtube.com/watch?v=cCOL7MC4Pl0
 
         Event Listeners
             - addEventListener
@@ -65,37 +100,42 @@
             - done
             - error handling
             - getCbData function
-            - excercise:
-                ok -> ok -> error
+            - excercise 1:
+                A ok -> B ok -> result A B     
+            - excercise 2:
+                A ok ------------- +       
+                B error (recover)  + -> result A B
 
         Promises
             - fetch
-                fetch('https://jsonplaceholder.typicode.com/todos/1')
+                fetch('https://swapi.dev/api/people/')
                     .then(res => res.json())
                     .then(res => console.log(res))
                     .catch(e => console.log(e));
                 - then/catch
                 - then(null, errHandler)
             - new Promise((resolve, reject) => {})
-            - excercise:
-                ok -> error -> ok -> error -> catch handler
-                        ^ recover from error
+            - excercise 1:
+                A ok -> B ok -> result A B     
+            - excercise 2:
+                A error (recover) -> B ok -> result A B     
             - Promise.all/race
-            - excercise:
-                ok ------------- +              ok -- +
-                error (recover)  + ALL -> ok -> ok -- + -> RACE -> END
-                ok ------------- +
+            - excercise 3:
+                A ok ------------- +       
+                B error (recover)  + -> result A B
 
         Async/Await
             - async await
             - try/catch
-            - excercise:
-                ok ------------- +                         ok -- +
-                error (recover)  + ALL -> err (recover) -> ok -- + -> RACE -> END
-                ok ------------- +
+            - excercise 1:
+                A ok -> B ok -> result A B     
+            - excercise 2:
+                A error (recover) -> B ok -> result A B     
+            - excercise 3:
+                A ok ------------- +       
+                B error (recover)  + -> result A B
+
         */
-
     </script>
-
 </body>
 </html>
