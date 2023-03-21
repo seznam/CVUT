@@ -90,10 +90,11 @@ xhr.send(data);
 
 # fetch()
 
-  - Nové, "nedávno" standardizované rozhraní
+  - Zatím nejnovější HTTP rozhraní
   - Podobné jako XMLHttpRequest, ale jednodušší
   - Asynchronní řízení pomocí *Promises*
   - K dispozici je [polyfill](https://github.com/github/fetch)
+  - Rozdělení na dva asynchronní kroky: hlavičky odpovědi, tělíčko odpovědi
 
 ---
 
@@ -103,29 +104,49 @@ xhr.send(data);
 fetch("/nejaky/soubor.json")
 	.then(function(response) {
 		if (response.status != 200) {
-			console.log("HTTP status", response.status);
-			return;
+			console.log("HTTP status", response.status)
+			return
 		}
 
 		response.json().then(function(data) {
-			console.log(data);
-		});
+			console.log(data)
+		})
 	})
 	.catch(function(err) {
-		console.log("Error", err);
-	});
+		console.log("Error", err)
+	})
 ```
 
 ---
 
-# fetch() a async/await
+# fetch()
+
+Úsporněji pomocí arrow functions
+
+```js
+fetch("/nejaky/soubor.json")
+	.then(response => {
+		if (response.status != 200) {
+			console.log("HTTP status", response.status)
+			return
+		}
+
+		response.json().then(data => console.log(data))
+	})
+	.catch(err => console.log("Error", err))
+```
+
+---
+
+# fetch()
+
+Úsporněji pomocí async/await
 
 ```js
 try {
   let response = await fetch("/nejaky/soubor.json")
   if (response.status != 200) {
-    console.log("HTTP status", response.status)
-    return;
+    return console.log("HTTP status", response.status)
   }
 
   let data = await response.json()
@@ -152,11 +173,28 @@ fetch(url,  {
 
 ---
 
+# Objekt Response
+
+https://developer.mozilla.org/en-US/docs/Web/API/Response
+
+```js
+let response = await fetch("/")
+
+response.url            // string
+response.status         // number
+response.headers        // objekt s hlavičkami
+response.body           // stream
+response.text()         // Promise
+response.json()         // Promise
+response.arrayBuffer()  // Promise
+```
+
+---
+
 # fetch vs XHR
 
-  - Chybí `timeout` &rArr; lze implementovat ručně pomocí `setTimeout` a `abort()`
-  - Chybí `abort()` &rArr; problém celého konceptu Promises
-  - Objekt `AbortController` má výhledově řešit přerušitelné Promises, zatím jen fetch
+  - Chybí `abort()` &rArr; lze vyřešit pomocí `new AbortController().signal`
+  - Chybí `timeout` &rArr; lze vyřešit pomocí `AbortSignal.timeout()`
 
 ---
 
@@ -177,12 +215,12 @@ fetch(url,  {
 # Cross-domain požadavky: potenciální riziko
 
 ```js
-let xhr = new XMLHttpRequest();
-xhr.open("get", "http://gmail.com/", true);
-xhr.send();
+let xhr = new XMLHttpRequest()
+xhr.open("get", "http://gmail.com/", true)
+xhr.send()
 
 xhr.onload = function() {
-	alert(this.responseText);
+	alert(this.responseText)
 }
 ```
 
@@ -268,7 +306,7 @@ xhr.responseXML instanceof DOMDocument
 
 # Transportní formáty: JSON
 
-  - Populární textový formát ([http://json.org/](http://json.org/))
+  - Populární textový formát ([https://json.org/](https://json.org/))
   - Podmnožina JavaScriptu
   - Řetězce, čísla, bool, pole, struktury, null
   - Absence speciálních číselných hodnot, undefined, Date, RegExp
@@ -291,8 +329,9 @@ xhr.responseXML instanceof DOMDocument
 
 # Transportní formáty: binárně
 
-  - Lze, ale historicky je obtížné (cross-browser)
+  - Lze, ale historicky je nezvyklé (cross-browser)
   - U XMLHttpRequest 2 lze přes `responseType` a `send(binaryData)`
+  - fetch() pomocí `Response.prototype.arrayBuffer()`
   - V JS dlouho nebyl vhodný datový typ pro práci s binárními daty
   - [ArrayBuffer](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/ArrayBuffer), [Typed Array](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/TypedArray)
 
@@ -313,8 +352,8 @@ xhr.responseXML instanceof DOMDocument
 ```
 
 ```js
-/* odpověď serveru */
-mojeFunkce({name: "jan", data: [3, 4, true]});
+// odpověď serveru
+mojeFunkce({name: "jan", data: [3, 4, true]})
 ```
 
 ---
@@ -409,15 +448,15 @@ mojeFunkce({name: "jan", data: [3, 4, true]});
 # Web Sockets: klientská část
 
 ```js
-let socket = new WebSocket("ws://server.tld:1234/");
+let socket = new WebSocket("ws://server.tld:1234/")
 
 socket.onopen = function(e) {
-	socket.send("data");
+	socket.send("data")
 }
 
 socket.onmessage = function(e) {
-	alert(e.data);
-	socket.close();
+	alert(e.data)
+	socket.close()
 }
 ```
 
