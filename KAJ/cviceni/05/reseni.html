@@ -31,7 +31,7 @@
                 HTTP API with JSON response of Users characters
                     https://jsonplaceholder.typicode.com/users
                 WebSocket API with text messages
-                    ws://salty-peak-74076.herokuapp.com/
+                    wss://zwa-chat.deno.dev
                 HTTP API with XML response of places matching given query
                     https://api.mapy.cz/geocode?query=praha
 
@@ -137,7 +137,7 @@
         //
 
         const textarea = document.querySelector("#chat");
-        const ws = new WebSocket("ws://salty-peak-74076.herokuapp.com/");
+        const ws = new WebSocket("wss://zwa-chat.deno.dev");
 
         ws.addEventListener("open", e => {
             textarea.value += "[connected to chat]\n";
@@ -149,7 +149,7 @@
         });
 
         ws.addEventListener("message", e => {
-            textarea.value += e.data + "\n";
+            textarea.value += `${e.data}\n`;
         });
 
         const input = document.querySelector("#chat-input");
@@ -159,6 +159,7 @@
             const chatMessage = e.target.value;
             if (!chatMessage) return;
 
+            textarea.value += `${e.target.value}\n`;
             e.target.value = "";
             ws.send(chatMessage);
         });
