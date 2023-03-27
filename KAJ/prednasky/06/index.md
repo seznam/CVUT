@@ -44,6 +44,8 @@ Obecně není možné vytvářet selektory, pro jejichž vyhodnocení potřebuje
 
 Valná většina selektorů se tedy týká uzlů samotných, jejich rodičů či předchůdců.
 
+Toto pravidlo bude v budoucnu porušováno teprve plnou podporou selektoru `:has`.
+
 ---
 
 # Selektorový jazyk &ndash; základy
@@ -377,6 +379,7 @@ maximum-scale, minimum-scale, user-scalable
 # Responsive design: nové jednotky
 
   - CSS jednotky `vw`, `vh`, `vmin`, `vmax`
+    - a také `svw`, `svh`, `lvw`, `lvh`, `dvw`, `dvh` (!!)
   - Procenta rozměrů průhledu
   - [Podpora](http://caniuse.com/#feat=viewport-units)
   - Ideální tam, kde by bylo nutno dopočítávat skriptem

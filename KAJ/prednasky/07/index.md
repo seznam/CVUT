@@ -9,6 +9,7 @@
   1. 2D transformace
   1. 3D transformace
   1. CSS Flexible Box Module
+  1. CSS Grid
   1. Písma
 
 FIXME flex jen pokrocilejsi
