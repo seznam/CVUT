@@ -20,11 +20,6 @@
         </p>
     </section>
 
-    <section>
-        <h2>Mapy.cz</h2>
-        <ul id="mapy"></ul>
-    </section>
-
     <script>
         /*
             urls:
@@ -62,8 +57,6 @@
                     1. Connect to WebSocket API
                     2. When messages comes in, render it to the - <textarea id="chat">
                     3. When user types in text in <input type="text" id="chat-input"> and presses enter, send the message to the chat
-                2. Mapy.cz API with XML response
-                    1. Fetch the data, the idea is the same, except we get XML instead of JSON as a response
         */
 
         //
@@ -163,29 +156,6 @@
             e.target.value = "";
             ws.send(chatMessage);
         });
-
-        //
-        // Mapy.cz
-        //
-
-        function renderMapy(data) {
-            const parser = new DOMParser();
-            const doc = parser.parseFromString(data, "text/xml");
-            const items = doc.querySelectorAll("item");
-            for (const item of items) {
-                const title = item.getAttribute("title");
-
-                const li = document.createElement("li");
-                li.appendChild(document.createTextNode(title));
-                document.querySelector("#mapy").appendChild(li);
-            }
-        }
-
-        fetch("https://api.mapy.cz/geocode?query=praha")
-            .then(res => res.text())
-            .then(renderMapy)
-            .catch(e => console.log(e));
-
     </script>
 </body>
 </html>
