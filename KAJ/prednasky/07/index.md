@@ -6,14 +6,10 @@ Chat server z předminula: https://github.com/ondras/zwa-chat
 
 # Obsah
 
-  1. 2D transformace
-  1. 3D transformace
+  1. Transformace 2D a 3D
   1. CSS Flexible Box Module
   1. CSS Grid
   1. Písma
-
-FIXME flex jen pokrocilejsi
-FIXME presunout sem grid
 
 ---
 
@@ -131,10 +127,7 @@ div {
 <div id="rotate"><div></div></div>
 <style>
 #rotate {
-	transform-style: preserve-3d;
-	-webkit-transform-style: preserve-3d;
 	perspective: 500px;
-	-webkit-perspective: 500px;
 	position: absolute;
 	right: 10px;
 	top: 100px;
@@ -154,7 +147,6 @@ div {
 
   - Aby docházelo k prespektivnímu zkreslení, je nutno definovat parametry 3D prostoru
   - Vlastnost `perspective` na rodičovském prvku určuje míru zkreslení
-  - Vlastnost `transform-style` určuje, jak se chovají 3d transformace [na potomcích již transformovaných prvků](https://jsfiddle.net/1rzpe641/)
 
 ---
 
@@ -197,7 +189,7 @@ div {
 
 # CSS3 Flexible Box
 
-  - Nový pozicovací algoritmus do CSS
+  - ~~Nový~~ Moderní pozicovací algoritmus do CSS
   - Pro polohování boxů vedle sebe / pod sebe
   - Náhrada za (slabý) float
 
@@ -227,17 +219,36 @@ div {
 
 # CSS3 Flexible Box
 
-  - Komplexní systém mnoha CSS vlastností
-  - Popisuje vždy jen rozložení několika sourozenců v rámci rodiče
+  - Pozice/rozměry rodiče nejsou relevantní
+    - ovlivněny jen pomocí `display:flex`, resp. `display:inline-flex`
+  - Jde zejména o rozložení přímých potomků
   - Terminologie a *big picture* [na MDN](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Flexible_Box_Layout/Using_CSS_flexible_boxes)
 
 ---
 
-# CSS3 Flexible Box: relativní rozměry boxů
+# CSS3 Flexible Box: hlavní osa (*main axis*)
+
+...když je v plánu ji zaplnit:
 
   - `flex-grow` je relativní *síla růstu*
   - `flex-shrink` je relativní *síla zmenšení*
   - `flex-basis` je základní rozměr (výška/šířka)
+  - `flex-wrap` pro povolení/zakázání zalamování
+
+---
+
+# CSS3 Flexible Box: hlavní osa (*main axis*)
+
+...když zůstane volné místo:
+
+  - `justify-content` pro zarovnání v hlavní ose
+
+---
+
+# CSS3 Flexible Box: kolmá osa (*cross axis*)
+
+  - `align-items` je vlastnost rodiče, určující zarovnání všech potomků
+  - `align-self` je přebití pro jednoho potomka
 
 ---
 
@@ -245,17 +256,9 @@ div {
 
   - Vlastnost `order` pro změnu pořadí prvků
   - Podobný princip jako u `z-index`
-  - Dovoluje zachovat obsah první
+  - Dovoluje zachovat *obsah na začátku*
   - Často v kombinaci s media queries
   - [Ukázka](https://jsfiddle.net/ondras/c9uqz21b/)
-
----
-
-# CSS3 Flexible Box: další vlastnosti
-
-  - `justify-content` pro zarovnání v hlavní ose (*main axis*)
-  - `align-items` a `align-self` pro zarovnání v kolmé ose (*cross axis*)
-  - `flex-wrap` pro povolení/zakázání zalamování
 
 ---
 
@@ -285,9 +288,9 @@ div {
 
 # CSS Grid &ndash; koncepty
 
-  - Rodič má `display: grid`
+  - Rodič má `display:grid` či `display:inline-grid`
   - Přímí potomci jsou rozmístěni *na mřížce*
-  - Existuje několik variant definice mřížky
+  - Existuje mnoho variant definice mřížky
   - Potomci se mohou překrývat či zabírat mnoho polí mřížky
 
 ---
@@ -296,14 +299,26 @@ div {
 
   - *Grid track* je sloupec či řádka mřížky
   - *Grid line* je (neviditelná) čára mezi tracky
+  - *Grid area* je plocha jedné či více buněk
   - Jednotka *fr* je jeden díl nerozděleného místa (paralela s `flex`)
 
 ---
 
 # CSS Grid &ndash; definice mřížky
 
-  - Tracky lze definovat explicitně, nebo automaticky podle počtu potomků
+**Snadné:**
 
+- Počet a výška řádků: `grid-template-rows`
+- Počet a šířka sloupců: `grid-template-columns`
+
+**Složité:**
+
+- Počet řádků určen pomocí potomků: `grid-auto-rows`
+- Počet sloupců určen pomocí potomků: `grid-auto-columns`
+
+---
+
+# CSS Grid &ndash; definice mřížky
 
 ```css
 .parent {
@@ -314,15 +329,16 @@ div {
 
 ```css
 .parent {
+	grid-template-columns: repeat(4, 1fr);
 	grid-auto-rows: minmax(100px, auto);
 }
 ```
 
 ---
 
-# CSS Grid &ndash; definice ploch
+# CSS Grid &ndash; pojmenování ploch
 
-  - Alternativně lze tracky definovat *vizuálně* pomocí pojmenovaných ploch
+  - Vzniklé *grid areas* lze následně pojmenovat
 
 ```css
 .parent {
@@ -336,6 +352,7 @@ div {
 
 # CSS Grid &ndash; pozicování na mřížce
 
+  - Automaticky (`grid-auto-flow`), pokud není specifikováno per-potomek
   - Pomocí pojmenovaných ploch
   - Pomocí tracků
   - Pomocí (pojmenovaných) grid lines
