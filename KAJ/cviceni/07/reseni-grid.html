@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>
+            CSS Grid
+        </title>
+        <style>
+            /* 1st variant */
+
+            .container {
+                height: 100vh;
+                min-height: 100vh;
+                display: grid;
+                /* define grid */
+                grid-template-rows: 100px auto 50px;
+                grid-template-columns: 300px 2fr 10% 10%;
+                /* space between cells */
+                grid-gap: 10px 5px;
+            }
+
+            .box {
+                display: grid;
+                background: #bebebe;
+                border-radius: 10px;
+                padding: 10px;
+                justify-content: center;
+                align-content: center;
+            }
+
+            header.box {
+                grid-column: 1 / last-column;
+                /*  same like code up
+                    grid-column-start: 1;
+                    grid-column-end: last-column;
+                */
+
+                /* move header to second line (tells cell where to starts and ends)
+                    grid-row: 2 / last-line;
+                */
+                background:#ec0000;
+            }
+
+            footer.box {
+                display: grid;
+                grid-column-start: 1;
+                grid-column-end: last-column;
+
+                /* aligns content inside
+                align-self: end;
+                justify-self: end;
+                */
+
+                background: #88ec55;
+            }
+
+            /* 2nd variant AREAS */
+            .container {
+                height: 100vh;
+                min-height: 100vh;
+                display: grid;
+                /* define grid */
+                grid-template-rows: 100px auto 50px;
+                grid-template-columns: 300px 2fr 10% 10%;
+                /* space between cells */
+                grid-gap: 10px 5px;
+
+                grid-template-areas:
+                    "head head head head"
+                    "navi arti as   as"
+                    "foot foot foot ...";
+            }
+
+            .box {
+                display: grid;
+                background: #bebebe;
+                border-radius: 10px;
+                padding: 10px;
+                justify-content: center;
+                align-content: center;
+            }
+
+            /* give names */
+            header {
+                grid-area: head;
+            }
+            nav {
+                grid-area: navi
+            }
+            article {
+                grid-area: arti;
+            }
+            aside {
+                grid-area: as;
+            }
+            footer {
+                grid-area: foot;
+            }
+
+        </style>
+    </head>
+    <body>
+        <div class="container">
+            <header class="box">
+                header
+            </header>
+            <nav class="box">
+                nav
+            </nav>
+            <article class="box">
+                article
+            </article>
+
+            <aside class="box" id="a1">
+                aside 1
+            </aside>
+
+            <aside class="box" class="a2">
+                aside 2
+            </aside>
+
+            <footer class="box">
+                footer
+            </footer>
+        </div>
+
+    </body>
+</html>
