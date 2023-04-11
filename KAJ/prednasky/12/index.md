@@ -2,7 +2,6 @@
 
 ---
 
-FIXME grid pryc
 FIXME predelat na web components
 FIXME css custom properties pryc
 FIXME zrusit notifikace
@@ -32,42 +31,6 @@ FIXME zrusit notifikace
   - První před-čtyř-termín: 20. 5. 2021 (9:00, 10:00, 11:00, 12:00)
   - Celkem 16 termínů
   - Další termíny budou vypsány jen v případě absolutní nouze
-
----
-
-# CSS3 Custom Properties
-
-```css
-body {
-	--main-bg-color: brown;
-}
-
-div {
-	background-color: var(--main-bg-color);
-}
-
-a {
-	/* default value */
-	background-color: var(--main-bg-color, red);
-}
-```
-
----
-
-# CSS3 Custom Properties
-
-  - Někdy nazýváno *CSS Variables*
-  - Shodné chování s ostatními vlastnostmi (kaskáda)
-  - Druhý parametr funkce `var()` je výchozí hodnota, pokud by vlastnost neexistovala
-  - Hodnoty lze měnit za běhu (JS API, media queries, &hellip;)
-
----
-
-# CSS3 Custom Properties
-
-  - Nelze polyfillovat ani preprocessovat &ndash; hodnoty se v čase mění
-  - Užitečné pro *skinování*
-  - Užitečné pro modularizaci a izolaci CSS komponent
 
 ---
 

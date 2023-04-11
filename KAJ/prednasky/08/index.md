@@ -2,13 +2,11 @@
 
 ---
 
-FIXME prihodit custom properties
-
 # Obsah
   1. Transitions
   1. Animations
-  1. Filtry
-  1. Ostatní efekty
+  1. Efekty a filtry
+  1. Custom Properties
 
 ---
 
@@ -127,12 +125,12 @@ div:hover {
 # CSS transitions: pozor na implementaci vykreslování!
 
 ```js
-var div = document.createElement("div");
-div.style.transition = "all 3s";
-div.style.color = "red";
-document.body.appendChild(div);
+let div = document.createElement("div")
+div.style.transition = "all 3s"
+div.style.color = "red"
+document.body.append(div)
 
-div.style.color = "blue";
+div.style.color = "blue"
 /* ??? */
 ```
 
@@ -142,16 +140,16 @@ div.style.color = "blue";
 # CSS transitions: pozor na implementaci vykreslování!
 
 ```js
-div.style.color = "red";
-div.offsetWidth;
-div.style.color = "blue";
+div.style.color = "red"
+div.offsetWidth
+div.style.color = "blue"
 ```
 
 ```js
-div.style.color = "red";
+div.style.color = "red"
 setTimeout(() => {
-	div.style.color = "blue";
-}, 0);
+	div.style.color = "blue"
+}, 0)
 ```
 
 ---
@@ -438,6 +436,43 @@ filter: contrast(175%) brightness(3%);
 `box-shadow` je kolem celého boxu, `drop-shadow` respektuje průhlednost
 
 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/CVUT_znak.svg" width="30%" style="box-shadow: 0 0 15px red; filter: drop-shadow(0 0 15px green)">
+
+---
+
+
+# CSS3 Custom Properties
+
+```css
+body {
+	--main-bg-color: brown;
+}
+
+div {
+	background-color: var(--main-bg-color);
+}
+
+a {
+	/* default value */
+	background-color: var(--main-bg-color, red);
+}
+```
+
+---
+
+# CSS3 Custom Properties
+
+  - Někdy nazýváno *CSS Variables*
+  - Shodné chování s ostatními vlastnostmi (kaskáda)
+  - Druhý parametr funkce `var()` je výchozí hodnota, pokud by vlastnost neexistovala
+  - Hodnoty lze měnit za běhu (JS API, media queries, &hellip;)
+
+---
+
+# CSS3 Custom Properties
+
+  - Nelze polyfillovat ani preprocessovat &ndash; hodnoty se v čase mění
+  - Užitečné pro *skinování*
+  - Užitečné pro modularizaci a izolaci CSS komponent
 
 ---
 
