@@ -89,9 +89,9 @@ JS API pro práci s offline cache
 # Service Worker &ndash; ukázka
 
 ```js
-navigator.serviceWorker.register("/worker.js").then(function(reg) {
-	console.log("Service worker ready");
-});
+navigator.serviceWorker.register("/worker.js").then(() => {
+	console.log("Service worker ready")
+})
 ```
 
 Řízení asynchronního toku kódu je realizováno pomocí vzoru Promise
@@ -101,18 +101,18 @@ navigator.serviceWorker.register("/worker.js").then(function(reg) {
 # Service Worker &ndash; ukázka
 
 ```js
-self.addEventListener("install", function(event) {
-	console.log("SW (či jeho nová verze) nainstalován");
-});
+self.addEventListener("install", event => {
+	console.log("SW (či jeho nová verze) nainstalován")
+})
 
-self.addEventListener("activate", function(event) {
-	console.log("SW (či jeho nová verze) aktivován");
-});
+self.addEventListener("activate", event => {
+	console.log("SW (či jeho nová verze) aktivován")
+})
 
-self.addEventListener("fetch", function(event) {
+self.addEventListener("fetch", event => {
 	console.log("HTTP požadavek ze stránky");
-	event.respondWith(new Response("Hello world!"));
-});
+	event.respondWith(new Response("Hello world!"))
+})
 ```
 
 ---
@@ -121,17 +121,17 @@ self.addEventListener("fetch", function(event) {
 
 ```js
 self.addEventListener("fetch", async e => {
-	const cache = await caches.open(CACHE_NAME);
-	const cached = await cache.match(e.request);
+	const cache = await caches.open(CACHE_NAME)
+	const cached = await cache.match(e.request)
 
-	let response;
+	let response
 	if (cached) {
-		response = cached;
+		response = cached
 	} else {
-		response = await fetch(e.request);
+		response = await fetch(e.request)
 	}
-	e.respondWith(response);
-});
+	e.respondWith(response)
+})
 ```
 
 ---
@@ -375,15 +375,15 @@ text {
 # HTML5 Audio: JavaScriptové API
 
 ```js
-new Audio("song.mp3").play();
+new Audio("song.mp3").play()
 ```
 
 ```js
 let a = new Audio()
 a.canPlayType("audio/mpeg") /* "", "maybe", "probably" */
 a.src = "song.mp3"
-a.addEventListener("timeupdate", function() { console.log(a.currentTime); })
-a.play();
+a.addEventListener("timeupdate", () => console.log(a.currentTime))
+a.play()
 ```
 
 <instant-button style="color:red" src="instant-button/buzzer.{ogg,mp3}"></instant-button>
@@ -393,7 +393,7 @@ a.play();
 
 # &lt;audio&gt; a &lt;video&gt; formáty
 
-[Tabulka](https://developer.mozilla.org/en-US/docs/HTML/Supported_media_formats)
+[Dokumentace](https://developer.mozilla.org/en-US/docs/HTML/Supported_media_formats)
 
 ---
 
@@ -411,14 +411,14 @@ a.play();
 # Web Audio API: generování zvuku
 
 ```js
-let ctx = new AudioContext();
+let ctx = new AudioContext()
 
-let oscillator = ctx.createOscillator();
+let oscillator = ctx.createOscillator()
 
-oscillator.frequency.value = 440;
-oscillator.connect(ctx.destination);
+oscillator.frequency.value = 440
+oscillator.connect(ctx.destination)
 
-oscillator.start();
+oscillator.start()
 ```
 
   - Tvar vlny možno určit vlastností `type`
