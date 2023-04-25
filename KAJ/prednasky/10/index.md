@@ -17,7 +17,6 @@
 # HTML5 Video
 
   - Vložení videa do stránky
-  - Alternativa pro Flashové přehrávače
   - Syntaxe téměř shodná s audiem
   - Ještě výraznější problematika formátů
   - S výhodou použití `<source media="..." />`
@@ -56,7 +55,7 @@
   - HTML značka
   - Rastrová kreslící plocha
   - Bohaté JS API
-  - [Výborná podpora prohlížečů](http://caniuse.com/#feat=canvas)
+  - [Výborná podpora prohlížečů](https://caniuse.com/#feat=canvas)
 
 ---
 
@@ -75,9 +74,9 @@
 # Co je to canvas: v JS
 
 ```js
-let canvas = document.querySelector("canvas");
-let context = canvas.getContext("2d");
-context.namalujNecoPekneho();
+let canvas = document.querySelector("canvas")
+let context = canvas.getContext("2d")
+context.namalujNecoPekneho()
 ```
 
   - Malovací metody patří kontextu
@@ -97,15 +96,15 @@ context.namalujNecoPekneho();
 
 # Malování: tah štětcem
 
-[Ukázka](http://ondras.zarovi.cz/slides/2011/html5/3.html#7)
+[Ukázka](https://ondras.zarovi.cz/slides/2011/html5/3.html#7)
 
 ```js
-ctx.beginPath();
-ctx.moveTo(100, 200);
-ctx.lineTo(200, 300);
-ctx.arc(300, 300, 50, 0, Math.PI, true);
-ctx.stroke();
-ctx.fill();
+ctx.beginPath()
+ctx.moveTo(100, 200)
+ctx.lineTo(200, 300)
+ctx.arc(300, 300, 50, 0, Math.PI, true)
+ctx.stroke()
+ctx.fill()
 ```
 
 ---
@@ -134,13 +133,13 @@ ctx.fill();
 # Malování: text
 
 ```js
-ctx.font = "bold 20px arial";
-ctx.textAlign = "middle";
-ctx.textBaseline = "bottom";
+ctx.font = "bold 20px arial"
+ctx.textAlign = "middle"
+ctx.textBaseline = "bottom"
 
-ctx.fillText("Ahoj", x, y);
-ctx.strokeText("Ahoj", x, y);
-let w = ctx.measureText("A").width;
+ctx.fillText("Ahoj", x, y)
+ctx.strokeText("Ahoj", x, y)
+let w = ctx.measureText("A").width
 ```
 
 ---
@@ -148,33 +147,33 @@ let w = ctx.measureText("A").width;
 # Malování: po pixelech
 
 ```js
-let data = ctx.getImageData(x, y, w, h);
+let data = ctx.getImageData(x, y, w, h)
 /* data.data.length == w*h*4 */
 
-data.data[0] = 100; /* R */
-data.data[1] = 200; /* G */
-data.data[2] =  50; /* B */
-data.data[3] = 255; /* A */
+data.data[0] = 100 /* R */
+data.data[1] = 200 /* G */
+data.data[2] =  50 /* B */
+data.data[3] = 255 /* A */
 
-ctx.putImageData(data, 0, 0);
+ctx.putImageData(data, 0, 0)
 ```
 
-<a target="_blank" href="http://ondras.github.io/coral/">Ukázka 1</a>, <a target="_blank" href="http://ondras.github.io/fractal/">Ukázka 2</a>, <a target="_blank" href="http://ondras.github.io/primitive.js/">Ukázka 3</a>
+<a target="_blank" href="https://ondras.github.io/coral/">Ukázka 1</a>, <a target="_blank" href="https://ondras.github.io/fractal/">Ukázka 2</a>, <a target="_blank" href="https://ondras.github.io/primitive.js/">Ukázka 3</a>
 
 ---
 
 # Malování: barevné přechody a vzory
 
 ```js
-let g = ctx.createLinearGradient(0, 0, 100, 100);
-g.addColorStop(0, "red");
-g.addColorStop(1, "blue");
-ctx.fillStyle = g;
+let g = ctx.createLinearGradient(0, 0, 100, 100)
+g.addColorStop(0, "red")
+g.addColorStop(1, "blue")
+ctx.fillStyle = g
 
-let p;
-p = ctx.createPattern(image);
-p = ctx.createPattern(canvas);
-ctx.fillStyle = p;
+let p
+p = ctx.createPattern(image)
+p = ctx.createPattern(canvas)
+ctx.fillStyle = p
 ```
 
 ---
@@ -204,11 +203,11 @@ ctx.fillStyle = p;
 # Animace a časování: varianta 1
 
 ```js
-let x = 0;
+let x = 0
 while (true) {
-	ctx.clearRect();
-	x += 3;
-	ctx.drawRect(x, 0, 10, 10);
+	ctx.clearRect()
+	x += 3
+	ctx.drawRect(x, 0, 10, 10)
 }
 ```
 
@@ -217,14 +216,14 @@ while (true) {
 
 # Animace a časování: varianta 2
 ```js
-let x = 0;
+let x = 0
 let draw = function() {
-	ctx.clearRect();
-	x += 3;
-	ctx.drawRect(x, 0, 10, 10);
+	ctx.clearRect()
+	x += 3
+	ctx.drawRect(x, 0, 10, 10)
 }
 
-setInterval(draw, 1000/30);
+setInterval(draw, 1000/30)
 ```
 
 ---
@@ -232,15 +231,15 @@ setInterval(draw, 1000/30);
 # Animace a časování: varianta 3
 
 ```js
-let x = 0;
+let x = 0
 let draw = function() {
-	ctx.clearRect();
-	x += 3;
-	ctx.drawRect(x, 0, 10, 10);
-	requestAnimationFrame(draw);
+	ctx.clearRect()
+	x += 3
+	ctx.drawRect(x, 0, 10, 10)
+	requestAnimationFrame(draw)
 }
 
-draw();
+draw()
 ```
 
 ---
@@ -248,13 +247,13 @@ draw();
 # Animace a časování: varianta 4
 
 ```js
-let T = Date.now();
-let speed = 0.1;
+let T = Date.now()
+let speed = 0.1
 
 let draw = function() {
-	let t = Date.now();
-	x += (T - t) * speed;
-	T = t;
+	let t = Date.now()
+	x += (T - t) * speed
+	T = t
 	/* ... */
 }
 ```
@@ -266,7 +265,7 @@ let draw = function() {
   - `let data = canvas.toDataURL("image/png")`
   - Technika *data URI* představuje reprezentaci dat přímo v řetězci URI
   - Možno nastavit např. jako src obrázku
-  - [Ukázka](http://ondras.github.io/photo/)
+  - [Ukázka](https://ondras.github.io/photo/)
 
 ---
 
@@ -316,14 +315,14 @@ let draw = function() {
 # Tipy a triky: Retina
 
 ```js
-let canvas = document.createElement("canvas");
-canvas.width = canvas.height = 600;
-canvas.style.width = canvas.style.height = "300px";
+let canvas = document.createElement("canvas")
+canvas.width = canvas.height = 600
+canvas.style.width = canvas.style.height = "300px"
 
-let ctx = canvas.getContext("2d");
-ctx.scale(2, 2);
+let ctx = canvas.getContext("2d")
+ctx.scale(2, 2)
 
-ctx.fillText("Ahoj", 50, 50);
+ctx.fillText("Ahoj", 50, 50)
 // ctx...
 ```
 
@@ -344,7 +343,7 @@ ctx.fillText("Ahoj", 50, 50);
   - Veliké API ([Reference Card pro verzi 1](https://www.khronos.org/files/webgl/webgl-reference-card-1_0.pdf))
   - Nové datové typy (*typovaná pole*)
   - Kompatibilní shadery (GLSL)
-  - Nejen 3D scény, ale třeba i [částicové systémy](http://ondras.zarovi.cz/slides/devel2015/)
+  - Nejen 3D scény, ale třeba i [částicové systémy](https://ondras.zarovi.cz/slides/2015/devel/)
 
 ---
 
@@ -359,8 +358,8 @@ ctx.fillText("Ahoj", 50, 50);
 # WebGL: závěr
 
   - Budoucnost grafiky na webu
-  - Použít knihovnu pro matice ([glMatrix](http://glmatrix.net/))
-  - Použít knihovnu pro WebGL ([three.js](http://threejs.org/))
+  - Použít knihovnu pro matice ([glMatrix](https://glmatrix.net/))
+  - Použít knihovnu pro WebGL ([three.js](https://threejs.org/))
 
 ---
 
@@ -387,16 +386,16 @@ ctx.fillText("Ahoj", 50, 50);
 
 ```js
 let ok = function(stream) {
-	video.srcObject = stream;
-	video.play();
+	video.srcObject = stream
+	video.play()
 }
 
 let error = function(e) {
-	alert(e);
+	alert(e)
 }
 
-let options = {audio:true, video:true};
-navigator.mediaDevices.getUserMedia(options).then(ok, error);
+let options = {audio:true, video:true}
+navigator.mediaDevices.getUserMedia(options).then(ok, error)
 ```
 
 <a target="_blank" href="https://jsfiddle.net/smap/6fgu4/15/">Ukázka</a>
