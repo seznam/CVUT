@@ -37,10 +37,10 @@
 
 ```js
 div.addEventListener("dragstart", function(e) {
-	e.dataTransfer.setData("text/plain", "http://www.seznam.cz");
-	e.dataTransfer.setDragImage(image, offsetX, offsetY);
-	e.dataTransfer.effectAllowed = "copyMove";
-	e.dataTransfer.dropEffect = "copy";
+	e.dataTransfer.setData("text/plain", "http://www.seznam.cz")
+	e.dataTransfer.setDragImage(image, offsetX, offsetY)
+	e.dataTransfer.effectAllowed = "copyMove"
+	e.dataTransfer.dropEffect = "copy"
 });
 ```
 
@@ -74,11 +74,11 @@ div.addEventListener("dragstart", function(e) {
 # Geolocation: API
 
 ```js
-let ok = function(position) {
+function ok(position) {
 	alert([position.coords.latitude, position.coords.longitude])
 }
 
-let error = function(e) {
+function error(e) {
 	alert(e.message)
 }
 
@@ -107,14 +107,14 @@ navigator.geolocation.getCurrentPosition(ok, error)
 # Web Storage: ukázka
 
 ```js
-localStorage.setItem("a", "b");
+localStorage.setItem("a", "b")
 // též localStorage.a, localStorage["a"]
 
-localStorage.length == 1;
-localStorage.key(0) == "a";
-localStorage.getItem("a") == "b";
+localStorage.length == 1
+localStorage.key(0) == "a"
+localStorage.getItem("a") == "b"
 
-localStorage.removeItem("a");
+localStorage.removeItem("a")
 ```
 
 ---
@@ -142,13 +142,13 @@ localStorage.removeItem("a");
 # Práce s konstruktorem URL
 
 ```js
-let base = "http://www.seznam.cz/";
-let url = new URL("/a/b.cde?x=y#123", base);
+let base = "http://www.seznam.cz/"
+let url = new URL("/a/b.cde?x=y#123", base)
 
-url.href;          // http://www.seznam.cz/a/b.cde?x=y#123
-url.origin;        // http://www.seznam.cz
-url.hash;          // #123
-url.searchParams;  // instanceof URLSearchParams
+url.href          // http://www.seznam.cz/a/b.cde?x=y#123
+url.origin        // http://www.seznam.cz
+url.hash          // #123
+url.searchParams  // instanceof URLSearchParams
 // ... a mnohé další
 ```
 
@@ -158,7 +158,7 @@ url.searchParams;  // instanceof URLSearchParams
 # File API
 
   - Přístup k souborům na disku uživatele
-  - Uživatel musí soubor nejdříve "vybrat" (dragdrop, input)
+  - Uživatel musí soubor nejdříve *vybrat* (dragdrop, input)
   - Metadata, čtení, odesílání (XHR2)
 
 ---
@@ -174,14 +174,14 @@ url.searchParams;  // instanceof URLSearchParams
 # File API: náhled obrázku
 
 ```js
-let input = document.createElement("input");
-input.type = "file";
+let input = document.createElement("input")
+input.type = "file"
 
 input.onchange = function(e) {
-	let file = input.files[0];
-	let url = URL.createObjectURL(file);
+	let file = input.files[0]
+	let url = URL.createObjectURL(file)
 	// url = "blob:........"
-	image.src = url;
+	image.src = url
 }
 ```
 
@@ -190,15 +190,15 @@ input.onchange = function(e) {
 # File API: objekt FileReader
 
 ```js
-let fr = new FileReader();
+let fr = new FileReader()
 fr.addEventListener("load", function(e) {
-	alert(e.target.result);
+	alert(e.target.result)
 });
 
-fr.readAsText(file);
-/* fr.readAsDataURL(file); */
-/* fr.readAsArrayBuffer(file); */
-/* fr.readAsBinaryString(file); */
+fr.readAsText(file)
+// fr.readAsDataURL(file)
+// fr.readAsArrayBuffer(file)
+// fr.readAsBinaryString(file)
 ```
 
 ---
@@ -242,11 +242,11 @@ fr.readAsText(file);
 # Web Workers
 
 ```js
-let worker = new Worker("script.js");
+let worker = new Worker("script.js")
 
-/* obsah souboru je nyní vykonáván v odděleném vlákně */
+// obsah souboru je nyní vykonáván v odděleném vlákně
 
-worker.terminate();
+worker.terminate()
 ```
 
 ---
@@ -254,12 +254,12 @@ worker.terminate();
 # Web Workers: komunikace s workerem
 
 ```js
-let worker = new Worker("script.js");
+let worker = new Worker("script.js")
 
-worker.postMessage({nejaka:"data"});
+worker.postMessage({nejaka:"data"})
 
 worker.onmessage = function(e) {
-	alert(e.data);
+	alert(e.data)
 }
 ```
 
@@ -269,9 +269,9 @@ worker.onmessage = function(e) {
 
 ```js
 onmessage = function(e) {
-	/* přišla data zvenčí */
+	// přišla data zvenčí
 
-	postMessage(/* ... */); /* posílám data ven */
+	postMessage(/* ... */)  // posílám data ven
 }
 ```
 
@@ -282,7 +282,7 @@ onmessage = function(e) {
   - Žádné window, žádný document
   - importScripts, XMLHttpRequest/fetch, Worker
   - setTimeout, setInterval
-  - To je vše!
+  - To je (zhruba) vše!
 
 ---
 
@@ -320,16 +320,16 @@ onmessage = function(e) {
 # Fullscreen API
 
 ```js
-let elem = document.querySelector("#myvideo");
+let elem = document.querySelector("#myvideo")
 
 if (elem.requestFullscreen) {
-	elem.requestFullscreen();
+	elem.requestFullscreen()
 } else if (elem.msRequestFullscreen) {
-	elem.msRequestFullscreen();
+	elem.msRequestFullscreen()
 } else if (elem.mozRequestFullScreen) {
-	elem.mozRequestFullScreen();
+	elem.mozRequestFullScreen()
 } else if (elem.webkitRequestFullscreen) {
-	elem.webkitRequestFullscreen();
+	elem.webkitRequestFullscreen()
 }
 ```
 
@@ -339,13 +339,13 @@ if (elem.requestFullscreen) {
 
 ```js
 if (document.exitFullscreen) {
-	document.exitFullscreen();
+	document.exitFullscreen()
 } else if (document.msExitFullscreen) {
-	document.msExitFullscreen();
+	document.msExitFullscreen()
 } else if (document.mozCancelFullScreen) {
-	document.mozCancelFullScreen();
+	document.mozCancelFullScreen()
 } else if (document.webkitExitFullscreen) {
-	document.webkitExitFullscreen();
+	document.webkitExitFullscreen()
 }
 ```
 
@@ -362,13 +362,13 @@ if (document.exitFullscreen) {
 # FormData
 
 ```js
-let fd = new FormData( [form] );
+let fd = new FormData( [form] )
 
-fd.append("key1", "value");
-fd.append("key2", file, "filename");
+fd.append("key1", "value")
+fd.append("key2", file, "filename")
 
-let blob = new Blob([data...]);
-fd.append("key3", blob);
+let blob = new Blob([data...])
+fd.append("key3", blob)
 ```
 
 ---
@@ -385,16 +385,16 @@ fd.append("key3", blob);
 # IndexedDB
 
 ```js
-let r = indexedDB.open("mojeDB", 1);
+let r = indexedDB.open("mojeDB", 1)
 r.onupgradeneeded = function(e) {
-	let db = e.target.result;
-	let r = db.createObjectStore("tabulka", {autoIncrement:true});
+	let db = e.target.result
+	let r = db.createObjectStore("tabulka", {autoIncrement:true})
 }
 
 r.onsuccess = function(e) {
-	let db = e.target.result;
-	let t = db.transaction(["tabulka"], "readwrite");
-	let r = t.objectStore("tabulka").add({some:"data"});
+	let db = e.target.result
+	let t = db.transaction(["tabulka"], "readwrite")
+	let r = t.objectStore("tabulka").add({some:"data"})
 }
 ```
 
@@ -403,14 +403,14 @@ r.onsuccess = function(e) {
 # IndexedDB
 
 ```js
-let r = indexedDB.open("mojeDB", 1);
+let r = indexedDB.open("mojeDB", 1)
 
 r.onsuccess = function(e) {
-	let db = e.target.result;
-	let t = db.transaction(["tabulka"], "readonly");
-	let r = t.objectStore("tabulka").get(1);
+	let db = e.target.result
+	let t = db.transaction(["tabulka"], "readonly")
+	let r = t.objectStore("tabulka").get(1)
 	r.onsuccess = function(e) {
-		console.log(e.target.result); // {some: "data"}
+		console.log(e.target.result)  // {some: "data"}
 	}
 }
 ```
