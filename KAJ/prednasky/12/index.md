@@ -2,24 +2,18 @@
 
 ---
 
-FIXME predelat na web components
-FIXME css custom properties pryc
-FIXME zrusit notifikace
-
 # Obsah
 
-  1. CSS: Grid
-  1. CSS: Custom Properties
-  1. JS: Web Notifications
-  1. JS: Web Components
+  1. Custom Elements
+  1. HTML Template Element
+  1. Shadow DOM
 
 ---
 
 # Příští přednáška je poslední
 
-  - ...ale až za 14 dní
   - téma bylo zvoleno hlasováním
-  - [výsledky](https://i.imgur.com/OTkQgi7.png)
+  - [výsledky](https://imgur.com/a/zNs8piX)
 
 ---
 
@@ -28,30 +22,11 @@ FIXME zrusit notifikace
   - Odehrává se v Seznamu
     - Radlická 10, Praha 5
   - Výsledkem zkoušky je skóre v intervalu `<−10, 10>` bodů
-  - První před-čtyř-termín: 20. 5. 2021 (9:00, 10:00, 11:00, 12:00)
+  - První před-čtyř-termín: 26. 5. 2023 (9:00, 10:00, 11:00, 12:00)
   - Celkem 16 termínů
   - Další termíny budou vypsány jen v případě absolutní nouze
 
 ---
-
-# Web Notifications
-
-  - Zobrazení upozornění na úrovni OS
-  - Spolupráce s notifikačním systémem OS
-  - Agresivní; nutný souhlas uživatele
-  - `let notification = new Notification(title, options)`
-
----
-
-# Web Notifications
-
-  - Options: jazyk, tělíčko, ikona
-  - Notifikace generuje události, lze ji programově zavřít
-  - Souhlas uživatele lze získat asynchronním voláním `Notification.requestPermission`
-  - [Ukázka](https://davidwalsh.name/demo/notifications-api.php)
-
----
-
 
 # Web Components
 
@@ -62,41 +37,15 @@ FIXME zrusit notifikace
 
 ---
 
-# Web Components: &lt;template&gt;
+# Custom Elements
 
-```html
-<template>
-	<div class="person"><img /></div>
-	<script>new Person(...)</script>
-</template>
-```
-
-  - Dle slov autorů *něco jako chytřejší &lt;script type="custom"&gt;*
+  - Primární účel Web Components: vlastní HTML značky
+  - Pomlčka v názvu = dopředná kompatibilita
+  - Slušné zastoupení na webu: [graf](img/usage.png), github.com, youtube.com, &hellip;
 
 ---
 
-# Web Components: &lt;template&gt;
-
-```js
-let template = document.querySelector("template");
-let parent = document.body;
-
-parent.appendChild(template.content.cloneNode(true));
-```
-
-  - "Mrtvý" prvek; má DOM, ale nevykonávají se skripty a nestahují se externí média
-  - DOM API: template má vlastnost `content`, což je DocumentFragment
-  - Vnitřek template musí být parsovatelné HTML, ale jeho forma není předepsaná
-
----
-
-# Web Components: HTML imports
-
-**Zrušeno**
-
----
-
-# Web Components: Custom Elements
+# Custom Elements: ukázka použití
 
 ```html
 <szn-map x="..." y="..." controls="keyboard mouse zoom pan" />
@@ -112,11 +61,12 @@ map1.append(map2);
 
 ---
 
-# Custom Elements: ukázky
+# Custom Elements: konkrétní ukázky
 
   - https://github.com/ondras/fixmetodo
   - https://github.com/ondras/instant-button
   - https://github.com/ondras/custom-range
+  - https://github.com/ondras/cyp
   - https://www.zdrojak.cz/clanky/custom-elements-v-praxi/
 
 ---
@@ -141,7 +91,7 @@ map1.append(map2);
 
 ```js
 class MyElement extends HTMLElement {
-	constructor() { super(); }
+	constructor() { super() }
 	attributeChangedCallback(name, oldValue, newValue) {}
 	connectedCallback() {}
 	disconnectedCallback() {}
@@ -151,33 +101,196 @@ class MyElement extends HTMLElement {
 
 ---
 
-# Web Components: Shadow DOM
+# Custom Elements: událost
 
-  - Technika "odstínění" podstromu od zbytku stránky
-  - Myšlenka: DOM widgetu nemá okolí co zajímat
-  - Zamezení interference JS a CSS
-  - Problém: má být widget listem stromu?
+- Vzniklá značka je plnohodnotný člen ekosystému HTML
+  - DOM API
+  - Události
+- Vlastní události lze vytvářet i *odpalovat*
+
+```js
+let event = new CustomEvent("toto-je-test", {bubbles:true})
+myElement.dispatchEvent(event)
+```
 
 ---
 
-# Web Components: realizace Shadow DOM
+# HTML Template Element
+
+Parsovaný, ale intertní HTML prvek
+
+```html
+<template>
+	<div class="person"><img /></div>
+	<script>new Person(...)</script>
+</template>
+```
+
+---
+
+# HTML Template Element
+
+```js
+let template = document.querySelector("template")
+let parent = document.body
+
+parent.append(template.content.cloneNode(true))
+```
+
+---
+
+# Custom Element + Template
+
+```js
+let template = document.querySelector("template")
+
+class MyElement extends HTMLElement {
+  constructor() {
+    super()
+    this.append(template.content.cloneNode(true))
+  }
+}
+```
+
+---
+
+# Shadow DOM
+
+  - Nástroj na řešení problému, nikoliv nezbytná součást Web Components
+  - Myšlenka: DOM widgetu nemá okolí co zajímat
+  - Technika *odstínění* podstromu od zbytku stránky
+    - Skrytí podstromu v rámci DOM API
+    - Obousměrná izolace CSS selektorů
+
+---
+
+# Shadow DOM: koncept
 
   - Pro libovolný uzel DOMu lze vytvořit tzv. *shadow root* (potomek DocumentFragment)
   - Shadow root může obsahovat libovolně složitý podstrom
-  - Zvenčí shadow root není vidět
-  - Omezení CSS a JS událostí
-  - Připínání potomků do uzlu se shadow rootem způsobí jejich *(re)distribuci*
+  - Shadow root není vidět (JS DOM), ale je vidět (render)
+  - Omezení JS událostí, omezení aplikace CSS selektorů
   - [Dokumentace](https://developer.mozilla.org/en-US/docs/Web/Web_Components/Using_shadow_DOM)
 
 ---
 
-# Web Components: &lt;slot&gt;
+# Shadow DOM: ukázka
 
-  - Nová HTML značka užitečná jen pro Shadow DOM
-  - Určuje místo, do kterého se připnou prvky zvenčí umístěné do Shadow host
+```js
+class MyElement extends HTMLElement {
+  constructor() {
+    super()
+    this.attachShadow({mode: "open"})
+    this.shadowRoot.innerHTML = `<img src="..." />
+      <style>
+        img { border: 3px solid blue }
+      </style>`
+  }
+}
+customElements.define("my-element", MyElement)
+
+new MyElement().childNodes.length  // 0
+```
+
+---
+
+# Shadow DOM: problémy
+
+Shadow DOM je trade-off: některé problémy vyřeší, jiné způsobí
+
+1. Co když chceme do prvku se Shadow DOM přidávat potomky?
+1. Co když je CSS izolace příliš silná (směrem dovnitř)?
+
+---
+
+# Shadow DOM: potomci
+
+  - Existují v rámci JS DOM, ale nejsou vidět (!)
+  - Dualita podstromů Shadow DOM (vidím) vs. Light DOM (tvořím)
+  - Autor značky musí rozhodnout, co s takto připojenými potomky
+
+---
+
+# Shadow DOM: &lt;slot&gt;
+
+  - Nová HTML značka užitečná jen uvnitř Shadow DOM
+  - Připínání potomků do uzlu se Shadow rootem způsobí jejich *(re)distribuci*
+  - `<slot>` určuje místo, ve kterém se Light DOM vykreslí
   - Uživatel appenduje do Shadow host, renderer vykresluje do `<slot>`
   - Jeden Shadow DOM může mít více značek `<slot>`
-  - [Obrázek](https://assets.hongkiat.com/uploads/html-template-slow-tag-shadow-dom/slot-diagram.jpg)
+  - [Dokumentace](https://developer.mozilla.org/en-US/docs/Web/API/Web_components/Using_templates_and_slots)
+
+---
+
+# Shadow DOM: stylování
+
+Několik způsobů *proražení* Shadow rootu
+
+1. Vlastnosti s hodnotou `inherit` (tj. mj. Custom CSS Properties)
+1. Selektor `:host()`
+1. Selektor `::part()`
+
+---
+
+# Shadow DOM: dědění CSS
+
+Shadow DOM:
+```css
+img {
+  border: 3px solid var(--border-color)
+}
+```
+
+Stránka:
+```css
+my-element {
+  --border-color: blue
+}
+```
+
+---
+
+# Shadow DOM: :host()
+
+Shadow DOM:
+```css
+:host(.dark-mode) img {
+  border: 3px solid white
+}
+```
+
+Stránka:
+```html
+<my-element class="dark-mode"></my-element>
+```
+
+---
+
+# Shadow DOM: ::part()
+
+Shadow DOM:
+```js
+this.shadowRoot.innerHTML = `
+  <img part="obrazek" />
+`
+```
+
+Stránka:
+```css
+my-element::part(obrazek) {
+  border: 3px solid blue
+}
+```
+
+---
+
+# Web Components: další čtení
+
+- https://custom-elements-everywhere.com/
+- [Debunking Web Component Myths and Misconceptions](https://eisenbergeffect.medium.com/debunking-web-component-myths-and-misconceptions-ea9bb13daf61)
+- [Awesome Web Components](https://github.com/web-padawan/awesome-web-components) (přes 500 odkazů na zdroje)
+- [Apple Just Shipped Web Components to Production and You Probably Missed It](https://dev.to/ionic/apple-just-shipped-web-components-to-production-and-you-probably-missed-it-57pf)
+- [Custom Elements v1 - Reusable Web Components](https://web.dev/custom-elements-v1/)
 
 ---
 
