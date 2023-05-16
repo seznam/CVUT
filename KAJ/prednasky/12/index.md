@@ -32,7 +32,6 @@
 
   - Souhrnný termín pro ~~čtveřici~~ trojici oddělených standardů
   - Fungují nezávisle, ale jsou cíleně navrhovány pro společné použití
-  - Silně experimentální
   - Do roku ~2016 verze 0, od roku ~2016 znatelně odlišná verze 1; [výčet rozdílů](https://hayato.io/2016/shadowdomv1/)
 
 ---
