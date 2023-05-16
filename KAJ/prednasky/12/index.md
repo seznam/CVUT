@@ -221,6 +221,28 @@ Shadow DOM je trade-off: některé problémy vyřeší, jiné způsobí
 
 ---
 
+# Shadow DOM: &lt;slot&gt;
+
+![](img/slot.png) {.side}
+
+```js
+class MyAvatar extends HTMLElement {
+  constructor() {
+    super()
+    this.attachShadow({mode:"open"})
+    this.shadowRoot.innerHTML = `
+      <slot></slot>
+      <img src="..." />
+    `
+  }
+}
+
+new MyAvatar().append("ahoj!")
+```
+
+
+---
+
 # Shadow DOM: stylování
 
 Několik způsobů *proražení* Shadow rootu
