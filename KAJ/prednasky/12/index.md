@@ -116,7 +116,7 @@ myElement.dispatchEvent(event)
 
 # HTML Template Element
 
-Parsovaný, ale intertní HTML prvek
+Parsovaný, ale inertní HTML prvek
 
 ```html
 <template>
