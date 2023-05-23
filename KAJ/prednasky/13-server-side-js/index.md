@@ -242,5 +242,22 @@ import { someLibrary2 } from "https://deno.land/x/..."
 
 ---
 
+# Souhrn
+
+Skvělé časy pro server-side JS!
+
+- Komunita se předhání v množství knihoven a modulů
+- Dvě [soupeřící](https://deno.com/benchmarks) implementace
+- Konvergence APIs v souladu s klientským standardizačním procesem
+
+---
+
+# Další čtení
+
+- [What's up, Deno?](https://slideslive.com/39000550/what-s-up-deno)
+- [10 Things I Regret About Node.js - Ryan Dahl](https://www.youtube.com/watch?v=M3BM9TB-8yA)
+- [Node.js documentation](https://nodejs.org/en/docs)
+
+---
 
 # Prostor pro otázky
