@@ -42,6 +42,7 @@ Tvorba klientských aplikací v JavaScriptu
   - Přednášky: RNDr. Ondřej Žára, Seznam.cz
   - Cvičení: Bc. Zdeněk Vlach, Seznam.cz
   - Cvičení: Bc. Petr Huřťák, <del>Seznam.cz</del>
+  - Cvičení: Ing. Jan Dušel, Seznam.cz
 
 ---
 
@@ -77,6 +78,7 @@ Tvorba klientských aplikací v JavaScriptu
   - Určeno pro zájemce o JavaScript po absolvování základního kurzu
   - Povětšinou jen JS, méně DOM rozhraní
   - Psáno v době ES5 (2014): z dnešního pohledu je syntaxe jazyka zastaralá
+  - V roce 2024 snad vyjde nová verze
 
 ---
 
@@ -99,7 +101,7 @@ https://html.spec.whatwg.org/
   - Editor Ian Hickson
   - Aktuálně <del><em>Working Draft</em></del> <em>Recommendation</em>
   - <em>Living standard</em>
-  - téměř 14 MB textu, 90k řádek
+  - přes 14 MB textu, 95k řádek
   - Vývoj pomocí mailinglistu <a href="mailto:whatwg@whatwg.org">whatwg@whatwg.org</a>
   - <em>Dozorčí rada</em> (WHATWG members)
   - 2004 – <del>2022</del> 2014
@@ -117,22 +119,22 @@ https://html.spec.whatwg.org/
 	</thead>
 	<tbody>
 		<tr>
-			<td>Mozilla Firefox</td><td>110</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
+			<td>Mozilla Firefox</td><td>120</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
 		</tr>
 		<tr>
-			<td>Google Chrome</td><td>110</td><td>Blink/WebKit</td><td>V8</td><td></td>
+			<td>Google Chrome</td><td>120</td><td>Blink/WebKit</td><td>V8</td><td></td>
 		</tr>
 		<tr>
-			<td>Apple Safari</td><td>16</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
+			<td>Apple Safari</td><td>17.2</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
 		</tr>
 		<tr>
 			<td>Microsoft Internet Explorer</td><td>11</td><td>Trident</td><td>Chakra</td><td>Zajímavý jen pro potřeby kompatibility</td>
 		</tr>
 		<tr>
-			<td>Microsoft Edge</td><td>110</td><td>EdgeHTML/Blink</td><td>Chakra/V8</td><td></td>
+			<td>Microsoft Edge</td><td>120</td><td>EdgeHTML/Blink</td><td>Chakra/V8</td><td></td>
 		</tr>
 		<tr>
-			<td>Opera</td><td>95</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
+			<td>Opera</td><td>106</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
 		</tr>
 	</tbody>
 </table>
@@ -382,6 +384,8 @@ let input = document.createElement("input");
 input.type = "number";
 input.id = "foo";
 ```
+
+Metody `createTextNode`, `appendChild` (a jejich sourozenci) dnes patří spíš do muzea.
 
 ---
 
