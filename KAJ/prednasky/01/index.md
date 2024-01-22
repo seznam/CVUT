@@ -42,7 +42,7 @@ Tvorba klientských aplikací v JavaScriptu
   - Přednášky: RNDr. Ondřej Žára, Seznam.cz
   - Cvičení: Bc. Zdeněk Vlach, Seznam.cz
   - Cvičení: Bc. Petr Huřťák, <del>Seznam.cz</del>
-  - Cvičení: Ing. Jan Dušel, Seznam.cz
+  - Cvičení: Ing. Jan Dušek, Seznam.cz
 
 ---
 
