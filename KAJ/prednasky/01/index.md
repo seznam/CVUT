@@ -164,7 +164,7 @@ https://html.spec.whatwg.org/
   - https://caniuse.com/
     - Srovnávací tabulky
     - Odkazy na testy
-  - [Mozilla Developer Network](https://developer.mozilla.org/cs/)
+  - [Mozilla Developer Network](https://developer.mozilla.org/)
     - Dokumentace
     - Ukázky
   - [Feature detection](http://diveintohtml5.info/detect.html)
