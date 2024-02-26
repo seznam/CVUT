@@ -114,6 +114,7 @@ let outer = function(a, b) {
 	return a + inner(b)
 }
 ```
+
 ---
 
 
@@ -121,6 +122,7 @@ let outer = function(a, b) {
 
   - Co když použijeme proměnnou ve vnitřní funkci?
   - Vznikne *uzávěra*
+  - Rozdíl mezi prostorovou a časovou platností
 
 ```js
 let outer = function(a, b) {
@@ -133,6 +135,7 @@ let outer = function(a, b) {
 	return inner
 }
 ```
+
 ---
 
 
@@ -147,18 +150,45 @@ let fun = function() { alert(this) }
 let obj1 = { fun:fun }
 let obj2 = { fun:fun }
 
+fun == obj1.fun == obj2.fun
+
 obj1.fun()  // this == obj1
 obj2.fun()  // this == obj2
 fun()       // this == ?
-
-fun == obj1.fun == obj2.fun
 ```
----
 
+---
 
 # Pilíř 2: Klíčové slovo *this*
 
-  - This lze explicitně určit
+1. Dokud voláme funkci zápisem `obj.fun()`, situace připomíná ostatní OOP jazyky
+1. Pokud funkci předáme jako callback, dějí se věci
+1. I v ostatních případech je situace komplikovaná
+
+---
+
+# Pilíř 2: Klíčové slovo *this*
+
+Funkce předaná jako callback: hodnota `this` záleží na implementaci příjemce callbacku
+
+```js
+function onClick(e) {
+  alert(this == e.currentTarget);
+}
+node.addEventListener("click", onClick);
+
+function log(item) {
+  console.log(this == data);
+}
+let data = [1, 2, 3];
+data.forEach(log, data);
+```
+
+---
+
+# Pilíř 2: Klíčové slovo *this*
+
+Dnes málo užívané (historické) možnosti explicitního nastavení `this`
 
 ```js
 let fun = function() { alert(this) }
@@ -174,10 +204,11 @@ fun.apply(obj2, [arg1, ...])  // this == obj2
 
 # Pilíř 2: Klíčové slovo *this*
 
-- Pokud je při volání před názvem funkce tečka, hodnota this je objekt vlevo
-- Pokud je funkce volána metodou (call, apply, ...), hodnotu určuje parametrizace
-- Pokud je funkce *arrow* (příští přednáška), `this` nemá speciální hodnotu
-- Jinak je this globální jmenný prostor
+*Arrow funkce (příští přednáška):* `this` neexistuje, užije se uzávěra
+
+*Klíčové slovo `new`:* právě vznikající nový objekt
+
+*Volání bez tečky:* globální jmenný prostor, případně `undefined`
 
 ---
 
@@ -255,7 +286,7 @@ alert(obj3.jinyKlic)  // "jeste jina hodnota"
 Jak vytvořit prototype link?
 
   - Varianta 0: vlastnost `.__proto__`
-    - Nelze (nestandardní, debug-only)
+    - Nelze (legacy/deprecated, debug-only)
   - Varianta 1: `Object.create`
     - Přibyla *až* v roce 2009
   - Varianta 2: `new`
@@ -312,7 +343,7 @@ Poznámky k použití `new`
 
 - Objekt (*instance*) nemá příliš souvislost se svojí vytvořující funkcí
 - Do prototypu funkce zpravidla vkládáme metody (neb ty mají být sdíleny)
-- Složitost operátoru `new` a objektu `prototype` je hlavní motivací pro přidání "tříd" V ES6
+- Složitost operátoru `new` a objektu `prototype` je hlavní motivací pro přidání *tříd* V ES6
 
 ---
 
