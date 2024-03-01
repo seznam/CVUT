@@ -428,7 +428,7 @@ Object.assign(target, { source: "data" })
 
 # Jak pracovat s ES 2015+?
 
-  - [Compatibility table](https://kangax.github.io/compat-table/es6/)
+  - [Compatibility table](https://compat-table.github.io/compat-table/es6/)
   - Pro něco lze polyfill (`Array.from`, `Promise`, &hellip;)
   - Některou syntaxi lze *transpilovat* (viz dále)
   - Něco nelze vůbec (`WeakMap, WeakSet, Proxy`)
