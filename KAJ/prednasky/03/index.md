@@ -525,6 +525,13 @@ Object.assign(target, { source: "data" })
 
 ---
 
+# ES 2023
+
+  - `Array.prototype.{findLast,findLastIndex}()`
+  - *immutable* verze některých metod polí (sort, reverse, splice, &hellip;)
+
+---
+
 # Prostor pro otázky
 
 ? { .questions }
