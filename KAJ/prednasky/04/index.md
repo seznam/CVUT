@@ -181,7 +181,7 @@ window.addEventListener("load", function(e) {
 ```
 
   - `this` je prvek, na kterém je posluchač zavěšen (nikoliv ten, kde událost vznikla)
-  - Pokud chceme předat parametry nebo změnit this, použijeme `bind` (nebo *arrow function*)
+  - Pokud chceme předat parametry nebo změnit this, použijeme uzávěru / *arrow function* / `bind`
 
 ---
 
