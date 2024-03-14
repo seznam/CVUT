@@ -447,6 +447,33 @@ getData(url).then(function(processed) {  // toto lze kdekoliv
 
 ---
 
+# async/await může mást
+
+Nalezněte chybu v tomto kódu:
+
+```js
+form.addEventListener("submit", async e => {
+  let ok = await checkUsernameAvailable()
+  if (!ok) { e.preventDefault() }
+})
+```
+
+---
+
+# async/await může mást
+
+Nalezněte chybu v tomto kódu:
+
+```js
+form.addEventListener("submit", e => {
+  checkUsernameAvailable().then(ok => {
+    if (!ok) { e.preventDefault() }
+  })
+})
+```
+
+---
+
 # Prostor pro otázky
 
 ? { .questions }
