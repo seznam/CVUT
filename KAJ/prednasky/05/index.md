@@ -40,13 +40,13 @@
 # XMLHttpRequest API
 
 ```js
-let xhr = new XMLHttpRequest();
+let xhr = new XMLHttpRequest()
 
-xhr.addEventListener("readystatechange", /* ... */);
-xhr.addEventListener("load", /* ... */);
+xhr.addEventListener("readystatechange", /* ... */)
+xhr.addEventListener("load", /* ... */)
 
-xhr.open(metoda, url, async);
-xhr.send(data);
+xhr.open(metoda, url, async)
+xhr.send(data)
 ```
 
 ---
@@ -195,6 +195,7 @@ response.arrayBuffer()  // Promise
 
   - Chybí `abort()` &rArr; lze vyřešit pomocí `new AbortController().signal`
   - Chybí `timeout` &rArr; lze vyřešit pomocí `AbortSignal.timeout()`
+  - Sledování průběhu **nahrávání:** fetch nemá, nelze
 
 ---
 
@@ -392,7 +393,7 @@ mojeFunkce({name: "jan", data: [3, 4, true]})
 
 # GraphQL
 
-  - Introspekce! Viz např. https://graphql.org/swapi-graphql
+  - Introspekce! Viz např. https://studio.apollographql.com/public/star-wars-swapi/variant/current/home
   - Dotazy jsou často velké &rArr; jakou volit HTTP metodu?
   - Dotazy možno parametrizovat:
 
@@ -431,7 +432,7 @@ mojeFunkce({name: "jan", data: [3, 4, true]})
   - Notifikace ze strany serveru
   - Persistentní spojení
   - Léta draftů
-  - [Just Spaceships](https://ondras.zarovi.cz/games/just-spaceships/)
+  - [Just Spaceships](https://smaug.cz/just-spaceships/)
   - [Railroad Ink](https://ondras.github.io/rri/)
 
 ---
