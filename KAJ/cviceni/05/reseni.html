@@ -26,7 +26,7 @@
                 HTTP API with JSON response of Users characters
                     https://jsonplaceholder.typicode.com/users
                 WebSocket API with text messages
-                    wss://zwa-chat.deno.dev
+                    wss://kaj-chat.deno.dev
 
             Main tasks
                 1. Use XMLHttpRequest to create HTTP request and get data from API
@@ -128,7 +128,7 @@
         //
 
         const textarea = document.querySelector("#chat");
-        const ws = new WebSocket("wss://zwa-chat.deno.dev");
+        const ws = new WebSocket("wss://kaj-chat.deno.dev");
 
         ws.addEventListener("open", e => {
             textarea.value += "[connected to chat]\n";
