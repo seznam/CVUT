@@ -65,7 +65,6 @@ xhr.send(data);
   - `setRequestHeader(name, value)`
   - `getResponseHeader(name)`, `getAllResponseHeaders()`
   - `abort()`
-  - `overrideMimeType()`
 
 ---
 
