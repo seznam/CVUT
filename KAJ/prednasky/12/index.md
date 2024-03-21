@@ -1,4 +1,6 @@
-# KAJ 12: Web Components
+# KAJ 12: Web Components a CSS Nesting
+
+FIXME nesting
 
 ---
 

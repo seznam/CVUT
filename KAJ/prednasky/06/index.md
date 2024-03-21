@@ -7,7 +7,8 @@
   1. Vývoj CSS
   1. Selektorový jazyk
   1. Generovaný obsah
-  1. Media queries
+  1. Media queries a responsive design
+  1. CSS Layers
   1. Preprocessing
 
 ---
@@ -44,7 +45,7 @@ Obecně není možné vytvářet selektory, pro jejichž vyhodnocení potřebuje
 
 Valná většina selektorů se tedy týká uzlů samotných, jejich rodičů či předchůdců.
 
-Toto pravidlo bude v budoucnu porušováno teprve plnou podporou selektoru `:has`.
+Toto pravidlo ~~bude v budoucnu~~ je porušováno teprve plnou podporou selektoru `:has`.
 
 ---
 
@@ -198,6 +199,32 @@ p:target { opacity: 1; }
 ```css
 p:not(:target)        { opacity: 0.5; }
 input:not([required]) { color: blue; }
+```
+
+---
+
+# Selektorový jazyk &ndash; pseudotřídy
+
+  - `:is()` = sjednocení
+
+```css
+:is(li, p, a) { font-weight: bold; }  /* stejné jako bez is() */
+
+:is(header, footer) :is(a, em, strong) { color: lime; }  /* cekem 6 kombinací
+```
+
+---
+
+# Selektorový jazyk &ndash; pseudotřídy
+
+  - `:has()` = výběr rodiče za předpokladu existence potomka
+
+```css
+label:has(:checked) { font-weight: bold; }
+
+h1:has(+ p) { margin-bottom: 0; }
+
+p:has(img, a) { border-left: 3px solid salmon; }
 ```
 
 ---
@@ -387,6 +414,73 @@ maximum-scale, minimum-scale, user-scalable
 
 ---
 
+# CSS Layers
+
+  - Nástroj pro snazší řešení problémů se *specificitou* selektorů
+  - Často není nezbytné, ale může se hodit
+  - [Přednáška o CSS Layers](https://ondras.zarovi.cz/slides/2022/css-layers-webexpo/)
+
+---
+
+# CSS Layers
+
+```html
+<form>
+  <button type=submit disabled>Odeslat</button>
+</form>
+```
+
+```css
+form button[type=submit] {
+  background-color: dodgerblue;
+}
+
+button:disabled {
+  background-color: gray;
+}
+```
+
+---
+
+# CSS Layers
+
+![](https://ondras.zarovi.cz/slides/2022/css-layers-webexpo/img/cascade.svg) {.cascade}
+
+Kaskáda: jak poznat, které z kolidujících pravidel má přednost?
+
+(následně: jak zařídit, aby to bylo jinak?)
+
+---
+
+# CSS Layers
+
+Pomocí syntaxe `@layer` lze explicitně přednost aplikace pravidel řídit
+
+```css
+@layer muj-projekt {
+  form button[type=submit] {
+    background-color: dodgerblue;
+  }
+}
+
+@layer docasne-stavy {
+  button:disabled {
+    background-color: gray;
+  }
+}
+```
+
+---
+
+# CSS Layers
+
+  - Mnoho dalších variant zápisu a pravidel
+    - Zanořování
+    - Oddělení deklarace a definice vrstev
+  - Nezvyklá kombinace s přívlastkem `!important`
+
+---
+
 # Vendor prefix #1
 
   - Problém: výrobce chce podporovat technologii, která není plně standardizovaná
@@ -448,9 +542,12 @@ p a {
 
 # Preprocessing: Less.js
 
-  - Velké množství (dalších) možností rozšíření jazyka
-  - Aplikace buď na straně serveru, nebo automaticky pomocí JS knihovny
   - Podobných nástrojů je celá řada (SASS, Compass, PostCSS, &hellip;)
+  - Důvody pro existenci:
+    - ~~Proměnné~~ (viz osmá přednáška)
+    - ~~Zanořování~~ (viz dvanáctá přednáška)
+    - ~~Barevná aritmetika~~ (viz [CSS Relative Colors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors/Relative_colors))
+    - Bundling
 
 ---
 
