@@ -8,7 +8,7 @@
   1. Selektorový jazyk
   1. Generovaný obsah
   1. Media queries a responsive design
-  1. CSS Layers
+  1. CSS Layers (AKA *jak se stát milionářem*)
   1. Preprocessing
 
 ---
@@ -439,6 +439,14 @@ button:disabled {
   background-color: gray;
 }
 ```
+
+---
+
+# CSS Layers
+
+Kaskáda: jak poznat, které z kolidujících pravidel má přednost?
+
+(alternativně: jak se stát milionářem?)
 
 ---
 
