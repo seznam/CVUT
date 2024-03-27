@@ -8,7 +8,7 @@
   1. Selektorový jazyk
   1. Generovaný obsah
   1. Media queries a responsive design
-  1. CSS Layers (AKA *jak se stát milionářem*)
+  1. CSS Layers (AKA 🤑 *jak se stát milionářem*)
   1. Preprocessing
 
 ---
@@ -446,7 +446,7 @@ button:disabled {
 
 Kaskáda: jak poznat, které z kolidujících pravidel má přednost?
 
-(alternativně: jak se stát milionářem?)
+(alternativně: 🤑 jak se stát milionářem?)
 
 ---
 
