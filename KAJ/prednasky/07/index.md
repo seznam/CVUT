@@ -1,6 +1,6 @@
 # KAJ 07: 2D a 3D transformace, Flexible Boxes
 
-Chat server z předminula: https://github.com/ondras/zwa-chat
+Chat server z předminula: https://github.com/ondras/kaj-chat
 
 ---
 
