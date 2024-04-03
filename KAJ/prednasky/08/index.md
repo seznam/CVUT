@@ -290,6 +290,39 @@ Definice vzhledu v jednotlivých krocích animace
 
 ---
 
+# Web Animations API
+
+```js
+let animation = document.body.animate(keyframes, options)
+await animation.finished
+```
+
+  - `keyframes` může být pole nebo objekt (viz dále)
+  - `options` může být číslo (ms) nebo konfigurační objekt (duration, delay, easing, iterations, &hellip;)
+
+---
+
+# Web Animations API
+
+```js
+node.animate([  // jako v CSS
+	{opacity:0}, {opacity:0.5, color:"red", offset:0.8}, {opacity:1, color:"blue"}
+], options)
+
+node.animate({  // per-css-vlastnost, implicitní offset
+	opacity: [0, 1],
+	color: ["red", "green", "blue"] // offset: 0, 0.5, 1
+}, options)
+
+node.animate({  // per-css-vlastnost, explicitní offset
+	opacity: [0, 1],
+	color: ["red", "green", "blue"],
+	offset: [0, 0.8]
+}, options)
+```
+
+---
+
 # CSS efekty: průhlednost
 
 ```css
