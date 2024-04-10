@@ -517,6 +517,8 @@ a {
 
 [Prezentace bez JS](https://ondras.github.io/pure-css-slides/)
 
+[Želvičky](https://codepen.io/ondrejzara/pen/VNrggX): Custom Properties, Animations, hue-rotate
+
 ---
 
 # Prostor pro otázky
