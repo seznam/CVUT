@@ -333,7 +333,7 @@ ctx.fillText("Ahoj", 50, 50)
   - Akcelerovaná 3D grafika
   - Nové API HTML5 Canvasu
   - Kompatibilita API s OpenGL ES 2.0
-  - [Ukázka](https://github.com/cfoust/sour)
+  - [Ukázka](https://openarena.live/)
 
 ---
 
