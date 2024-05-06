@@ -66,7 +66,7 @@ div.addEventListener("dragstart", function(e) {
   - Asynchronní
   - Polohu zjišťuje prohlížeč nedefinovanými mechanismy
   - GPS, IP, Názvy wifi AP, &hellip;
-  - <del>Google Chrome:</del> **jen po HTTPS!**
+  - **jen po HTTPS!**
 
 ---
 
