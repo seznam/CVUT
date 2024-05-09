@@ -1,7 +1,9 @@
 .node-deno {
-	display: inline-block;
+	width: 700px;
+	margin-left: auto;
+	margin-right: auto;
 }
 
 .node-deno img {
-	height: 700px;
+	width: 100%;
 }

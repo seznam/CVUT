@@ -171,10 +171,6 @@ Nástroj `npm` (Node Package Manager) je nedílnou součástí ekosystému Node.
 
 ---
 
-FIXME typescript
-
----
-
 # TypeScript
 
 - Microsoft, 2012 (Anders Hejlsberg)
@@ -401,7 +397,7 @@ $ tsc -p tsconfig.json
 
 ```js
 // index.js
-import { serve } from "https://deno.land/std@0.180.0/http/server.ts";
+import { serve } from "https://deno.land/std@0.180.0/http/server.ts"
 
 serve(request => {
   let headers = { "content-type": "text/html" }
@@ -463,8 +459,29 @@ import { someLibrary2 } from "https://deno.land/x/..."
   - z GitHubu či z lokálního počítače
 - Spouštění *on demand* (v rámci HTTP požadavku na doménu `projekt.deno.dev`)
 - Běh v desítkách lokalit po celém světě
-- FIXME ukazka
-- FIXME KV
+- [Ukázka](https://praguejs.deno.dev/), její [zdrojový kód](https://github.com/ondras/deno-praguejs-demo)
+
+---
+
+# Deno KV
+
+- Hostovaná key-value databáze
+  - funguje lokálně (sqlite) i na Deploy (napříč datacentry)
+
+```ts
+interface Properties { name: string }
+let kv = await Deno.openKv()
+
+let userId = 123
+let key = ["users", userId, "properties"]
+await kv.set(key, {name:"John"})
+
+const iterator = kv.list<Properties>({ prefix: ["users"] })
+for await (const user of iterator) {
+  console.log(user.key)    // ["users", 123, "properties"]
+  console.log(user.value)  // {name:"John"}
+}
+```
 
 ---
 
