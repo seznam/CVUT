@@ -15,7 +15,7 @@ FIXME nesting
 # Příští přednáška je poslední
 
   - téma bylo zvoleno hlasováním
-  - [výsledky](https://imgur.com/a/zNs8piX)
+  - kombo *JS mimo prohlížeč + TypeScript*
 
 ---
 
@@ -24,8 +24,8 @@ FIXME nesting
   - Odehrává se v Seznamu
     - Radlická 10, Praha 5
   - Výsledkem zkoušky je skóre v intervalu `<−10, 10>` bodů
-  - První před-čtyř-termín: 26. 5. 2023 (9:00, 10:00, 11:00, 12:00)
-  - Celkem 16 termínů
+  - První před-čtyř-termín: 24. 5. 2023 (9:00, 10:00, 11:00, 12:00)
+  - Celkem 20 termínů
   - Další termíny budou vypsány jen v případě absolutní nouze
 
 ---
@@ -314,6 +314,100 @@ my-element::part(obrazek) {
 - [Awesome Web Components](https://github.com/web-padawan/awesome-web-components) (přes 500 odkazů na zdroje)
 - [Apple Just Shipped Web Components to Production and You Probably Missed It](https://dev.to/ionic/apple-just-shipped-web-components-to-production-and-you-probably-missed-it-57pf)
 - [Custom Elements v1 - Reusable Web Components](https://web.dev/custom-elements-v1/)
+
+---
+
+# CSS Nesting
+
+  - Rozšíření syntaxe CSS
+  - Inspirováno existujícími řešeními v preprocesorech
+  - Jeden z posledních důvodů k používání prepcesorů
+
+---
+
+# CSS Nesting
+
+Zanořený selektor představuje hierarchický vztah
+
+```css
+p {
+  color: red;
+  a {
+    font-weight: bold;
+  }
+}
+```
+
+```css
+p { color: red; }
+
+p a { font-weight: bold; }
+```
+
+---
+
+# CSS Nesting
+
+Znak `&` znamená *právě zpracovávaný selektor*
+
+```css
+p {
+  color: red;
+  &.new {
+    color: blue;
+  }
+}
+```
+
+```css
+p { color: red; }
+
+p.new { font-weight: bold; }
+```
+
+---
+
+# CSS Nesting
+
+Znak `&` znamená *právě zpracovávaný selektor*
+
+```css
+.new {
+  color: red;
+  p & {
+    color: blue;
+  }
+}
+```
+
+```css
+.new { color: red; }
+
+p .new { font-weight: bold; }
+```
+
+---
+
+# CSS Nesting
+
+Zanořit lze i blok se zavináčovým pravidlem
+
+```css
+p {
+  color: red;
+  @media (max-width: 600px) {
+    color: blue;
+  }
+}
+```
+
+```css
+p { color: red; }
+
+@media (max-width: 600px) {
+  p { color: blue; }
+}
+```
 
 ---
 
