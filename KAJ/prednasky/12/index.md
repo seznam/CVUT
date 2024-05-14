@@ -1,7 +1,5 @@
 # KAJ 12: Web Components a CSS Nesting
 
-FIXME nesting
-
 ---
 
 # Obsah
@@ -9,6 +7,7 @@ FIXME nesting
   1. Custom Elements
   1. HTML Template Element
   1. Shadow DOM
+  1. CSS Nesting
 
 ---
 
@@ -24,7 +23,7 @@ FIXME nesting
   - Odehrává se v Seznamu
     - Radlická 10, Praha 5
   - Výsledkem zkoušky je skóre v intervalu `<−10, 10>` bodů
-  - První před-čtyř-termín: 24. 5. 2023 (9:00, 10:00, 11:00, 12:00)
+  - První před-čtyř-termín: 24. 5. 2024 (9:00, 10:00, 11:00, 12:00)
   - Celkem 20 termínů
   - Další termíny budou vypsány jen v případě absolutní nouze
 
@@ -314,6 +313,7 @@ my-element::part(obrazek) {
 - [Awesome Web Components](https://github.com/web-padawan/awesome-web-components) (přes 500 odkazů na zdroje)
 - [Apple Just Shipped Web Components to Production and You Probably Missed It](https://dev.to/ionic/apple-just-shipped-web-components-to-production-and-you-probably-missed-it-57pf)
 - [Custom Elements v1 - Reusable Web Components](https://web.dev/custom-elements-v1/)
+- [Web Components v praxi (FrontKon 2023)](https://www.youtube.com/watch?v=zXQiYmdADaw)
 
 ---
 
