@@ -487,10 +487,10 @@ for await (const user of iterator) {
 
 # Souhrn
 
-Skvělé časy pro server-side JS!
+Skvělé časy pro JS, v prohlížeči i mimo!
 
 - Komunita se předhání v množství knihoven a modulů
-- Tři [soupeřící](https://deno.com/benchmarks) implementace
+- Tři+ [soupeřící](https://deno.com/benchmarks) implementace
 - Konvergence APIs v souladu s klientským standardizačním procesem
 
 ---
