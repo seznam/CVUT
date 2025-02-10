@@ -10,6 +10,7 @@
   1. Media queries a responsive design
   1. CSS Layers (AKA 🤑 *jak se stát milionářem*)
   1. Preprocessing
+  1. FIXME css nesting
 
 ---
 

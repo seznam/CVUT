@@ -1,18 +1,253 @@
-# KAJ 04: Události a asynchronní zpracování
+# KAJ 04
+
+## Iterace, DOM, události
 
 ---
 
-# Obsah
+# JS: iterace struktur/objektů
 
-  1. Události: opáčko
-  1. Události: objekt události
-  1. Události: capture a bubble
-  1. Události: posluchače
-  1. Asynchronní zpracování
-  1. Promises a dále
+```js
+let data = {
+	jmeno: "Eva",
+	prijmeni: "Stará",
+	vek: 74
+};
+
+for (let p in data) {
+	console.log(p); // "jmeno", "prijmeni", "vek"
+}
+```
 
 ---
 
+# JS: iterace polí
+
+```js
+let data = [15, "babicka", true];
+
+// spravne
+for (let i=0; i<data.length; i++) {
+	console.log(i); // 0, 1, 2
+	console.log(data[i]); // 15, "babicka", true
+}
+
+// spatne – ale proc?
+for (let p in data) {
+	console.log(p); // 0, 1, 2
+}
+```
+
+---
+
+# JS: iterace polí
+
+  - Cyklus `for-in` *občas* funguje
+  - Ale někdy vyústí v nečekané (nesprávné) výsledky
+  - Jde totiž o výčet klíčů &rArr; a těch může být jiný počet, než hodnot
+     - *sparse arrays:* `new Array(10)`
+     - obohacená pole: `Array.prototype.X = ...`
+
+---
+
+# JS: funkcionální iterace
+
+  - Přístup známý z tzv. funkcionálního programování
+  - Aplikace uživatelem zadané funkce na (některé) položky pole
+  - V řadě případů kratší / expresivnější zápis
+  - Obliba použití roste s ES6 (třetí přednáška)
+  - Kompletní <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Iteration_methods">dokumentace na MDN</a>
+
+---
+
+# JS: funkcionální iterace I
+
+```js
+let data = [15, "babicka", true];
+
+// anonymni funkce
+data.forEach(function(item, index) {
+	console.log(item); // 15, "babicka", true
+});
+
+// pojmenovana funkce
+function log(item, index) {
+	console.log(index);
+}
+data.forEach(log); // 0, 1, 2
+```
+
+---
+
+# JS: funkcionální iterace II
+
+```js
+let data = [1, 2, 3];
+
+function square(x) { return x*x; }
+let data2 = data.map(square); // 1, 4, 9
+
+function odd(x) { return x % 2; }
+let data3 = data.filter(odd); // 1, 3
+```
+
+---
+
+# JS: funkcionální iterace III
+
+```js
+let data = [1, 2, 3];
+
+function odd(x) { return x % 2; }
+data.every(odd);  // false
+data.some(odd);   // true
+
+function add(x, y) { return x+y; }
+data.reduce(add); // 6
+```
+
+---
+
+# Iterators + for..of
+
+  - Programovatelná iterovatelnost
+  - Cokoliv, co má metodu `next` je iterátor
+  - Cokoliv, co má symbol `Symbol.iterator` je iterovatelné cyklem `for..of`
+
+```js
+let fibonacci = {
+  [Symbol.iterator]() {
+    let pre = 0, cur = 1
+    return {
+      next() {
+        [pre, cur] = [cur, pre + cur]
+        return { done: false, value: cur }
+      }
+    }
+  }
+}
+```
+
+---
+
+# Iterators + for..of
+
+  - Programovatelná iterovatelnost
+  - Cokoliv, co má metodu `next` je iterátor
+  - Cokoliv, co má symbol `Symbol.iterator` je iterovatelné cyklem `for..of`
+
+```js
+for (let n of fibonacci) {
+  if (n > 1000) break
+  console.log(n)
+}
+```
+
+---
+
+# Vestavěné iterátory
+
+```js
+for (let x of [1, 2, 3]) { console.log(x) }
+
+let map = new Map()
+map.set("x", "y")
+for (let entry of map) {
+  console.log(entry)   // ["x", "y"]
+}
+```
+
+---
+
+# Vybrané partie DOM API
+
+  - Funkce, konstanty a objekty pro manipulaci se stránkou
+  - Zpravidla dostupné pomocí (globální) proměnné `document`
+  - John Resig: <a href="http://ejohn.org/blog/the-dom-is-a-mess/">The DOM is a mess</a>
+
+---
+
+# DOM: úpravy podstromu
+
+```js
+let p = document.querySelector("p");
+
+// HTML parser, pozor na XSS!
+p.innerHTML = "<strong>toto je test</strong>";
+
+// jen text
+p.textContent = "<strong>toto je test</strong>";
+```
+
+---
+
+# DOM: tvorba nových prvků
+
+```js
+let p = document.querySelector("p");
+
+let strong = document.createElement("strong");
+p.appendChild(strong);
+
+let text = document.createTextNode("toto je test");
+p.appendChild(text);
+
+let input = document.createElement("input");
+input.type = "number";
+input.id = "foo";
+```
+
+Metody `createTextNode`, `appendChild` (a jejich sourozenci) dnes patří spíš do muzea.
+
+---
+
+# DOM: "nové" rozhraní ParentNode
+
+...i DOM prochází průběžnou modernizací.
+
+```js
+let p = document.querySelector("p");
+
+let strong = document.createElement("strong");
+p.append("AAA", strong, "BBB");
+
+p.prepend(strong, "test");
+
+console.log(p.children); // pouze značky, nikoliv text
+```
+
+---
+
+# DOM: "nové" rozhraní ChildNode
+
+```js
+let p1 = document.querySelector("p");
+p1.remove();
+
+let p2 = document.querySelector("p");
+p2.replaceWith(p1, "test");
+
+p2.before("AAA", "BBB", p3);
+p2.after("AAA", "BBB", p3);
+```
+
+---
+
+# DOM: práce s atributem `class`
+
+```js
+let p = document.querySelector("p");
+
+p.className = "class1";
+
+p.classList.add("class2");
+p.classList.remove("class3");
+p.classList.contains("class2"); // true
+
+p.classList.toggle("class4");
+p.classList.toggle("class4", x > 15);
+```
+
+---
 
 # Události: opáčko
 
@@ -26,7 +261,7 @@
 
 ```js
 let func = function(e) {
-	alert("...")
+  alert("...")
 }
 document.body.addEventListener("click", func, false)
 ```
@@ -176,7 +411,7 @@ Varianta 1: posluchač je funkce
 
 ```js
 window.addEventListener("load", function(e) {
-	alert(e.currentTarget == this)
+  alert(e.currentTarget == this)
 });
 ```
 
@@ -196,9 +431,9 @@ Varianta 2: posluchač je objekt
 
 ```js
 let obj = {
-	handleEvent(e) {
-		alert(this == obj)
-	}
+  handleEvent(e) {
+    alert(this == obj)
+  }
 }
 window.addEventListener("load", obj)
 ```
@@ -208,272 +443,6 @@ window.addEventListener("load", obj)
 
 ---
 
-# Asynchronní zpracování
+# data-* atributy
 
-  - JavaScript je vykonáván v jednom vlákně
-  - Není nutné řešit přerušení a synchronizaci vykonávání
-  - *Event loop*
-
----
-
-# Event loop
-
-```js
-scheduledJS = "";  // inicializováno pomocí <script>
-listeners = [];
-
-while (1) {
-	eval(scheduledJS);  // TADY se vykoná JS
-
-	if (!listeners.length) break;
-
-	// počkat, než bude čas na nejbližší posluchač
-	currentListener = waitFor(listeners);
-
-	// naplánovat jej
-	scheduledJS = listeners[currentListener];
-	delete listeners[currentListener];
-}
-```
-
----
-
-# Zpožděné vykonávání
-
-  - Je řada způsobů, jak *naplánovat* zpožděné vykonání kódu
-  - XMLHttpRequest, addEventListener
-  - timeout, interval
-```js
-setTimeout(  function() { /* ... */ }, 1000)
-setInterval( function() { /* ... */ }, 100)
-```
-  - Pořadí určuje <del>lékař</del> prohlížeč, ale vždy nejprve v příští iteraci event loopu
-
----
-
-
-# Zpožděné vykonávání: this v callbacku
-
-Pokud někam předávám funkci, s jakým `this` bude volána?
-
-```js
-function Animal() {
-	setTimeout(this.eat, 3000)
-}
-
-Animal.prototype.eat = function() {
-	this.food += 3
-}
-```
-
----
-
-# Zpožděné vykonávání: this v callbacku
-
-`bind` pomůže
-
-```js
-function Animal() {
-	setTimeout(this.eat.bind(this), 3000)
-}
-
-Animal.prototype.eat = function() {
-	this.food += 3
-}
-```
-
----
-
-# Zpožděné vykonávání: this v callbacku
-
-`arrow function` pomůže
-
-```js
-function Animal() {
-	setTimeout(() => this.eat(), 3000)
-}
-
-Animal.prototype.eat = function() {
-	this.food += 3
-}
-```
-
----
-
-# Zpožděné vykonávání: requestAnimationFrame
-
-  - `setTimeout` zní jako rozumné řešení pro JS animace
-  - `requestAnimationFrame` je výrazně vhodnější alternativa
-```js
-requestAnimationFrame(function() {
-	// animujeme...
-});
-```
-  - Prohlížeč sám volí vhodnou délku časového kroku (zpravidla okolo 60 fps)
-  - Více info viz [MDN](https://developer.mozilla.org/en-US/docs/DOM/window.requestAnimationFrame)
-
----
-
-# Promises
-
-  - Při návrhu vlastního API narážíme na asynchronní funkce
-  - Takové funkce vyžadují `callback`
-  - Kolikátý parametr? Co návratová hodnota? Co výjimky?
-  - Co podmíněně asynchronní funkce?
-
----
-
-# Promises
-
-  - Návrhový vzor `Promise` nabízí výrazně přehlednější řízení asynchronního kódu
-  - Promise je *krabička na časem získanou hodnotu*
-  - (podmíněně) asynchronní funkce **vrací** Promise
-  - Zájemce může na promise navěsit posluchače (dva různé)
-
----
-
-# Promises: ukázka
-
-```js
-function getData(url) {
-	let promise = new Promise()
-	// ...
-	return promise
-}
-
-getData(url).then(
-	function(data) { alert(data) },
-	function(error) { alert(error) }
-);
-```
-
----
-
-# Promises: doplnění
-
-  - Promise se může nacházet ve stavech *pending*, *fulfilled*, *rejected*
-  - Fulfilled/rejected == *resolved*
-  - Tvůrce promise ji mění, konzument jen poslouchá (`then`)
-  - Vyrobit lze již naplněnou promise: `Promise.resolve(123)`
-  - Volání `then()` vrací novou promise (‽) &rArr; řetězení
-  - Promise je *jen* návrhový vzor, tj. lze doplnit pomocí Polyfillu
-
----
-
-# Promises: další API
-
-```js
-getData().catch(console.error)      // jako .then(null, console.error)
-
-let p1 = getData()
-let p2 = getData()
-
-Promise.all([p1, p2]).then( ... )   // parametr callbacku je pole hodnot
-Promise.race([p1, p2]).then( ... )  // první s hodnotou
-```
----
-
-# Promises: tvorba a změna stavu
-
-  - Je to složité!
-  - &hellip;protože měnit stav smí jen producent
-  - Tedy nic jako `Promise.prototype.fulfill = ...`
-  - API konstruktoru `new Promise` vyžaduje funkci (tzv. exekutor), které budou *řídící nástroje* předány
-
----
-
-# Promises: tvorba a změna stavu
-
-```js
-let promise = new Promise(function(resolve, reject) {
-	// funkce dodaná tvůrcem Promise
-	if (...) {
-		resolve(value)
-	} else {
-		reject(error)
-	}
-});
-return promise
-```
-
----
-
-# Promises v praxi
-
-  - Nacházíme se v období přechodu z callbacků na Promises
-    - &hellip;už asi 10 let
-  - Stará API (`setTimeout`) požadují callbacky, nová (`fetch`) vrací Promise
-  - Nový kód by měl vždy pracovat s Promises
-
----
-
-# "Žhavá" novinka: async/await
-
-  - ES2017
-  - Nadstavba nad Promises
-  - Asynchronní funkce stále vracejí Promise
-  - Konzument může na hodnotu čekat blokujícím způsobem
-  - [Přednáška o async/await](http://ondras.zarovi.cz/slides/2018/async-await/)
-
----
-
-# "Žhavá" novinka: async/await
-
-```js
-async function getData(url) {
-	try {
-		let data = await fetch(url)  // vrací Promise
-		let processed = process(data)
-		return processed             // implicitně obaleno do Promise
-	} catch (e) {
-		// Promise rejection
-	}
-}
-```
-
----
-
-# "Žhavá" novinka: async/await
-
-```js
-let processed = await getData(url)  // toto lze jen v "async" funkci
-```
-
-```js
-getData(url).then(function(processed) {  // toto lze kdekoliv
-  // ...
-});
-```
-
----
-
-# async/await může mást
-
-Nalezněte chybu v tomto kódu:
-
-```js
-form.addEventListener("submit", async e => {
-  let ok = await checkUsernameAvailable()
-  if (!ok) { e.preventDefault() }
-})
-```
-
----
-
-# async/await může mást
-
-Nalezněte chybu v tomto kódu:
-
-```js
-form.addEventListener("submit", e => {
-  checkUsernameAvailable().then(ok => {
-    if (!ok) { e.preventDefault() }
-  })
-})
-```
-
----
-
-# Prostor pro otázky
-
-? { .questions }
+FIXME

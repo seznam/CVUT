@@ -1,7 +1,8 @@
-# KAJ 2 JavaScript pro starší a pokročilé
+# KAJ 2
+
+## JavaScript pro starší a pokročilé
 
 ---
-
 
 # Obsah
   1. JavaScript: opáčko
@@ -13,94 +14,6 @@
 
 ---
 
-
-# Opáčko
-
-  - Interpret v každém prohlížeči
-  - Pro nováčka obtížný: jazyk samotný vs. DOM
-  - Jazyk stále vyvíjen (ES5&rArr;ES6&rArr;ES7&rArr;ES2017&rArr;ES2018&rArr;&hellip;), vznikají nové verze
-  - Neexistuje koncept tříd (obtížné porovnání s C++, Java, &hellip;)
-
----
-
-
-# Opáčko: primitivní datové typy
-
-  - Číslo, bool, řetězec, null, undefined
-  - Předávané hodnotou
-
-```js
-let a = 3
-let b = 0.1 + 0.2
-let c = "ahoj" + 'ahoj'
-let e = null
-let f = undefined
-```
----
-
-
-# Opáčko: komplexní datové typy
-
-  - Objekt = neuspořádaná množina dvojic (klíč, hodnota)
-  - Podobjekty: Array, Function, Date, RegExp
-  - Předávané odkazem
-
-```js
-let a = {}               // prázdný objekt
-let b = {c:3, "d":"hi"}
-let e = [a, b]           // pole o dvou položkách
-let f = function() {}
-let g = /^.*/            // regulární výraz
-```
----
-
-
-# Opáčko: základní syntaktické prvky
-
-  - Volitelný středník
-  - if, for, while, switch
-  - *Type coercion*
-
-```js
-let a = 1 + "dva"
-let b = {} + {}
-if (0 == "") { /* ... */ }
-if (undefined == null)  { /* ... */ }
-if (undefined === null) { /* ... */ }
-```
-
----
-
-# Objekty, funkce a pole
-
-  - Objekt = neuspořádaná množina dvojic
-  - Klíč je řetězec, hodnota je cokoliv
-  - Pole je též objekt
-
-```js
-let pole1 = [3, 2, 1]
-let pole2 = []
-
-pole1.length == 3
-pole1[1]     == 2
-pole2.length == 0
-
-pole2.push(pole1)
-```
-
----
-
-# Objekty, funkce a pole
-
-  - Funkce je též objekt
-
-```js
-let add = function(a, b) { return a+b }
-add.c = 123
-add(add.c, add["c"])
-```
-
----
 
 # Pilíř 1: Uzávěry
 
@@ -445,6 +358,139 @@ setTimeout(bar.foo.bind(bar), 100)
 
 // dtto addEventListener atp.
 ```
+
+---
+
+# Polyfill
+
+**Polyfill:** JavaScriptový kód, který je schopen doplnit chybějící funkcionalitu při zachování kompatibilního API
+
+```js
+if (!("onhashchange" in window)) {
+	let oldHash = window.hash;
+	setInterval(function() {
+		if (window.hash == oldHash) return;
+		oldHash = window.hash;
+		if (window.onhashchange) window.onhashchange();
+	}, 100);
+}
+```
+
+---
+
+FIXME leftPad
+FIXME includes
+
+---
+
+# Symbols
+
+  - Nový datový typ pro řízení přístupu
+  - Užití jako klíč v objektu
+  - Není zcela privátní, ale alespoň je unikátní
+
+```js
+let moneyKey = Symbol("money")
+typeof(moneyKey) == "symbol"
+
+let Person = function() {
+  this[moneyKey] = 10000
+}
+
+let person = new Person()
+person.money == undefined
+
+Object.getOwnPropertySymbols(person) // :-(
+```
+
+---
+
+
+# Proxies
+
+  - Monitorování libovolného přístupu k objektům
+  - Čtení, zápis, volání, &hellip;
+
+```js
+let obj = {}
+
+let interceptor = {
+  get: function (receiver, name) {
+    return `Hello, ${name}!`
+  }
+};
+
+let p = new Proxy(obj, interceptor)
+p.world === "Hello, world!"
+```
+
+---
+
+# Reflect
+
+  - Rozhraní pro introspekci objektů
+  - Metody podobné těm v `Object.*`
+  - Namísto výjimek vrací false
+
+```js
+Reflect.defineProperty(obj, name, descriptor)
+Reflect.construct(F, args)
+Reflect.get(obj, property, thisForGetter)
+/* ... */
+```
+
+---
+
+# Rozšíření ES5 #1
+
+```js
+Number.EPSILON
+Number.MAX_SAFE_INTEGER
+Number.MIN_SAFE_INTEGER
+Number.isInteger(Infinity)                      // false
+Number.isNaN("NaN")                             // false
+
+Math.acosh(3)                                   // 1.762747174039086
+Math.hypot(3, 4)                                // 5
+Math.imul(Math.pow(2, 32)-1, Math.pow(2, 32)-2) // 2
+Math.sign(5)                                    // 1
+Math.trunc(3.1)                                 // 3
+/* ... */
+
+"abc".repeat(3)                                 // "abcabcabc"
+```
+
+---
+
+# Rozšíření ES5 #2
+
+```js
+Array.from(document.querySelectorAll("*")) // real Array
+Array.of(1, 2, 3)                          // without special one-arg behavior
+[0, 0, 0].fill(7, 1)                       // [0, 7, 7]
+[1, 2, 3].find(x => x == 3)                // 3
+[1, 2, 3].findIndex(x => x == 2)           // 1
+[1, 2, 3, 4, 5].copyWithin(3, 0)           // [1, 2, 3, 1, 2]
+["a", "b", "c"].entries()                  // iterator [0, "a"], [1,"b"], [2,"c"]
+["a", "b", "c"].keys()                     // iterator 0, 1, 2
+["a", "b", "c"].values()                   // iterator "a", "b", "c"
+
+Object.assign(target, { source: "data" })
+```
+
+---
+
+# Ostatní
+
+  - Práce s Unicode znaky mimo BMP (tj. code points > 65535):
+      <span title="U+1F602 FACE WITH TEARS OF JOY">😂</span>,
+      <span title="U+1F4A9 PILE OF POO">💩</span>,
+      <span title="U+1F923 ROLLING ON THE FLOOR LAUGHING">🤣</span>,
+      <span title="U+1F953 BACON">🥓</span>,
+      &hellip;
+  - Subclassing vestavěných objektů (Array, Element, &hellip;)
+  - ~~Garantované Tail Call Optimisation~~
+  - `new Promise((resolve, reject) => {}), Promise.all, Promise.race`
 
 ---
 

@@ -1,22 +1,21 @@
 # KAJ 1
 
-Tvorba klientských aplikací v JavaScriptu
+## Úvod, JavaScript: historie, syntaxe, modularizace
 
 ---
 
 # Obsah
 
   1. O předmětu
-  1. Kompatibilita napříč prohlížeči
-  1. JavaScript pro středně pokročilé
-  1. Vybrané partie DOM API
+  1. Standardy HTML a JS
+  1. Syntaktické prvky JS
+  1. Modularizace
 
 ---
 
-
 # Co jsou JavaScriptové aplikace?
 
-  - SPA – Single Page Application
+  - SPA &ndash; Single Page Application
   - <a href="https://www.mapy.cz">www.mapy.cz</a>
   - <a href="https://www.gmail.com">www.gmail.com</a>
   - <a href="https://epicport.com/en/ttd">OpenTTD online</a>
@@ -25,13 +24,11 @@ Tvorba klientských aplikací v JavaScriptu
 
 ---
 
-
 # Představení předmětu
 
   - "Moderní" webové technologie na klientu
   - HTML5, CSS3, JavaScript
-  - <a href="img/ppk.jpg"><img src="img/ppk.jpg" style="height:450px"/></a>
-
+  - <a href="img/ppk.jpg"><img src="img/ppk.jpg" style="height:380px"/></a>
 
 ---
 
@@ -48,7 +45,7 @@ Tvorba klientských aplikací v JavaScriptu
 
 # Sylabus předmětu
 
-![](img/sylabus.png){style="height:600px"}
+![](img/sylabus.png){style="height:460px"}
 
 ---
 
@@ -69,7 +66,8 @@ Tvorba klientských aplikací v JavaScriptu
 
 ---
 
-# Kniha
+# Kniha FIXME stara
+# Kniha FIXME nova
 
 <img style="height:600px;float:right;margin-right:0;" src="https://cdn.albatrosmedia.cz/Images/Product/29109959?31092A68D952319080880FFA2781041B" />
 
@@ -79,6 +77,13 @@ Tvorba klientských aplikací v JavaScriptu
   - Povětšinou jen JS, méně DOM rozhraní
   - Psáno v době ES5 (2014): z dnešního pohledu je syntaxe jazyka zastaralá
   - V roce 2024 snad vyjde nová verze
+
+---
+
+# Formalizace témat
+
+- HTML/CSS: HTML5
+- JavaScript: ECMAScript
 
 ---
 
@@ -95,8 +100,9 @@ https://html.spec.whatwg.org/
 
 ---
 
-# Standardizační proces
-![Ian Hickson](img/ih.jpg) {style="float:right;margin:0"}
+# Standardizační proces HTML
+
+![Ian Hickson](img/ih.jpg) {style="position:absolute;right:0;top:40px;"}
 
   - Editor Ian Hickson
   - Aktuálně <del><em>Working Draft</em></del> <em>Recommendation</em>
@@ -105,57 +111,15 @@ https://html.spec.whatwg.org/
   - Vývoj pomocí mailinglistu <a href="mailto:whatwg@whatwg.org">whatwg@whatwg.org</a>
   - <em>Dozorčí rada</em> (WHATWG members)
   - 2004 – <del>2022</del> 2014
-	</ul>
 
 ---
 
-# Webové prohlížeče
+# Standard ECMAScript
 
-<table style="margin-left:8px;margin-right:8px">
-	<thead>
-		<tr>
-			<td>Jméno</td><td>Verze</td><td>Renderer</td><td>JavaScript</td><td>Poznámka</td>
-		</tr>
-	</thead>
-	<tbody>
-		<tr>
-			<td>Mozilla Firefox</td><td>120</td><td>Gecko</td><td><em>Spider</em>Monkey</td><td></td>
-		</tr>
-		<tr>
-			<td>Google Chrome</td><td>120</td><td>Blink/WebKit</td><td>V8</td><td></td>
-		</tr>
-		<tr>
-			<td>Apple Safari</td><td>17.2</td><td>WebKit</td><td>JSC</td><td>Existovala verze pro Windows</td>
-		</tr>
-		<tr>
-			<td>Microsoft Internet Explorer</td><td>11</td><td>Trident</td><td>Chakra</td><td>Zajímavý jen pro potřeby kompatibility</td>
-		</tr>
-		<tr>
-			<td>Microsoft Edge</td><td>120</td><td>EdgeHTML/Blink</td><td>Chakra/V8</td><td></td>
-		</tr>
-		<tr>
-			<td>Opera</td><td>106</td><td>Presto/Blink</td><td>Carakan/V8</td><td></td>
-		</tr>
-	</tbody>
-</table>
-
----
-
-# Webové prohlížeče: mobilní
-  - Apple Mobile Safari (iOS)
-  - Android Browser (Android)
-  - Opera Mobile (Android, Symbian, Windows Mobile)
-  - Firefox for Android (Android)
-  - Chrome for Android (Android, trošičku iOS)
-  - Internet Explorer Mobile (Windows Mobile)
-
----
-
-# Webové prohlížeče: zpětná kompatibilita
-  - Nutnost definovat podporovaný <em>feature set</em>
-  - Oříznout starý prohlížeč znamená připravit se o uživatele
-  - Oříznout starý prohlížeč znamená motivovat k upgrade
-  - Časté aktualizace = snazší rozhodování
+  - Zaštiťuje [TC39](https://tc39.es/)
+  - Návrhy na vylepšení může podat kdokoliv
+  - Konkrétní návrh prochází čtyřmi fázemi standardizace (s pomocí tzv. *šampiona*)
+  - Valná většina novinek přidávaných v posledních letech vzešla z požadavků a nápadů vývojářů
 
 ---
 
@@ -178,150 +142,331 @@ https://html.spec.whatwg.org/
 
 ---
 
-# Polyfill
+# Syntaxe JS
 
-**Polyfill:** JavaScriptový kód, který je schopen doplnit chybějící funkcionalitu při zachování kompatibilního API
-
-```js
-if (!("onhashchange" in window)) {
-	let oldHash = window.hash;
-	setInterval(function() {
-		if (window.hash == oldHash) return;
-		oldHash = window.hash;
-		if (window.onhashchange) window.onhashchange();
-	}, 100);
-}
-```
+  - ...se v čase mění!
+  - Archaické období: 1995-2015
+  - Moderní období: 2015+
+  - Duální označení startuje s ES2015 = ES6
 
 ---
 
-# JavaScript pro středně pokročilé
-  - Očekáváme znalost na úrovni základního kurzu (proměnná, funkce, `querySelector`, `addEventListener`)
-  - Pokročilé partie jazyka nás čekají příště
-  - **Co zbývá na dnešek:** console API, iterace, IIFE, DOM
-
----
-
-# JS: console API
+# Console API
 
 Vývojářské nástroje v každém prohlížeči (typicky <kbd>F12</kbd>)
 
 ```js
-console.log("...");
-console.log("test", 123, ["pole", "hodnot"]);
-console.log("Formatovani %s", "retezcu");
+console.log("...")
+console.log("test", 123, ["pole", "hodnot"])
+console.log("Formatovani %s", "retezcu")
 
-console.warn("warning");
-console.error("crash");
+console.warn("warning")
+console.error("crash")
 
-console.time("test");
-console.timeEnd("test");
+console.time("test")
+console.timeEnd("test")
 ```
 
 Více info v [kompletní dokumentaci](https://developer.mozilla.org/en-US/docs/Web/API/Console).
 
 ---
 
-# JS: iterace struktur/objektů
+# Definice proměnných
+
+  - var = archaické období
+  - let = var + block scope
+  - const = let + read-only
 
 ```js
-let data = {
-	jmeno: "Eva",
-	prijmeni: "Stará",
-	vek: 74
-};
+const N = 8
+N = 4      // exception
 
-for (let p in data) {
-	console.log(p); // "jmeno", "prijmeni", "vek"
+const M = [1, 2, 3]
+M.push(4)  // ok
+
+let x = 1
+if (true) {
+	let x = 2
+}
+alert(x)   // 1
+```
+
+---
+
+# Základní syntaktické prvky
+
+  - ASI = Automatic Semicolon Insertion
+    - velmi komplikovaná pravidla!
+  - if, for, while, switch
+  - *Type coercion*
+
+```js
+let a = 1 + "dva"
+let b = {} + {}
+if (0 == "") { /* ... */ }
+if (undefined == null)  { /* ... */ }
+if (undefined === null) { /* ... */ }
+```
+
+---
+
+# Primitivní datové typy
+
+  - Číslo, bool, řetězec, null, undefined
+  - Předávané hodnotou
+
+```js
+let a = 3
+let b = 0.1 + 0.2
+let c = "ahoj" + 'ahoj'
+let e = null
+let f = undefined
+```
+
+---
+
+# Template string literals
+
+  - Nahrazování řetězců
+  - Odpadá nutnost *sčítání*
+  - Smí obsahovat newline
+  - Možnost vlastní interpolační funkce
+
+```js
+let x = "world"
+let y = `hello ${x}`
+let z = `this is a
+			very long string`
+
+// html je uživ. funkce, která dostane jednotlivé tokeny k naformátování
+html`<div> ${unsafe} </div>`
+
+randomize`Hello, ${["mr", "ms", "mrs"]}. ${firstnames} ${lastnames}`
+```
+
+---
+
+# Komplexní datové typy
+
+  - Objekt = neuspořádaná množina dvojic (klíč, hodnota)
+  - Podobjekty: Array, Function, Date, RegExp
+  - Předávané odkazem
+
+```js
+let a = {}               // prázdný objekt
+let b = {c:3, "d":"hi"}
+let e = [a, b]           // pole o dvou položkách
+let f = function() {}
+let g = /^.*/            // regulární výraz
+```
+
+---
+
+# Objekty, funkce a pole
+
+  - Objekt = neuspořádaná množina dvojic
+  - Klíč je řetězec, hodnota je cokoliv
+  - Pole je též objekt
+
+```js
+let pole1 = [3, 2, 1]
+let pole2 = []
+
+pole1.length == 3
+pole1[1]     == 2
+pole2.length == 0
+
+pole2.push(pole1)
+```
+
+---
+
+# Enhanced object literals
+
+  - Zkrácená definice objektů *ex nihilo*
+
+```js
+let x = 42
+
+let obj = {
+	x,                  // "x":42
+	y() { return x; },
+	["data_" + x]: x    // "data_42":42
 }
 ```
 
 ---
 
-# JS: iterace polí
+# Destructuring
+
+  - Snazší přístup k vlastnostem struktur a polí
 
 ```js
-let data = [15, "babicka", true];
+let [a, b, c] = [1, 2, 3]
 
-// spravne
-for (let i=0; i<data.length; i++) {
-	console.log(i); // 0, 1, 2
-	console.log(data[i]); // 15, "babicka", true
+let f = function() { return {x:42} }
+let { x } = f()
+```
+
+---
+
+# Funkce
+
+  - Funkce je též objekt
+
+```js
+let add = function(a, b) { return a+b }
+add.c = 123
+add(add.c, add["c"])
+```
+
+---
+
+# Default + Rest + Spread
+
+  - Výchozí hodnoty parametrů
+  - Převod (podmnožiny) parametrů na pole a zpět
+
+```js
+function f(x, y = 12) {
+	return x + y
+}
+f(10) // 22
+
+function f(x, ...y) {
+	alert(y.length)
+}
+f(1, 2, 3) // 2
+
+function f(a, b, c) { return c }
+f(...[1, 2, 3]) // 3
+```
+
+---
+
+# Spread v akci
+
+```js
+function build(data) {
+  let node = document.createElement("p")
+  node.classList.add(data.status)
+  node.append(data.text)
+  return node
 }
 
-// spatne – ale proc?
-for (let p in data) {
-	console.log(p); // 0, 1, 2
+const DATA = [/* pole struktur */]
+
+parent.append(...DATA.map(build))
+```
+
+---
+
+# Arrow functions
+
+  - Zkrácená syntaxe definice funkcí
+  - Lexical this (nelze `call, apply, new`)
+    - `this` v rámci arrow function nemá speciální hodnotu
+  - Pokud má tělo funkce jediný příkaz, není třeba `return` ani závorky
+
+```js
+let square = a => a*a
+let add = (a, b) => a+b
+
+// lexical this
+setTimeout( () => this.doStuff(), 1000 )
+```
+
+---
+
+# Classes
+
+```js
+class B extends A {
+	constructor(x) {
+		super() // v konstruktoru dědící třídy povinné; před ním neexistuje this
+		this.x = x
+	}
+
+	static f2() {}
+	get something() { /* .... */ }
+
+	f1() {
+		super.f1()
+		return this.x
+	}
 }
 ```
 
 ---
 
-# JS: iterace polí
+# {Weak,}{Map,Set} {}
 
-  - Cyklus `for-in` *občas* funguje
-  - Ale někdy vyústí v nečekané (nesprávné) výsledky
-  - Jde totiž o výčet klíčů &rArr; a těch může být jiný počet, než hodnot
-     - *sparse arrays:* `new Array(10)`
-     - obohacená pole: `Array.prototype.X = ...`
-
----
-
-# JS: funkcionální iterace
-
-  - Přístup známý z tzv. funkcionálního programování
-  - Aplikace uživatelem zadané funkce na (některé) položky pole
-  - V řadě případů kratší / expresivnější zápis
-  - Obliba použití roste s ES6 (třetí přednáška)
-  - Kompletní <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Iteration_methods">dokumentace na MDN</a>
-
----
-
-# JS: funkcionální iterace I
+  - Set: množina unikátních hodnot
+  - Map: dvojice cokoliv-cokoliv
+  - WeakMap, WeakSet: bez reference na objekt, bez iterovatelnosti
 
 ```js
-let data = [15, "babicka", true];
+let s = new Set()
+s.add("hello").add("goodbye").add("hello")
+s.size == 2
+s.has("hello") == true
 
-// anonymni funkce
-data.forEach(function(item, index) {
-	console.log(item); // 15, "babicka", true
-});
-
-// pojmenovana funkce
-function log(item, index) {
-	console.log(index);
-}
-data.forEach(log); // 0, 1, 2
+let m = new Map()
+m.set("hello", 42)
+m.set(s, 34)
+m.get(s) == 34
 ```
 
 ---
 
-# JS: funkcionální iterace II
+# Jak pracovat s moedrní syntaxí?
 
-```js
-let data = [1, 2, 3];
-
-function square(x) { return x*x; }
-let data2 = data.map(square); // 1, 4, 9
-
-function odd(x) { return x % 2; }
-let data3 = data.filter(odd); // 1, 3
-```
+  - [Compatibility table](https://compat-table.github.io/compat-table/es6/)
+  - Některou syntaxi lze *transpilovat*
+    - Více o tom za malou chvíli
+  - Pro něco lze polyfill (`Array.from`, `Promise`, &hellip;)
+    - Více o tom v příští přednášce
+  - Něco nelze vůbec (`WeakMap, WeakSet, Proxy`)
 
 ---
 
-# JS: funkcionální iterace III
+# Transpilace ES 2015+
 
-```js
-let data = [1, 2, 3];
+  - Proces konverze syntaxe ES 2015+ do starší
+  - [Babel](https://github.com/babel/babel), [Google Closure Compiler](https://developers.google.com/closure/compiler)
+  - Problematická otázka ES modulů
 
-function odd(x) { return x % 2; }
-data.every(odd);  // false
-data.some(odd);   // true
+---
 
-function add(x, y) { return x+y; }
-data.reduce(add); // 6
-```
+# Babel v praxi
+
+  - Online hřiště na [https://babeljs.io/repl](https://babeljs.io/repl)
+  - Ke stažení jako npm modul
+  - Ke stažení též jako ohromný kus ES5 (transformace za běhu)
+
+---
+
+# Strukturování kódu
+
+Předpoklad: kód členíme do více malých souborů
+
+<table>
+  <tr>
+    <th>Modularizace \ Počet</th>
+    <th>Mnoho souborů</th>
+    <th>Jeden soubor</th>
+  </tr>
+  <tr>
+    <th>globální proměnné</th>
+    <td>volitelně IIFE</td>
+    <td>hloupý bundler</td>
+  </tr>
+  <tr>
+    <th>import+export</th>
+    <td>module script <br/> &lt;script type=module&gt;</td>
+    <td>module-aware bundler</td>
+  </tr>
+</table>
 
 ---
 
@@ -347,96 +492,40 @@ alert(document);           // [object HTMLDocument]
 
 ---
 
-# Vybrané partie DOM API
 
-  - Funkce, konstanty a objekty pro manipulaci se stránkou
-  - Zpravidla dostupné pomocí (globální) proměnné `document`
-  - John Resig: <a href="http://ejohn.org/blog/the-dom-is-a-mess/">The DOM is a mess</a>
 
----
+# ES Modules
 
-# DOM: úpravy podstromu
+  - Modularizace na syntaktické úrovni
+  - Jeden výchozí a libovolně dalších pojmenovaných exportů
 
 ```js
-let p = document.querySelector("p");
+// a.js
+export let A = function() {}
+export default function() {}
 
-// HTML parser, pozor na XSS!
-p.innerHTML = "<strong>toto je test</strong>";
+// b.js
+import { A } from "./a.js"
+A()
 
-// jen text
-p.textContent = "<strong>toto je test</strong>";
+import myLocalName from "./a.js" // default
 ```
 
 ---
 
-# DOM: tvorba nových prvků
+# Moduly v praxi
 
-```js
-let p = document.querySelector("p");
+FIXME module skripty
 
-let strong = document.createElement("strong");
-p.appendChild(strong);
-
-let text = document.createTextNode("toto je test");
-p.appendChild(text);
-
-let input = document.createElement("input");
-input.type = "number";
-input.id = "foo";
-```
-
-Metody `createTextNode`, `appendChild` (a jejich sourozenci) dnes patří spíš do muzea.
+- Explicitní opt-in pomocí atributu `type`
+  - `<script type="module" src="app.js"></script>`
+  - vždy asynchronní
+- Výdej produkčního kódu &ndash; počet HTTP požadavků?
+- Alternativa #1: neřešit (pro potřeby KAJ zcela dostačující)
+- Alternativa #2: *bundling* do jednoho souboru, např. nástrojem [Rollup](http://rollupjs.org/) či [ESbuild](https://esbuild.github.io/)
 
 ---
 
-# DOM: "nové" rozhraní ParentNode
-
-...i DOM prochází průběžnou modernizací.
-
-```js
-let p = document.querySelector("p");
-
-let strong = document.createElement("strong");
-p.append("AAA", strong, "BBB");
-
-p.prepend(strong, "test");
-
-console.log(p.children); // pouze značky, nikoliv text
-```
-
----
-
-# DOM: "nové" rozhraní ChildNode
-
-```js
-let p1 = document.querySelector("p");
-p1.remove();
-
-let p2 = document.querySelector("p");
-p2.replaceWith(p1, "test");
-
-p2.before("AAA", "BBB", p3);
-p2.after("AAA", "BBB", p3);
-```
-
----
-
-# DOM: práce s atributem `class`
-
-```js
-let p = document.querySelector("p");
-
-p.className = "class1";
-
-p.classList.add("class2");
-p.classList.remove("class3");
-p.classList.contains("class2"); // true
-
-p.classList.toggle("class4");
-p.classList.toggle("class4", x > 15);
-```
-
----
 
 # Prostor pro otázky
 
