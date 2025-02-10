@@ -1,6 +1,6 @@
 # KAJ 1
 
-## Úvod, JavaScript: historie, syntaxe, modularizace
+## Úvod, JavaScript pro začátečníky
 
 ---
 
@@ -92,7 +92,7 @@ FIXME doplnit až vyjde
 
 https://html.spec.whatwg.org/
 
-  - ![](img/w3c.png) + ![](img/whatwg.png) (**W**eb **H**ypertext **A**pplication **T**echnology **W**orking **G**roup)
+  - ![](img/w3c.png){style="vertical-align:middle"} + ![](img/whatwg.png){style="vertical-align:middle"} (**W**eb **H**ypertext **A**pplication **T**echnology **W**orking **G**roup)
   - Mnoho rozdílných požadavků na standard:
 	- Zpětná kompatibilita
 	- Zpracování chyb
@@ -103,8 +103,6 @@ https://html.spec.whatwg.org/
 
 # Standardizační proces HTML
 
-![Ian Hickson](img/ih.jpg){style="position:absolute;right:0;top:60px;height:350px;"}
-
   - Editor Ian Hickson
   - Aktuálně <del><em>Working Draft</em></del> <em>Recommendation</em>
   - <em>Living standard</em>
@@ -112,6 +110,8 @@ https://html.spec.whatwg.org/
   - Vývoj pomocí mailinglistu <a href="mailto:whatwg@whatwg.org">whatwg@whatwg.org</a>
   - <em>Dozorčí rada</em> (WHATWG members)
   - 2004 – <del>2022</del> 2014
+
+![Ian Hickson](img/ih.jpg){style="position:absolute;right:0;top:60px;height:350px;"}
 
 ---
 
@@ -136,10 +136,12 @@ https://html.spec.whatwg.org/
 
 ---
 
-# Volitelné nabízení pokročilých technologií
+# JavaScript
 
-  - **Progressive enhancement:** nabízet základní funkcionalitu a volitelně přidávat
-  - **Graceful degradation:** nabízet pokročilou funkcionalitu a v případě nouze couvnout
+  - Interpret v každém prohlížeči
+  - Pro nováčka obtížný
+    - Jazyk samotný vs. DOM
+    - Některé koncepty nezvyklé optikou jiných programovacích jazyků (`this`, `prototype`)
 
 ---
 
@@ -186,9 +188,7 @@ const M = [1, 2, 3]
 M.push(4)  // ok
 
 let x = 1
-if (true) {
-	let x = 2
-}
+if (true) { let x = 2 }
 alert(x)   // 1
 ```
 
@@ -259,6 +259,26 @@ let b = {c:3, "d":"hi"}
 let e = [a, b]           // pole o dvou položkách
 let f = function() {}
 let g = /^.*/            // regulární výraz
+```
+
+---
+
+# {Weak,}{Map,Set} {}
+
+  - Set: množina unikátních hodnot
+  - Map: dvojice cokoliv-cokoliv
+  - WeakMap, WeakSet: bez reference na objekt, bez iterovatelnosti
+
+```js
+let s = new Set()
+s.add("hello").add("goodbye").add("hello")
+s.size == 2
+s.has("hello") == true
+
+let m = new Map()
+m.set("hello", 42)
+m.set(s, 34)
+m.get(s) == 34
 ```
 
 ---
@@ -375,6 +395,7 @@ parent.append(...DATA.map(build))
   - Lexical this (nelze `call, apply, new`)
     - `this` v rámci arrow function nemá speciální hodnotu
   - Pokud má tělo funkce jediný příkaz, není třeba `return` ani závorky
+  - Velmi výhodné pro funkcionální iteraci a posluchače událostí (4. přednáška)
 
 ```js
 let square = a => a*a
@@ -403,27 +424,6 @@ class B extends A {
 		return this.x
 	}
 }
-```
-
----
-
-FIXME co s tim?
-# {Weak,}{Map,Set} {}
-
-  - Set: množina unikátních hodnot
-  - Map: dvojice cokoliv-cokoliv
-  - WeakMap, WeakSet: bez reference na objekt, bez iterovatelnosti
-
-```js
-let s = new Set()
-s.add("hello").add("goodbye").add("hello")
-s.size == 2
-s.has("hello") == true
-
-let m = new Map()
-m.set("hello", 42)
-m.set(s, 34)
-m.get(s) == 34
 ```
 
 ---
@@ -479,29 +479,26 @@ Předpoklad: kód členíme do více malých souborů
 
 ---
 
-# JS: IIFE
+# IIFE
 
-  - Problém: strukturování (modularizace) JS kódu
-  - Historicky velká ostuda
-  - Solidní řešení až v ES6 (třetí přednáška)
+  - Řešení z archaického období
   - Více HTML značek `<script>` sdílí jmenný prostor
+    - Riziko kolize (v rámci aplikace i napříč dalšími skripty na stránce)
   - Trik: immediately-invoked function expressions
 
 ---
 
-# JS: IIFE
+# IIFE
 ```js
 (function(){
-	let document = "test"; // lokalni promenna
-	alert(document);       // "test"
+	let document = "test";  // lokalni promenna
+	alert(document);        // "test"
 })();
 
-alert(document);           // [object HTMLDocument]
+alert(document);          // [object HTMLDocument]
 ```
 
 ---
-
-
 
 # ES Modules
 
@@ -524,17 +521,23 @@ import myLocalName from "./a.js" // default
 
 # Moduly v praxi
 
-FIXME module skripty
-
 - Explicitní opt-in pomocí atributu `type`
   - `<script type="module" src="app.js"></script>`
-  - vždy asynchronní
+  - automaticky v režimu *defer* (vykonání až po zpracování veškerého HTML)
+  - volitelně atribut *async* (vykonání paralelně se zpracováním HTML)
+- Nutnost výdeje pomocí HTTP
+  - <span style="color:red;display:inline-block;width:2ch">✘</span> file://
+  - <span style="color:lime;display:inline-block;width:2ch">✔</span> <span>http</span>://localhost
+
+---
+
+# Bundling
+
 - Výdej produkčního kódu &ndash; počet HTTP požadavků?
 - Alternativa #1: neřešit (pro potřeby KAJ zcela dostačující)
 - Alternativa #2: *bundling* do jednoho souboru, např. nástrojem [Rollup](http://rollupjs.org/) či [ESbuild](https://esbuild.github.io/)
 
 ---
-
 
 # Prostor pro otázky
 
