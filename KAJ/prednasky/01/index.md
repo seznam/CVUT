@@ -66,17 +66,18 @@
 
 ---
 
-# Kniha FIXME stara
-# Kniha FIXME nova
+# Kniha
 
-<img style="height:600px;float:right;margin-right:0;" src="https://cdn.albatrosmedia.cz/Images/Product/29109959?31092A68D952319080880FFA2781041B" />
+FIXME doplnit až vyjde
+<img style="position:absolute;right:0;height:460px;" src="https://cdn.albatrosmedia.cz/Images/Product/29109959?31092A68D952319080880FFA2781041B" />
 
-  - JavaScript – Programátorské techniky a webové technologie
-  - Vydává <a href="https://www.albatrosmedia.cz/tituly/29109959/java-script/">cpress.cz</a>
-  - Určeno pro zájemce o JavaScript po absolvování základního kurzu
-  - Povětšinou jen JS, méně DOM rozhraní
-  - Psáno v době ES5 (2014): z dnešního pohledu je syntaxe jazyka zastaralá
-  - V roce 2024 snad vyjde nová verze
+  - JavaScript: řešené úlohy
+  - Vydává <a href="https://eshop.cvut.cz/simplifyworks/cs/eoc/public/products">Česká technika</a>
+  - Kniha pro širší odbornou veřejnost
+    - Objem nápadně podobný předmětu KAJ
+  - Pozor na starou (2014) knihu
+    - *JavaScript: Programátorské techniky a webové technologie*
+    - Dnešní optikou zastaralá
 
 ---
 
@@ -102,7 +103,7 @@ https://html.spec.whatwg.org/
 
 # Standardizační proces HTML
 
-![Ian Hickson](img/ih.jpg) {style="position:absolute;right:0;top:40px;"}
+![Ian Hickson](img/ih.jpg){style="position:absolute;right:0;top:60px;height:350px;"}
 
   - Editor Ian Hickson
   - Aktuálně <del><em>Working Draft</em></del> <em>Recommendation</em>
@@ -312,7 +313,14 @@ let { x } = f()
 
 # Funkce
 
-  - Funkce je též objekt
+- Dva téměř ekvivalentní zápisy
+
+```js
+function f1(a, b) { return a+b }
+let f2 = function(a, b) { return a+b }
+```
+
+- Funkce je též objekt
 
 ```js
 let add = function(a, b) { return a+b }
@@ -399,6 +407,7 @@ class B extends A {
 
 ---
 
+FIXME co s tim?
 # {Weak,}{Map,Set} {}
 
   - Set: množina unikátních hodnot
@@ -419,14 +428,14 @@ m.get(s) == 34
 
 ---
 
-# Jak pracovat s moedrní syntaxí?
+# Jak pracovat s moderní syntaxí?
 
   - [Compatibility table](https://compat-table.github.io/compat-table/es6/)
   - Některou syntaxi lze *transpilovat*
     - Více o tom za malou chvíli
   - Pro něco lze polyfill (`Array.from`, `Promise`, &hellip;)
     - Více o tom v příští přednášce
-  - Něco nelze vůbec (`WeakMap, WeakSet, Proxy`)
+  - Něco nelze vůbec (`WeakMap, WeakSet, Proxy, SharedArrayBuffer`)
 
 ---
 
