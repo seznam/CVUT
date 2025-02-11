@@ -258,7 +258,22 @@ Poznámky k použití `new`
 
 # Prototype vs. class
 
-```js FIXME
+`class` je *syntax sugar*
+
+```js
+class A {}
+class B extends A {
+  constructor() {
+    super();
+    this.c = 3
+  }
+  f() {}
+}
+
+function F() {
+  this.c = 3
+}
+F.prototype = Object.create(A.prototype)
 ```
 
 ---
