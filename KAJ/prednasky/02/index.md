@@ -5,17 +5,17 @@
 ---
 
 # Obsah
-  1. JavaScript: opáčko
-  1. Objekty, funkce a pole
-  1. Pilíř 1: Uzávěry
-  1. Pilíř 2: Klíčové slovo this
-  1. Pilíř 3: Prototype chain
+
+  1. Uzávěry
+  1. Klíčové slovo this
+  1. Prototype chain
   1. Operátor new
+  1. Polyfilly
 
 ---
 
 
-# Pilíř 1: Uzávěry
+# Uzávěry (closures)
 
   - Jaký je obor platnosti proměnných?
   - Funkci lze definovat uvnitř jiné funkce
@@ -30,19 +30,13 @@ let outer = function(a, b) {
 
 ---
 
-
-# Pilíř 1: Uzávěry
+# Uzávěry
 
   - Co když použijeme proměnnou ve vnitřní funkci?
   - Vznikne *uzávěra*
   - Rozdíl mezi prostorovou a časovou platností
 
 ```js
-let outer = function(a, b) {
-	let inner = function() { return 2*b }
-	return a + inner()
-}
-
 let outer = function(a, b) {
 	let inner = function() { return 2*b }
 	return inner
@@ -52,7 +46,7 @@ let outer = function(a, b) {
 ---
 
 
-# Pilíř 2: Klíčové slovo *this*
+# Klíčové slovo *this*
 
 - Jeden z nejkomplikovanějších konceptů jazyka
 - Zásadní rozdíl oproti jiným: hodnota je určena při volání
@@ -72,7 +66,9 @@ fun()       // this == ?
 
 ---
 
-# Pilíř 2: Klíčové slovo *this*
+# Klíčové slovo *this*
+
+**Funkce lze vykonat mnoha způsoby**
 
 1. Dokud voláme funkci zápisem `obj.fun()`, situace připomíná ostatní OOP jazyky
 1. Pokud funkci předáme jako callback, dějí se věci
@@ -80,7 +76,7 @@ fun()       // this == ?
 
 ---
 
-# Pilíř 2: Klíčové slovo *this*
+# Klíčové slovo *this*
 
 Funkce předaná jako callback: hodnota `this` záleží na implementaci příjemce callbacku
 
@@ -99,7 +95,7 @@ data.forEach(log, data);
 
 ---
 
-# Pilíř 2: Klíčové slovo *this*
+# Klíčové slovo *this*
 
 Dnes málo užívané (historické) možnosti explicitního nastavení `this`
 
@@ -115,9 +111,9 @@ fun.apply(obj2, [arg1, ...])  // this == obj2
 
 ---
 
-# Pilíř 2: Klíčové slovo *this*
+# Klíčové slovo *this*
 
-*Arrow funkce (příští přednáška):* `this` neexistuje, užije se uzávěra
+*Arrow funkce:* `this` neexistuje, užije se uzávěra
 
 *Klíčové slovo `new`:* právě vznikající nový objekt
 
@@ -125,12 +121,12 @@ fun.apply(obj2, [arg1, ...])  // this == obj2
 
 ---
 
-# Pilíř 2: Klíčové slovo *this*
+# Klíčové slovo *this*
 [Context quiz](https://leaverou.github.io/talks/intro/#context-quiz)
 
 ---
 
-# Pilíř 3: Prototype chain
+# Prototype chain
 
 - Vlastnost převzatá z jazyka Self
 - Specifické chování, když se v objektu pokusíme přistoupit k neexistujícímu klíči / vlastnosti
@@ -147,7 +143,7 @@ alert(zvire.potrava)  // undefined
 
 ---
 
-# Pilíř 3: Prototype chain
+# Prototype chain
 
 ```js
 let bylozravec = {
@@ -163,7 +159,7 @@ zirafa.__proto__ == bylozravec  // true
 
 ---
 
-# Pilíř 3: Prototype chain
+# Prototype chain
 
 ## Terminologický guláš! 🍲
 
@@ -174,7 +170,7 @@ zirafa.__proto__ == bylozravec  // true
 
 ---
 
-# Pilíř 3: Prototype chain
+# Prototype chain
 
 - Říkáme, že jeden objekt je prototypem druhého
 - Druhý nabízí vše, co první (+ možná něco navíc)
@@ -194,7 +190,7 @@ alert(obj3.jinyKlic)  // "jeste jina hodnota"
 
 ---
 
-# Pilíř 3+: Operátor *new*
+# Operátor *new*
 
 Jak vytvořit prototype link?
 
@@ -207,7 +203,7 @@ Jak vytvořit prototype link?
 
 ---
 
-# Pilíř 3+: Operátor *new*
+# Operátor *new*
 
 Co *opravdu* dělá operátor `new`?
 
@@ -219,7 +215,7 @@ Co *opravdu* dělá operátor `new`?
 
 ---
 
-# Pilíř 3+: Operátor *new*
+# Operátor *new*
 
 [diagram](img/prototype.svg)
 
@@ -234,7 +230,7 @@ f.c = 3
 ```
 ---
 
-# Pilíř 3+: Operátor *new*
+# Operátor *new*
 
 Zkusme si to naimplementovat:
 
@@ -250,13 +246,20 @@ let f = myNew(F)
 
 ---
 
-# Pilíř 3+: Operátor *new*
+# Operátor *new*
 
 Poznámky k použití `new`
 
 - Objekt (*instance*) nemá příliš souvislost se svojí vytvořující funkcí
 - Do prototypu funkce zpravidla vkládáme metody (neb ty mají být sdíleny)
 - Složitost operátoru `new` a objektu `prototype` je hlavní motivací pro přidání *tříd* V ES6
+
+---
+
+# Prototype vs. class
+
+```js FIXME
+```
 
 ---
 
@@ -274,6 +277,20 @@ Child.prototype = Object.create(Parent.prototype)
 
 let ch = new Child()
 ch.hi() // "hello"
+```
+
+---
+
+# Polyfill
+
+**Polyfill:** JavaScriptový kód, který je schopen doplnit chybějící funkcionalitu při zachování kompatibilního API
+
+```js
+if (!Math.sign) {
+  Math.sign = function(n) {
+    return (n ? n/Math.abs(n) : n);
+  }
+}
 ```
 
 ---
@@ -297,6 +314,21 @@ String.prototype.lpad = function(what, length) {
 Array.prototype.random = function() {
   let index = Math.random()*this.length
   return this[Math.floor(index)]
+}
+```
+
+---
+
+# Obohacování prototypů
+
+Smutná historie projektu MooTools
+
+```js
+Array.prototype.contains = function(what) {
+  for (let i=0; i<this.length; i++) {
+    if (this[i] === what) { return true; }
+  }
+  return false
 }
 ```
 
@@ -358,139 +390,6 @@ setTimeout(bar.foo.bind(bar), 100)
 
 // dtto addEventListener atp.
 ```
-
----
-
-# Polyfill
-
-**Polyfill:** JavaScriptový kód, který je schopen doplnit chybějící funkcionalitu při zachování kompatibilního API
-
-```js
-if (!("onhashchange" in window)) {
-	let oldHash = window.hash;
-	setInterval(function() {
-		if (window.hash == oldHash) return;
-		oldHash = window.hash;
-		if (window.onhashchange) window.onhashchange();
-	}, 100);
-}
-```
-
----
-
-FIXME leftPad
-FIXME includes
-
----
-
-# Symbols
-
-  - Nový datový typ pro řízení přístupu
-  - Užití jako klíč v objektu
-  - Není zcela privátní, ale alespoň je unikátní
-
-```js
-let moneyKey = Symbol("money")
-typeof(moneyKey) == "symbol"
-
-let Person = function() {
-  this[moneyKey] = 10000
-}
-
-let person = new Person()
-person.money == undefined
-
-Object.getOwnPropertySymbols(person) // :-(
-```
-
----
-
-
-# Proxies
-
-  - Monitorování libovolného přístupu k objektům
-  - Čtení, zápis, volání, &hellip;
-
-```js
-let obj = {}
-
-let interceptor = {
-  get: function (receiver, name) {
-    return `Hello, ${name}!`
-  }
-};
-
-let p = new Proxy(obj, interceptor)
-p.world === "Hello, world!"
-```
-
----
-
-# Reflect
-
-  - Rozhraní pro introspekci objektů
-  - Metody podobné těm v `Object.*`
-  - Namísto výjimek vrací false
-
-```js
-Reflect.defineProperty(obj, name, descriptor)
-Reflect.construct(F, args)
-Reflect.get(obj, property, thisForGetter)
-/* ... */
-```
-
----
-
-# Rozšíření ES5 #1
-
-```js
-Number.EPSILON
-Number.MAX_SAFE_INTEGER
-Number.MIN_SAFE_INTEGER
-Number.isInteger(Infinity)                      // false
-Number.isNaN("NaN")                             // false
-
-Math.acosh(3)                                   // 1.762747174039086
-Math.hypot(3, 4)                                // 5
-Math.imul(Math.pow(2, 32)-1, Math.pow(2, 32)-2) // 2
-Math.sign(5)                                    // 1
-Math.trunc(3.1)                                 // 3
-/* ... */
-
-"abc".repeat(3)                                 // "abcabcabc"
-```
-
----
-
-# Rozšíření ES5 #2
-
-```js
-Array.from(document.querySelectorAll("*")) // real Array
-Array.of(1, 2, 3)                          // without special one-arg behavior
-[0, 0, 0].fill(7, 1)                       // [0, 7, 7]
-[1, 2, 3].find(x => x == 3)                // 3
-[1, 2, 3].findIndex(x => x == 2)           // 1
-[1, 2, 3, 4, 5].copyWithin(3, 0)           // [1, 2, 3, 1, 2]
-["a", "b", "c"].entries()                  // iterator [0, "a"], [1,"b"], [2,"c"]
-["a", "b", "c"].keys()                     // iterator 0, 1, 2
-["a", "b", "c"].values()                   // iterator "a", "b", "c"
-
-Object.assign(target, { source: "data" })
-```
-
----
-
-# Ostatní
-
-  - Práce s Unicode znaky mimo BMP (tj. code points > 65535):
-      <span title="U+1F602 FACE WITH TEARS OF JOY">😂</span>,
-      <span title="U+1F4A9 PILE OF POO">💩</span>,
-      <span title="U+1F923 ROLLING ON THE FLOOR LAUGHING">🤣</span>,
-      <span title="U+1F953 BACON">🥓</span>,
-      &hellip;
-  - Subclassing vestavěných objektů (Array, Element, &hellip;)
-  - ~~Garantované Tail Call Optimisation~~
-  - `new Promise((resolve, reject) => {}), Promise.all, Promise.race`
 
 ---
 

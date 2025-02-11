@@ -56,6 +56,7 @@ for (let p in data) {
   - V řadě případů kratší / expresivnější zápis
   - Obliba použití roste s ES6 (třetí přednáška)
   - Kompletní <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Iteration_methods">dokumentace na MDN</a>
+  - FIXME this
 
 ---
 
