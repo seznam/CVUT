@@ -6,6 +6,7 @@
 
 # Obsah
 
+  1. Symboly
   1. Uzávěry
   1. Klíčové slovo this
   1. Prototype chain
@@ -14,6 +15,35 @@
 
 ---
 
+# Symbols
+
+  - *Nový* datový typ pro řízení přístupu
+  - Užití jako klíč v objektu
+  - Není zcela privátní, ale alespoň je unikátní
+  - Well-known symboly uloženy jako vlastnosti funkce konstruktoru `Symbol`
+    - Více o nich v příští přednášce
+
+---
+
+# Symbols
+
+```js
+let moneyKey = Symbol("money")
+typeof(moneyKey) == "symbol"
+
+class Person {
+  constructor {
+    this[moneyKey] = 10000
+  }
+}
+
+let person = new Person()
+person.money == undefined
+
+Object.getOwnPropertySymbols(person) // :-(
+```
+
+---
 
 # Uzávěry (closures)
 

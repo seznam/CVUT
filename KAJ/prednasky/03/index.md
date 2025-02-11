@@ -1,54 +1,14 @@
 # KAJ 03
 
-## Event loop, asynchronní zpracování
+## Asynchronní zpracování, iterace
 
 ---
 
 # Obsah
 
-  1. Události: opáčko
-  1. Události: objekt události
-  1. Události: capture a bubble
-  1. Události: posluchače
   1. Asynchronní zpracování
   1. Promises a dále
-
----
-
-# Generators
-
-- Speciální druh funkce
-- Návratovou hodnotou je iterátor
-  - lze použít cyklus `for..of`
-- Klíčové slovo `yield` odpovídá přerušení po jedné iteraci
-
-```js
-let generator = function*() {
-  let tmp = 1
-  while (true) {
-    tmp *= 3
-    yield tmp
-  }
-}
-```
-
----
-
-# Generators
-
-- Speciální druh funkce
-- Návratovou hodnotou je iterátor
-  - lze použít cyklus `for..of`
-- Klíčové slovo `yield` odpovídá přerušení po jedné iteraci
-
-```js
-let iterator = generator();
-iterator.next().value; // 3, next() vrací i done:true/false
-iterator.next().value; // 9
-iterator.next().value; // 27
-
-for (let val of generator()) { console.log(val) }
-```
+  1. Iterace
 
 ---
 
@@ -85,6 +45,7 @@ while (1) {
 # Zpožděné vykonávání
 
   - Je řada způsobů, jak *naplánovat* zpožděné vykonání kódu
+    - AKA asynchronní, AKA neblokující
   - XMLHttpRequest, addEventListener
   - timeout, interval
 ```js
@@ -95,18 +56,19 @@ setInterval( function() { /* ... */ }, 100)
 
 ---
 
-
 # Zpožděné vykonávání: this v callbacku
 
 Pokud někam předávám funkci, s jakým `this` bude volána?
 
 ```js
-function Animal() {
-  setTimeout(this.eat, 3000)
-}
+class Animal {
+  constructor() {
+    setTimeout(this.eat, 3000)
+  }
 
-Animal.prototype.eat = function() {
-  this.food += 3
+  eat() {
+    this.food += 3
+  }
 }
 ```
 
@@ -117,12 +79,14 @@ Animal.prototype.eat = function() {
 `bind` pomůže
 
 ```js
-function Animal() {
-  setTimeout(this.eat.bind(this), 3000)
-}
+class Animal {
+  constructor() {
+    setTimeout(this.eat.bind(this), 3000)
+  }
 
-Animal.prototype.eat = function() {
-  this.food += 3
+  eat() {
+    this.food += 3
+  }
 }
 ```
 
@@ -133,12 +97,14 @@ Animal.prototype.eat = function() {
 `arrow function` pomůže
 
 ```js
-function Animal() {
-  setTimeout(() => this.eat(), 3000)
-}
+class Animal {
+  constructor() {
+    setTimeout(() => this.eat(), 3000)
+  }
 
-Animal.prototype.eat = function() {
-  this.food += 3
+  eat() {
+    this.food += 3
+  }
 }
 ```
 
@@ -151,7 +117,7 @@ Animal.prototype.eat = function() {
 ```js
 requestAnimationFrame(function() {
   // animujeme...
-});
+})
 ```
   - Prohlížeč sám volí vhodnou délku časového kroku (zpravidla okolo 60 fps)
   - Více info viz [MDN](https://developer.mozilla.org/en-US/docs/DOM/window.requestAnimationFrame)
@@ -188,7 +154,7 @@ function getData(url) {
 getData(url).then(
   function(data) { alert(data) },
   function(error) { alert(error) }
-);
+)
 ```
 
 ---
@@ -236,7 +202,23 @@ let promise = new Promise(function(resolve, reject) {
   } else {
     reject(error)
   }
-});
+})
+return promise
+```
+
+---
+
+# Promises: tvorba a změna stavu
+
+`withResolvers:` novinka z roku 2024
+
+```js
+let { promise, resolve, reject } = Promise.withResolvers()
+if (...) {
+  resolve(value)
+} else {
+  reject(error)
+}
 return promise
 ```
 
@@ -286,7 +268,7 @@ let processed = await getData(url)  // toto lze jen v "async" funkci
 ```js
 getData(url).then(function(processed) {  // toto lze kdekoliv
   // ...
-});
+})
 ```
 
 ---
@@ -314,6 +296,200 @@ form.addEventListener("submit", e => {
     if (!ok) { e.preventDefault() }
   })
 })
+```
+
+---
+
+# Iterace struktur/objektů
+
+```js
+let data = {
+	jmeno: "Eva",
+	prijmeni: "Stará",
+	vek: 74
+}
+
+for (let p in data) {
+	console.log(p) // "jmeno", "prijmeni", "vek"
+}
+```
+
+---
+
+# Iterace polí
+
+```js
+let data = [15, "babicka", true]
+
+// spravne
+for (let i=0; i<data.length; i++) {
+	console.log(i) // 0, 1, 2
+	console.log(data[i]) // 15, "babicka", true
+}
+
+// spatne – ale proc?
+for (let p in data) {
+	console.log(p) // 0, 1, 2
+}
+```
+
+---
+
+# Iterace polí
+
+  - Cyklus `for-in` *občas* funguje
+  - Ale někdy vyústí v nečekané (nesprávné) výsledky
+  - Jde totiž o výčet klíčů &rArr; a těch může být jiný počet, než hodnot
+     - *sparse arrays:* `new Array(10)`
+     - obohacená pole: `Array.prototype.X = ...`
+
+---
+
+# Funkcionální iterace
+
+  - Přístup známý z tzv. funkcionálního programování
+  - Aplikace uživatelem zadané funkce na (některé) položky pole
+  - V řadě případů kratší / expresivnější zápis
+  - Kompletní <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array#Iteration_methods">dokumentace na MDN</a>
+  - Hodnota `this` v callbacku je určena jako druhý parametr iterační metody
+
+---
+
+# Funkcionální iterace I
+
+```js
+let data = [15, "babicka", true]
+
+// anonymni funkce
+data.forEach(function(item, index) {
+	console.log(item)  // 15, "babicka", true
+})
+
+// pojmenovana funkce
+function log(item, index) {
+	console.log(index)
+}
+data.forEach(log)    // 0, 1, 2
+```
+
+---
+
+# Funkcionální iterace II
+
+```js
+let data = [1, 2, 3]
+
+function square(x) { return x*x }
+let data2 = data.map(square)  // 1, 4, 9
+
+function odd(x) { return x % 2 }
+let data3 = data.filter(odd)  // 1, 3
+
+function testThis(x) { console.log(x, this) }
+let obj = {}
+data.forEach(odd, obj)        // this = obj
+```
+
+---
+
+# Funkcionální iterace III
+
+```js
+let data = [1, 2, 3]
+
+function odd(x) { return x % 2 }
+data.every(odd)  // false
+data.some(odd)   // true
+
+function add(x, y) { return x+y }
+data.reduce(add) // 6
+```
+
+---
+
+# Programovatelná iterovatelnost
+
+  - Cokoliv, co má metodu `next` je iterátor
+  - Cokoliv, co má symbol `Symbol.iterator` (viz minulou přednášku) je iterovatelné cyklem `for..of`
+
+```js
+let fibonacci = {
+  [Symbol.iterator]() {
+    let pre = 0, cur = 1
+    return {
+      next() {
+        [pre, cur] = [cur, pre + cur]
+        return { done: false, value: cur }
+      }
+    }
+  }
+}
+```
+
+---
+
+# Iterators + for..of
+
+  - Programovatelná iterovatelnost
+  - Cokoliv, co má metodu `next` je iterátor
+  - Cokoliv, co má symbol `Symbol.iterator` je iterovatelné cyklem `for..of`
+
+```js
+for (let n of fibonacci) {
+  if (n > 1000) break
+  console.log(n)
+}
+```
+
+---
+
+# Vestavěné iterátory
+
+```js
+for (let x of [1, 2, 3]) { console.log(x) }
+
+let map = new Map()
+map.set("x", "y")
+for (let entry of map) {
+  console.log(entry)   // ["x", "y"]
+}
+```
+
+---
+
+# Generators
+
+- Speciální druh funkce
+- Návratovou hodnotou je iterátor
+  - lze použít cyklus `for..of`
+- Klíčové slovo `yield` odpovídá přerušení po jedné iteraci
+
+```js
+let generator = function*() {
+  let tmp = 1
+  while (true) {
+    tmp *= 3
+    yield tmp
+  }
+}
+```
+
+---
+
+# Generators
+
+- Speciální druh funkce
+- Návratovou hodnotou je iterátor
+  - lze použít cyklus `for..of`
+- Klíčové slovo `yield` odpovídá přerušení po jedné iteraci
+
+```js
+let iterator = generator()
+iterator.next().value // 3, next() vrací i done:true/false
+iterator.next().value // 9
+iterator.next().value // 27
+
+for (let val of generator()) { console.log(val) }
 ```
 
 ---
