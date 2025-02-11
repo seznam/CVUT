@@ -128,7 +128,7 @@ Co je na událostech zajímavého?
 # Události: objekt události
 
   - Liší se podle typu události
-  - Vždy obsahuje `target`, `currentTarget`, `timeStamp`, `type`
+  - Vždy obsahuje `target` (místo události), `currentTarget` (místo posluchače), `timeStamp`, `type`
   - Vždy obsahuje `stopPropagation` a `preventDefault`
 
 ---
@@ -291,4 +291,88 @@ window.addEventListener("load", obj)
 
 # data-* atributy
 
-FIXME
+  - Jazyk HTML dovoluje přidávání vlastních nestandardních atributů ve tvaru data-něco
+  - Často praktičtější alternativa k přeužívanému `class`
+  - Pro práci s nimi existuje dedikované API `dataset`
+
+```html
+<li data-order-status="shipped">...</li>
+```
+
+```js
+let li = document.querySelector("li")
+console.log(li.dataset.orderStatus)  // "shipped"
+```
+
+---
+
+# Delegování událostí
+
+  - Problém: při výpisu mnoha položek musíme přidávat mnoho posluchačů
+  - Nápad: většina událostí bublá, takže by měl stačit posluchač na společném rodiči
+
+```html
+<ul>
+  <li>...</li>
+  <li>...</li>
+  <li>...</li>
+</ul>
+```
+
+```js
+let ul = document.querySelector("ul")
+ul.addEventListener("click", e => {
+  console.log("kliknuto na", ...)  // ???
+})
+```
+
+---
+
+# Delegování událostí
+
+AKA *Event Delegation*
+
+```html
+<ul>
+  <li data-product-id="42">...</li>
+</ul>
+```
+
+```js
+ul.addEventListener("click", e => {
+  let li = e.target.closest("[data-product-id]")
+  let productId = li.dataset.productId
+  console.log("kliknuto na", productId)
+})
+```
+
+---
+
+
+# Delegování událostí
+
+AKA *Event Delegation*
+
+```html
+<ul>
+  <li data-product-id="42">
+    <button name="confirm">...</button>
+    <button name="delete">...</button>
+  </li>
+</ul>
+```
+
+```js
+ul.addEventListener("click", e => {
+  let button = e.target.closest("button[name]")
+  if (!button) { return }
+  let li = button.closest("[data-product-id]")
+  console.log(button.name, li.dataset.productId)
+})
+```
+
+---
+
+# Prostor pro otázky
+
+? { .questions }
