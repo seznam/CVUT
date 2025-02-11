@@ -298,11 +298,9 @@ if (!Math.sign) {
 # Obohacování prototypů
 
 ```js
-String.prototype.lpad = function(what, length) {
-  let count = length - this.length
-  let padding = ""
-  for (let i=0; i<count; i++) { padding += what }
-  return padding + this
+Array.prototype.random = function() {
+  let index = Math.random()*this.length
+  return this[Math.floor(index)]
 }
 ```
 
@@ -310,10 +308,14 @@ String.prototype.lpad = function(what, length) {
 
 # Obohacování prototypů
 
+Smutná historie projektu NPM
+
 ```js
-Array.prototype.random = function() {
-  let index = Math.random()*this.length
-  return this[Math.floor(index)]
+String.prototype.lpad = function(what, length) {
+  let count = length - this.length
+  let padding = ""
+  for (let i=0; i<count; i++) { padding += what }
+  return padding + this
 }
 ```
 
@@ -331,12 +333,6 @@ Array.prototype.contains = function(what) {
   return false
 }
 ```
-
----
-
-# ...
-
-![Yoda](img/yoda.jpg){style="display:block;margin:auto;height:550px}
 
 ---
 
