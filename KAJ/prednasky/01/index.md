@@ -395,7 +395,7 @@ parent.append(...DATA.map(build))
   - Lexical this (nelze `call, apply, new`)
     - `this` v rámci arrow function nemá speciální hodnotu
   - Pokud má tělo funkce jediný příkaz, není třeba `return` ani závorky
-  - Velmi výhodné pro funkcionální iteraci a posluchače událostí (4. přednáška)
+  - Velmi výhodné pro funkcionální iteraci a posluchače událostí (3. a 4. přednáška)
 
 ```js
 let square = a => a*a
