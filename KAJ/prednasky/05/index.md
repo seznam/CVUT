@@ -1,4 +1,6 @@
-# KAJ 05: Ajax, XHR, HTTP a jejich kamarádi
+# KAJ 05
+
+## Ajax, XHR, HTTP a jejich kamarádi
 
 ---
 
@@ -200,7 +202,7 @@ response.arrayBuffer()  // Promise
 
 # Nuda!
 
-<p style="text-align: center;"><span></span><img src="img/unicorn.png" alt="" /></p>
+![](img/unicorn.png) {.maslo-poster}
 
 ---
 
@@ -275,7 +277,7 @@ xhr.onload = function() {
 
 # Nuda!
 
-<p style="text-align: center;"><span></span><img src="img/monkey.png"  alt="" /></p>
+![](img/monkey.png) {.maslo-poster}
 
 ---
 
@@ -371,8 +373,7 @@ mojeFunkce({name: "jan", data: [3, 4, true]})
     name
     salary
     boss {
-      id
-      name
+      id name
     }
   }
 }
@@ -481,4 +482,4 @@ socket.onmessage = function(e) {
 
 # Prostor pro otázky
 
-![](img/ajax3.jpg){style="display:block;margin:auto;height:700px"}
+![](img/ajax3.jpg) {.maslo-poster}
