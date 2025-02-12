@@ -427,11 +427,14 @@ repeating-conic-gradient(red 0 10deg, orange 10deg 20deg)
 		background-image: repeating-conic-gradient(red 0 10deg, orange 10deg 20deg)
 	}
 	#example3, #example4, #example5, #example6, #example7 {
-		line-height: 120px;
-		text-align: center;
 		display: block;
+
+		.line {
+			line-height: 60px;
+			text-align: center;
+			&::before { display: none; }
+		}
 	}
-	#example3 div::before, #example4 div::before, #example5 div::before, #example6 div::before, #example7 div::before { display: none; }
 </style>
 
 ---
@@ -447,19 +450,19 @@ repeating-conic-gradient(red 0 10deg, orange 10deg 20deg)
 # CSS filtry &ndash; ukázka
 
 ```css
-filter: blur(5px);
-filter: brightness(0.4);
-filter: contrast(200%);
-filter: drop-shadow(16px 16px 20px blue);
-filter: grayscale(50%);
-filter: hue-rotate(90deg);
-filter: invert(75%);
-filter: opacity(25%);
-filter: saturate(30%);
-filter: sepia(60%);
-filter: url("filters.svg#filter-id");
+filter: blur(5px)
+filter: brightness(0.4)
+filter: contrast(200%)
+filter: drop-shadow(16px 16px 20px blue)
+filter: grayscale(50%)
+filter: hue-rotate(90deg)
+filter: invert(75%)
+filter: opacity(25%)
+filter: saturate(30%)
+filter: sepia(60%)
+filter: url("filters.svg#filter-id")
 
-filter: contrast(175%) brightness(3%);
+filter: contrast(175%) brightness(3%)
 ```
 
 ---
@@ -468,7 +471,9 @@ filter: contrast(175%) brightness(3%);
 
 `box-shadow` je kolem celého boxu, `drop-shadow` respektuje průhlednost
 
+<p>
 <img src="https://upload.wikimedia.org/wikipedia/commons/a/a8/CVUT_znak.svg" width="30%" style="box-shadow: 0 0 15px red; filter: drop-shadow(0 0 15px green)">
+</p>
 
 ---
 
@@ -477,16 +482,16 @@ filter: contrast(175%) brightness(3%);
 
 ```css
 body {
-	--main-bg-color: brown;
+	--main-bg-color: brown
 }
 
 div {
-	background-color: var(--main-bg-color);
+	background-color: var(--main-bg-color)
 }
 
 a {
 	/* default value */
-	background-color: var(--main-bg-color, red);
+	background-color: var(--main-bg-color, red)
 }
 ```
 
