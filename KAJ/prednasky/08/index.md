@@ -1,4 +1,6 @@
-# KAJ 08: CSS transitions, animations, efekty
+# KAJ 08
+
+## CSS transitions, animations, efekty
 
 ---
 

@@ -1,4 +1,6 @@
-# KAJ 09: Offline; HTML značky &lt;svg&gt; a &lt;audio&gt;
+# KAJ 09
+
+## Offline; HTML značky &lt;svg&gt; a &lt;audio&gt;
 
 ---
 
@@ -220,7 +222,7 @@ self.addEventListener("fetch", async e => {
 
 ---
 
-# SVG `<path>` detailněji
+# SVG &lt;path&gt; detailněji
 
   - `M x y` &ndash; posun na absolutní pozici
   - `m dx dy` &ndash; posun o relativní pozici
@@ -234,7 +236,7 @@ self.addEventListener("fetch", async e => {
 
 # SVG barevné přechody
 
-<svg width="300" height="200" style="float:right">
+<svg width="300" height="200" style="position:absolute; right:0; top:3em">
 	<defs>
 		<linearGradient id="gradient">
 			<stop offset="0%" stop-color="red"/>
@@ -258,9 +260,9 @@ self.addEventListener("fetch", async e => {
 
 ---
 
-# SVG `<pattern>`
+# SVG &lt;pattern&gt;
 
-<svg width="300" height="200" style="float:right">
+<svg width="300" height="200" style="position:absolute; right:0; top:3em">
 	<defs>
 		<pattern id="pattern" width="0.25" height="0.333">
 			<circle cx="25" cy="25" r="20" fill="#00f">
@@ -280,15 +282,15 @@ self.addEventListener("fetch", async e => {
 
 ---
 
-# SVG `<marker>`
+# SVG &lt;marker&gt;
 
-<svg width="300" height="200" style="float:right">
+<svg width="300" height="200" style="position:absolute; right:0; top:5em">
 	<defs>
 		<marker id="marker" markerWidth="13" markerHeight="13" refX="2" refY="6" orient="auto">
 			<path d="M2,2 L2,10 L10,6 Z" fill="red" />
 		</marker>
 	</defs>
-	<path stroke="#000" stroke-width="5" fill="transparent" d="M30,20 L200,20 L250,50"
+	<path stroke="#000" stroke-width="5" fill="transparent" d="M30,50 L200,50 L250,80"
 		marker-start="url(#marker)"
 		marker-end="url(#marker)" />
 </svg>
@@ -360,6 +362,7 @@ text {
 	<source src="sound.wav" type="audio/wave" />
 	Smůla :-(
 </audio>
+
 
 ```html
 <audio controls>
