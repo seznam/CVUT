@@ -5,8 +5,8 @@
 		<title>CSS3 &ndash; selektorový jazyk, generovaný obsah, media queries</title>
 	</head>
 	<body>
-		<template data-src="index.md" data-skin="cvut"></template>
-		<script src="https://cdn.jsdelivr.net/npm/ma-sl-o@2/maslo.js"></script>
+		<maslo-deck src="index.md" skin="cvut" standalone></maslo-deck>
+		<script src="https://cdn.jsdelivr.net/npm/ma-sl-o@4/maslo.js"></script>
 
 		<style>
 			li.good, li.bad { list-style-type: none; }
@@ -19,9 +19,14 @@
 			  color: red;
 			}
 
-			.cascade img {
-				float: right;
-				height: 700px;
+			.cascade {
+				position: absolute;
+				right: 0;
+				top: 0;
+				bottom: var(--footer-height);
+				img {
+					height: 100%;
+				}
 			}
 		</style>
 	  </body>

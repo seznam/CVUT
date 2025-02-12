@@ -1,4 +1,6 @@
-# KAJ 06: CSS3
+# KAJ 06
+
+## CSS3
 
 ---
 
@@ -10,7 +12,6 @@
   1. Media queries a responsive design
   1. CSS Layers (AKA 🤑 *jak se stát milionářem*)
   1. Preprocessing
-  1. FIXME css nesting
 
 ---
 
@@ -37,16 +38,6 @@
   - Při změně stránky (DOM) se mění množina prvků, vyhovujících selektorům &rArr; nutnost znovuvyhodnocení
   - Stavební kameny selektorového jazyka: názvy značek, kombinační znaky, atributové filtry
   - Chytré selektory dovolují čistější kód a [snižují nutnost JavaScriptu](http://jsfiddle.net/ondras/oz18b7r0/)
-
----
-
-# Selektorový jazyk &ndash; co nelze?
-
-Obecně není možné vytvářet selektory, pro jejichž vyhodnocení potřebujeme znát stav či vlastnosti uzlů až **za** právě vyhodnocovaným uzlem (při procházení do hloubky).
-
-Valná většina selektorů se tedy týká uzlů samotných, jejich rodičů či předchůdců.
-
-Toto pravidlo ~~bude v budoucnu~~ je porušováno teprve plnou podporou selektoru `:has`.
 
 ---
 
@@ -211,7 +202,7 @@ input:not([required]) { color: blue; }
 ```css
 :is(li, p, a) { font-weight: bold; }  /* stejné jako bez is() */
 
-:is(header, footer) :is(a, em, strong) { color: lime; }  /* cekem 6 kombinací
+:is(header, footer) :is(a, em, strong) { color: lime; }  /* cekem 6 kombinací */
 ```
 
 ---
@@ -257,8 +248,10 @@ li.bad::before {
 }
 ```
 
+<ul>
 <li class="good"><code>&lt;li class="good"&gt;</code></li>
 <li class="bad"><code>&lt;li class="bad"&gt;</code></li>
+</ul>
 
 ---
 
