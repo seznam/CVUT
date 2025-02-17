@@ -1,4 +1,6 @@
-# KAJ 12: Web Components a CSS Nesting
+# KAJ 12
+
+## Web Components a CSS Nesting
 
 ---
 
@@ -66,6 +68,7 @@ map1.append(map2);
   - https://github.com/ondras/fixmetodo
   - https://github.com/ondras/instant-button
   - https://github.com/ondras/custom-range
+  - https://github.com/ondras/x-ample
   - https://github.com/ondras/cyp
   - https://www.zdrojak.cz/clanky/custom-elements-v-praxi/
 
