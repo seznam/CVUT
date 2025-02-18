@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <link rel="stylesheet" href="https://todomvc.com/examples/javascript-es6/dist/app.css">
     <title>Lecture 01</title>
+
+    <!-- scripty s atributem 'defer' nebo 'type="module"' muzeme s klidem dat do <head> -->
+    <script src="cv1.js" type="module"></script>
 </head>
 <body>
     <section class="todoapp">
@@ -32,89 +35,37 @@
         <p>Created by <a href="https://twitter.com/oscargodson">Oscar Godson</a></p>
         <p>Refactored by <a href="https://github.com/cburgmer">Christoph Burgmer</a></p>
         <p>Part of <a href="https://todomvc.com">TodoMVC</a></p>
+        <p>&copy; <span class="year">2024</span></p>
     </footer>
 
+    <!-- musime importovat pred pouzitim promenne -->
+    <script src="year.js"></script>
     <script>
-        //
-        // Predefined state
-        //
+        console.log("Script inside HTML")
 
-        var state = {
-            todos: [
-                { text: 'Hi', completed: true },
-                { text: 'Hello', completed: false },
-                { text: 'Hi there!', completed: true },
-            ],
-            filter: 'all'
-        };
+        // promenna 'year' je definovana v souboru 'year.js'
+        // import promenne musel probehnout pred timto scriptem
+        // tento zpusob muze zpusobit kolize => resenim jsou moduly
+        console.log("Variable year", year)
+        document.querySelector("footer .year").textContent = year
 
-        //
-        // Prepare todos html
-        //
-
-        /*
-            Template example:
-            <li>
-                <input class="toggle" type="checkbox" checked>
-                <label>aaa</label>
-                <button class="destroy"></button>
-            </li>
-        */
-
-        function createHtmlWithCreateElement (todos, targetEl) {
-            targetEl.innerHTML = ''
-
-            for (var i = 0; i < todos.length; i++) {
-                var todo = todos[i];
-
-                // Prepare elements
-                var inputEl = document.createElement('input');
-                inputEl.classList.add('toggle');
-                inputEl.type = 'checkbox';
-                inputEl.checked = todo.completed;
-
-                var labelEl = document.createElement('label');
-                labelEl.textContent = todo.text;
-
-                var buttonEl = document.createElement('button');
-                buttonEl.classList.add('destroy');
-
-                // Append these elements to the todo wrapper element
-                var todoEl = document.createElement('li');
-                todoEl.appendChild(inputEl);
-                todoEl.appendChild(labelEl);
-                todoEl.appendChild(buttonEl);
-
-                // Append todo to the page
-                targetEl.appendChild(todoEl);
-            }
-        }
-
-        function createHtmlWithStrings (todos, targetEl) {
-            targetEl.innerHTML = ''
-
-            for (var i = 0; i < todos.length; i++) {
-                var todo = todos[i];
-
-                var html =
-                    '<li>' +
-                    '  <input class="toggle" type="checkbox" ' + (todo.completed ? 'checked' : '')  + '>' +
-                    '  <label>' + todo.text + '</label>' +
-                    '  <button class="destroy"></button>' +
-                    '</li>';
-
-                targetEl.insertAdjacentHTML('beforeend', html);
-            }
-        }
-
-        //
-        // Append todos html into the page
-        //
-
-        var todoListEl = document.querySelector('.todo-list')
-        // createHtmlWithCreateElement(state.todos, todoListEl);
-        createHtmlWithStrings(state.todos, todoListEl);
+        // Tasks
+        // 1. Explore using modules
+        //      1. Understand the difference between module scripts and classic scripts
+        //      2. Create a simple non-module script and include it in your HTML
+        //      3. Learn about ES6 modules and how to use `import` and `export`
+        //      4. Create a simple module and use import/export
+        // 2. Create simple element and append it to the page
+        //      1. Target element with `document.querySelector`
+        //      2. Learn about `document.innerHTML` and `Element.textContent`
+        //      3. Create element with `document.createElement`
+        //      4. Append the element to another element `Element.append`
+        // 3. Render to following template into the page
+        //      1. Choose API (innerHTML or createElement)
+        //      2. Target this element: <ul class="todo-list"></ul>
+        //      3. Render basic template into the element
+        //      4. Make sure to use `state.todos` and project the `text` and `completed`
+        //          state properties into rendered templates
     </script>
-
 </body>
 </html>

@@ -32,6 +32,7 @@
         <p>Created by <a href="https://twitter.com/oscargodson">Oscar Godson</a></p>
         <p>Refactored by <a href="https://github.com/cburgmer">Christoph Burgmer</a></p>
         <p>Part of <a href="https://todomvc.com">TodoMVC</a></p>
+        <p>&copy; <span class="year">2024</span></p>
     </footer>
 
     <script>
@@ -39,7 +40,7 @@
         // Predefined state
         //
 
-        var state = {
+        const state = {
             todos: [
                 { text: 'Hi', completed: true },
                 { text: 'Hello', completed: false },
@@ -49,12 +50,17 @@
         };
 
         // Tasks
-        // 1. Create simple element and append it to the page
+        // 1. Explore using modules
+        //      1. Learn about ES6 modules and how to use `import` and `export`
+        //      2. Understand the difference between module scripts and classic scripts
+        //      3. Create a simple module and import it into your main script
+        //      4. Create a simple non-module script and include it in your HTML
+        // 2. Create simple element and append it to the page
         //      1. Target element with `document.querySelector`
         //      2. Learn about `document.innerHTML` and `Element.textContent`
         //      3. Create element with `document.createElement`
         //      4. Append the element to another element `Element.appendChild`
-        // 2. Render to following template into the page
+        // 3. Render to following template into the page
         //      1. Choose API (innerHTML or createElement)
         //      2. Target this element: <ul class="todo-list"></ul>
         //      3. Render basic template into the element
