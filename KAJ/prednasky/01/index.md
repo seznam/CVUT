@@ -131,7 +131,7 @@ https://html.spec.whatwg.org/
   - [Mozilla Developer Network](https://developer.mozilla.org/)
     - Dokumentace
     - Ukázky
-  - [Feature detection](http://diveintohtml5.info/detect.html)
+  - [Feature detection](https://mislav.github.io/diveintohtml5/detect.html)
 
 ---
 
@@ -490,11 +490,11 @@ Předpoklad: kód členíme do více malých souborů
 # IIFE
 ```js
 (function(){
-	let document = "test";  // lokalni promenna
-	alert(document);        // "test"
+	let document = "test"  // lokalni promenna
+	alert(document)        // "test"
 })();
 
-alert(document);          // [object HTMLDocument]
+alert(document)          // [object HTMLDocument]
 ```
 
 ---
