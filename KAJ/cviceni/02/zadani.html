@@ -35,94 +35,28 @@
     </footer>
 
     <script>
-        //
-        // Predefined state
-        //
-
-        var state = {
-            todos: [
-                { text: 'Hi', completed: true  },
-                { text: 'Hello', completed: false },
-                { text: 'Hi there!', completed: true },
-            ],
-            filter: 'all'
-        };
-
-        //
-        // Prepare todos html
-        //
-
-        function createHtmlWithCreateElement (todos, targetEl) {
-            targetEl.innerHTML = ''
-
-            for (var i = 0; i < todos.length; i++) {
-                var todo = todos[i];
-
-                // Prepare elements
-                var inputEl = document.createElement('input');
-                inputEl.classList.add('toggle');
-                inputEl.type = 'checkbox';
-                inputEl.checked = todo.completed;
-
-                var labelEl = document.createElement('label');
-                labelEl.innerHTML = todo.text;
-
-                var buttonEl = document.createElement('button');
-                buttonEl.classList.add('destroy');
-
-                // Append these elements to the todo wrapper element
-                var todoEl = document.createElement('li');
-                todoEl.appendChild(inputEl);
-                todoEl.appendChild(labelEl);
-                todoEl.appendChild(buttonEl);
-
-                // Append todo to the page
-                targetEl.appendChild(todoEl);
-            }
-        }
-
-        function createHtmlWithStrings (todos, targetEl) {
-            targetEl.innerHTML = ''
-
-            for (var i = 0; i < todos.length; i++) {
-                var todo = todos[i];
-
-                var html =
-                    '<li>' +
-                    '  <input class="toggle" type="checkbox" ' + (todo.completed ? 'checked' : '')  + '>' +
-                    '  <label>' + todo.text + '</label>' +
-                    '  <button class="destroy"></button>' +
-                    '</li>';
-
-                targetEl.insertAdjacentHTML('beforeend', html);
-            }
-        }
-
-        //
-        // Append todos html into the page
-        //
-
-        var todoListEl = document.querySelector('.todo-list')
-        // createHtmlWithCreateElement(state.todos, todoListEl);
-        createHtmlWithStrings(state.todos, todoListEl);
-
-        //
-        // Handle main input
-        //
+        /*
+            This exercise is primarily focused on JavaScript ES5. 
+            Use the files from the previous exercise and continue with the assignment.
+        */
 
         // TODO
         // 1. Prototype expansion
         // 2. Create class with prototypes called `State`
-        //      1. Constructor takes `initialTodos` and `initialFilter`
-        //      2. Implement addTodo method
-        //      3. Implement setFilter method
-        //      4. Implement getTodos method
-        // 3. Implement adding todos
-        //      1. Query for main input element
-        //      2. Use `addEventListener` for handling user events
-        // 4. Implement filters
-        //      1. Listen on filter buttons clicks
-        //      2. When user clicks filters button, use setFilter on state and re-render app
+        //     1. Constructor takes `initialTodos` and `initialFilter`
+        //     2. Implement addTodo method
+        //     3. Implement setFilter method
+        //     4. Implement getTodos method
+        // 3. Rewrite the function createHtmlWithStrings() 
+        //     1. Use functional iteration .map()
+        //     2. Use template strings
+        // 4. Implement adding todos
+        //     1. Query for main input element
+        //     2. Use `addEventListener` for handling user events
+        // 5. Implement filters
+        //     1. Listen on filter buttons clicks
+        //     2. When user clicks filters button, use setFilter on state and re-render app
+
 
         //
         // Prototype expansion
@@ -142,7 +76,6 @@
         //
         // Handle filters
         //
-
         var filters = {
             all: document.querySelector('#filter-all'),
             active: document.querySelector('#filter-active'),
@@ -152,7 +85,6 @@
         for (var filterName in filters) {
             // TODO
         }
-
     </script>
 
 </body>
