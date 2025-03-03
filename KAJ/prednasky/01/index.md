@@ -68,11 +68,10 @@
 
 # Kniha
 
-FIXME doplnit až vyjde
-<img style="position:absolute;right:0;height:460px;" src="https://cdn.albatrosmedia.cz/Images/Product/29109959?31092A68D952319080880FFA2781041B" />
+<img style="position:absolute;right:0px;bottom:var(--footer-height);margin-right:0;height:490px;" src="https://eshop.cvut.cz/simplifyworks/public/api/eoc/item/attachments/view/2e4078a7-ead4-aa99-e063-0a01010aecdc" />
 
-  - JavaScript: řešené úlohy
-  - Vydává <a href="https://eshop.cvut.cz/simplifyworks/cs/eoc/public/products">Česká technika</a>
+  - [JavaScript: řešené úlohy](https://eshop.cvut.cz/simplifyworks/cs/eoc/public/product/392705452-zara-ondrej-javascript-resene-ulohy)
+  - Vydává [Česká technika](https://eshop.cvut.cz/simplifyworks/cs/eoc/public/products)
   - Kniha pro širší odbornou veřejnost
     - Objem nápadně podobný předmětu KAJ
   - Pozor na starou (2014) knihu
@@ -132,7 +131,7 @@ https://html.spec.whatwg.org/
   - [Mozilla Developer Network](https://developer.mozilla.org/)
     - Dokumentace
     - Ukázky
-  - [Feature detection](http://diveintohtml5.info/detect.html)
+  - [Feature detection](https://mislav.github.io/diveintohtml5/detect.html)
 
 ---
 
@@ -491,11 +490,11 @@ Předpoklad: kód členíme do více malých souborů
 # IIFE
 ```js
 (function(){
-	let document = "test";  // lokalni promenna
-	alert(document);        // "test"
+	let document = "test"  // lokalni promenna
+	alert(document)        // "test"
 })();
 
-alert(document);          // [object HTMLDocument]
+alert(document)          // [object HTMLDocument]
 ```
 
 ---
