@@ -128,6 +128,7 @@ requestAnimationFrame(function() {
 
   - Při návrhu vlastního API narážíme na asynchronní funkce
   - Takové funkce vyžadují `callback`
+    - Někdy se používá označení [CPS](https://en.wikipedia.org/wiki/Continuation-passing_style)
   - Kolikátý parametr? Co návratová hodnota? Co výjimky?
   - Co podmíněně asynchronní funkce?
 
