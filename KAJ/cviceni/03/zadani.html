@@ -35,203 +35,26 @@
     </footer>
 
     <script>
-        //
-        // Class containing state
-        //
-
-        var State = function (initialTodos, initialFilter) {
-            this._todos = initialTodos;
-            this._filter = initialFilter;
-        }
-
-        State.prototype.addTodo = function (todo) {
-            this._todos.push(todo);
-        }
-
-        State.prototype.setFilter = function (filter) {
-            this._filter = filter;
-        }
-
-        State.prototype.getTodos = function () {
-            return this._todos.filter(function (todo) {
-                if (this._filter === 'all') {
-                    return true;
-                } else if (this._filter === 'completed') {
-                    return todo.completed === true;
-                } else if (this._filter === 'active') {
-                    return todo.completed === false;
-                }
-            }.bind(this));
-        }
-
-        var state = new State(
-            [
-                { text: 'Hi', completed: true  },
-                { text: 'Hello', completed: false },
-                { text: 'Hi there!', completed: true },
-            ],
-            'all'
-        );
-
-        //
-        // Prepare todos html
-        //
-
-        /*
-            Template example:
-            <li>
-                <input class="toggle" type="checkbox" checked>
-                <label>aaa</label>
-                <button class="destroy"></button>
-            </li>
-        */
-
-        function createHtmlWithCreateElement (todos, targetEl) {
-            targetEl.innerHTML = ''
-
-            for (var i = 0; i < todos.length; i++) {
-                var todo = todos[i];
-
-                // Prepare elements
-                var inputEl = document.createElement('input');
-                inputEl.classList.add('toggle');
-                inputEl.type = 'checkbox';
-                inputEl.checked = todo.completed;
-
-                var labelEl = document.createElement('label');
-                labelEl.innerHTML = todo.text;
-
-                var buttonEl = document.createElement('button');
-                buttonEl.classList.add('destroy');
-
-                // Append these elements to the todo wrapper element
-                var todoEl = document.createElement('li');
-                todoEl.appendChild(inputEl);
-                todoEl.appendChild(labelEl);
-                todoEl.appendChild(buttonEl);
-
-                // Append todo to the page
-                targetEl.appendChild(todoEl);
-            }
-        }
-
-        function createHtmlWithStrings (todos, targetEl) {
-            targetEl.innerHTML = '';
-
-            var todosHtmlArray = todos.map(function (todo) {
-                var html =
-                    '<li>' +
-                    '  <input class="toggle" type="checkbox" ' + (todo.completed ? 'checked' : '')  + '>' +
-                    '  <label>' + todo.text + '</label>' +
-                    '  <button class="destroy"></button>' +
-                    '</li>';
-
-                return html;
-            })
-
-            var todosHtml = todosHtmlArray.join('');
-            targetEl.innerHTML = todosHtml;
-        }
-
-        //
-        // Append todos html into the page
-        //
-
-        var todoListEl = document.querySelector('.todo-list')
-        // createHtmlWithCreateElement(state.getTodos(), todoListEl);
-        createHtmlWithStrings(state.getTodos(), todoListEl);
-
-        //
-        // Handle main input
-        //
-
-        var inputEl = document.querySelector('.new-todo');
-        inputEl.addEventListener('keyup', function (event) {
-            if (event.key !== "Enter") {
-                return;
-            }
-
-            // Update app state
-            var todo = {
-                text: inputEl.value,
-                completed: false
-            };
-            state.addTodo(todo);
-
-            // Update html
-            inputEl.value = '';
-            createHtmlWithStrings(state.getTodos(), todoListEl);
-        })
-
-        //
-        // Prototype expansion
-        //
-
-        Object.prototype.addTimestamp = function () {
-            this.timestamp = Date.now();
-        }
-
-        //
-        // Handle filters
-        //
-
-        var filters = {
-            all: document.querySelector('#filter-all'),
-            active: document.querySelector('#filter-active'),
-            completed: document.querySelector('#filter-completed')
-        };
-
-        for (var filterName in filters) {
-            if (filters.hasOwnProperty(filterName)) {
-                var filterEl = filters[filterName];
-
-                (function (capturedFilterName) {
-                    filterEl.addEventListener('click', function (e) {
-                        filtersClick(capturedFilterName);
-                    });
-                }(filterName));
-            }
-        }
-
-        function filtersClick (newFilterType) {
-            // Remove 'selected' class on all filter buttons
-            for (var key in filters) {
-                if (filters.hasOwnProperty(key)) {
-                    var filter = filters[key];
-                    filter.classList.remove('selected');
-                }
-            }
-
-            // Add 'selected' class to clicked filter button
-            filters[newFilterType].classList.add('selected');
-
-            // Update state
-            state.setFilter(newFilterType);
-
-            // Render todos view
-            createHtmlWithCreateElement(state.getTodos(), todoListEl);
-        }
-
-        // TODO
+        // Use the files from the previous exercise and continue with the next assignment:
         // 1. var -> let/const
         //      1. Get rid of IIFE in filters sections
         // 2. New `class` syntax for State class
         //      1. Use class private fields/methods
         // 3. Arrow functions
         //      1. Get rid of `.bind(this)` and use arrow functions
-        // 4. Template strings
-        //      1. Update createHtmlWithStrings to use template strings instead of string concentration
-        // 5. `for of` iteration & iterators
+        // 4. `for of` iteration & iterators
         //      1. Replace for cycles in createHtmlWithCreateElement
         //      2. Replace `for in` cycles in filters
-        // 6. Array/Object destructuring
-        // 7. BONUS: Rewrite the app to use ES6 modules
+        // 5. Array/Object destructuring
 
         // EXCERCISES: Finish remaining features
         //      1. Remove todo button
         //      2. Checking/Unchecking of todo
         //      3. Clear completed button
 
+        // After completing the previous tasks, 
+        // move on to the new main task – get familiar with and explore Promises.
+        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
     </script>
 
 </body>
