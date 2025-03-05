@@ -161,7 +161,7 @@
         async function makeRequest(url, isJson = true) {
             try {
                 const response = await fetch(url);
-                return isJson ? await response.json() : await response.text();
+                return isJson ? response.json() : response.text();  // vratime Promise
             } catch (error) {
                 console.error(`Chyba při načítání ${url}:`, error);
                 return null;
@@ -173,7 +173,7 @@
             const weatherAPI = `https://wttr.in/${cityName}?format=3`;
 
             try {
-                // We can use Promise.all() to fetch both APIs simultaneously
+                // We can use Promise.all() to fetch both APIs simultaneously and wait for both responses
                 const responses = await Promise.all([
                     makeRequest(countryAPI),
                     makeRequest(weatherAPI, false)
