@@ -4,13 +4,22 @@
         <meta charset="utf-8">
         <title>Lecture 04 - Keyboard</title>
         <style>
-            body, html { height:100%; font-family: Arial; }
+            body, html { 
+                height: 100%; 
+                font-family: Arial; 
+            }
+            
             div {
-                background: red; width:200px; height:200px; position:absolute; top:20px; left:40px;
+                background: red; 
+                width: 200px; 
+                height: 200px; 
+                position:absolute; 
+                top: 0; 
+                left: 0;
                 border-radius: 50%;
                 box-sizing: border-box;
                 text-align: center;
-                padding-top:80px;
+                padding-top: 80px;
                 font-size: 20px;
                 font-weight: bold;
             }
@@ -22,10 +31,17 @@
         </style>
     </head>
     <body>
-        <div><a href="http://www.seznam.cz">SEZNAM</a></div>
+        <div data-x="100" data-y="200">
+            <a href="http://www.seznam.cz">SEZNAM</a>
+        </div>
+
         <script>
-            // create M class via prototype or ES6 class
-            // constructor params x,y - initial position of red circle on page
+            //
+            // Write all JavaScript code in a separate script file with type='module'
+            //
+
+            // re-create M class with ES6 class
+            // constructor param 'element' - HTML element of red circle on page with initial position stored in dataset
 
             // 1. write code for moving circle on page via keyboard keys up, down, etc...
 
@@ -37,11 +53,7 @@
 
             // 5. stopPropagating on circle to avoid logging mouseposition, also investigate useCapture option
 
-            // 6. try create some Promise resolved, rejected
-
-            // 7. try async and await
-
-            var M = function (x,y) {
+            var M = function (element) {
 
             }
 
@@ -70,7 +82,6 @@
             }
 
             var m = new M(100,100);
-
         </script>
     </body>
 </html>
