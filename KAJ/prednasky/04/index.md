@@ -15,13 +15,13 @@
 # DOM: úpravy podstromu
 
 ```js
-let p = document.querySelector("p");
+let p = document.querySelector("p")
 
 // HTML parser, pozor na XSS!
-p.innerHTML = "<strong>toto je test</strong>";
+p.innerHTML = "<strong>toto je test</strong>"
 
 // jen text
-p.textContent = "<strong>toto je test</strong>";
+p.textContent = "<strong>toto je test</strong>"
 ```
 
 ---
@@ -29,17 +29,17 @@ p.textContent = "<strong>toto je test</strong>";
 # DOM: tvorba nových prvků
 
 ```js
-let p = document.querySelector("p");
+let p = document.querySelector("p")
 
-let strong = document.createElement("strong");
-p.appendChild(strong);
+let strong = document.createElement("strong")
+p.appendChild(strong)
 
-let text = document.createTextNode("toto je test");
-p.appendChild(text);
+let text = document.createTextNode("toto je test")
+p.appendChild(text)
 
-let input = document.createElement("input");
-input.type = "number";
-input.id = "foo";
+let input = document.createElement("input")
+input.type = "number"
+input.id = "foo"
 ```
 
 Metody `createTextNode`, `appendChild` (a jejich sourozenci) dnes patří spíš do muzea.
@@ -51,14 +51,14 @@ Metody `createTextNode`, `appendChild` (a jejich sourozenci) dnes patří spíš
 ...i DOM prochází průběžnou modernizací.
 
 ```js
-let p = document.querySelector("p");
+let p = document.querySelector("p")
 
-let strong = document.createElement("strong");
-p.append("AAA", strong, "BBB");
+let strong = document.createElement("strong")
+p.append("AAA", strong, "BBB")
 
-p.prepend(strong, "test");
+p.prepend(strong, "test")
 
-console.log(p.children); // pouze značky, nikoliv text
+console.log(p.children) // pouze značky, nikoliv text
 ```
 
 ---
@@ -66,14 +66,14 @@ console.log(p.children); // pouze značky, nikoliv text
 # DOM: "nové" rozhraní ChildNode
 
 ```js
-let p1 = document.querySelector("p");
-p1.remove();
+let p1 = document.querySelector("p")
+p1.remove()
 
-let p2 = document.querySelector("p");
-p2.replaceWith(p1, "test");
+let p2 = document.querySelector("p")
+p2.replaceWith(p1, "test")
 
-p2.before("AAA", "BBB", p3);
-p2.after("AAA", "BBB", p3);
+p2.before("AAA", "BBB", p3)
+p2.after("AAA", "BBB", p3)
 ```
 
 ---
@@ -81,16 +81,16 @@ p2.after("AAA", "BBB", p3);
 # DOM: práce s atributem `class`
 
 ```js
-let p = document.querySelector("p");
+let p = document.querySelector("p")
 
-p.className = "class1";
+p.className = "class1"
 
-p.classList.add("class2");
-p.classList.remove("class3");
-p.classList.contains("class2"); // true
+p.classList.add("class2")
+p.classList.remove("class3")
+p.classList.contains("class2") // true
 
-p.classList.toggle("class4");
-p.classList.toggle("class4", x > 15);
+p.classList.toggle("class4")
+p.classList.toggle("class4", x > 15)
 ```
 
 ---
