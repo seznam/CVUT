@@ -393,7 +393,7 @@ mojeFunkce({name: "jan", data: [3, 4, true]})
 
 # GraphQL
 
-  - Introspekce! Viz např. https://studio.apollographql.com/public/star-wars-swapi/variant/current/home
+  - Introspekce! Viz např. https://swapi-graphql.netlify.app/
   - Dotazy jsou často velké &rArr; jakou volit HTTP metodu?
   - Dotazy možno parametrizovat:
 
