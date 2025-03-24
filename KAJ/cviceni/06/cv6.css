@@ -1,0 +1,102 @@
+/* 2. */
+#menu ul {
+    margin: 0;
+    padding: 0;
+}
+#menu li {
+    display: inline-block;
+    list-style-type: none;
+    background-color: #111;
+}
+#menu a {
+    display: inline-block;
+    padding: 5px 20px;
+    text-decoration: none;
+    color: #fefefe;
+}
+
+/* 3. */
+#menu-control {
+    color: white;
+    padding: 5px 20px;
+    cursor: pointer;
+    background-color: #111111;
+    display: none;
+}
+
+#menu-control-input {
+    display: none;
+}
+
+#menu-control-input:checked + #menu {
+    display: block;
+}
+
+
+@media all and (max-width: 700px) {
+    #menu-control {
+        display: inline-block;
+    }
+
+    /* 4. */
+    #menu li {
+        display: block;
+    }
+
+    /* 5. */
+    #menu {
+        display: none;
+        counter-reset: item;
+    }
+
+    #menu li a::before {
+        counter-increment: item;
+        content: counter(item) ") ";
+        color: orange;
+    }
+}
+
+/* 6. */
+#menu a::after {
+    content: " " attr(data-state);
+    color: red;
+}
+
+/* 7. */
+#menu li:nth-child(2n) {
+    background-color: #666;
+}
+
+/* 8. */
+#custom-checkbox-input {
+    display: none;
+}
+
+#custom-checkbox {
+    overflow: hidden;
+    width: 60px;
+    height: 30px;
+    border-radius: 30px;
+    background: lightblue;
+    position: relative;
+    display: block;
+    cursor: pointer;
+}
+
+#custom-checkbox::before {
+    position: absolute;
+    content: "";
+    display: block;
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    background: red;
+    left: 0;
+    transition: all 0.2s ease;
+}
+
+#custom-checkbox-input:checked + #custom-checkbox::before {
+    left: 100%;
+    transform: translateX(-100%);
+    background: green;
+}
