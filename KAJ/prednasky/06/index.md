@@ -2,6 +2,8 @@
 
 ## CSS3
 
+Bonus: [WebSocket chat server z minulého cvičení](https://github.com/ondras/kaj-chat/blob/master/server.ts)
+
 ---
 
 # Obsah
@@ -218,6 +220,8 @@ h1:has(+ p) { margin-bottom: 0; }
 
 p:has(img, a) { border-left: 3px solid salmon; }
 ```
+
+[Semafor pomocí `:has`](https://jsfiddle.net/ondras/r7og8xec/)
 
 ---
 
