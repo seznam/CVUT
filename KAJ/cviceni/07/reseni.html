@@ -4,89 +4,29 @@
     <meta charset="utf-8">
     <title>Lecture 07</title>
 
+    <link rel="stylesheet" href="cv7.css">
+
     <style>
-        body {
-            margin: 0;
-        }
-
-        .page {
-            display: flex;
-            flex-direction: column;
-            min-height: 100vh;
-        }
-        .page header {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            width: 100%;
-            height: 100px;
-            background: lightblue;
-        }
-        .page section {
-            display: flex;
-            flex-grow: 1;
-            min-height: 400px;
-        }
-        .page section nav {
-            flex-shrink: 0;
-            background: lightsalmon;
-            padding: 1em;
-        }
-        .page section main {
-            display: flex;
-            flex-grow: 1;
-            flex-direction: column;
-            background: lightgreen;
-            padding: 1em;
-        }
-        .page section aside {
-            background: lightgoldenrodyellow;
-            width: 200px;
-            padding: 1em;
-            flex-shrink: 0;
-            box-sizing: border-box;
-        }
-        .page footer {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            height: 100px;
-            background: lightcoral;
-        }
-
         /*
+            Create an external CSS file for this page and link it here.
+
+            Flexbox cheat-sheet
+                https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+            
             Phone/Mobile styles
             - Hide side menu
             - Change order - put content before main menu only with CSS
             - Switch from column layout (main menu | content | side menu) to row layout
         */
-        @media (max-width: 700px) {
-            .page section {
-                flex-direction: column;
-            }
-            .page section nav {
-                order: 2;
-            }
-            .page section main {
-                order: 1;
-            }
-            .page section aside {
-                display: none;
-            }
-        }
     </style>
 </head>
 <body>
-    <!--
-        Flexbox cheat-sheet
-            https://css-tricks.com/snippets/css/a-guide-to-flexbox/
-    -->
-
     <div class="page">
-        <header>
+        <header style="background-color: lightblue">
             <!--
                 - 100% width
-                - 200px height
+                - 100px height
+                - header is sticky
                 - center content horizontally and vertically
             -->
             Header
@@ -98,7 +38,7 @@
                   or more if there is lots of content inside
                 - 400px min height
             -->
-            <nav>
+            <nav style="background-color: lightsalmon">
                 <!--
                     - 1em padding
                     - content width
@@ -106,7 +46,7 @@
                 -->
                 Main menu
             </nav>
-            <main>
+            <main style="background-color: lightgreen">
                 <!--
                     - 1em padding
                     - width the rest
@@ -130,7 +70,7 @@
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
             </main>
-            <aside>
+            <aside style="background-color: lightgoldenrodyellow">
                 <!--
                     - 1em padding
                     - 200px width including the 1em padding
@@ -139,16 +79,14 @@
                 Side menu
             </aside>
         </section>
-        <footer>
+        <footer style="background-color: lightcoral">
             <!--
                 - 100% width
-                - 200px height
-                - footer is sticky
+                - 100px height
                 - center content horizontally and vertically
             -->
             Footer
         </footer>
     </div>
-
 </body>
 </html>

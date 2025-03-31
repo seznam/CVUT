@@ -6,47 +6,33 @@
 
     <style>
         /*
+            Create an external CSS file for this page and link it here.
+
             Flexbox cheat-sheet
                 https://css-tricks.com/snippets/css/a-guide-to-flexbox/
-        */
-
-        .page {
-
-        }
-        .page header {
-            background: lightblue;
-        }
-        .page section {
-
-        }
-        .page section nav {
-            background: lightsalmon;
-        }
-        .page section main {
-            background: lightgreen;
-        }
-        .page section aside {
-            background: lightgoldenrodyellow;
-        }
-        .page footer {
-            background: lightcoral;
-        }
-
-        /*
+            
             Phone/Mobile styles
             - Hide side menu
             - Change order - put content before main menu only with CSS
             - Switch from column layout (main menu | content | side menu) to row layout
         */
+
+        .page {}
+        .page header {}
+        .page section {}
+        .page section nav {}
+        .page section main {}
+        .page section aside {}
+        .page footer {}
     </style>
 </head>
 <body>
-
     <div class="page">
-        <header>
+        <header style="background-color: lightblue">
             <!--
                 - 100% width
-                - 200px height
+                - 100px height
+                - header is sticky
                 - center content horizontally and vertically
             -->
             Header
@@ -58,7 +44,7 @@
                   or more if there is lots of content inside
                 - 400px min height
             -->
-            <nav>
+            <nav style="background-color: lightsalmon">
                 <!--
                     - 1em padding
                     - content width
@@ -66,7 +52,7 @@
                 -->
                 Main menu
             </nav>
-            <main>
+            <main style="background-color: lightgreen">
                 <!--
                     - 1em padding
                     - width the rest
@@ -90,7 +76,7 @@
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
                 <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
             </main>
-            <aside>
+            <aside style="background-color: lightgoldenrodyellow">
                 <!--
                     - 1em padding
                     - 200px width including the 1em padding
@@ -99,16 +85,14 @@
                 Side menu
             </aside>
         </section>
-        <footer>
+        <footer style="background-color: lightcoral">
             <!--
                 - 100% width
-                - 200px height
-                - footer is sticky
+                - 100px height
                 - center content horizontally and vertically
             -->
             Footer
         </footer>
     </div>
-
 </body>
 </html>
