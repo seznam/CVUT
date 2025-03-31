@@ -1,7 +1,5 @@
 # KAJ 07: 2D a 3D transformace, Flexible Boxes
 
-Chat server z předminula: https://github.com/ondras/kaj-chat
-
 ---
 
 # Obsah
@@ -95,8 +93,8 @@ div {
 	#order1 div, #order2 div {
 		position: absolute;
 		left: 50%;
-		width: 200px;
-		height: 200px;
+		width: 150px;
+		height: 150px;
 		opacity: 0.5;
 	}
 	#order1 div:first-child, #order2 div:first-child {
@@ -114,6 +112,21 @@ div {
 		-webkit-transform: rotate(45deg) translate(100%, 0);
 	}
 </style>
+
+---
+
+# CSS transformace: oddělené funkce
+
+```css
+p {
+  scale: 1.5;
+  rotate: 45deg;
+}
+```
+
+  - Relativní novinka (cca 2022)
+  - Pevné pořadí aplikování (translate &rArr; rotate &rArr; scale)
+  - Šikovné při [individuálních změnách](https://codepen.io/ondrejzara/pen/abgjmdd)
 
 ---
 
@@ -416,7 +429,8 @@ body {
 ```css
 @font-face {
     font-family: "MujFont";
-    src: url(data:application/x-font-woff;charset=utf-8;base64,d09......AAA==) format("woff"),
+    src: url(data:application/x-font-woff;charset=utf-8;base64,d09......AAA==)
+           format("woff"),
          url("MujFont.ttf") format("truetype");
 }
 ```
@@ -436,12 +450,12 @@ body {
 # CSS Font Loading API
 
 ```js
-document.fonts.forEach(console.log);
+document.fonts.forEach(console.log)
 
-document.fonts.ready.then(...);
+document.fonts.ready.then(...)
 
-let font = new FontFace("myFont", "url(...)");
-document.fonts.add(font);
+let font = new FontFace("myFont", "url(...)")
+document.fonts.add(font)
 ```
 
 ---
