@@ -22,7 +22,7 @@ request.addEventListener("load", e => {
 });
 request.addEventListener("error", e => console.log(e));
 request.open("GET", "https://jsonplaceholder.typicode.com/users");
-// request.send();
+request.send();
 
 //
 // 2. Request with our own promisified wrapper around XMLHttpRequest
