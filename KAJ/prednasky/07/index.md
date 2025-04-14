@@ -465,7 +465,7 @@ document.fonts.add(font)
   - Vlastní písma navyšují objem přenášených dat
   - Kvalita písma je často subjektivní
   - Odlišné renderování v různých prohlížečích a operačních systémech
-  - <a target="_blank" href="http://www.google.com/webfonts">Google Web Fonts</a>
+  - <a target="_blank" href="https://fonts.google.com/">Google Fonts</a>
 
 ---
 

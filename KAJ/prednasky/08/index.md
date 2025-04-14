@@ -105,14 +105,14 @@ div:hover {
 <div id="example-steps"></div>
 <style>
 	#example-steps {
+		flex: auto;
 		width: 800px;
-		height: 480px;
 		background-image: url(sprite.png);
-		background-position: 0 -100px;
+		background-position: 0 -130px;
 		transition: background-position 500ms steps(11);
 	}
 	#example-steps:hover {
-		background-position: -8800px -100px;
+		background-position: -8800px -130px;
 	}
 </style>
 
