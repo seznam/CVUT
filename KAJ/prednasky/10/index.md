@@ -276,7 +276,7 @@ let draw = function() {
 
   - `ctx.drawImage(image, dx, dy, [dw, dh])`
   - `ctx.drawImage(image, sx, sy, sw, sh, dx, dy, dw, dh)`
-  - "image" může být obrázek, canvas či video
+  - `image` může být obrázek, canvas či video
 
 ---
 
@@ -293,7 +293,7 @@ let draw = function() {
 
   - Kreslení textu při použití @font-face
   - Dokud není písmo načteno, použije se výchozí
-  - Soubor s písmem lze specifikovat pomocí data-URI
+  - Font Loading API v sedmé přednášce
 
 ---
 
@@ -359,9 +359,9 @@ ctx.fillText("Ahoj", 50, 50)
 
 # WebGL: závěr
 
-  - Budoucnost grafiky na webu
   - Použít knihovnu pro matice ([glMatrix](https://glmatrix.net/))
   - Použít knihovnu pro WebGL ([three.js](https://threejs.org/))
+  - Budoucnost je aktuálně ještě o krok dál (WebGPU)
 
 ---
 
