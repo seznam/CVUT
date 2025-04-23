@@ -23,14 +23,14 @@
 			const maxFreq = 6000;
 			const maxVol = 0.05;
 
-			let actucalFreq = 0;
-			let actucalVol = 0;
+			let actualFreq = 0;
+			let actualVol = 0;
 
 			const WIDTH = window.innerWidth;
 			const HEIGHT = window.innerHeight;
 
-			let initialFreq = actucalFreq = 3000;
-			let initialVol = actucalVol = 0.001;
+			let initialFreq = actualFreq = 3000;
+			let initialVol = actualVol = 0.001;
 			let oscillatorRun = false;
 
 			// nastavime hodnoty oscilatoru
@@ -54,8 +54,8 @@
 			function update(e) {
 				const curX = e.clientX + (document.documentElement.scrollLeft ? document.documentElement.scrollLeft : document.body.scrollLeft);
 				const curY = e.clientY + (document.documentElement.scrollTop ? document.documentElement.scrollTop : document.body.scrollTop);
-				actucalFreq = oscillator.frequency.value = (curX/WIDTH) * maxFreq;
-				actucalVol = gainNode.gain.value = (curY/HEIGHT) * maxVol;
+				actualFreq = oscillator.frequency.value = (curX/WIDTH) * maxFreq;
+				actualVol = gainNode.gain.value = (curY/HEIGHT) * maxVol;
 			}
 
 			// vypinani a zapinani
@@ -68,8 +68,8 @@
 					oscillatorRun = true;
 					oscillator = audioCtx.createOscillator();
 					oscillator.connect(gainNode);
-					initOscillator(null, actucalFreq);
-					gainNode.gain.value = actucalVol;
+					initOscillator(null, actualFreq);
+					gainNode.gain.value = actualVol;
 				}
 			}
 
