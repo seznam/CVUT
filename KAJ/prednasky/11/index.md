@@ -6,7 +6,7 @@
 
 # Obsah
 
-  1. Drag'n'Drop
+  1. Intl
   1. Geolocation
   1. Web Storage
   1. File API
@@ -16,54 +16,104 @@
 
 ---
 
+# Intl
 
-# Drag'n'Drop
-
-  - Přetahování věcí ve stránce a do stránky
-  - Překvapivě složité
-  - [Dokumentace na MDN](https://developer.mozilla.org/en-US/docs/DragDrop/Drag_Operations)
-  - [Ukázka 1](http://html5demos.com/drag), [Ukázka 2](https://mapy.cz/)
-
----
-
-# Drag'n'Drop: zahájení tažení
-
-  - Soubor do okna prohlížeče
-  - HTML prvek s atributem `draggable`
-  - Událost `dragstart`
-  - Vlastnost `dataTransfer` v události obsahuje relevantní metadata
+- [i18n, l10n](https://en.wikipedia.org/wiki/Internationalization_and_localization)
+- Součást ES6+, není specifické pro prohlížeč
+- Porovnávání textů, formátování čísel, datumů a časů
+	- &hellip;a ještě mnoho dalšího
 
 ---
 
-# Drag'n'Drop: práce s dataTransfer
+# Intl
+
+Jmenný prostor pro velké množství funkcionality související s *internacionalizací* (lokalizací).
+
+  - `Intl.Collator` &ndash; porovnávání řetězců
+  - `Intl.DateTimeFormat` &ndash; formátování data a času
+  - `Intl.ListFormat` &ndash; formátování posloupností hodnot
+  - `Intl.NumberFormat` &ndash; formátování (nejen desetinných) čísel
+  - `Intl.PluralRules` &ndash; jazykové kategorie numerických hodnot
+  - `Intl.RelativeTimeFormat` &ndash; formátování časových rozpětí
+  - &hellip;a další
+
+---
+
+# Intl &ndash; Collator
+
+Porovnávání řetězců s ohledem na jazykové zvyklosti
 
 ```js
-div.addEventListener("dragstart", function(e) {
-	e.dataTransfer.setData("text/plain", "http://www.seznam.cz")
-	e.dataTransfer.setDragImage(image, offsetX, offsetY)
-	e.dataTransfer.effectAllowed = "copyMove"
-	e.dataTransfer.dropEffect = "copy"
-});
+const data = ['Z', 'a', 'z', 'á']
+let collator
+
+collator = new Intl.Collator("cs")
+console.log(data.sort(collator.compare))
+
+collator = new Intl.Collator("cs", {caseFirst: "upper"})
+console.log(data.sort(collator.compare))
 ```
 
 ---
 
-# Drag'n'Drop: tažení
+# Intl &ndash; NumberFormat
 
-  - Události `dragenter`, `dragover`, `dragleave`
-  - Pokud má být nad prvkem tažení ukončitelné, je nutné událost *preventovat* (`preventDefault()`)
+Formátování čísel a měn
+
+```js
+const nf1 = new Intl.NumberFormat("cs")
+console.log(nf1.format(123456.789))
+
+const nf2 = new Intl.NumberFormat("cs", {style:"currency", currency:"CZK"})
+console.log(nf2.format(123456.789))
+```
 
 ---
 
-# Drag'n'Drop: puštění
+# Intl &ndash; DateTimeFormat
 
-  - Událost `drop`
-  - Pokud událost zpracujeme, voláme `preventDefault`
-  - Vlastnost `e.dataTransfer.files` je pole souborů, jsou-li jaké
+Formátování data a času
+
+```js
+const options = {dateStyle: "full", timeStyle: "full"}
+const dtf = new Intl.DateTimeFormat("cs", options)
+const now = new Date()
+dtf.format(now)
+```
+
+---
+
+# Intl &ndash; PluralRules
+
+Varianty slov popisujích různé množství veličin
+
+```js
+const rules = new Intl.PluralRules("cs")
+
+rules.select(1)  // "one"
+rules.select(2)  // "few"
+rules.select(3)  // "few"
+rules.select(4)  // "few"
+rules.select(5)  // "other"
+
+const days = {
+  "one": "den",
+  "few": "dny",
+  "other": "dní"
+}
+```
+
+---
+
+# Intl
+
+  - [MDN](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl)
+  - [Demostránka](https://www.intl-explorer.com/)
 
 ---
 
 # Geolocation
+
   - Zjištění polohy uživatele
   - Asynchronní
   - Polohu zjišťuje prohlížeč nedefinovanými mechanismy
@@ -71,7 +121,6 @@ div.addEventListener("dragstart", function(e) {
   - **jen po HTTPS!**
 
 ---
-
 
 # Geolocation: API
 
@@ -296,7 +345,7 @@ onmessage = function(e) {
     - Alternativa: *SharedArrayBuffer*
   - Vhodné tam, kde jsou třeba náročné výpočty
   - Ideálně málo vstupních i výstupních dat
-  - [Ukázky](https://developer.mozilla.org/en-US/docs/Web/Demos_of_open_web_technologies#Unclassified)
+  - Ukázky: [Ray Tracing](https://nerget.com/rayjs-mt/rayjs.html), [Fractal](https://ondras.github.io/fractal/), [Coral](https://ondras.github.io/coral/)
 
 ---
 

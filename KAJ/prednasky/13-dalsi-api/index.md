@@ -1,54 +1,50 @@
-# KAJ 14: Další JS API
+# KAJ 13: Další JS API
 
 ---
 
-# Intl
+# Drag'n'Drop
 
-- [i18n, l10n](https://en.wikipedia.org/wiki/Internationalization_and_localization)
-- Součást ES6+, není specifické pro prohlížeč
-- Porovnávání textů, formátování čísel, datumů a časů
-	- &hellip;a ještě mnoho dalšího
+  - Přetahování věcí ve stránce a do stránky
+  - Překvapivě složité
+  - [Dokumentace na MDN](https://developer.mozilla.org/en-US/docs/DragDrop/Drag_Operations)
+  - [Ukázka 1](http://html5demos.com/drag), [Ukázka 2](https://mapy.cz/)
 
 ---
 
-# Intl &ndash; Collator
+# Drag'n'Drop: zahájení tažení
 
-Porovnávání řetězců s ohledem na jazykové zvyklosti
+  - Soubor do okna prohlížeče
+  - HTML prvek s atributem `draggable`
+  - Událost `dragstart`
+  - Vlastnost `dataTransfer` v události obsahuje relevantní metadata
+
+---
+
+# Drag'n'Drop: práce s dataTransfer
 
 ```js
-const data = ['Z', 'a', 'z', 'á']
-let collator
-
-collator = new Intl.Collator("cs")
-console.log(data.sort(collator.compare))
-
-collator = new Intl.Collator("cs", {caseFirst: "upper"})
-console.log(data.sort(collator.compare))
+div.addEventListener("dragstart", function(e) {
+	e.dataTransfer.setData("text/plain", "http://www.seznam.cz")
+	e.dataTransfer.setDragImage(image, offsetX, offsetY)
+	e.dataTransfer.effectAllowed = "copyMove"
+	e.dataTransfer.dropEffect = "copy"
+});
 ```
 
 ---
 
-# Intl &ndash; NumberFormat
+# Drag'n'Drop: tažení
 
-Formátování čísel a měn
-
-```js
-const nf = new Intl.NumberFormat("cs")
-console.log(nf.format(123456.789))
-```
+  - Události `dragenter`, `dragover`, `dragleave`
+  - Pokud má být nad prvkem tažení ukončitelné, je nutné událost *preventovat* (`preventDefault()`)
 
 ---
 
-# Intl &ndash; DateTimeFormat
+# Drag'n'Drop: puštění
 
-Formátování data a času
-
-```js
-const options = {dateStyle: "full", timeStyle: "full"}
-const dtf = new Intl.DateTimeFormat("cs", options)
-const now = new Date()
-dtf.format(now)
-```
+  - Událost `drop`
+  - Pokud událost zpracujeme, voláme `preventDefault`
+  - Vlastnost `e.dataTransfer.files` je pole souborů, jsou-li jaké
 
 ---
 
