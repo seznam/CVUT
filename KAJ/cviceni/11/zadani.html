@@ -3,33 +3,15 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Lecture 11</title>
-
-		<style>
-			body {
-				font-family: Arial, sans-serif;
-			}
-			#dnd {
-				height: 70px;
-				border-radius: 50px;
-				border: 2px dotted #a0a0a0;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-			#dnd::before {
-				content: "D'n'D here!";
-				color: #2e2e2e;
-			}
-		</style>
 	</head>
 	<body>
-
-		<h1>My cool app</h1>
+		<h1>My SPA</h1>
 
 		<nav>
 			<ul>
 				<li><a href="?page=accesslog">Log</a></li>
 				<li><a href="?page=imageinfo">Image Info</a></li>
+				<li><a href="?page=intl">Intl</a></li>
 			</ul>
 		</nav>
 
@@ -37,8 +19,10 @@
 
 		<main id="content"></main>
 
-		<script type="text/javascript">
+		<script>
 			/*
+				SPA
+					https://developer.mozilla.org/en-US/docs/Glossary/SPA
 				URL
 					https://developer.mozilla.org/en-US/docs/Web/API/URL
 				URLSearchParams
@@ -53,77 +37,134 @@
 					https://developer.mozilla.org/en-US/docs/Web/API/File
 				Filereader API
 					https://developer.mozilla.org/en-US/docs/Web/API/FileReader
-				Drag'n'Drop API
-					https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
-			*/
+				Intl API
+					https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
 
-			/*
-			Page templates
-
-				accesslog
-					<h2>Log</h2>
-
-					<h2>History entries</h2>
-					<ul id="history-entries"></ul>
-
-				imageinfo
-					<h2>Image Info</h2>
-
-					<div id="dnd"></div>
-					<ul id="imgInfo"></ul>
-					<div id="imgCnt"></div>
-
-				404
-					<h2>Not found</h2>
-					<p>Unknown page</p>
-
-			*/
-
-			/*
 				1. Page class
 					- Implement page class that takes
 						- page `key` parameter
 						- page `title` parameter
-					- By the key parameter, it finds the page element and stores it
 					- Implements pageShow and pageHide methods that shows/hides the pages
-					- Implement render method to render the HTML
 				2. Router class
 					- That takes
 						- list of page instances
 						- default page (page key)
 					- Does initial routing based on window.location.href and decides which page to show
 						- Takes into account the `?page=something` query parameter
-						- Takes into account the the default page
+						- Takes into account the default page
 						- Otherwise returns 404 page
-					- Does routing on click on `a` elements
 					- Does routing on `popstate` event
+					- Does routing on click on `a` elements
+					- On each routing it hides previous page, shows current page
 				3. LocalStorage page
 					- Take a look at LocalStorage API
 					- In local storage - save every user access of website, when he comes to the page save the date he came
 					- On "accesslog" page display all of the dates he accessed the page
-				4. File API and Drag'n'Drop page
-					- On second page use Drag and Drop API so user can drag and drop image to the rectangle
-					- When user drops image, use File Reader API to read and display name, size and type of image
+				4. File API page
+					- When user selects images, use File Reader API to read and display name, size and type of image
+				5. Intl API page
+					- Show outputs from common Intl API methods
+					- Intl.Collator – Sorting words
+					- Intl.DateTimeFormat – Today's date
+					- Intl.NumberFormat – Number as Czech currency
+					- Intl.PluralRules – Plural form of "file"
+					- Intl.RelativeTimeFormat – Relative time
             */
 
 			class Router {
+				constructor({pages, defaultPage}) {
+					this.pages = pages;
+					this.defaultPage = defaultPage;
+					this.currentPage = null
+
+					// ...
+				}
+
+				route(href) {}
 			}
 
 			class Page {
+				constructor({key, title}) {
+					this.pageElement = document.querySelector(`#content`)
+					this.title = title
+					this.key = key
+				}
+
+				render() {
+					return ``
+				}
+
+				pageShow() {}
+				pageHide() {}
 			}
 
-
 			class PageLog extends Page {
+				constructor(settings) {
+					super(settings)
+					this.log = [];
+				}
+
+				render() {
+					return `
+						<h2>Log</h2>
+
+						<h2>History entries</h2>
+						<ul id="history-entries"></ul>
+					`
+				}
+
+				pageShow() {}
+				logVisit() {}
+				showLog() {}
 			}
 
 			class PageImage extends Page {
+				render() {
+					return `
+						<h2>Image Info</h2>
+
+						<input type="file" id="fileInput" multiple accept="image/*">
+						<ul id="imgInfo"></ul>
+						<div id="imgCnt"></div>
+					`
+				}
+
+				pageShow() {}
+				onChange() {}
+			}
+
+			class PageIntl extends Page {
+				render() {
+					return `
+						<h2>Intl</h2>
+						<div id="intl"></div>
+					`
+				}
+
+				addOutput() {
+					const section = document.createElement('section');
+					section.innerHTML = `<h3>${title}</h3><pre>${result}</pre>`;
+					document.querySelector("#intl").append(section);
+				}
+
+				pageShow() {}
 			}
 
 			class PageNotFound extends Page {
+				render() {
+					return `
+						<h2>Not found</h2>
+						<p>Unknown page</p>
+					`
+				}
 			}
 
 			new Router({
 				pages: [
+					new PageLog({key: 'accesslog', title: 'Access log'}),
+					new PageImage({key: 'imageinfo', title: 'Image info'}),
+					new PageIntl({key: 'intl', title: 'Intl'}),
+					new PageNotFound({key: '404', title: 'Page not found'})
 				],
 				defaultPage: 'accesslog'
 			});

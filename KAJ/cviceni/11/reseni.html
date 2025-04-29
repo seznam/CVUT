@@ -3,33 +3,15 @@
 	<head>
 		<meta charset="utf-8">
 		<title>Lecture 11</title>
-
-		<style>
-			body {
-				font-family: Arial, sans-serif;
-			}
-			#dnd {
-				height: 70px;
-				border-radius: 50px;
-				border: 2px dotted #a0a0a0;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-			}
-			#dnd::before {
-				content: "D'n'D here!";
-				color: #2e2e2e;
-			}
-		</style>
 	</head>
 	<body>
-
-		<h1>My cool app</h1>
+		<h1>My SPA</h1>
 
 		<nav>
 			<ul>
-				<li><a data-route-link href="?page=accesslog">Log</a></li>
-				<li><a data-route-link href="?page=imageinfo">Image Info</a></li>
+				<li><a href="?page=accesslog">Log</a></li>
+				<li><a href="?page=imageinfo">Image Info</a></li>
+				<li><a href="?page=intl">Intl</a></li>
 			</ul>
 		</nav>
 
@@ -37,8 +19,10 @@
 
 		<main id="content"></main>
 
-		<script type="text/javascript">
+		<script>
 			/*
+				SPA
+					https://developer.mozilla.org/en-US/docs/Glossary/SPA
 				URL
 					https://developer.mozilla.org/en-US/docs/Web/API/URL
 				URLSearchParams
@@ -53,47 +37,21 @@
 					https://developer.mozilla.org/en-US/docs/Web/API/File
 				Filereader API
 					https://developer.mozilla.org/en-US/docs/Web/API/FileReader
-				Drag'n'Drop API
-					https://developer.mozilla.org/en-US/docs/Web/API/HTML_Drag_and_Drop_API
-			*/
+				Intl API
+					https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Intl
 
-			/*
-			Page templates
-
-				accesslog
-					<h2>Log</h2>
-
-					<h2>History entries</h2>
-					<ul id="history-entries"></ul>
-
-				imageinfo
-					<h2>Image Info</h2>
-
-					<div id="dnd"></div>
-					<ul id="imgInfo"></ul>
-					<div id="imgCnt"></div>
-
-				404
-					<h2>Not found</h2>
-					<p>Unknown page</p>
-
-			*/
-
-			/*
 				1. Page class
 					- Implement page class that takes
 						- page `key` parameter
 						- page `title` parameter
-					- By the key parameter, it finds the page element and stores it
 					- Implements pageShow and pageHide methods that shows/hides the pages
-					- Implement render method to render the HTML
 				2. Router class
 					- That takes
 						- list of page instances
 						- default page (page key)
 					- Does initial routing based on window.location.href and decides which page to show
 						- Takes into account the `?page=something` query parameter
-						- Takes into account the the default page
+						- Takes into account the default page
 						- Otherwise returns 404 page
 					- Does routing on `popstate` event
 					- Does routing on click on `a` elements
@@ -102,9 +60,15 @@
 					- Take a look at LocalStorage API
 					- In local storage - save every user access of website, when he comes to the page save the date he came
 					- On "accesslog" page display all of the dates he accessed the page
-				4. File API and Drag'n'Drop page
-					- On second page use Drag and Drop API so user can drag and drop image to the rectangle
-					- When user drops image, use File Reader API to read and display name, size and type of image
+				4. File API page
+					- When user selects images, use File Reader API to read and display name, size and type of image
+				5. Intl API page
+					- Show outputs from common Intl API methods
+					- Intl.Collator – Sorting words
+					- Intl.DateTimeFormat – Today's date
+					- Intl.NumberFormat – Number as Czech currency
+					- Intl.PluralRules – Plural form of "file"
+					- Intl.RelativeTimeFormat – Relative time
             */
 
 			class Router {
@@ -132,19 +96,16 @@
 					});
 				}
 
-				route(urlString) {
-					const url = new URL(urlString)
-					const page = url.searchParams.get('page')
+				route(href) {
+					const url = new URL(href)
+					const page = url.searchParams.get('page') ?? this.defaultPage
 
-					if (this.currentPage) {
-						this.currentPage.pageHide()
-					}
+					this.currentPage && this.currentPage.pageHide()
 
 					const page404 = this.pages.find(p => p.key === '404')
-					const pageInstanceMatched = this.pages.find(p => p.key === (page ?? this.defaultPage))
-					const currentPage = pageInstanceMatched ?? page404
+					const pageInstanceMatched = this.pages.find(p => p.key === page)
 
-					this.currentPage = currentPage
+					this.currentPage = pageInstanceMatched ?? page404
 					this.currentPage.pageShow()
 				}
 			}
@@ -170,11 +131,9 @@
 				}
 			}
 
-
 			class PageLog extends Page {
 				constructor(settings) {
 					super(settings)
-
 					this.log = [];
 				}
 
@@ -214,70 +173,122 @@
 			}
 
 			class PageImage extends Page {
-				constructor(settings) {
-					super(settings)
-
-					this.log = null;
-				}
-
 				render() {
 					return `
 						<h2>Image Info</h2>
 
-						<div id="dnd"></div>
+						<input type="file" id="fileInput" multiple accept="image/*">
 						<ul id="imgInfo"></ul>
 						<div id="imgCnt"></div>
-					`
+					`;
 				}
 
 				pageShow() {
-					super.pageShow()
+					super.pageShow();
 
-					const dnd = document.querySelector("#dnd");
-					dnd.addEventListener("drop", this.onDrop);
-					dnd.addEventListener("dragover", this.onDragOver);
-
+					const fileInput = document.querySelector("#fileInput");
+					fileInput.addEventListener("change", e => this.onChange(e));
 				}
 
-				pageHide() {
-					dnd.removeEventListener("drop", this.onDrop);
-					dnd.removeEventListener("dragover", this.onDragOver);
-
-					super.pageHide()
-				}
-
-				onDragOver (e) {
-					e.preventDefault();
-				}
-
-				onDrop (e) {
-					e.preventDefault();
-					const files = e.dataTransfer.files;
+				onChange(e) {
+					const files = e.target.files;
 
 					const imgContent = document.querySelector("#imgCnt");
 					const imgInfo = document.querySelector("#imgInfo");
-					imgInfo.innerHTML = ''
+					imgInfo.innerHTML = '';
+					imgContent.innerHTML = '';
 
 					for (const f of files) {
 						if (!f.type.includes("image")) {
-							continue
+							continue;
 						}
 
 						const fr = new FileReader();
-						fr.addEventListener("load", e => {
+						fr.addEventListener("load", () => {
 							const i = new Image();
-							i.addEventListener("load", e=> {
-								i.width = Math.min (i.naturalWidth, window.innerWidth-20);
-							})
+							i.addEventListener("load", () => {
+								i.width = Math.min(i.naturalWidth, window.innerWidth - 20);
+							});
 							i.src = fr.result;
-							imgContent.appendChild(i);
+							imgContent.append(i);
 
 							const li = document.createElement('li');
-							li.innerText = `type: ${f.type} | size: ${f.size} | name: ${f.name}`
-							imgInfo.appendChild(li);
-						})
+							li.innerText = `type: ${f.type} | size: ${f.size} | name: ${f.name}`;
+							imgInfo.append(li);
+						});
 						fr.readAsDataURL(f);
 					}
+				}
+			}
+
+			class PageIntl extends Page {
+				render() {
+					return `
+						<h2>Intl</h2>
+						<div id="intl"></div>
+					`
+				}
+
+				addOutput(title, result) {
+					const section = document.createElement('section');
+					section.innerHTML = `<h3>${title}</h3><pre>${result}</pre>`;
+					document.querySelector("#intl").append(section);
+				}
+
+				pageShow() {
+					super.pageShow();
+
+					// 1. Intl.Collator – Sorting words
+					// Collator options:
+					const words = ["žába", "čáp", "chata", "cibule", "Žába"];
+					const collator = new Intl.Collator('cs-CZ');  // try 'cs' or 'en'
+					const sortedWords = words.sort(collator.compare);
+					this.addOutput("Seřazeno", sortedWords.join(', '));
+
+					// 2. Intl.DateTimeFormat – Today's date
+					// DateTimeFormat options:
+					//   - dateStyle: 'full', 'long', 'medium', 'short'
+					//   - timeStyle: 'full', 'long', 'medium', 'short'
+					const today = new Date();
+					const dateFormatter = new Intl.DateTimeFormat('cs-CZ', { dateStyle: 'long' });
+					this.addOutput("Dnešní datum", dateFormatter.format(today));
+
+					// 3. Intl.NumberFormat – Number as Czech currency
+					// NumberFormat options:
+					//   - style: 'decimal' (default), 'currency', 'percent', 'unit'
+					//   - currency: ISO 4217 currency code (e.g., 'CZK', 'USD', 'EUR', 'GBP')
+					const price = 12345.67;
+					const currencyFormatter = new Intl.NumberFormat('cs-CZ', { style: 'currency', currency: 'CZK' });
+					this.addOutput("Cena", currencyFormatter.format(price));
+
+					// 4. Intl.PluralRules – Plural form of "file"
+					// PluralRules categories depend on language:
+					//   - 'one', 'few', 'many', 'other'
+					const pluralRules = new Intl.PluralRules('cs-CZ');
+					const fileLabels = [1, 3, 5].map(count => {
+						const pluralCategory = pluralRules.select(count);
+						switch (pluralCategory) {
+							case 'one':  // e.g., 1 soubor
+								return `${count} soubor`;
+							case 'few':  // e.g., 2–4 soubory
+								return `${count} soubory`;
+							default:     // e.g., 0, 5+ souborů
+								return `${count} souborů`;
+						}
+					});
+					this.addOutput("Popisky", fileLabels.join('\n'));
+
+					// 5. Intl.RelativeTimeFormat – Relative time
+					// RelativeTimeFormat options:
+					//   - numeric: 'always' (default) | 'auto' (e.g., "yesterday" instead of "1 day ago")
+					//   - style: 'long' (default), 'short', 'narrow'
+					const relativeFormatter = new Intl.RelativeTimeFormat('cs-CZ', { numeric: 'auto' });
+					const relativeTimes = [
+					relativeFormatter.format(1, 'day'),   // zítra
+					relativeFormatter.format(3, 'day'),   // za 3 dny
+					relativeFormatter.format(-2, 'hour')  // před 2 hodinami
+					].join('\n');
+					this.addOutput("Relativní časy", relativeTimes);
 				}
 			}
 
@@ -294,6 +305,7 @@
 				pages: [
 					new PageLog({key: 'accesslog', title: 'Access log'}),
 					new PageImage({key: 'imageinfo', title: 'Image info'}),
+					new PageIntl({key: 'intl', title: 'Intl'}),
 					new PageNotFound({key: '404', title: 'Page not found'})
 				],
 				defaultPage: 'accesslog'
