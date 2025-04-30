@@ -86,9 +86,10 @@
 					});
 
 					// listen on url changes from user clicks
+					// possible improvements: use e.target.closest('a'), restrict to same-origin links
  					window.addEventListener('click', e => {
-						const element = e.target
-						if (element.nodeName === 'A') {
+						const element = e.target;
+						if (element.tagName === 'A') {
 							e.preventDefault();
 							this.route(element.href);
 							window.history.pushState(null, null, element.href)
@@ -166,8 +167,8 @@
 					target.innerHTML = ''
 					for (const date of this.log) {
 						const li = document.createElement('li');
-						li.innerHTML = date;
-						target.appendChild(li);
+						li.textContent = date;
+						target.append(li);
 					}
 				}
 			}

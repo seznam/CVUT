@@ -130,7 +130,7 @@
 				}
 
 				pageShow() {}
-				onChange() {}
+				onChange(e) {}
 			}
 
 			class PageIntl extends Page {
@@ -141,7 +141,7 @@
 					`
 				}
 
-				addOutput() {
+				addOutput(title, result) {
 					const section = document.createElement('section');
 					section.innerHTML = `<h3>${title}</h3><pre>${result}</pre>`;
 					document.querySelector("#intl").append(section);
