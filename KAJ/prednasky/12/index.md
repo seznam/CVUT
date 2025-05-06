@@ -16,7 +16,7 @@
 # Příští přednáška je poslední
 
   - téma bylo zvoleno hlasováním
-  - kombo *JS mimo prohlížeč + TypeScript*
+  - *TypeScript*
 
 ---
 
@@ -25,8 +25,9 @@
   - Odehrává se v Seznamu
     - Radlická 10, Praha 5
   - Výsledkem zkoušky je skóre v intervalu `<−10, 10>` bodů
-  - První před-čtyř-termín: 24. 5. 2024 (9:00, 10:00, 11:00, 12:00)
+  - První před-čtyř-termín: 23. 5. 2025 (9:00, 10:00, 11:00, 12:00)
   - Celkem 20 termínů
+    - plus bonus termín na akademické půdě
   - Další termíny budou vypsány jen v případě absolutní nouze
 
 ---
@@ -50,15 +51,15 @@
 # Custom Elements: ukázka použití
 
 ```html
-<szn-map x="..." y="..." controls="keyboard mouse zoom pan" />
+<seznam-mapa x="..." y="..." controls="keyboard mouse zoom pan" />
 ```
 
 ```js
-let map1 = new SznMap({x:..., y:..., control: ...});
-let map2 = document.createElement("szn-map");
+let map1 = new SeznamMapa({x:..., y:..., control: ...})
+let map2 = document.createElement("seznam-mapa")
 
-document.body.append(map1);
-map1.append(map2);
+document.body.append(map1)
+map1.append(map2)
 ```
 
 ---
@@ -76,7 +77,7 @@ map1.append(map2);
 
 # Custom Elements &ndash; define
 
-  - JS API tvořeno jedinou funkcí: `customElements.define("szn-map", SznMap)`
+  - JS API tvořeno jedinou funkcí: `customElements.define("seznam-mapa", SeznamMapa)`
   - Vlastní značky musí mít v názvu pomlčku (dopředná kompatibilita)
   - Značka s pomlčkou v názvu je tzv. *unresolved element* (`instanceof HTMLElement`), dokud nedojde k registraci
 
