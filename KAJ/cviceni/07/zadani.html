@@ -1,98 +1,98 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Lecture 07</title>
+	<meta charset="utf-8">
+	<title>Lecture 07</title>
 
-    <style>
-        /*
-            Create an external CSS file for this page and link it here.
+	<style>
+		/*
+			Create an external CSS file for this page and link it here.
 
-            Flexbox cheat-sheet
-                https://css-tricks.com/snippets/css/a-guide-to-flexbox/
-            
-            Phone/Mobile styles
-            - Hide side menu
-            - Change order - put content before main menu only with CSS
-            - Switch from column layout (main menu | content | side menu) to row layout
-        */
+			Flexbox cheat-sheet
+				https://css-tricks.com/snippets/css/a-guide-to-flexbox/
+			
+			Phone/Mobile styles
+			- Hide side menu
+			- Change order - put content before main menu only with CSS
+			- Switch from column layout (main menu | content | side menu) to row layout
+		*/
 
-        .page {}
-        .page header {}
-        .page section {}
-        .page section nav {}
-        .page section main {}
-        .page section aside {}
-        .page footer {}
-    </style>
+		.page {}
+		.page header {}
+		.page section {}
+		.page section nav {}
+		.page section main {}
+		.page section aside {}
+		.page footer {}
+	</style>
 </head>
 <body>
-    <div class="page">
-        <header style="background-color: lightblue">
-            <!--
-                - 100% width
-                - 100px height
-                - header is sticky
-                - center content horizontally and vertically
-            -->
-            Header
-        </header>
-        <section>
-            <!--
-                - 100% width
-                - height is the rest of the page (viewport height - header - footer)
-                  or more if there is lots of content inside
-                - 400px min height
-            -->
-            <nav style="background-color: lightsalmon">
-                <!--
-                    - 1em padding
-                    - content width
-                    - height the rest
-                -->
-                Main menu
-            </nav>
-            <main style="background-color: lightgreen">
-                <!--
-                    - 1em padding
-                    - width the rest
-                    - height the rest
-                -->
-                <h1>Page content</h1>
+	<div class="page">
+		<header style="background-color: lightblue">
+			<!--
+				- 100% width
+				- 100px height
+				- header is sticky
+				- center content horizontally and vertically
+			-->
+			Header
+		</header>
+		<section>
+			<!--
+				- 100% width
+				- height is the rest of the page (viewport height - header - footer)
+				  or more if there is lots of content inside
+				- 400px min height
+			-->
+			<nav style="background-color: lightsalmon">
+				<!--
+					- 1em padding
+					- content width
+					- height the rest
+				-->
+				Main menu
+			</nav>
+			<main style="background-color: lightgreen">
+				<!--
+					- 1em padding
+					- width the rest
+					- height the rest
+				-->
+				<h1>Page content</h1>
 
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-                <p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
-            </main>
-            <aside style="background-color: lightgoldenrodyellow">
-                <!--
-                    - 1em padding
-                    - 200px width including the 1em padding
-                    - height the rest
-                -->
-                Side menu
-            </aside>
-        </section>
-        <footer style="background-color: lightcoral">
-            <!--
-                - 100% width
-                - 100px height
-                - center content horizontally and vertically
-            -->
-            Footer
-        </footer>
-    </div>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+				<p>Lorem, ipsum dolor sit amet consectetur adipisicing elit. Impedit distinctio perferendis ex est exercitationem, consectetur vitae, accusantium ad eligendi nobis molestias! Optio non itaque, illum asperiores accusantium aliquam quasi laudantium.</p>
+			</main>
+			<aside style="background-color: lightgoldenrodyellow">
+				<!--
+					- 1em padding
+					- 200px width including the 1em padding
+					- height the rest
+				-->
+				Side menu
+			</aside>
+		</section>
+		<footer style="background-color: lightcoral">
+			<!--
+				- 100% width
+				- 100px height
+				- center content horizontally and vertically
+			-->
+			Footer
+		</footer>
+	</div>
 </body>
 </html>

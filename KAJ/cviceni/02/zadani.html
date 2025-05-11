@@ -1,91 +1,91 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://todomvc.com/examples/javascript-es6/dist/app.css">
-    <title>Lecture 02</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://todomvc.com/examples/javascript-es6/dist/app.css">
+	<title>Lecture 02</title>
 </head>
 <body>
-    <section class="todoapp">
-        <header class="header">
-            <h1>todos</h1>
-            <input class="new-todo" placeholder="What needs to be done?" autofocus>
-        </header>
-        <section class="main">
-            <input class="toggle-all" type="checkbox">
-            <label for="toggle-all">Mark all as complete</label>
-            <ul class="todo-list"></ul>
-            <footer class="footer">
-                <span class="todo-count"></span>
-                <div class="filters">
-                    <a id="filter-all" href="#/" class="selected">All</a>
-                    <a id="filter-active" href="#/active">Active</a>
-                    <a id="filter-completed" href="#/completed">Completed</a>
-                </div>
-                <button class="clear-completed">Clear completed</button>
-            </footer>
-        </section>
-    </section>
+	<section class="todoapp">
+		<header class="header">
+			<h1>todos</h1>
+			<input class="new-todo" placeholder="What needs to be done?" autofocus>
+		</header>
+		<section class="main">
+			<input class="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul class="todo-list"></ul>
+			<footer class="footer">
+				<span class="todo-count"></span>
+				<div class="filters">
+					<a id="filter-all" href="#/" class="selected">All</a>
+					<a id="filter-active" href="#/active">Active</a>
+					<a id="filter-completed" href="#/completed">Completed</a>
+				</div>
+				<button class="clear-completed">Clear completed</button>
+			</footer>
+		</section>
+	</section>
 
-    <footer class="info">
-        <p>Double-click to edit a todo</p>
-        <p>Created by <a href="https://twitter.com/oscargodson">Oscar Godson</a></p>
-        <p>Refactored by <a href="https://github.com/cburgmer">Christoph Burgmer</a></p>
-        <p>Part of <a href="https://todomvc.com">TodoMVC</a></p>
-    </footer>
+	<footer class="info">
+		<p>Double-click to edit a todo</p>
+		<p>Created by <a href="https://twitter.com/oscargodson">Oscar Godson</a></p>
+		<p>Refactored by <a href="https://github.com/cburgmer">Christoph Burgmer</a></p>
+		<p>Part of <a href="https://todomvc.com">TodoMVC</a></p>
+	</footer>
 
-    <script>
-        /*
-            This exercise is primarily focused on JavaScript ES5. 
-            Use the files from the previous exercise and continue with the assignment.
-        */
+	<script>
+		/*
+			This exercise is primarily focused on JavaScript ES5. 
+			Use the files from the previous exercise and continue with the assignment.
+		*/
 
-        // TODO
-        // 1. Prototype expansion
-        // 2. Create class with prototypes called `State`
-        //     1. Constructor takes `initialTodos` and `initialFilter`
-        //     2. Implement addTodo method
-        //     3. Implement setFilter method
-        //     4. Implement getTodos method
-        // 3. Rewrite the function createHtmlWithStrings() 
-        //     1. Use functional iteration .map()
-        //     2. Use template strings
-        // 4. Implement adding todos
-        //     1. Query for main input element
-        //     2. Use `addEventListener` for handling user events
-        // 5. Implement filters
-        //     1. Listen on filter buttons clicks
-        //     2. When user clicks filters button, use setFilter on state and re-render app
+		// TODO
+		// 1. Prototype expansion
+		// 2. Create class with prototypes called `State`
+		//	 1. Constructor takes `initialTodos` and `initialFilter`
+		//	 2. Implement addTodo method
+		//	 3. Implement setFilter method
+		//	 4. Implement getTodos method
+		// 3. Rewrite the function createHtmlWithStrings() 
+		//	 1. Use functional iteration .map()
+		//	 2. Use template strings
+		// 4. Implement adding todos
+		//	 1. Query for main input element
+		//	 2. Use `addEventListener` for handling user events
+		// 5. Implement filters
+		//	 1. Listen on filter buttons clicks
+		//	 2. When user clicks filters button, use setFilter on state and re-render app
 
 
-        //
-        // Prototype expansion
-        //
+		//
+		// Prototype expansion
+		//
 
-        // Add method on Object prototype. This method will modify the object
-        // and add current timestamp to it. All created objects inherit from
-        // Object prototype and will have this method.
-        Object.prototype.addTimestamp = function () {
-            this.timestamp = Date.now();
-        }
-        // You should generally avoid modifying prototypes of basic JavaScript
-        // objects, see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
-        // But it can be sometimes useful, for example, if we want to polyfill
-        // some language feature to older browsers.
+		// Add method on Object prototype. This method will modify the object
+		// and add current timestamp to it. All created objects inherit from
+		// Object prototype and will have this method.
+		Object.prototype.addTimestamp = function () {
+			this.timestamp = Date.now();
+		}
+		// You should generally avoid modifying prototypes of basic JavaScript
+		// objects, see: https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+		// But it can be sometimes useful, for example, if we want to polyfill
+		// some language feature to older browsers.
 
-        //
-        // Handle filters
-        //
-        var filters = {
-            all: document.querySelector('#filter-all'),
-            active: document.querySelector('#filter-active'),
-            completed: document.querySelector('#filter-completed')
-        };
+		//
+		// Handle filters
+		//
+		var filters = {
+			all: document.querySelector('#filter-all'),
+			active: document.querySelector('#filter-active'),
+			completed: document.querySelector('#filter-completed')
+		};
 
-        for (var filterName in filters) {
-            // TODO
-        }
-    </script>
+		for (var filterName in filters) {
+			// TODO
+		}
+	</script>
 
 </body>
 </html>

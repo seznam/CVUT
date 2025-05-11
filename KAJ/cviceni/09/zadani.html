@@ -1,75 +1,75 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Lecture 09</title>
+	<head>
+		<meta charset="utf-8">
+		<title>Lecture 09</title>
 
-        <style>
-            section {
-                display: inline-block;
-            }
+		<style>
+			section {
+				display: inline-block;
+			}
 
-            svg {
-                background: lightblue;
-                width: 500px;
-                height: 500px;
-            }
-        </style>
-    </head>
-    <body>
+			svg {
+				background: lightblue;
+				width: 500px;
+				height: 500px;
+			}
+		</style>
+	</head>
+	<body>
 
-        <h2>Test</h2>
+		<h2>Test</h2>
 
-        <svg>
-        </svg>
+		<svg>
+		</svg>
 
-        <h2>SVG Paint</h2>
-        <ul>
-            <li>LMB &ndash; draw</li>
-            <li>Ctrl/Cmd + Left mouse button &ndash; new path + draw</li>
-            <li>Shift + Left mouse button &ndash; clear</li>
-        </ul>
+		<h2>SVG Paint</h2>
+		<ul>
+			<li>LMB &ndash; draw</li>
+			<li>Ctrl/Cmd + Left mouse button &ndash; new path + draw</li>
+			<li>Shift + Left mouse button &ndash; clear</li>
+		</ul>
 
-        <svg id="svg1"></svg>
+		<svg id="svg1"></svg>
 
-        <script>
-            /*
-                Docs
-                    Positions
-                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Positions
-                    Basics
-                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes
-                    Paths
-                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
-                    Bezier curves
-                        https://en.wikipedia.org/wiki/B%C3%A9zier_curve
-                    Fills and strokes
-                        https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes
+		<script>
+			/*
+				Docs
+					Positions
+						https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Positions
+					Basics
+						https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Basic_Shapes
+					Paths
+						https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Paths
+					Bezier curves
+						https://en.wikipedia.org/wiki/B%C3%A9zier_curve
+					Fills and strokes
+						https://developer.mozilla.org/en-US/docs/Web/SVG/Tutorial/Fills_and_Strokes
 
-                Excercises
-                    1. Take a look a the docs
-                    2. Draw some basic shapes
-                    3. Play with "viewbox"
-                    4. Draw line paths
-                        - use path element
-                        - try to create it with createElementNS and setAttributeNS
-                    5. Draw bezier paths
-                    6. Draw smiley face
-                    7. Create SVG painter class
-                        a. Listen on svg wrapper click events
-                        b. Draw circle at the position of each click
-                        c. Draw svg path where user clicked
-                        d. Create new path with ctrl/cmd + left mouse button
-                        e. Clear svg with shift + left mouse button
-            */
+				Excercises
+					1. Take a look a the docs
+					2. Draw some basic shapes
+					3. Play with "viewbox"
+					4. Draw line paths
+						- use path element
+						- try to create it with createElementNS and setAttributeNS
+					5. Draw bezier paths
+					6. Draw smiley face
+					7. Create SVG painter class
+						a. Listen on svg wrapper click events
+						b. Draw circle at the position of each click
+						c. Draw svg path where user clicked
+						d. Create new path with ctrl/cmd + left mouse button
+						e. Clear svg with shift + left mouse button
+			*/
 
-            class SvgPaint {
-                constructor () {
+			class SvgPaint {
+				constructor () {
 
-                }
-            }
-        </script>
+				}
+			}
+		</script>
 
-    </body>
+	</body>
 </html>
 

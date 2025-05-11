@@ -1,232 +1,232 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Lecture 08</title>
+	<head>
+		<meta charset="utf-8">
+		<title>Lecture 08</title>
 
-        <style type="text/css">
-            /*
-                Docs
+		<style type="text/css">
+			/*
+				Docs
 
-                Transforms
-                    https://developer.mozilla.org/en/docs/Web/CSS/transform
-                Transitions
-                    https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions
-                Filters
-                    https://developer.mozilla.org/en-US/docs/Web/CSS/filter
-                Animations
-                    https://www.w3schools.com/css/css3_animations.asp
-            */
+				Transforms
+					https://developer.mozilla.org/en/docs/Web/CSS/transform
+				Transitions
+					https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions
+				Filters
+					https://developer.mozilla.org/en-US/docs/Web/CSS/filter
+				Animations
+					https://www.w3schools.com/css/css3_animations.asp
+			*/
 
-            /* Box */
+			/* Box */
 
-            .box {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                margin: auto;
-                width: 100px;
-                height: 100px;
-                transition: all 0.5s ease;
-                background: lightgreen;
-            }
+			.box {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				margin: auto;
+				width: 100px;
+				height: 100px;
+				transition: all 0.5s ease;
+				background: lightgreen;
+			}
 
-            .box-toggle:checked ~ .box {
-                transform: scale(1.5) rotate(360deg);
-                background: greenyellow;
-            }
+			.box-toggle:checked ~ .box {
+				transform: scale(1.5) rotate(360deg);
+				background: greenyellow;
+			}
 
-            /* Side menu */
+			/* Side menu */
 
-            .menu {
-                position: fixed;
-                left: 100%;
-                top: 0;
-                height: 100%;
-                width: 200px;
-                transition: transform 0.5s ease-out;
-                z-index: 50;
+			.menu {
+				position: fixed;
+				left: 100%;
+				top: 0;
+				height: 100%;
+				width: 200px;
+				transition: transform 0.5s ease-out;
+				z-index: 50;
 
-                background-color: cornsilk;
-            }
+				background-color: cornsilk;
+			}
 
-            body.menu-visible .menu  {
-                transform: translateX(-100%);
-            }
+			body.menu-visible .menu  {
+				transform: translateX(-100%);
+			}
 
-            /* Modal */
+			/* Modal */
 
-            body.modal-visible .page-wrapper {
-                filter: blur(3px) grayscale(100%);
-                transition: filter .5s ease;
-            }
-            body.modal-visible {
-                overflow: hidden;
-            }
+			body.modal-visible .page-wrapper {
+				filter: blur(3px) grayscale(100%);
+				transition: filter .5s ease;
+			}
+			body.modal-visible {
+				overflow: hidden;
+			}
 
-            .modal {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                visibility: hidden;
-                position: fixed;
-                left: 0;
-                top: 0;
-                width: 100%;
-                height: 100%;
-                overflow: auto;
-                padding: 16px;
-                box-sizing: border-box;
-                z-index: 99;
+			.modal {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				visibility: hidden;
+				position: fixed;
+				left: 0;
+				top: 0;
+				width: 100%;
+				height: 100%;
+				overflow: auto;
+				padding: 16px;
+				box-sizing: border-box;
+				z-index: 99;
 
-                background-color: rgba(0, 0, 0, 0.1);
-            }
-            body.modal-visible .modal {
-                visibility: visible;
-            }
+				background-color: rgba(0, 0, 0, 0.1);
+			}
+			body.modal-visible .modal {
+				visibility: visible;
+			}
 
-            .modal-content {
-                margin: auto;
-                padding: 16px;
-                width: 800px;
-                max-width: 800px;
-                min-height: 500px;
-                transform: scale(0);
+			.modal-content {
+				margin: auto;
+				padding: 16px;
+				width: 800px;
+				max-width: 800px;
+				min-height: 500px;
+				transform: scale(0);
 
-                transition: transform 1s ease;
-                border-radius: 5px;
-                background: white;
-            }
-            body.modal-visible .modal-content {
-                transform: scale(1);
-            }
+				transition: transform 1s ease;
+				border-radius: 5px;
+				background: white;
+			}
+			body.modal-visible .modal-content {
+				transform: scale(1);
+			}
 
-            /* Sprite animations */
+			/* Sprite animations */
 
-            .sprite-wrapper {
-                background: lightblue;
-                width: 768px;
-                overflow: hidden;
-            }
+			.sprite-wrapper {
+				background: lightblue;
+				width: 768px;
+				overflow: hidden;
+			}
 
-            .sprite {
-                /* sprite has 6 frames, each is 256x256. Total width is 256 * 6 = 1536px */
-                width: 256px;
-                height: 256px;
-                background-image: url('sprite.png'); /* http://seznam.github.io/CVUT/KAJ/cviceni/08/sprite.png */
-                background-position: 0 0;
-                background-repeat: no-repeat;
-                animation:
-                    run  0.5s infinite steps(5),
-                    move 2.5s infinite linear;
-                transform: translateX(-100%);
-            }
+			.sprite {
+				/* sprite has 6 frames, each is 256x256. Total width is 256 * 6 = 1536px */
+				width: 256px;
+				height: 256px;
+				background-image: url('sprite.png'); /* http://seznam.github.io/CVUT/KAJ/cviceni/08/sprite.png */
+				background-position: 0 0;
+				background-repeat: no-repeat;
+				animation:
+					run  0.5s infinite steps(5),
+					move 2.5s infinite linear;
+				transform: translateX(-100%);
+			}
 
-            @keyframes run {
-                100% { background-position: -1280px 0; }
-            }
-            @keyframes move {
-                100% { transform: translateX(300%); }
-            }
-        </style>
-    </head>
-    <body>
+			@keyframes run {
+				100% { background-position: -1280px 0; }
+			}
+			@keyframes move {
+				100% { transform: translateX(300%); }
+			}
+		</style>
+	</head>
+	<body>
 
-        <div class="page-wrapper">
+		<div class="page-wrapper">
 
-            <h2>Little box to play with transitions and animations</h2>
+			<h2>Little box to play with transitions and animations</h2>
 
-            <input type="checkbox" class="box-toggle" id="box-toggle">
-            <label for="box-toggle">Box toggle</label>
+			<input type="checkbox" class="box-toggle" id="box-toggle">
+			<label for="box-toggle">Box toggle</label>
 
-            <div class="box">Hi!</div>
+			<div class="box">Hi!</div>
 
-            <hr>
+			<hr>
 
-            <h2>Menu</h2>
+			<h2>Menu</h2>
 
-            <button class="menu-button">Show/Hide Menu</button>
+			<button class="menu-button">Show/Hide Menu</button>
 
-            <nav class="menu">
-                <ul>
-                    <li>Prvni</li>
-                    <li>Druhy</li>
-                    <li>Treti</li>
-                    <li>Ctvrty</li>
-                    <li>Paty</li>
-                </ul>
-            </nav>
+			<nav class="menu">
+				<ul>
+					<li>Prvni</li>
+					<li>Druhy</li>
+					<li>Treti</li>
+					<li>Ctvrty</li>
+					<li>Paty</li>
+				</ul>
+			</nav>
 
-            <hr>
+			<hr>
 
-            <h2>Modal</h2>
+			<h2>Modal</h2>
 
-            <button class="modal-button">
-                Modal show
-            </button>
+			<button class="modal-button">
+				Modal show
+			</button>
 
-            <hr>
+			<hr>
 
-            <h2>Sprite animations</h2>
+			<h2>Sprite animations</h2>
 
-            <section class="sprite-wrapper">
-                <div class="sprite">
-                </div>
-            </section>
+			<section class="sprite-wrapper">
+				<div class="sprite">
+				</div>
+			</section>
 
-            <hr>
+			<hr>
 
-            <h2>Add lots of text here to see how modal and side menu works</h2>
+			<h2>Add lots of text here to see how modal and side menu works</h2>
 
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim ullam, officiis voluptatibus. Maxime numquam, obcaecati odio modi voluptas, dolores maiores deserunt explicabo eligendi ut debitis saepe similique pariatur ducimus quidem.</p>
-        </div>
+			<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim ullam, officiis voluptatibus. Maxime numquam, obcaecati odio modi voluptas, dolores maiores deserunt explicabo eligendi ut debitis saepe similique pariatur ducimus quidem.</p>
+		</div>
 
-        <div class="modal">
-            <div class="modal-content">
-                <button class="modal-button">
-                    Close
-                </button>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim ullam, officiis voluptatibus. Maxime numquam, obcaecati odio modi voluptas, dolores maiores deserunt explicabo eligendi ut debitis saepe similique pariatur ducimus quidem.</p>
-            </div>
-        </div>
+		<div class="modal">
+			<div class="modal-content">
+				<button class="modal-button">
+					Close
+				</button>
+				<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Enim ullam, officiis voluptatibus. Maxime numquam, obcaecati odio modi voluptas, dolores maiores deserunt explicabo eligendi ut debitis saepe similique pariatur ducimus quidem.</p>
+			</div>
+		</div>
 
-        <script>
-            // Menu logic
+		<script>
+			// Menu logic
 
-            let menuVisible = false;
-            const menuButton = document.querySelector('.menu-button');
+			let menuVisible = false;
+			const menuButton = document.querySelector('.menu-button');
 
-            menuButton.addEventListener('click', toggleMenuState)
+			menuButton.addEventListener('click', toggleMenuState)
 
-            function toggleMenuState () {
-                menuVisible = !menuVisible;
-                if (menuVisible) {
-                    document.body.classList.add('menu-visible');
-                } else {
-                    document.body.classList.remove('menu-visible');
-                }
-            }
+			function toggleMenuState () {
+				menuVisible = !menuVisible;
+				if (menuVisible) {
+					document.body.classList.add('menu-visible');
+				} else {
+					document.body.classList.remove('menu-visible');
+				}
+			}
 
-            // Modal logic
+			// Modal logic
 
-            let modalVisible = false;
-            const modalButtons = document.querySelectorAll('.modal-button');
-            const pageWrapper = document.querySelectorAll('.page-wrapper');
-            const modal = document.querySelector('.modal');
+			let modalVisible = false;
+			const modalButtons = document.querySelectorAll('.modal-button');
+			const pageWrapper = document.querySelectorAll('.page-wrapper');
+			const modal = document.querySelector('.modal');
 
-            for (let i = 0; i < modalButtons.length; i++) {
-                modalButtons[i].addEventListener('click', toggleModalState)
-            }
+			for (let i = 0; i < modalButtons.length; i++) {
+				modalButtons[i].addEventListener('click', toggleModalState)
+			}
 
-            function toggleModalState () {
-                modalVisible = !modalVisible;
-                if (modalVisible) {
-                    document.body.classList.add('modal-visible');
-                } else {
-                    document.body.classList.remove('modal-visible');
-                }
-            }
-        </script>
+			function toggleModalState () {
+				modalVisible = !modalVisible;
+				if (modalVisible) {
+					document.body.classList.add('modal-visible');
+				} else {
+					document.body.classList.remove('modal-visible');
+				}
+			}
+		</script>
 
-    </body>
+	</body>
 </html>

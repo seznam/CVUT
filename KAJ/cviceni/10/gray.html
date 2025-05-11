@@ -26,9 +26,9 @@
 
 				// prepis puvodni obrazek
 				ctx.putImageData(imageData,0,0);
-      		}
+	  		}
 
-      		function grayscale(e) {
+	  		function grayscale(e) {
 				var canvas = document.querySelector('canvas');
 				var ctx = canvas.getContext('2d');
 				var img = e.target;
@@ -59,11 +59,11 @@
 				link.download = 'obrazek';
 				link.href = dataURL;
 				document.body.appendChild(link);
-      		}
+	  		}
 
 			var image = new Image();
 			image.addEventListener('load',grayscale);
-      		image.src = 'meda.jpg';
+	  		image.src = 'meda.jpg';
 		</script>
 	</body>
 </html>

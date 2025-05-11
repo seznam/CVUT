@@ -1,65 +1,65 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Lecture 05</title>
+	<meta charset="utf-8">
+	<title>Lecture 05</title>
 
-    <script src="cv5.js" type="module"></script>
+	<script src="cv5.js" type="module"></script>
 </head>
 <body>
-    <section>
-        <h2>Users</h2>
-        <ul id="users"></ul>
-    </section>
+	<section>
+		<h2>Users</h2>
+		<ul id="users"></ul>
+	</section>
 
-    <section>
-        <h2>Chat</h2>
-        <p>
-            <textarea id="chat" rows="10" cols="40" readonly></textarea>
-        </p>
-        <p>
-            <input type="text" id="chat-input">
-        </p>
-    </section>
+	<section>
+		<h2>Chat</h2>
+		<p>
+			<textarea id="chat" rows="10" cols="40" readonly></textarea>
+		</p>
+		<p>
+			<input type="text" id="chat-input">
+		</p>
+	</section>
 
-    <script>
-        /*
-            Write all JavaScript code in a separate script file with type='module'
+	<script>
+		/*
+			Write all JavaScript code in a separate script file with type='module'
 
-            urls:
-                HTTP API with JSON response of Users characters
-                    https://jsonplaceholder.typicode.com/users
-                WebSocket API with text messages
-                    wss://kaj-chat.deno.dev
+			urls:
+				HTTP API with JSON response of Users characters
+					https://jsonplaceholder.typicode.com/users
+				WebSocket API with text messages
+					wss://kaj-chat.deno.dev
 
-            Main tasks
-                1. Use XMLHttpRequest to create HTTP request and get data from API
-                    1. Parse Users data
-                    2. Transform the data into list of names
-                        ["Leanne Graham", "Ervin Howell", ...]
-                    3. Render character names into the list - <ul id="users"></ul>
-                2. Create function that fetches data with XMLHttpRequest but exposes Promises interface.
-                    myRequest(url)
-                        .then(response => {
-                            // ok state
-                        })
-                        .catch(error => {
-                            // error states
-                        })
+			Main tasks
+				1. Use XMLHttpRequest to create HTTP request and get data from API
+					1. Parse Users data
+					2. Transform the data into list of names
+						["Leanne Graham", "Ervin Howell", ...]
+					3. Render character names into the list - <ul id="users"></ul>
+				2. Create function that fetches data with XMLHttpRequest but exposes Promises interface.
+					myRequest(url)
+						.then(response => {
+							// ok state
+						})
+						.catch(error => {
+							// error states
+						})
 
-                    1. For rendering the users - switch from XMLHttpRequest to your "myRequest" function
-                3. Try to use browser's fetch API
-                    1. For rendering the users - try to switch to browsers fetch API
-                4. Try to use async/await for interaction with
-                    1. myRequest
-                    2. fetch
+					1. For rendering the users - switch from XMLHttpRequest to your "myRequest" function
+				3. Try to use browser's fetch API
+					1. For rendering the users - try to switch to browsers fetch API
+				4. Try to use async/await for interaction with
+					1. myRequest
+					2. fetch
 
-            Bonus Tasks
-                1. Websocket chat
-                    1. Connect to WebSocket API
-                    2. When messages comes in, render it to the - <textarea id="chat">
-                    3. When user types in text in <input type="text" id="chat-input"> and presses enter, send the message to the chat
-        */
-    </script>
+			Bonus Tasks
+				1. Websocket chat
+					1. Connect to WebSocket API
+					2. When messages comes in, render it to the - <textarea id="chat">
+					3. When user types in text in <input type="text" id="chat-input"> and presses enter, send the message to the chat
+		*/
+	</script>
 </body>
 </html>

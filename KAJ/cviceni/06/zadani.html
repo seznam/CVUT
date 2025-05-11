@@ -1,47 +1,47 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <meta charset="utf-8">
-        <title>Lecture 06</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<head>
+		<meta charset="utf-8">
+		<title>Lecture 06</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-        <style type="text/css"></style>
-    </head>
-    <body>
-        <!--
-            1. Create an external CSS file and link it to this HTML file.
-            2. Create horizontal menu with design you can see on reseni.html.
-            3. Style <input type="checkbox" id="menu-control-input" />
-                1. You cannot style checkboxes, but you can have label connected to checkbox, style the label and hide the checkbox.
-                2. Make it visible only on page size smaller than 700px.
-                3. If checkbox is checked, make #menu visible, otherwise hide it, but only on smaller page sizes.
-            4. For page width smaller than 700px, change menu design from row to column (see reseni.html).
-            5. Add counter to menu items with CSS counters.
-            6. For items with "data-state" attribute, write value of this attribute into the page - use only CSS.
-            7. Make even menu items have different background.
-            8. Make custom design for checkbox like on reseni.html.
+		<style type="text/css"></style>
+	</head>
+	<body>
+		<!--
+			1. Create an external CSS file and link it to this HTML file.
+			2. Create horizontal menu with design you can see on reseni.html.
+			3. Style <input type="checkbox" id="menu-control-input" />
+				1. You cannot style checkboxes, but you can have label connected to checkbox, style the label and hide the checkbox.
+				2. Make it visible only on page size smaller than 700px.
+				3. If checkbox is checked, make #menu visible, otherwise hide it, but only on smaller page sizes.
+			4. For page width smaller than 700px, change menu design from row to column (see reseni.html).
+			5. Add counter to menu items with CSS counters.
+			6. For items with "data-state" attribute, write value of this attribute into the page - use only CSS.
+			7. Make even menu items have different background.
+			8. Make custom design for checkbox like on reseni.html.
 
-            Read about purpose of <meta name="viewport" content="width=device-width, initial-scale=1.0">:
-            https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag
-        -->
-        <h2>Menu</h2>
+			Read about purpose of <meta name="viewport" content="width=device-width, initial-scale=1.0">:
+			https://developer.mozilla.org/en-US/docs/Web/HTML/Viewport_meta_tag
+		-->
+		<h2>Menu</h2>
 
-        <label id="menu-control" for="menu-control-input">Menu</label>
-        <input type="checkbox" id="menu-control-input" />
-        
-        <nav id="menu">
-            <ul>
-                <li><a href="" data-state="data state attribute">First</a></li>
-                <li><a href="">Second</a></li>
-                <li><a href="">Third</a></li>
-                <li><a href="">Fourth</a></li>
-                <li><a href="">Fifth</a></li>
-            </ul>
-        </nav>
+		<label id="menu-control" for="menu-control-input">Menu</label>
+		<input type="checkbox" id="menu-control-input" />
+		
+		<nav id="menu">
+			<ul>
+				<li><a href="" data-state="data state attribute">First</a></li>
+				<li><a href="">Second</a></li>
+				<li><a href="">Third</a></li>
+				<li><a href="">Fourth</a></li>
+				<li><a href="">Fifth</a></li>
+			</ul>
+		</nav>
 
-        <h2>Custom Design Checkbox</h2>
+		<h2>Custom Design Checkbox</h2>
 
-        <input id="custom-checkbox-input" type="checkbox">
-        <label id="custom-checkbox" for="custom-checkbox-input"></label>
-    </body>
+		<input id="custom-checkbox-input" type="checkbox">
+		<label id="custom-checkbox" for="custom-checkbox-input"></label>
+	</body>
 </html>

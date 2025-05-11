@@ -1,66 +1,66 @@
 body {
-    margin: 0;
+	margin: 0;
 }
 
 .page {
-    display: flex;
-    flex-direction: column;
-    min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 }
 .page header {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: sticky;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: sticky;
 top: 0; /* Ensure sticky behavior */
-    width: 100%;
-    height: 100px;
+	width: 100%;
+	height: 100px;
 }
 .page section {
-    display: flex;
-    flex-grow: 1;
-    min-height: 400px;
+	display: flex;
+	flex-grow: 1;
+	min-height: 400px;
 }
 .page section nav {
-    flex-shrink: 0;
-    padding: 1em;
+	flex-shrink: 0;
+	padding: 1em;
 }
 .page section main {
-    display: flex;
-    flex-grow: 1;
-    flex-direction: column;
-    padding: 1em;
+	display: flex;
+	flex-grow: 1;
+	flex-direction: column;
+	padding: 1em;
 }
 .page section aside {
-    width: 200px;
-    padding: 1em;
-    flex-shrink: 0;
-    box-sizing: border-box;
+	width: 200px;
+	padding: 1em;
+	flex-shrink: 0;
+	box-sizing: border-box;
 }
 .page footer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 100px;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	height: 100px;
 }
 
 /*
-    Phone/Mobile styles
-    - Hide side menu
-    - Change order - put content before main menu only with CSS
-    - Switch from column layout (main menu | content | side menu) to row layout
+	Phone/Mobile styles
+	- Hide side menu
+	- Change order - put content before main menu only with CSS
+	- Switch from column layout (main menu | content | side menu) to row layout
 */
 @media (max-width: 700px) {
-    .page section {
-        flex-direction: column;
-    }
-    .page section nav {
-        order: 2;
-    }
-    .page section main {
-        order: 1;
-    }
-    .page section aside {
-        display: none;
-    }
+	.page section {
+		flex-direction: column;
+	}
+	.page section nav {
+		order: 2;
+	}
+	.page section main {
+		order: 1;
+	}
+	.page section aside {
+		display: none;
+	}
 }

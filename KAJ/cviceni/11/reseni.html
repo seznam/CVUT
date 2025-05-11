@@ -69,7 +69,7 @@
 					- Intl.NumberFormat – Number as Czech currency
 					- Intl.PluralRules – Plural form of "file"
 					- Intl.RelativeTimeFormat – Relative time
-            */
+			*/
 
 			class Router {
 				constructor({pages, defaultPage}) {
@@ -273,7 +273,7 @@
 								return `${count} soubor`;
 							case 'few':  // e.g., 2–4 soubory
 								return `${count} soubory`;
-							default:     // e.g., 0, 5+ souborů
+							default:	 // e.g., 0, 5+ souborů
 								return `${count} souborů`;
 						}
 					});
@@ -285,9 +285,9 @@
 					//   - style: 'long' (default), 'short', 'narrow'
 					const relativeFormatter = new Intl.RelativeTimeFormat('cs-CZ', { numeric: 'auto' });
 					const relativeTimes = [
-					relativeFormatter.format(1, 'day'),   // zítra
-					relativeFormatter.format(3, 'day'),   // za 3 dny
-					relativeFormatter.format(-2, 'hour')  // před 2 hodinami
+						relativeFormatter.format(1, 'day'),   // zítra
+						relativeFormatter.format(3, 'day'),   // za 3 dny
+						relativeFormatter.format(-2, 'hour')  // před 2 hodinami
 					].join('\n');
 					this.addOutput("Relativní časy", relativeTimes);
 				}

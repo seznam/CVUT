@@ -1,208 +1,208 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8">
-    <link rel="stylesheet" href="https://todomvc.com/examples/javascript-es6/dist/app.css">
-    <title>Lecture 03</title>
+	<meta charset="utf-8">
+	<link rel="stylesheet" href="https://todomvc.com/examples/javascript-es6/dist/app.css">
+	<title>Lecture 03</title>
 
-    <script src="cv3.js" type="module"></script>
+	<script src="cv3.js" type="module"></script>
 </head>
 <body>
-    <section class="todoapp">
-        <header class="header">
-            <h1>todos</h1>
-            <input class="new-todo" placeholder="What needs to be done?" autofocus>
-        </header>
-        <section class="main">
-            <input class="toggle-all" type="checkbox">
-            <label for="toggle-all">Mark all as complete</label>
-            <ul class="todo-list"></ul>
-            <footer class="footer">
-                <span class="todo-count"></span>
-                <div class="filters">
-                    <a id="filter-all" href="#/" class="selected">All</a>
-                    <a id="filter-active" href="#/active">Active</a>
-                    <a id="filter-completed" href="#/completed">Completed</a>
-                </div>
-                <button class="clear-completed">Clear completed</button>
-            </footer>
-        </section>
-    </section>
+	<section class="todoapp">
+		<header class="header">
+			<h1>todos</h1>
+			<input class="new-todo" placeholder="What needs to be done?" autofocus>
+		</header>
+		<section class="main">
+			<input class="toggle-all" type="checkbox">
+			<label for="toggle-all">Mark all as complete</label>
+			<ul class="todo-list"></ul>
+			<footer class="footer">
+				<span class="todo-count"></span>
+				<div class="filters">
+					<a id="filter-all" href="#/" class="selected">All</a>
+					<a id="filter-active" href="#/active">Active</a>
+					<a id="filter-completed" href="#/completed">Completed</a>
+				</div>
+				<button class="clear-completed">Clear completed</button>
+			</footer>
+		</section>
+	</section>
 
-    <footer class="info">
-        <p>Double-click to edit a todo</p>
-        <p>Created by <a href="https://twitter.com/oscargodson">Oscar Godson</a></p>
-        <p>Refactored by <a href="https://github.com/cburgmer">Christoph Burgmer</a></p>
-        <p>Part of <a href="https://todomvc.com">TodoMVC</a></p>
-    </footer>
+	<footer class="info">
+		<p>Double-click to edit a todo</p>
+		<p>Created by <a href="https://twitter.com/oscargodson">Oscar Godson</a></p>
+		<p>Refactored by <a href="https://github.com/cburgmer">Christoph Burgmer</a></p>
+		<p>Part of <a href="https://todomvc.com">TodoMVC</a></p>
+	</footer>
 
-    <script>
-        // Use the files from the previous exercise and continue with the next assignment:
-        // 1. var -> let/const
-        //      1. Get rid of IIFE in filters sections
-        // 2. New `class` syntax for State class
-        //      1. Use class private fields/methods
-        // 3. Arrow functions
-        //      1. Get rid of `.bind(this)` and use arrow functions
-        // 4. `for of` iteration & iterators
-        //      1. Replace for cycles in createHtmlWithCreateElement
-        //      2. Replace `for in` cycles in filters
-        // 5. Array/Object destructuring
+	<script>
+		// Use the files from the previous exercise and continue with the next assignment:
+		// 1. var -> let/const
+		//	  1. Get rid of IIFE in filters sections
+		// 2. New `class` syntax for State class
+		//	  1. Use class private fields/methods
+		// 3. Arrow functions
+		//	  1. Get rid of `.bind(this)` and use arrow functions
+		// 4. `for of` iteration & iterators
+		//	  1. Replace for cycles in createHtmlWithCreateElement
+		//	  2. Replace `for in` cycles in filters
+		// 5. Array/Object destructuring
 
-        // EXERCISES: Finish remaining features
-        //      1. Remove todo button
-        //      2. Checking/Unchecking of todo
-        //      3. Clear completed button
+		// EXERCISES: Finish remaining features
+		//	  1. Remove todo button
+		//	  2. Checking/Unchecking of todo
+		//	  3. Clear completed button
 
-        // After completing the previous tasks, 
-        // move on to the new main task – get familiar with and explore Promises.
-        // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
-
-
-        /* Callbacks & Promises */
-        function getDataCallback(doneCb) {
-            setTimeout(() => {
-                doneCb(null, "Response from callback");
-            }, 1000);
-        }
-
-        function callbacks() {
-            getDataCallback((err1, res1) => {
-                if (err1) {
-                    console.log(err1);
-                    return;
-                }
-                console.log(res1);
-
-                getDataCallback((err2, res2) => {
-                    if (err2) {
-                        console.log(err2);
-                        return;
-                    }
-                    console.log(res2);
-                });
-            });
-        }
-        // callbacks();
-
-        /* some easy Promise which is resolved */
-        let p1 = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                resolve("success");
-            }, 3000);
-        })
-        /* some easy Promise which is rejected */
-        let p2 = new Promise((resolve, reject) => {
-            setTimeout(() => {
-                reject("error");
-            }, 4000);
-        })
-        /* wait until promise is resolved or rejected */
-        // p1.then((message) => {console.log(message)}, (error) => {console.log(error)});
-        // p2.then((message) => {console.log(message)}, (error) => {console.log(error)});
-
-        /* another example of promise handling */
-        let resolvedPromise = Promise.resolve("success");
-        resolvedPromise.then(message => {
-            console.log("Fullfilled immeadiately with:", message)
-        });
-
-        let rejectedPromise = Promise.reject("error");
-        rejectedPromise.then(message => {
-            console.log("Fullfilled immeadiately with:", message)
-        }).catch(error => {
-            console.log("Rejected immeadiately with:", error)
-        });
-
-        /* 
-        download and show code of page 
-        Reminder: response => response.text() is the same as (response) => {return response.text()}
-        keep in mind that fetch returns a promise which is resolved with a Response object
-        https://developer.mozilla.org/en-US/docs/Web/API/Response
-        */
-        // fetch(document.location.href)
-        //     .then(response => response.text())  // Response.text() returns another promise which is resolved with a string
-        //     .then(text => console.log(text))
-        //     .catch(error => console.log(error));
-    
-        /* download and show code of page */
-        const downloader1 = function () {
-            const p = new Promise((resolve, reject) => {
-                fetch(document.location.href)
-                    .then(response => response.text(), () => reject("error fetching"))
-                    .then(text => resolve(text), () => reject("error tranforming"));
-            })
-            return p;
-        }
-
-        // const d = downloader1().then(text => console.log(text));
-        // console.log(d);
-
-        /* downloader to async and await */
-        const downloader2 = async function () {
-            let d = await fetch(document.location.href);
-            let t = await d.text();
-            return t;
-        }
-        // downloader2().then(text => console.log(text));
-
-        const downloader3 = async function () {
-            try {
-                let d = await fetch(document.location.href);
-                let t = await d.text();
-                return t;
-            } catch (e) {
-                console.log("Error:", e);
-            }
-        }
-        // downloader3().then(text => console.log(text));
+		// After completing the previous tasks, 
+		// move on to the new main task – get familiar with and explore Promises.
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise
 
 
-        async function makeRequest(url, isJson = true) {
-            try {
-                const response = await fetch(url);
-                return isJson ? response.json() : response.text();  // vratime Promise
-            } catch (error) {
-                console.error(`Chyba při načítání ${url}:`, error);
-                return null;
-            }
-        }
+		/* Callbacks & Promises */
+		function getDataCallback(doneCb) {
+			setTimeout(() => {
+				doneCb(null, "Response from callback");
+			}, 1000);
+		}
 
-        async function getCountryAndWeather(countryName, cityName) {
-            const countryAPI = `https://restcountries.com/v3.1/name/${countryName}?fields=name,capital,region,population,currencies`;
-            const weatherAPI = `https://wttr.in/${cityName}?format=3`;
+		function callbacks() {
+			getDataCallback((err1, res1) => {
+				if (err1) {
+					console.log(err1);
+					return;
+				}
+				console.log(res1);
 
-            try {
-                // We can use Promise.all() to fetch both APIs simultaneously and wait for both responses
-                const responses = await Promise.all([
-                    makeRequest(countryAPI),
-                    makeRequest(weatherAPI, false)
-                ]);
+				getDataCallback((err2, res2) => {
+					if (err2) {
+						console.log(err2);
+						return;
+					}
+					console.log(res2);
+				});
+			});
+		}
+		// callbacks();
 
-                const countryData = responses[0];  // First API: REST Countries
-                const weatherData = responses[1];  // Second API: wttr.in
+		/* some easy Promise which is resolved */
+		let p1 = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				resolve("success");
+			}, 3000);
+		})
+		/* some easy Promise which is rejected */
+		let p2 = new Promise((resolve, reject) => {
+			setTimeout(() => {
+				reject("error");
+			}, 4000);
+		})
+		/* wait until promise is resolved or rejected */
+		// p1.then((message) => {console.log(message)}, (error) => {console.log(error)});
+		// p2.then((message) => {console.log(message)}, (error) => {console.log(error)});
 
-                if (!countryData || !weatherData) {
-                    throw new Error("Nepodařilo se načíst data.");
-                }
+		/* another example of promise handling */
+		let resolvedPromise = Promise.resolve("success");
+		resolvedPromise.then(message => {
+			console.log("Fullfilled immeadiately with:", message)
+		});
 
-                const country = countryData[0];
-                let formatted = `
-                    ${weatherData}
-                    ${country.name.common} (${country.capital[0]}) - ${country.region}
-                    Population: ${country.population}
-                    Currency: ${Object.values(country.currencies)[0].name}
-                `;
+		let rejectedPromise = Promise.reject("error");
+		rejectedPromise.then(message => {
+			console.log("Fullfilled immeadiately with:", message)
+		}).catch(error => {
+			console.log("Rejected immeadiately with:", error)
+		});
 
-                return formatted
-            } catch (error) {
-                console.error("Chyba při zpracování dat:", error);
-                return null;
-            }
-        }
+		/* 
+		download and show code of page 
+		Reminder: response => response.text() is the same as (response) => {return response.text()}
+		keep in mind that fetch returns a promise which is resolved with a Response object
+		https://developer.mozilla.org/en-US/docs/Web/API/Response
+		*/
+		// fetch(document.location.href)
+		//	 .then(response => response.text())  // Response.text() returns another promise which is resolved with a string
+		//	 .then(text => console.log(text))
+		//	 .catch(error => console.log(error));
+	
+		/* download and show code of page */
+		const downloader1 = function () {
+			const p = new Promise((resolve, reject) => {
+				fetch(document.location.href)
+					.then(response => response.text(), () => reject("error fetching"))
+					.then(text => resolve(text), () => reject("error tranforming"));
+			})
+			return p;
+		}
 
-        // getCountryAndWeather("Czechia", "Prague").then(data => console.log(data));
-    </script>
+		// const d = downloader1().then(text => console.log(text));
+		// console.log(d);
+
+		/* downloader to async and await */
+		const downloader2 = async function () {
+			let d = await fetch(document.location.href);
+			let t = await d.text();
+			return t;
+		}
+		// downloader2().then(text => console.log(text));
+
+		const downloader3 = async function () {
+			try {
+				let d = await fetch(document.location.href);
+				let t = await d.text();
+				return t;
+			} catch (e) {
+				console.log("Error:", e);
+			}
+		}
+		// downloader3().then(text => console.log(text));
+
+
+		async function makeRequest(url, isJson = true) {
+			try {
+				const response = await fetch(url);
+				return isJson ? response.json() : response.text();  // vratime Promise
+			} catch (error) {
+				console.error(`Chyba při načítání ${url}:`, error);
+				return null;
+			}
+		}
+
+		async function getCountryAndWeather(countryName, cityName) {
+			const countryAPI = `https://restcountries.com/v3.1/name/${countryName}?fields=name,capital,region,population,currencies`;
+			const weatherAPI = `https://wttr.in/${cityName}?format=3`;
+
+			try {
+				// We can use Promise.all() to fetch both APIs simultaneously and wait for both responses
+				const responses = await Promise.all([
+					makeRequest(countryAPI),
+					makeRequest(weatherAPI, false)
+				]);
+
+				const countryData = responses[0];  // First API: REST Countries
+				const weatherData = responses[1];  // Second API: wttr.in
+
+				if (!countryData || !weatherData) {
+					throw new Error("Nepodařilo se načíst data.");
+				}
+
+				const country = countryData[0];
+				let formatted = `
+					${weatherData}
+					${country.name.common} (${country.capital[0]}) - ${country.region}
+					Population: ${country.population}
+					Currency: ${Object.values(country.currencies)[0].name}
+				`;
+
+				return formatted
+			} catch (error) {
+				console.error("Chyba při zpracování dat:", error);
+				return null;
+			}
+		}
+
+		// getCountryAndWeather("Czechia", "Prague").then(data => console.log(data));
+	</script>
 
 </body>
 </html>
