@@ -8,6 +8,7 @@
 1. Hlavní vlastnosti a syntaxe
 1. TSC
 1. Další implementace a užití
+1. Server-side JS/TS
 
 ---
 
@@ -51,17 +52,6 @@ add(1, "2")
 
 ---
 
-# Životní cyklus TS kódu
-
-1. tvorba a údržba
-    - užitečná podpora v editoru/IDE
-1. kontrola a kompilace
-    - zahrnuje odstranění nadbytečných (typových) informací
-1. běh
-    - žádný TS, jen JS
-
----
-
 # Syntaxe a vlastnosti jazyka
 
 Typy proměnných, parametrů a návratových hodnot
@@ -78,13 +68,27 @@ function compare(a: number, b: number): string {
 
 # Syntaxe a vlastnosti jazyka
 
+**Inference:** schopnost domyslet typové informace z použité syntaxe
+
+```ts
+function compare(a: number, b: number) {
+	return (a > b ? ">" : "<");
+}
+```
+
+![](img/inference.png)
+
+---
+
+# Syntaxe a vlastnosti jazyka
+
 Pole, struktury, volitelné klíče
 
 ```ts
 let numbers1: number[] = [1, 2, 3];
 let numbers2: Array<number> = [4, 5, 6];
 
-interface Person {
+type Person = {
 	name: string;
 	surname?: string;
 }
@@ -119,8 +123,13 @@ Generika (parametrické typy)
 function first<T>(arr: T[]) {
 	return arr[0]
 }
-
 let num = first([1, 2, 3])
+
+let button = document.createElement("button")
+button.value = "name"
+
+let span = document.createElement("span")
+span.value = "name" // Property 'value' does not exist on type 'HTMLSpanElement'
 ```
 
 ---
@@ -137,6 +146,18 @@ declare function sum(a: number, b: number): number;
 - Automaticky použito při načtení `foo.js`
 - Poskytnutí typů *bokem* tam, kde nemůžeme nebo nechceme zasahovat do existujícího kódu
 - Typicky pro externí knihovny
+- K nezaplacení při práci s DOM
+
+---
+
+# Životní cyklus TS kódu
+
+1. tvorba a údržba
+    - užitečná podpora v editoru/IDE
+1. kontrola a kompilace
+    - zahrnuje odstranění nadbytečných (typových) informací
+1. běh
+    - žádný TS, jen JS
 
 ---
 
@@ -222,17 +243,75 @@ $ tsc -p tsconfig.json
 - Existují alternativní implementace pro TS kompilaci (nikoliv však pro typovou kontrolu)
   - [ESBuild](https://esbuild.github.io/) (Go)
   - [SWC](https://swc.rs/) (Rust)
+  - [Babel](https://babel.dev/) (TypeScript)
+  - [Sucrase](https://sucrase.io/) (modernější fork Babelu)
+
+---
+
+# Server-side JS/TS
+
+- Proč by měl být JS k dispozici jen v prohlížeči?
+- Paradigma asynchronního I/O na serveru
+- Sdílení kódu
+- *Snadnost* rozšířeného jazyka
+
+---
+
+# Status quo
+
+![](img/node-deno-1.png) {.maslo-poster}
+
+---
+
+# Status quo: Node.js a Deno
+
+![](img/node-deno-2.png) {.maslo-poster}
+
+---
+
+# Status quo: Node.js a Deno a Bun
+
+![](img/node-deno-3.png) {.maslo-poster}
+
+---
+
+# Koncepty server-side JS/TS
+
+- Jako v prohlížeči, akorát bez DOM
+- API pro *ty ostatní věci*: filesystem, síť, další periferie
+  - Bez oficiální standardizace
+  - Problém při průniku s klientskou stranou
+
+---
+
+# Node.JS
+
+- 2009, Ryan Dahl
+- C++, V8
+- Z pohledu klientského JS velmi starý
+- Pre-Promise APIs
+- Ruku v ruce s NPM
+- TS až nedávno, pouze implicitní odstranění typů
 
 ---
 
 # Deno
 
-- Server-side TypeScript
-- Kombinace V8 a SWC
-- "Přímé" vykonávání serverového TS kódu
-  - Alternativa: TSC + Node.js
-  - Řada dalších odlišností/vylepšení v porovnání s Node.js
-- https://deno.land/
+- 2018, Ryan Dahl (!)
+- Rust, V8
+- *Jako Node.js, ale lepší*
+  - Single binary
+  - Žádný `package.json`
+  - TS od začátku (kontrola, odstranění typů, Language Server)
+  - Snaha o znovupoužití klientských APIs
+
+---
+
+# Bun
+
+- 2021, Jarred Sumner
+- Zig, JavaScriptCore
+- Primární zaměření na výkon
 
 ---
 
