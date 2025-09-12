@@ -1,0 +1,47 @@
+<!doctype html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>Úvod</title>
+
+		<script src="https://cdn.jsdelivr.net/npm/ma-sl-o@4/maslo.js"></script>
+
+		<script type="module" src="https://cdn.jsdelivr.net/gh/ondras/hitman/hitman.js?1"></script>
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/ondras/hitman/hitman.css?1" />
+
+		<style>
+
+tm-runtime {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	font-size: 30px;
+}
+
+tm-runtime[skin=robot] tm-symbol {
+	text-shadow: 0 0 1px #000;
+}
+
+tm-rules {
+	margin-bottom: 1em;
+	--highlight: var(--color);
+}
+
+tm-rules {
+	td, th {
+		padding: 0.1em 0.3em;
+		border-color: var(--fg);
+	}
+	td {
+		font-size: 60%;
+	}
+}
+		</style>
+	</head>
+
+	<body>
+
+		<maslo-deck src="index.md" skin="cvut" standalone></maslo-deck>
+
+	</body>
+</html>
