@@ -41,6 +41,7 @@
   - &hellip;resp. něco mezi
 - Zakončeno zápočtem
   - &hellip;za aktivitu v hodině
+- Přednášky na [cvut.seznam.cz](https://seznam.github.io/CVUT/FS-PRG/)
 
 ---
 
@@ -80,6 +81,8 @@ Je tohle programování?
 
 # Robot a žárovky
 
+![](img/tm2.svg) {.tm2}
+
 Dvě barvy robota. Kolik žárovek dáte?
 
 <tm-runtime skin="robot">
@@ -105,7 +108,8 @@ Dvě barvy robota. Kolik žárovek dáte?
     <tr class=reveal><td>3</td><td>6</td></tr>
     <tr class=reveal><td>4</td><td>13</td></tr>
     <tr class=reveal><td>5</td><td>4098 (dokázáno v roce 2024)</td></tr>
-    <tr class=reveal><td>6</td><td></td></tr>
+    <tr class=reveal><td>6</td><td>&ge; 3.5157×10<sup>18267</sup> (2010, Pavel Kropitz, MFF UK)</td></tr>
+    <tr class=reveal><td>6</td><td>&gt; <strong>10 ↑↑ 15</strong> (2022, Pavel Kropitz)</td></tr>
   </tbody>
 </table>
 
@@ -148,6 +152,19 @@ Dvě barvy robota. Kolik žárovek dáte?
 - často vázána na řešený problém
 - jednoduchost zprovoznění
 - sekundární omezení: podpora OS, výkon, dostupnost dokumentace a komunity
+
+---
+
+# Pracovní prostředí a nástroje
+
+- Operační systém
+  - libovolný
+- Webový prohlížeč (dokumentace, podpora, prostředí pro vývoj webových aplikací)
+  - libovolný *evergreen*
+- Editor/IDE (vývoj všech aplikací)
+  - VS Code
+- Terminál (CLI, vzdálený přístup, non-GUI aplikace)
+  - Windows Terminal
 
 ---
 
