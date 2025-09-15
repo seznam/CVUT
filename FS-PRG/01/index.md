@@ -168,6 +168,26 @@ Dvě barvy robota. Kolik žárovek dáte?
 
 ---
 
+# Scratch
+
+https://scratch.mit.edu/
+
+- Trošku serióznější zábava
+- Pro výuku programování (dříve: Pascal, Karel, Baltík)
+- Extra-přístupné prostředí rovnou v prohlížeči
+
+---
+
+# Scratch
+
+https://scratch.mit.edu/projects/editor/
+
+1. Otevřete editor a seznamte se s jeho fungováním
+1. Naimplementujte nekonečné střídání kostýmů
+1. Naimplementujte ovládání pozice klávesnicí
+
+---
+
 # Další čtení a zdroje
 
 - ~~StackOverflow~~
