@@ -173,7 +173,7 @@ Dvě barvy robota. Kolik žárovek dáte?
 https://scratch.mit.edu/
 
 - Trošku serióznější zábava
-- Pro výuku programování (dříve: Pascal, Karel, Baltík)
+- Pro výuku programování (dříve populární: Pascal, Karel, Baltík)
 - Extra-přístupné prostředí rovnou v prohlížeči
 
 ---
