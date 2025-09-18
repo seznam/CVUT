@@ -110,6 +110,7 @@ Dvě barvy robota. Kolik žárovek dáte?
     <tr class=reveal><td>5</td><td>4098 (dokázáno v roce 2024)</td></tr>
     <tr class=reveal><td>6</td><td>&ge; 3.5157×10<sup>18267</sup> (2010, Pavel Kropitz, MFF UK)</td></tr>
     <tr class=reveal><td>6</td><td>&gt; <strong>10 ↑↑ 15</strong> (2022, Pavel Kropitz)</td></tr>
+    <tr class=reveal><td>6</td><td>&gt; <strong>2 ↑↑↑ 5</strong> (2025, mxdys)</td></tr>
   </tbody>
 </table>
 
@@ -117,7 +118,13 @@ Dvě barvy robota. Kolik žárovek dáte?
 
 # Pro zájemce: co jsme to tu dělali?
 
-- Alan Turing
+![](img/at.webp)
+
+---
+
+# Pro zájemce: co jsme to tu dělali?
+
+- Alan Turing (1912&ndash;1954)
   - Matematik, logik, kryptoanalytik
   - Známý zejména v souvislosti s kryptoanalýzou Enigmy
   - Koncept Turingova stroje v článku *On Computable Numbers,* 1936
