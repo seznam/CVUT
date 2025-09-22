@@ -73,7 +73,7 @@ Je tohle programování?
 <tm-runtime skin="robot">
 	<tm-rules editable states="1" symbols="2"></tm-rules>
 	<tm-machine state="A" position="0"></tm-machine>
-	<tm-tape initial="000000000" initial-offset="-4"></tm-tape>
+	<tm-tape initial="0000000000000000000000000" initial-offset="-12"></tm-tape>
 	<tm-controls what="reset playpause"></tm-controls>
 </tm-runtime>
 
@@ -88,7 +88,7 @@ Dvě barvy robota. Kolik žárovek dáte?
 <tm-runtime skin="robot">
 	<tm-rules editable states="2" symbols="2"></tm-rules>
 	<tm-machine state="A" position="0"></tm-machine>
-	<tm-tape initial="000000000" initial-offset="-4"></tm-tape>
+	<tm-tape initial="0000000000000000000000000" initial-offset="-12"></tm-tape>
 	<tm-controls what="reset playpause"></tm-controls>
 </tm-runtime>
 
