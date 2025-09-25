@@ -96,10 +96,19 @@ Jakým způsobem spravujete své digitální vlastnictví?
 
 - *Repo* (repository, repozitář) = databáze jednoho projektu (všechny verze všech souborů)
 - *Fork* / *Clone* = repo, které vzniklo odvozením z jiného
+- *Remote* = vzdálené repo (zpravidla to, v jehož klonu se pohybujeme)
 - *Commit* = zaznamenaný stav projektu. Historie projektu je tvořena spoustou provázaných commitů (tzv. DAG).
 - *Push* = odeslání jednoho či více commitů do jiného repa
 - *Pull* = přijmutí jednoho či více commitů z jiného repa
 - *Branch* = cedulka s označením konkrétního commitu
+
+---
+
+# Git DAG
+
+Directed Acyclic Graph
+
+![](img/dag.png) {.maslo-poster}
 
 ---
 
@@ -160,6 +169,14 @@ Jakým způsobem spravujete své digitální vlastnictví?
 - `git add, git commit`
 - `git push`
 - Pull Request na GitHubu
+
+---
+
+# GitHub bonus
+
+- Wiki
+- Statický hosting (*GitHub pages*)
+- Autorizace pomocí [asymetrické kryptografie](img/keys.png) (SSH klíče)
 
 ---
 
