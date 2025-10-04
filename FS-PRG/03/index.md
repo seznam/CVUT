@@ -148,8 +148,7 @@ Datová analýza
 
   1. vzorová data na FIXME
   1. ručně najít extrém
-  1. knihovna pro grafy
-  1. FIXME co dál
+  1. knihovna pro grafy plotly, resp. plotly.express; px.bar(data, x=, y=)
 
 ---
 
