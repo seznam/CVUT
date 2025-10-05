@@ -75,14 +75,14 @@
 - Bloky začínají dvojtečkou a končí původním odsazením
 
 ```py
-def pozdrav(jmeno):
+def pozdrav(jmeno = ""):
     if jmeno == "":
         print("tebe neznám")
     else:
         print("Hi", jmeno)
 
 pozdrav("Ondra")
-pozdrav("")
+pozdrav()
 ```
 
 ---
@@ -142,13 +142,42 @@ Stejná, jako o webových aplikací
 
 ---
 
-# Jupyter: úlohy
+# Jupyter: úloha
 
 Datová analýza
 
-  1. vzorová data na FIXME
-  1. ručně najít extrém
-  1. knihovna pro grafy plotly, resp. plotly.express; px.bar(data, x=, y=)
+  1. Získat vzorová data
+  1. Ručně najít extrém
+  1. Graf
+
+---
+
+# Jupyter: graf
+
+Knihovna `plotly`
+
+```py
+import plotly.express as px
+px.bar(data, x="...", y="...")
+```
+
+---
+
+# Jupyter: externí data
+
+Knihovna `pandas`
+
+```py
+# prozkoumat https://plotly.github.io/datasets/
+
+import pandas as pd
+data_frame = pd.read_csv("...")
+
+for col in data_frame.columns:
+  print(col)
+
+px.bar(data_frame)
+```
 
 ---
 
