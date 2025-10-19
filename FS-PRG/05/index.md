@@ -116,8 +116,8 @@ $ telnet zwa.toad.cz 80
 - Message Queuing Telemetry Transport
 - V porovnání s HTTP přenáší menší objem dat, ale komplikovanějším způsobem
   - Mechanismus nazvaný *publish-subscribe*
-  - Klienti serveru říkají, jaké zprávy je zajímají (subscribe)
-  - Klienti serveru posílají zprávy (publish) a ten je distribuuje ostatním
+  - Klienti serveru (brokeru) říkají, jaké zprávy je zajímají (subscribe)
+  - Klienti serveru (brokeru) posílají zprávy (publish) a ten je distribuuje ostatním
 - Vhodný pro IoT aplikace
 - Binární
 
@@ -125,10 +125,29 @@ $ telnet zwa.toad.cz 80
 
 # MQTT v akci
 
-- Potřebujeme MQTT server či klient
+- Potřebujeme MQTT broker či klient
   - https://mosquitto.org/
+  - `pip install paho-mqtt`
 - Potřebujeme téma (topic)
-  - Pole řetězců oddělených lomitky, např. `home/room1/temperature`
+  - Pole řetězců oddělených lomítky, např. `home/room1/temperature`
+
+---
+
+```py
+import paho.mqtt.client as mqtt
+
+def on_message(client, userdata, message):
+	print(f"{message.topic}: {message.payload.decode()}")
+
+client = mqtt.Client(mqtt.CallbackAPIVersion.VERSION2)
+client.username = "fs"
+client.password = "mqtt-test"
+client.connect("zwa.toad.cz", 1883, 60)
+client.subscribe("home/#")
+client.on_message = on_message
+
+client.loop_forever()
+```
 
 ---
 
