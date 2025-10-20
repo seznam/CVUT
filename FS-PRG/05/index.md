@@ -111,6 +111,13 @@ $ telnet zwa.toad.cz 80
 
 ---
 
+# HTTP v prohlížeči
+
+- HTTP tvoří klíčovou součást fungování moderního webového prohlížeče
+- Vývojářské nástroje (DevTools) v každém prohlížeči dovolují sledování HTTP provozu
+
+---
+
 # MQTT
 
 - Message Queuing Telemetry Transport
@@ -132,6 +139,17 @@ $ telnet zwa.toad.cz 80
   - Pole řetězců oddělených lomítky, např. `home/room1/temperature`
 
 ---
+
+# MQTT v akci
+
+Zkuste sledovat zprávy s prefixem `home/` na `zwa.toad.cz`
+
+- username: `fs`
+- heslo: `mqtt-test`
+
+---
+
+# MQTT v akci
 
 ```py
 import paho.mqtt.client as mqtt
