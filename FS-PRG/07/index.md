@@ -192,7 +192,7 @@ Pokud generujeme výstup (HTML) z dat od uživatele, musíme dát pozor na znaky
 from flask import render_template
 
 @app.route("/pozdrav", methods=["POST"])
-def index():
+def pozdrav():
   jmeno = request.form["jmeno"]
   return render_template("pozdrav.html", jmeno=jmeno)
 ```
