@@ -144,7 +144,7 @@ def tri():
 `static/form.html`:
 
 ```html
-<form method="post" action="/">
+<form method="post" action="/pozdrav">
 	Jméno: <input name="jmeno"><br>
 	<input type="submit">
 </form>
