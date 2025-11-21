@@ -73,6 +73,17 @@ Registr (windows), DConf (linux)
 
 ---
 
+# SQL
+
+Structured Query Language
+
+- Hřiště na https://sqlzoo.net/
+  - `SELECT * FROM world`
+  - `SELECT name FROM world WHERE continent = 'Europe'`
+  - `SELECT COUNT(*), continent FROM world GROUP BY continent`
+
+---
+
 # Databáze: tabulková, relační
 
 - Relační: mezi tabulkami mohou existovat logické vazby
@@ -119,6 +130,15 @@ Registr (windows), DConf (linux)
 - InfluxDB, Prometheus
 - Často write-only (nechceme měnit historii)
 - Optimalizovaná na častý zápis a rychlé vyhledávání v časovém rozmezí
+
+---
+
+# Prometheus
+
+- Populární time-series databáze
+- Základní stavební jednotka je *metrika* -- skalární hodnota, která se v čase mění
+- http://smaug.cz:9090/
+- PromQL: `{label="value"}, rate(), sum_over_time()`
 
 ---
 
