@@ -25,7 +25,7 @@ Typická aplikace potřebuje ukládat data
 
 # Level 1: filesystem
 
-Lokální soubor:
+Lokální soubor
 
 - Snadná implementace
 - Formát dle potřeb aplikace
@@ -103,7 +103,7 @@ Structured Query Language
 1. Vytvořte v Excelu tabulky pro recepty a suroviny
 
 2. Vytvořte v Excelu tabulky produkty e-shopu a jejich kategorie
-    - Knihy, Jídlo, Komponenty, CPU, GPU, integrované, externí
+    - Knihy, PC komponenty, CPU, GPU (integrované/externí)
 
 ---
 
