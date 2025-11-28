@@ -66,6 +66,8 @@ Event Loop
 
 ---
 
+# Tkinter
+
 ```py
 import tkinter
 app = tkinter.Tk()
@@ -77,7 +79,7 @@ app.mainloop()
 
 ---
 
----
+# Tkinter: widgety
 
 ```py
 label = tk.Label(app, text="Nápis v GUI")
@@ -85,10 +87,12 @@ label.pack()
 
 tk.Label(app, text="Druhý nápis").pack()
 
-tk.Label(app, text="Třetí nápis").pack()
+tk.Label(app, text="Třetí nápis").pack(expand=True)
 ```
 
 ---
+
+# Tkinter: události
 
 ```py
 import random
@@ -103,6 +107,8 @@ change_button()
 ```
 
 ---
+
+# Tkinter: další
 
 ```py
 import tkinter.ttk as ttk
@@ -134,6 +140,37 @@ def button_click();
 
 ---
 
+# Objektově orientované programování (OOP)
+
+- Způsob, jak strukturovat programy
+- Tradiční program: dělíme na menší bloky (funkce)
+- OOP program: dělíme na menší bloky (objekty)
+	- Objekt: kombinace dat a logiky
+- Doplňkové koncepty: dědičnost, polymorfismus
+
+---
+
+# OOP v Pythonu
+
+```py
+class Person:
+	# tzv. "konstruktor"
+	def __init__(self, name, age):
+		self.name = name
+		self.age = age
+
+	def greet(self):
+		print(f"Ahoj, jmenuji se {self.name} a je mi {self.age} let.")
+
+
+p = Person("Jan", 30)
+p.greet()
+```
+
+---
+
+# Tkinter: OOP přístup
+
 ```py
 import tkinter as tk
 import tkinter.ttk as ttk
@@ -142,18 +179,13 @@ import tkinter.filedialog as fd
 class App(tk.Tk):
 	def __init__(self):
 		super().__init__()
-		self.title("File Dialog Example")
-
-		button = ttk.Button(self, text="Pick file", command=self.pick_file)
-		button.pack()
+		ttk.Button(self, text="Pick file", command=self.pick_file).pack()
 
 	def pick_file(self):
-		file_path = fd.askopenfilename()
-		print(f"Selected file: {file_path}")
+		name = fd.askopenfilename()
+		print(f"Selected file: {name}")
 
-app = App()
-app.mainloop()
-
+App().mainloop()
 ```
 
 ---
