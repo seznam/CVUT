@@ -8,7 +8,7 @@
 
 1. Koncepty GUI aplikací
 1. Python a GUI
-1. TKInter
+1. Tkinter
 1. OOP
 
 ---
@@ -59,25 +59,47 @@ Event Loop
 
 ---
 
-# TKInter
+# Tkinter
+
+- Tk Interface
+-
+
+---
+
+```py
+import tkinter
+app = tkinter.Tk()
+
+app.mainloop()
+```
+
+---
+
+---
+
+```py
+# nezavisly textovy popisek
+label = tk.Label(text="Nápis v GUI")
+
+#
+label.pack()
+```
 
 ---
 
 # Kdopak to je?
 
-![](img/hipp.jpg) {.maslo-poster}
+![](img/kay.jpg) {.maslo-poster}
 
 ---
 
-# D. Richard Hipp &ndash; autor projektu SQLite
+# Alan Kay
 
-![](img/hipp.jpg){height=200}
+![](img/kay.jpg){height=200}
 
-- [Nejpoužívanější databáze na světě](https://sqlite.org/mostdeployed.html)
-- Embedded: SQL v rámci jediného souboru
-- 155 k řádek kódu, 92 M řádek testů
-- Public Domain
-- *the project does not accept patches*
+- Narozen 1940, USA
+- Jeden z otců objektově orientovaného programování a GUI
+- Autor konceptu *překrývajících se oken* a *tabletu* (rok 1972!)
 
 ---
 
