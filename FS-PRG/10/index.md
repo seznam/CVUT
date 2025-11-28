@@ -70,6 +70,8 @@ Event Loop
 import tkinter
 app = tkinter.Tk()
 
+app.minsize(600, 400)
+
 app.mainloop()
 ```
 
@@ -78,11 +80,40 @@ app.mainloop()
 ---
 
 ```py
-# nezavisly textovy popisek
-label = tk.Label(text="Nápis v GUI")
-
-#
+label = tk.Label(app, text="Nápis v GUI")
 label.pack()
+
+tk.Label(app, text="Druhý nápis").pack()
+
+tk.Label(app, text="Třetí nápis").pack()
+```
+
+---
+
+```py
+import random
+def button_click():
+    num = random.randint(1, 100)
+    button.config(text=num)
+
+button = tk.Button(app, command=button_click)
+button.pack(fill=tk.BOTH, expand=True)
+
+change_button()
+```
+
+---
+
+```py
+import tkinter.ttk as ttk
+button = ttk.Button(...)
+```
+
+```py
+import tkinter.filedialog as fd
+
+def button_click();
+	fd.askopenfilename()
 ```
 
 ---
@@ -100,6 +131,30 @@ label.pack()
 - Narozen 1940, USA
 - Jeden z otců objektově orientovaného programování a GUI
 - Autor konceptu *překrývajících se oken* a *tabletu* (rok 1972!)
+
+---
+
+```py
+import tkinter as tk
+import tkinter.ttk as ttk
+import tkinter.filedialog as fd
+
+class App(tk.Tk):
+	def __init__(self):
+		super().__init__()
+		self.title("File Dialog Example")
+
+		button = ttk.Button(self, text="Pick file", command=self.pick_file)
+		button.pack()
+
+	def pick_file(self):
+		file_path = fd.askopenfilename()
+		print(f"Selected file: {file_path}")
+
+app = App()
+app.mainloop()
+
+```
 
 ---
 
