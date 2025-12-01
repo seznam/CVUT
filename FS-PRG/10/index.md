@@ -105,7 +105,7 @@ def button_click():
 button = tk.Button(app, command=button_click)
 button.pack(fill=tk.BOTH, expand=True)
 
-change_button()
+button_click()
 ```
 
 ---
