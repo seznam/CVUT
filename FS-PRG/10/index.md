@@ -62,7 +62,9 @@ Event Loop
 # Tkinter
 
 - Tk Interface
--
+- Python-based API pro grafickou knihovnu Tk
+- Základní součást většiny distribucí Pythonu
+    - &rArr; nemusíme (snad) doinstalovávat
 
 ---
 
