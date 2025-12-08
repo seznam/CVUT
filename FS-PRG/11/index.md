@@ -8,6 +8,7 @@
 
 1. Bezpečnost informačních systémů
 1. Vybrané partie z moderní kryptografie
+1. Injection
 
 ---
 
@@ -100,6 +101,12 @@ Terminologie: jeden klíč je **veřejný** (public), druhý je **soukromý** (p
 
 ---
 
+# RSA Encryption Demo
+
+https://fivesquarz.github.io/apex-product/
+
+---
+
 # Otisk
 
 Motivace: jak v databázi uložit heslo uživatele?
@@ -124,6 +131,13 @@ Motivace: jak v databázi uložit heslo uživatele?
 
 - Napíšu článek a na konec přidám podpis. Každý ho přečte, zájemce může potvrdit autorství
 - Kontrola toho, že data nebyla cestou pozměněna
+
+## Přihlašování bez hesla
+
+- Uživatel si vytvoří dvojici klíčů (`ssh-geygen`), na server nahraje veřejný
+- Při přihlášení server vygeneruje *výzvu*, uživatel ji podepíše soukromým klíčem
+- Server ověří podpis pomocí veřejného
+- Bežné ve světě SSH a MFA (Multi-Factor Authentication)
 
 ---
 
@@ -155,6 +169,24 @@ Public Key Infrastructure / Chain Of Trust
 1. Od A.com dostanu certifikát podepsaný priváním klíčem B.com
 1. ...
 1. Od Z.com dostanu ceritikát podepsaný klíčem, jehož veřejný klíč je vestavěný v mém webovém prohlížeči
+
+---
+
+# OWASP
+
+- Open Worldwide Application Security Project
+- Komunita zabývající se výzkumem, evidencí a propagací IT bezpečnosti
+- OWASP Top 10: hitparáda zranitelností
+  - Položky se v čase často opakují
+
+---
+
+# Injection
+
+- &hellip;má mnoho forem
+- Vložení záludného textu tam, kde nebyl očekáván
+- Cross-site scripting (XSS), SQLi (SQL Injection)
+- https://xss-game.appspot.com/
 
 ---
 
