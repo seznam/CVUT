@@ -4,6 +4,7 @@
 
 ---
 
+
 # Obsah
 
   1. O předmětu
@@ -13,10 +14,16 @@
 
 ---
 
+# Bonus
+
+https://guild.host/events/the-ignition-mhmh62
+
+---
+
 # Co jsou JavaScriptové aplikace?
 
   - SPA &ndash; Single Page Application
-  - <a href="https://www.mapy.cz">www.mapy.cz</a>
+  - <a href="https://www.mapy.com">www.mapy.com</a>
   - <a href="https://www.gmail.com">www.gmail.com</a>
   - <a href="https://epicport.com/en/ttd">OpenTTD online</a>
   - tato stránka
@@ -38,8 +45,8 @@
   - Semestrální práce
   - Přednášky: RNDr. Ondřej Žára, Seznam.cz
   - Cvičení: Bc. Zdeněk Vlach, Seznam.cz
-  - Cvičení: Bc. Petr Huřťák, <del>Seznam.cz</del>
   - Cvičení: Ing. Jan Dušek, Seznam.cz
+  - <del>Cvičení: Bc. Petr Huřťák, <del style="text-decoration-thickness:3px; text-decoration-color: red;">Seznam.cz</del></del>
 
 ---
 
@@ -60,8 +67,8 @@
 
   - <a href="https://developer.mozilla.org/">https://developer.mozilla.org/</a>
   - <a href="https://caniuse.com/">https://caniuse.com/</a>
-  - Google
   - <del>Stack Overflow</del>
+  - <del>LLM</del>
   - <a href="mailto:ondrej.zara@firma.seznam.cz">ondrej.zara@firma.seznam.cz</a>
 
 ---
