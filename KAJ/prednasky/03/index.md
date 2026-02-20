@@ -6,9 +6,40 @@
 
 # Obsah
 
+  1. Symboly
   1. Asynchronní zpracování
   1. Promises a dále
   1. Iterace
+
+---
+
+# Symbols
+
+  - *Nový* datový typ pro řízení přístupu
+  - Užití jako klíč v objektu
+  - Není zcela privátní, ale alespoň je unikátní
+  - Well-known symboly uloženy jako vlastnosti funkce konstruktoru `Symbol`
+    - Více o nich později v této přednášce
+
+---
+
+# Symbols
+
+```js
+let moneyKey = Symbol("money")
+typeof(moneyKey) == "symbol"
+
+class Person {
+  constructor {
+    this[moneyKey] = 10000
+  }
+}
+
+let person = new Person()
+person.money == undefined
+
+Object.getOwnPropertySymbols(person) // :-(
+```
 
 ---
 

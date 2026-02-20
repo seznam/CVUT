@@ -6,7 +6,7 @@
 
 # Obsah
 
-  1. Symboly
+  1. Modularizace
   1. Uzávěry
   1. Klíčové slovo this
   1. Prototype chain
@@ -15,33 +15,104 @@
 
 ---
 
-# Symbols
+# Strukturování kódu
 
-  - *Nový* datový typ pro řízení přístupu
-  - Užití jako klíč v objektu
-  - Není zcela privátní, ale alespoň je unikátní
-  - Well-known symboly uloženy jako vlastnosti funkce konstruktoru `Symbol`
-    - Více o nich v příští přednášce
+Předpoklad: kód členíme do více malých souborů
+
+<table>
+  <tr>
+    <th>Modularizace \ Počet</th>
+    <th>Mnoho souborů</th>
+    <th>Jeden soubor</th>
+  </tr>
+  <tr>
+    <th>globální proměnné</th>
+    <td>volitelně IIFE</td>
+    <td>hloupý bundler</td>
+  </tr>
+  <tr>
+    <th>import+export</th>
+    <td>module script <br/> &lt;script type=module&gt;</td>
+    <td>module-aware bundler</td>
+  </tr>
+</table>
 
 ---
 
-# Symbols
+# Modularizace globálními proměnnými
 
 ```js
-let moneyKey = Symbol("money")
-typeof(moneyKey) == "symbol"
+// script-1.js
+function a() { ... }
 
-class Person {
-  constructor {
-    this[moneyKey] = 10000
-  }
-}
+// script-2.js
+function b() { ... }
 
-let person = new Person()
-person.money == undefined
-
-Object.getOwnPropertySymbols(person) // :-(
+// main.js
+a();
+b();
 ```
+
+---
+
+# IIFE
+
+  - Řešení z archaického období
+  - Více HTML značek `<script>` sdílí jmenný prostor
+    - Riziko kolize (v rámci aplikace i napříč dalšími skripty na stránce)
+  - Trik: immediately-invoked function expressions
+
+---
+
+# IIFE
+
+```js
+(function(){
+	let document = "test"  // lokalni promenna
+	alert(document)        // "test"
+})();
+
+alert(document)          // [object HTMLDocument]
+```
+
+---
+
+# ES Modules
+
+  - Modularizace na syntaktické úrovni
+  - Jeden výchozí a libovolně dalších pojmenovaných exportů
+
+```js
+// a.js
+export let A = function() {}
+export default function() {}
+
+// b.js
+import { A } from "./a.js"
+A()
+
+import myLocalName from "./a.js" // default
+```
+
+---
+
+# Moduly v praxi
+
+- Explicitní opt-in pomocí atributu `type`
+  - `<script type="module" src="app.js"></script>`
+  - automaticky v režimu *defer* (vykonání až po zpracování veškerého HTML)
+  - volitelně atribut *async* (vykonání paralelně se zpracováním HTML)
+- Nutnost výdeje pomocí HTTP
+  - <span style="color:red;display:inline-block;width:2ch">✘</span> file://
+  - <span style="color:lime;display:inline-block;width:2ch">✔</span> <span>http</span>://localhost
+
+---
+
+# Bundling
+
+- Výdej produkčního kódu &ndash; počet HTTP požadavků?
+- Alternativa #1: neřešit (pro potřeby KAJ zcela dostačující)
+- Alternativa #2: *bundling* do jednoho souboru, např. nástrojem [Rollup](http://rollupjs.org/) či [ESbuild](https://esbuild.github.io/)
 
 ---
 
