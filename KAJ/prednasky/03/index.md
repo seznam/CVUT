@@ -259,7 +259,7 @@ return promise
 # Promises v praxi
 
   - Nacházíme se v období přechodu z callbacků na Promises
-    - &hellip;už asi 10 let
+    - &hellip;už asi 15 let
   - Stará API (`setTimeout`) požadují callbacky, nová (`fetch`) vrací Promise
   - Nový kód by měl vždy pracovat s Promises
 
