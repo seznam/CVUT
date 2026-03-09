@@ -22,6 +22,9 @@ p.innerHTML = "<strong>toto je test</strong>"
 
 // jen text
 p.textContent = "<strong>toto je test</strong>"
+
+// HTML parser, ale s volitelnou sanitizací (ve výrobě)
+p.setHTML("<strong>toto je test</strong>")
 ```
 
 ---
