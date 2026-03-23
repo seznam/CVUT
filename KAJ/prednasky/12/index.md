@@ -9,7 +9,7 @@
   1. Custom Elements
   1. HTML Template Element
   1. Shadow DOM
-  1. CSS Nesting
+  1. CSS Layers
 
 ---
 
@@ -321,97 +321,80 @@ my-element::part(obrazek) {
 
 ---
 
-# CSS Nesting
+---
 
-  - Rozšíření syntaxe CSS
-  - Inspirováno existujícími řešeními v preprocesorech
-  - Jeden z posledních důvodů k používání prepcesorů
+# CSS Layers
+
+  - Nástroj pro snazší řešení problémů se *specificitou* selektorů
+  - Často není nezbytné, ale může se hodit
+  - [Přednáška o CSS Layers](https://ondras.zarovi.cz/slides/2022/css-layers-webexpo/)
 
 ---
 
-# CSS Nesting
+# CSS Layers
 
-Zanořený selektor představuje hierarchický vztah
+```html
+<form>
+  <button type=submit disabled>Odeslat</button>
+</form>
+```
 
 ```css
-p {
-  color: red;
-  a {
-    font-weight: bold;
-  }
+form button[type=submit] {
+  background-color: dodgerblue;
 }
-```
 
-```css
-p { color: red; }
-
-p a { font-weight: bold; }
-```
-
----
-
-# CSS Nesting
-
-Znak `&` znamená *právě zpracovávaný selektor*
-
-```css
-p {
-  color: red;
-  &.new {
-    color: blue;
-  }
+button:disabled {
+  background-color: gray;
 }
-```
-
-```css
-p { color: red; }
-
-p.new { font-weight: bold; }
 ```
 
 ---
 
-# CSS Nesting
+# CSS Layers
 
-Znak `&` znamená *právě zpracovávaný selektor*
+Kaskáda: jak poznat, které z kolidujících pravidel má přednost?
+
+(alternativně: 🤑 jak se stát milionářem?)
+
+---
+
+# CSS Layers
+
+![](https://ondras.zarovi.cz/slides/2022/css-layers-webexpo/img/cascade.svg) {.cascade}
+
+Kaskáda: jak poznat, které z kolidujících pravidel má přednost?
+
+(následně: jak zařídit, aby to bylo jinak?)
+
+---
+
+# CSS Layers
+
+Pomocí syntaxe `@layer` lze explicitně přednost aplikace pravidel řídit
 
 ```css
-.new {
-  color: red;
-  p & {
-    color: blue;
+@layer muj-projekt {
+  form button[type=submit] {
+    background-color: dodgerblue;
   }
 }
-```
 
-```css
-.new { color: red; }
-
-p .new { font-weight: bold; }
+@layer docasne-stavy {
+  button:disabled {
+    background-color: gray;
+  }
+}
 ```
 
 ---
 
-# CSS Nesting
+# CSS Layers
 
-Zanořit lze i blok se zavináčovým pravidlem
-
-```css
-p {
-  color: red;
-  @media (max-width: 600px) {
-    color: blue;
-  }
-}
-```
-
-```css
-p { color: red; }
-
-@media (max-width: 600px) {
-  p { color: blue; }
-}
-```
+  - Mnoho dalších variant zápisu a pravidel
+    - Zanořování
+    - Oddělení deklarace a definice vrstev
+  - Nezvyklá kombinace s přívlastkem `!important`
 
 ---
 

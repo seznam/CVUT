@@ -13,6 +13,7 @@ Bonus: [WebSocket chat server z minulého cvičení](https://github.com/ondras/k
   1. Generovaný obsah
   1. Media queries a responsive design
   1. CSS Layers (AKA 🤑 *jak se stát milionářem*)
+  1. CSS Nesting
   1. Preprocessing
 
 ---
@@ -412,109 +413,101 @@ maximum-scale, minimum-scale, user-scalable
 
 ---
 
-# CSS Layers
+# CSS Nesting
 
-  - Nástroj pro snazší řešení problémů se *specificitou* selektorů
-  - Často není nezbytné, ale může se hodit
-  - [Přednáška o CSS Layers](https://ondras.zarovi.cz/slides/2022/css-layers-webexpo/)
+  - Rozšíření syntaxe CSS
+  - Inspirováno existujícími řešeními v preprocesorech
 
 ---
 
-# CSS Layers
+# CSS Nesting
 
-```html
-<form>
-  <button type=submit disabled>Odeslat</button>
-</form>
-```
+Zanořený selektor představuje hierarchický vztah
 
 ```css
-form button[type=submit] {
-  background-color: dodgerblue;
-}
-
-button:disabled {
-  background-color: gray;
-}
-```
-
----
-
-# CSS Layers
-
-Kaskáda: jak poznat, které z kolidujících pravidel má přednost?
-
-(alternativně: 🤑 jak se stát milionářem?)
-
----
-
-# CSS Layers
-
-![](https://ondras.zarovi.cz/slides/2022/css-layers-webexpo/img/cascade.svg) {.cascade}
-
-Kaskáda: jak poznat, které z kolidujících pravidel má přednost?
-
-(následně: jak zařídit, aby to bylo jinak?)
-
----
-
-# CSS Layers
-
-Pomocí syntaxe `@layer` lze explicitně přednost aplikace pravidel řídit
-
-```css
-@layer muj-projekt {
-  form button[type=submit] {
-    background-color: dodgerblue;
-  }
-}
-
-@layer docasne-stavy {
-  button:disabled {
-    background-color: gray;
+p {
+  color: red;
+  a {
+    font-weight: bold;
   }
 }
 ```
 
----
-
-# CSS Layers
-
-  - Mnoho dalších variant zápisu a pravidel
-    - Zanořování
-    - Oddělení deklarace a definice vrstev
-  - Nezvyklá kombinace s přívlastkem `!important`
-
----
-
-# Vendor prefix #1
-
-  - Problém: výrobce chce podporovat technologii, která není plně standardizovaná
-  - Implementací riskuje stížnosti při změně API
-  - Řešení: vlastní prefix před názvem vlastnosti
-
 ```css
-div {
-	-webkit-transform: rotate(45deg);
-	-moz-transform: rotate(45deg);
-	-ms-transform: rotate(45deg);
-	-o-transform: rotate(45deg);
-	transform: rotate(45deg);
-}
+p { color: red; }
+
+p a { font-weight: bold; }
 ```
 
 ---
 
-# Vendor prefix #2
+# CSS Nesting
 
-  - Psaní prefixů je opruz
-  - Poslední dobou snahy o odprefixování
-  - Preprocessing na straně serveru (generuje všechny, např. [Autoprefixer](https://autoprefixer.github.io/))
-  - Preprocessing na straně prohlížeče (generuje jen potřebné)
+Znak `&` znamená *právě zpracovávaný selektor*
+
+```css
+p {
+  color: red;
+  &.new {
+    color: blue;
+  }
+}
+```
+
+```css
+p { color: red; }
+
+p.new { font-weight: bold; }
+```
+
+---
+
+# CSS Nesting
+
+Znak `&` znamená *právě zpracovávaný selektor*
+
+```css
+.new {
+  color: red;
+  p & {
+    color: blue;
+  }
+}
+```
+
+```css
+.new { color: red; }
+
+p .new { font-weight: bold; }
+```
+
+---
+
+# CSS Nesting
+
+Zanořit lze i blok se zavináčovým pravidlem
+
+```css
+p {
+  color: red;
+  @media (max-width: 600px) {
+    color: blue;
+  }
+}
+```
+
+```css
+p { color: red; }
+
+@media (max-width: 600px) {
+  p { color: blue; }
+}
+```
 
 ---
 
 # Preprocessing: Less.js
+
 Vstup
 
 ```css
@@ -554,6 +547,25 @@ p a {
     - ~~Zanořování~~ (viz dvanáctá přednáška)
     - ~~Barevná aritmetika~~ (viz [CSS Relative Colors](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_colors/Relative_colors))
     - Bundling
+
+---
+
+# Bonus: Vendor prefix
+
+  - Problém: výrobce chce podporovat technologii, která není plně standardizovaná
+  - Implementací riskuje stížnosti při změně API
+  - Řešení: vlastní prefix před názvem vlastnosti
+  - Slepá ulička: stránka pak musí podporovat více divně pojmenovaných verzí vlastnosti či hodnoty
+
+```css
+div {
+	-webkit-transform: rotate(45deg);
+	-moz-transform: rotate(45deg);
+	-ms-transform: rotate(45deg);
+	-o-transform: rotate(45deg);
+	transform: rotate(45deg);
+}
+```
 
 ---
 
