@@ -15,9 +15,11 @@ function renderUsers(data) {
 // 1. Request with classic XMLHttpRequest
 //
 const request = new XMLHttpRequest();
+// request.responseType = "json";  // if "responseType" would be set, we would get parsed JSON data in "response"
 request.addEventListener("load", e => {
 	const data = e.target.responseText;
-	const dataJson = JSON.parse(data);  // Parse Users data
+	const dataJson = JSON.parse(data);  // parse users data from JSON into JavaScript array
+	// const dataJson = e.target.response;  // if "responseType" was set, we could use this
 	renderUsers(dataJson);  // Render character names into the list
 });
 request.addEventListener("error", e => console.log(e));

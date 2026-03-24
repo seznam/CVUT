@@ -1,21 +1,27 @@
-/* 2. */
-#menu ul {
-	margin: 0;
-	padding: 0;
-}
-#menu li {
-	display: inline-block;
-	list-style-type: none;
-	background-color: #111;
-}
-#menu a {
-	display: inline-block;
-	padding: 5px 20px;
-	text-decoration: none;
-	color: #fefefe;
-}
+/* 2. CSS Nesting ↓ */
 
 /* 3. */
+#menu {
+	& ul {
+		margin: 0;
+		padding: 0;
+	}
+
+	& li {
+		display: inline-block;
+		list-style-type: none;
+		background-color: #111;
+	}
+
+	& a {
+		display: inline-block;
+		padding: 5px 20px;
+		text-decoration: none;
+		color: #fefefe;
+	}
+}
+
+/* 4. */
 #menu-control {
 	color: white;
 	padding: 5px 20px;
@@ -24,52 +30,65 @@
 	display: none;
 }
 
+/* 4.1 */
 #menu-control-input {
 	display: none;
 }
 
+/* 4.3 */
 #menu-control-input:checked + #menu {
 	display: block;
 }
 
-
 @media all and (max-width: 700px) {
+	/* 4.2 */
 	#menu-control {
 		display: inline-block;
 	}
 
-	/* 4. */
-	#menu li {
-		display: block;
-	}
-
 	/* 5. */
 	#menu {
-		display: none;
+		display: none;  /* 4.3 */
+
+		& li { display: block }
+	}
+
+	/* 6. */
+	#menu {
 		counter-reset: item;
-	}
 
-	#menu li a::before {
-		counter-increment: item;
-		content: counter(item) ") ";
-		color: orange;
+		& li a::before {
+			counter-increment: item;
+			content: counter(item) ") ";
+			color: orange;
+		}
 	}
-}
-
-/* 6. */
-#menu a::after {
-	content: " " attr(data-state);
-	color: red;
 }
 
 /* 7. */
-#menu li:nth-child(2n) {
-	background-color: #666;
+#menu {
+	& a::after {
+		content: " " attr(data-state);
+		color: red;
+	}
 }
 
 /* 8. */
+#menu {
+	& li:nth-child(2n) {
+		background-color: #555;
+	}
+}
+
+/* 9. */
 #custom-checkbox-input {
 	display: none;
+
+	&:checked + #custom-checkbox::before {
+		left: 100%;
+		transform: translateX(-100%);
+		background: green;
+	}
 }
 
 #custom-checkbox {
@@ -81,22 +100,16 @@
 	position: relative;
 	display: block;
 	cursor: pointer;
-}
 
-#custom-checkbox::before {
-	position: absolute;
-	content: "";
-	display: block;
-	width: 30px;
-	height: 30px;
-	border-radius: 50%;
-	background: red;
-	left: 0;
-	transition: all 0.2s ease;
-}
-
-#custom-checkbox-input:checked + #custom-checkbox::before {
-	left: 100%;
-	transform: translateX(-100%);
-	background: green;
+	&::before {
+		position: absolute;
+		content: "";
+		display: block;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		background: red;
+		left: 0;
+		transition: all 0.2s ease;
+	}
 }
