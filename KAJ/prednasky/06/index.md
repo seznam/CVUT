@@ -12,7 +12,6 @@ Bonus: [WebSocket chat server z minulého cvičení](https://github.com/ondras/k
   1. Selektorový jazyk
   1. Generovaný obsah
   1. Media queries a responsive design
-  1. CSS Layers (AKA 🤑 *jak se stát milionářem*)
   1. CSS Nesting
   1. Preprocessing
 
