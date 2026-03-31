@@ -31,10 +31,21 @@
                     +--------------------------------------------------+
 			*/
 
-			.container {}
-			.box {}
-			header.box {}
-			footer.box {}
+			.container {
+				& .box {}
+				& header {}
+				& footer {}
+			}
+
+			.container-areas {
+				& .box {}
+				& header {}
+				& nav {}
+				& article {}
+				& aside#a1 {}
+				& aside#a2 {}
+				& footer {}
+			}
 		</style>
 	</head>
 	<body>
@@ -42,7 +53,7 @@
 			<header class="box" style="background-color: rebeccapurple">
 				header
 			</header>
-			
+
 			<nav class="box" style="background-color: lightblue">
 				nav
 			</nav>

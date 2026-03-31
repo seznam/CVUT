@@ -7,37 +7,41 @@ body {
 	flex-direction: column;
 	min-height: 100vh;
 }
-.page header {
+header {
 	display: flex;
 	align-items: center;
 	justify-content: center;
 	position: sticky;
-top: 0; /* Ensure sticky behavior */
+	top: 0; /* Ensure sticky behavior */
 	width: 100%;
 	height: 100px;
 }
-.page section {
+section {
 	display: flex;
 	flex-grow: 1;
 	min-height: 400px;
+
+	& nav {
+		flex-shrink: 0;
+		padding: 1em;
+	}
+
+	& main {
+		display: flex;
+		flex-direction: column;
+		flex-grow: 1;
+		padding: 1em;
+	}
+
+	& aside {
+		width: 200px;
+		padding: 1em;
+		flex-shrink: 0;
+		box-sizing: border-box;
+	}
 }
-.page section nav {
-	flex-shrink: 0;
-	padding: 1em;
-}
-.page section main {
-	display: flex;
-	flex-grow: 1;
-	flex-direction: column;
-	padding: 1em;
-}
-.page section aside {
-	width: 200px;
-	padding: 1em;
-	flex-shrink: 0;
-	box-sizing: border-box;
-}
-.page footer {
+
+footer {
 	display: flex;
 	align-items: center;
 	justify-content: center;
@@ -51,16 +55,11 @@ top: 0; /* Ensure sticky behavior */
 	- Switch from column layout (main menu | content | side menu) to row layout
 */
 @media (max-width: 700px) {
-	.page section {
+	section {
 		flex-direction: column;
-	}
-	.page section nav {
-		order: 2;
-	}
-	.page section main {
-		order: 1;
-	}
-	.page section aside {
-		display: none;
+
+		& nav { order: 2; }
+		& main { order: 1; }
+		& aside { display: none; }
 	}
 }

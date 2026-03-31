@@ -3,50 +3,49 @@
 	height: 100vh;
 	display: grid;
 	/* define grid */
-	grid-template-rows: 100px auto 50px;
+	grid-template-rows: 100px [second-row-start] 1fr [second-row-end] 50px;
 	grid-template-columns: 1fr 2fr 75px minmax(75px, 10%);  /* Fourth column will be 75px wide, but can grow to 10% of the container width */
 	/* space between cells */
 	grid-gap: 10px 5px;
-}
 
-.box {
-	display: grid;
-	background: #bebebe;
-	border-radius: 10px;
-	padding: 10px;
-	justify-content: center;
-	align-content: center;
-}
+	& .box {
+		display: grid;
+		background: #bebebe;
+		border-radius: 10px;
+		padding: 10px;
+		justify-content: center;
+		align-content: center;
+	}
 
-header.box {
-	grid-column: 1 / last-column;
-	/*  same like code up
-		grid-column-start: 1;
-		grid-column-end: last-column;
-	*/
+	& header{
+		grid-column: 1 / -1;
+		/*  same like code up
+			grid-column-start: 1;
+			grid-column-end: -1;
+		*/
 
-	/* move header to second line (tells cell where to starts and ends)
-		grid-row: 2 / last-line;
-	*/
-}
+		/* move header to second line (tells cell where to starts and ends)
+		grid-row: second-row-start / second-row-end;
+		*/
+	}
 
-footer.box {
-	display: grid;
-	grid-column-start: 1;
-	grid-column-end: last-column;
+	& footer {
+		display: grid;
+		grid-column: 1 / -1;
 
-	/* aligns content inside 
-	align-self: end;
-	justify-self: end;
-	*/
+		/* aligns content inside
+		justify-self: end;
+		align-self: end;
+		*/
+	}
 }
 
 /* 2nd variant - with grid-template-areas */
-.container {
+.container-areas {
 	height: 100vh;
 	display: grid;
 	/* define grid */
-	grid-template-rows: 100px auto 50px;
+	grid-template-rows: 100px [second-row-start] 1fr [second-row-end] 50px;
 	grid-template-columns: 1fr 2fr 75px minmax(75px, 10%);  /* Fourth column will be 75px wide, but can grow to 10% of the container width */
 	/* space between cells */
 	grid-gap: 10px 5px;
@@ -55,33 +54,33 @@ footer.box {
 		"head head head head"
 		"navi arti as1  as2"
 		"foot foot foot ...";
-}
 
-.box {
-	display: grid;
-	background: #bebebe;
-	border-radius: 10px;
-	padding: 10px;
-	justify-content: center;
-	align-content: center;
-}
+	& .box {
+		display: grid;
+		background: #bebebe;
+		border-radius: 10px;
+		padding: 10px;
+		justify-content: center;
+		align-content: center;
+	}
 
-/* give names */
-header {
-	grid-area: head;
-}
-nav {
-	grid-area: navi
-}
-article {
-	grid-area: arti;
-}
-aside#a1 {
-	grid-area: as1;
-}
-aside#a2 {
-	grid-area: as2;
-}
-footer {
-	grid-area: foot;
+	/* give names */
+	& header {
+		grid-area: head;
+	}
+	& nav {
+		grid-area: navi;
+	}
+	& article {
+		grid-area: arti;
+	}
+	& aside#a1 {
+		grid-area: as1;
+	}
+	& aside#a2 {
+		grid-area: as2;
+	}
+	& footer {
+		grid-area: foot;
+	}
 }

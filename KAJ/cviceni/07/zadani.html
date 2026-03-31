@@ -10,7 +10,7 @@
 
 			Flexbox cheat-sheet
 				https://css-tricks.com/snippets/css/a-guide-to-flexbox/
-			
+
 			Phone/Mobile styles
 			- Hide side menu
 			- Change order - put content before main menu only with CSS
@@ -18,12 +18,13 @@
 		*/
 
 		.page {}
-		.page header {}
-		.page section {}
-		.page section nav {}
-		.page section main {}
-		.page section aside {}
-		.page footer {}
+		header {}
+		section {
+			& nav {}
+			& main {}
+			& aside {}
+		}
+		footer {}
 	</style>
 </head>
 <body>
