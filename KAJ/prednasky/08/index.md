@@ -1,14 +1,16 @@
 # KAJ 08
 
-## CSS transitions, animations, efekty
+## CSS transitions, animations, efekty, Custom Properties
 
 ---
 
 # Obsah
+
   1. Transitions
   1. Animations
   1. Efekty a filtry
   1. Custom Properties
+  1. Relative colors
 
 ---
 
@@ -62,7 +64,6 @@ div:hover {
 
   - Meta-vlastnost `transition`
   - Individuálně lze upřesnit `transition-property`, `transition-duration`, `transition-timing-function`, `transition-delay`
-  - Občas nutnost prefixování
   - Žádný JavaScript
 
 ---
@@ -193,26 +194,12 @@ div {
 <style>
 	#example2 {
 		animation: posun 4s linear infinite;
-		-moz-animation: posun 4s linear infinite;
-		-webkit-animation: posun 4s linear infinite;
 		background-color: blue;
 		width: 200px;
 		height: 200px;
 		position: absolute;
 	}
 	@keyframes posun {
-		0%, 100% { right: 0px; top: 100px;}
-		25% { right: 200px; top: 100px;}
-		50% { right: 200px; top: 300px;}
-		75% { right: 0px; top: 300px;}
-	}
-	@-moz-keyframes posun {
-		0%, 100% { right: 0px; top: 100px;}
-		25% { right: 200px; top: 100px;}
-		50% { right: 200px; top: 300px;}
-		75% { right: 0px; top: 300px;}
-	}
-	@-webkit-keyframes posun {
 		0%, 100% { right: 0px; top: 100px;}
 		25% { right: 200px; top: 100px;}
 		50% { right: 200px; top: 300px;}
@@ -277,8 +264,6 @@ Definice vzhledu v jednotlivých krocích animace
 	from, 33% { /* ... */ }
 	to        { /* ... */ }
 }
-@-moz-keyframes {}
-@-webkit-keyframes {}
 ```
 
 ---
@@ -287,7 +272,6 @@ Definice vzhledu v jednotlivých krocích animace
 
   - Nastávají na těch HTML prvcích, na které se aplikuje transition/animace
   - `transitionend`, `animationstart`, `animationend`, `animationiteration`
-  - Dříve existovaly prefixované varianty
   - Hodí se, když synchronizujeme JS logiku s CSS vizuálem
 
 ---
@@ -329,12 +313,13 @@ node.animate({  // per-css-vlastnost, explicitní offset
 
 ```css
 div {
-	background-color: white;
-	opacity: 0.5;
+  background-color: white;
+  opacity: 0.5;
 }
 
 div {
-	background-color: rgba(255, 255, 255, 0.5);
+  background-color: rgba(255, 255, 255, 0.5); /* starý zápis */
+  background-color: rgb(255 255 255 / 0.5);   /* nový zápis */
 }
 ```
 
@@ -401,7 +386,7 @@ repeating-linear-gradient(to right, #f88, #f88 5px, #fff 5px, #fff 10px)
 ```
 
 ```css {id=example4}
-background-image: radial-gradient(red, yellow, rgb(30, 144, 255))
+background-image: radial-gradient(red, yellow, rgb(30 144 255))
 ```
 
 ```css {id=example6}
@@ -417,7 +402,7 @@ repeating-conic-gradient(red 0 10deg, orange 10deg 20deg)
 		background-image: linear-gradient(45deg, red, yellow, green, blue, violet);
 	}
 	#example4 {
-		background-image: radial-gradient(red, yellow, rgb(30, 144, 255));
+		background-image: radial-gradient(red, yellow, rgb(30 144 255));
 	}
 	#example5 {
 		background-image: repeating-linear-gradient(to right, #f88, #f88 5px, white 5px, white 10px);
@@ -513,6 +498,51 @@ a {
   - Nelze polyfillovat ani preprocessovat &ndash; hodnoty se v čase mění
   - Užitečné pro *skinování*
   - Užitečné pro modularizaci a izolaci CSS komponent
+
+---
+
+# CSS Relative Colors
+
+Definice barvy za využití (podmnožiny) jiné barvy
+
+```css
+
+body {
+	color: red;
+}
+
+p {
+	/* cervena, ale s pridanymi 20 odstiny modre */
+	color: rgb(from red r g 200);
+}
+
+h1 {
+	/* aktualni + 50% pruhlednost */
+	color: rgb(from currentColor r g b / 0.5);
+}
+
+```
+
+---
+
+# CSS Relative Colors
+
+  - Funguje ve všech barevných prostorech
+  - Podporuje mj. `calc()` a Custom Properties
+
+```css
+:root {
+	--primary: rgb(120 70 200);
+}
+
+a {
+	--opacity: 0.7;
+	&:hover { --opacity: 1; }
+
+	color: rgb(from var(--primary) r g b / var(--opacity));
+	transition: all 300ms;
+}
+```
 
 ---
 
