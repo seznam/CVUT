@@ -46,23 +46,14 @@
 				width: 200px;
 				transition: transform 0.5s ease-out;
 				z-index: 50;
-
 				background-color: cornsilk;
 			}
 
-			body.menu-visible .menu  {
+			body.menu-visible .menu {
 				transform: translateX(-100%);
 			}
 
 			/* Modal */
-
-			body.modal-visible .page-wrapper {
-				filter: blur(3px) grayscale(100%);
-				transition: filter .5s ease;
-			}
-			body.modal-visible {
-				overflow: hidden;
-			}
 
 			.modal {
 				display: flex;
@@ -78,27 +69,34 @@
 				padding: 16px;
 				box-sizing: border-box;
 				z-index: 99;
-
 				background-color: rgba(0, 0, 0, 0.1);
-			}
-			body.modal-visible .modal {
-				visibility: visible;
+
+				& .modal-content {
+					margin: auto;
+					padding: 16px;
+					width: 800px;
+					max-width: 800px;
+					min-height: 500px;
+					transform: scale(0);
+					transition: transform 1s ease;
+					border-radius: 5px;
+					background: white;
+				}
 			}
 
-			.modal-content {
-				margin: auto;
-				padding: 16px;
-				width: 800px;
-				max-width: 800px;
-				min-height: 500px;
-				transform: scale(0);
+			body.modal-visible {
+				overflow: hidden;
 
-				transition: transform 1s ease;
-				border-radius: 5px;
-				background: white;
-			}
-			body.modal-visible .modal-content {
-				transform: scale(1);
+				& .page-wrapper {
+					filter: blur(3px) grayscale(100%);
+					transition: filter .5s ease;
+				}
+				& .modal {
+					visibility: visible;
+				}
+				& .modal-content {
+					transform: scale(1);
+				}
 			}
 
 			/* Sprite animations */

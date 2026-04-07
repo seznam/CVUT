@@ -37,28 +37,20 @@
 
 			/* Side menu */
 
-			.menu {
-			}
+			.menu {}
 
-			body.menu-visible .menu  {
-			}
+			body.menu-visible .menu {}
 
 			/* Modal */
 
-			body.modal-visible .page-wrapper {
+			.modal {
+				& .modal-content {}
 			}
 
 			body.modal-visible {
-			}
-
-			.modal {
-			}
-			body.modal-visible .modal {
-			}
-
-			.modal-content {
-			}
-			body.modal-visible .modal-content {
+				& .page-wrapper {}
+				& .modal {}
+				& .modal-content {}
 			}
 
 			/* Sprite animations */
