@@ -4,6 +4,12 @@
 
 ---
 
+# Příští přednáška bude jinde!
+
+Konkrétně v `KN:A-312`
+
+---
+
 # Obsah
 
   1. Offline + Cache Manifest + Service Worker
@@ -74,7 +80,6 @@ JS API pro práci s offline cache
   - Modernější alternativa k AppCache
   - Konfigurace (AppCache) vs. logika (Service Worker)
   - Zásadní komponenta konceptu PWA (Progressive Web Apps)
-  - [Slabší podpora](http://caniuse.com/#feat=serviceworkers)
 
 ---
 
@@ -150,7 +155,7 @@ self.addEventListener("fetch", async e => {
 
 # Service Worker &ndash; odkazy
 
-  - https://serviceworke.rs/
+  - https://web.dev/articles/offline-cookbook
   - [sw.js](https://github.com/ondras/rri/blob/master/sw.js) pro hru [Railroad Ink](https://ondras.github.io/rri/)
 
 ---
