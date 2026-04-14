@@ -10,6 +10,13 @@ Konkrétně v `KN:A-312`
 
 ---
 
+# Další promo na meetup!
+
+https://luma.com/fnu9x4fr
+
+---
+
+
 # Obsah
 
   1. Offline + Cache Manifest + Service Worker
