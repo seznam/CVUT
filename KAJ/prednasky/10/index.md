@@ -82,7 +82,7 @@ context.namalujNecoPekneho()
 ```
 
   - Malovací metody patří kontextu
-  - Existuje též 3d kontext (WebGL) mimo rozsah předmětu
+  - Existují též 3d kontexty (WebGL, WebGPU) mimo rozsah předmětu
   - [Canvas cheatsheet](https://simon.html5.org/dump/html5-canvas-cheat-sheet.html)
 
 ---
@@ -127,7 +127,7 @@ ctx.fill()
   - `ctx.lineWidth = 3`
   - `ctx.lineCap = "round"`
   - `ctx.lineJoin = "round"`
-  - [Ukázka](https://developer.mozilla.org/en-US/docs/Web/Guide/HTML/Canvas_tutorial/Applying_styles_and_colors#Line_styles)
+  - [Ukázka](https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Applying_styles_and_colors#line_styles)
 
 ---
 
