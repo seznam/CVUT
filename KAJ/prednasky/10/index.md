@@ -408,7 +408,7 @@ navigator.mediaDevices.getUserMedia(options).then(ok, error)
 
   - Nejnovější přírůstek pro `navigator.mediaDevices`
   - Videostream plochy uživatele
-  - Uživatel volí, bude-li posktyovat plochu, prohlížeč či jeho záložku
+  - Uživatel volí, bude-li poskytovat plochu, prohlížeč či jeho záložku
   - Použitelné též pro screenshoty
 
 ---
