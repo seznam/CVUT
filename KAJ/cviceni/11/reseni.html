@@ -264,7 +264,7 @@
 
 					// 4. Intl.PluralRules – Plural form of "file"
 					// PluralRules categories depend on language:
-					//   - 'one', 'few', 'many', 'other'
+					//   - zero, one, two, few, many, or other
 					const pluralRules = new Intl.PluralRules('cs-CZ');
 					const fileLabels = [1, 3, 5].map(count => {
 						const pluralCategory = pluralRules.select(count);
