@@ -15,8 +15,7 @@
 
 # Příští přednáška je poslední
 
-  - téma bylo zvoleno hlasováním
-  - *TypeScript*
+![](img/hlasovani.png){width="100%"}
 
 ---
 
@@ -25,9 +24,8 @@
   - Odehrává se v Seznamu
     - Radlická 10, Praha 5
   - Výsledkem zkoušky je skóre v intervalu `<−10, 10>` bodů
-  - První před-čtyř-termín: 23. 5. 2025 (9:00, 10:00, 11:00, 12:00)
+  - První před-čtyř-termín: 22. 5. 2026 (9:00, 10:00, 11:00, 12:00)
   - Celkem 20 termínů
-    - plus bonus termín na akademické půdě
   - Další termíny budou vypsány jen v případě absolutní nouze
 
 ---
@@ -318,8 +316,6 @@ my-element::part(obrazek) {
 - [Apple Just Shipped Web Components to Production and You Probably Missed It](https://dev.to/ionic/apple-just-shipped-web-components-to-production-and-you-probably-missed-it-57pf)
 - [Custom Elements v1 - Reusable Web Components](https://web.dev/custom-elements-v1/)
 - [Web Components v praxi (FrontKon 2023)](https://www.youtube.com/watch?v=zXQiYmdADaw)
-
----
 
 ---
 
