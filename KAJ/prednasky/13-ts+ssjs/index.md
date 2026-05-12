@@ -181,7 +181,7 @@ declare function sum(a: number, b: number): number;
 
 - Kontrola
   - jednorázová, typicky vyvolaná vývojářem
-- Komplilace
+- Kompilace
   - odstranění typových anotací
   - **výjimečně** doplnění nového runtime kódu
   - transpilace
