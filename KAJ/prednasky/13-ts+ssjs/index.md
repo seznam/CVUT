@@ -458,7 +458,9 @@ alert(data)
 ```js
 // lib.ts
 export function add(a, b) { return a+b }
+```
 
+```js
 // main.ts
 import { add } from "./lib.ts"
 
@@ -485,7 +487,7 @@ html.escape("<div>") // &lt;div&gt;
   - z GitHubu či z lokálního počítače
 - Spouštění *on demand* (v rámci HTTP požadavku na doménu `projekt.deno.dev`)
 - Běh v desítkách lokalit po celém světě
-- [Ukázka](https://praguejs.deno.dev/), její [zdrojový kód](https://github.com/ondras/deno-praguejs-demo)
+- [Ukázka na praguejs.deno.dev](https://praguejs.deno.dev/), její [zdrojový kód](https://github.com/ondras/deno-praguejs-demo)
 
 ---
 
