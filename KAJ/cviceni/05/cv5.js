@@ -97,7 +97,7 @@ async function fetchUsersWithFetch() {
 // Bonus: WebSockets chat
 //
 const textarea = document.querySelector("#chat");
-const ws = new WebSocket("wss://kaj-chat.deno.dev");
+const ws = new WebSocket("wss://kaj-chat.ondras.deno.net");
 
 ws.addEventListener("open", e => {
 	textarea.value += "[connected to chat]\n";
