@@ -46,7 +46,7 @@ Algoritmus je výrazně složitější, ale zhruba:
 
   1. Systémové knihovny (`import math`)
   1. Soubory poblíž toho, který vykonáváme (`import lib`)
-  1. Nainstalované balíčky knihoven (`import `)
+  1. Nainstalované balíčky knihoven (`import PIL`)
 
 ---
 
