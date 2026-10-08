@@ -64,7 +64,7 @@
 
 1. Dnes: na webu
 1. Příště: na vlastním počítači
-1. Přespříště: GUI aplikace
+1. Časem: GUI aplikace
 
 ---
 
