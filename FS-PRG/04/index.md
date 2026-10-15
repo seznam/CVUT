@@ -127,21 +127,49 @@ glob("*.jpg")
 
 # Úloha 3: AI-generated obrázek
 
-- Knihovna `requests` pro HTTP komunikaci (viz 6. přednáška)
-- Webová služa *AI Art* (`https://aiart-zroo.onrender.com/api/generate`)
+- Knihovna `requests` pro HTTP komunikaci (viz příští přednášku)
+- Webová služa *Cloudflare Workers AI*
+- Autorizace požadavků tokenem
+
+---
+
+# Úloha 3: Jak získat token
+
+1. Účet na https://dash.cloudflare.com/
+2. Vlevo v menu *Account API tokens*
+3. Požádat o založení tokenu s oprávněním *Workers AI*
+
+---
+
+# Úloha 3: kód 1/2
 
 ```py
-import requests
+import base64, requests
+ACCOUNT_ID = "..."
+API_TOKEN = "..."
 
-url = "https://aiart-zroo.onrender.com/api/generate"
-payload = {
-  "video_description": "Winnie the Pooh playing chess with Abraham Lincoln",
-	"style_preset": "pixel-art"
-}
+url = f"https://api.cloudflare.com/client/v4/accounts/{ACCOUNT_ID}/" \
+       "ai/run/@cf/black-forest-labs/flux-1-schnell"
 
-response = requests.post(url, json=payload)
+response = requests.post(
+    url,
+    headers={"Authorization": f"Bearer {API_TOKEN}"},
+    json={"prompt": "Superman playing chess with Gandalf, pixel-art style"},
+)
+```
+
+---
+
+# Úloha 3: kód 2/2
+
+```py
 data = response.json()
-print("Image URL", data["image_url"])
+image_bytes = base64.b64decode(data["result"]["image"])
+
+with open("generated.png", "wb") as f:
+    f.write(image_bytes)
+
+print("Image saved to generated.png")
 ```
 
 ---
