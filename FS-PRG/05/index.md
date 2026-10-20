@@ -6,9 +6,9 @@
 
 # Obsah
 
-  1. IP
-  1. DNS
-  1. HTTP, MQTT
+  1. Podvozek: IP
+  1. Pro lidi: DNS
+  1. Pro aplikace: HTTP, MQTT
 
 ---
 
@@ -20,6 +20,10 @@
   - Ethernet
   - Wi-Fi
   - Mobilní sítě
+
+---
+
+![](img/network-layers.png) {.maslo-poster}
 
 ---
 
